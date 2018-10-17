@@ -12,10 +12,13 @@ package diceforge;
 public class Bot {
     final HerosInventory herosInventory;
     final Dice firstDice;
+    final Dice secondDice;
 
     public Bot() {
         firstDice = new Dice();
+        secondDice = new Dice();
         herosInventory = new HerosInventory();
+   
     }
     
     public void printBotInventoryState(){

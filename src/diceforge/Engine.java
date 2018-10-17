@@ -20,11 +20,23 @@ public class Engine {
     
     public void InitializingBots(Bot botOne,Bot botTwo){
         botOne.firstDice.makeBrightDefaultDice();
+        botOne.secondDice.makeDarkDefaultDice();
         botOne.herosInventory.makeFirstDefaultHerosInventory();
         
         botTwo.firstDice.makeBrightDefaultDice();
+        botTwo.secondDice.makeDarkDefaultDice();
         botTwo.herosInventory.makeSecondDefaultHerosInventory();
              
+    }
+    
+    public void RollAndRollSetTimes(Bot botOne,Bot botTwo){
+        for(int i=0;i<this.set;i++){
+            botOne.herosInventory.increaseInventoryWithDiceRoll(botOne.firstDice.rollDice());
+            botOne.herosInventory.increaseInventoryWithDiceRoll(botOne.secondDice.rollDice());
+            botTwo.herosInventory.increaseInventoryWithDiceRoll(botTwo.firstDice.rollDice());
+            botTwo.herosInventory.increaseInventoryWithDiceRoll(botTwo.secondDice.rollDice());
+        }
+        
     }
     
     public void TellMeTheWinner(Bot botOne,Bot botTwo){
