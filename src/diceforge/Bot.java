@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+
 package diceforge;
 
+import java.util.Random;
 /**
  *
  * @author Destroyer
@@ -13,11 +16,13 @@ public class Bot {
     final HerosInventory herosInventory;
     final Dice firstDice;
     final Dice secondDice;
+    int age;
 
     public Bot() {
         firstDice = new Dice();
         secondDice = new Dice();
         herosInventory = new HerosInventory();
+        age = 0;
    
     }
     
@@ -27,7 +32,11 @@ public class Bot {
         System.out.println("Moon: "+this.herosInventory.getMoonPoints());
         System.out.println("Sun: "+this.herosInventory.getSunPoints());
     }
-    
+
+    public int SortingAge(){
+        age = Random.
+        return age;
+    }
     
     
     
