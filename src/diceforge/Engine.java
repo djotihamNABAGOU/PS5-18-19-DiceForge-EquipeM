@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package diceforge;
 
-/**
- *
- * @author Destroyer
- */
+
 public class Engine {
     private final int set ; //Number of handle in the game
     private final int numberOfBot; //Number of Bot playing
