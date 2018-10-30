@@ -103,7 +103,7 @@ public class Temple {
        int a = faceAvailable(sanctuaryFaces);
        if (a!=-1)
        {
-           Sanctuary.get(a).isSelected();
+           Sanctuary.get(a).setSelected(true);
            return true;
        }
        else return false;

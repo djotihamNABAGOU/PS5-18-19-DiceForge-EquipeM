@@ -77,6 +77,9 @@ public class HerosInventory {
             this.goldPoints=goldPointsLimit;
         }
     }
+    public void DecreaseGoldPoints(int points){
+       this.goldPoints-=points;
+    }
     public void IncreaseSunPoints(int points){
         int maxToAdd = sunPointsLimit - this.sunPoints;
         if(maxToAdd>points){
@@ -127,8 +130,6 @@ public class HerosInventory {
     }
     
     /*On doit avoir des fonctions decrease pour les achats/depenses des points*/
-    
-    
-    
+  
     
 }
