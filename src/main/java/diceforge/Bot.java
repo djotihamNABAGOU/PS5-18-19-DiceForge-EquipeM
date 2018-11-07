@@ -10,7 +10,7 @@ import java.util.Random;
 
 /**
  *
- * @author PS5
+ * @author Destroyer
  */
 public class Bot {
     final HerosInventory herosInventory;

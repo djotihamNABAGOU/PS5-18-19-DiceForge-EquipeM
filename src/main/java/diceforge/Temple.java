@@ -1,8 +1,5 @@
 package diceforge;
-/**
- *
- * @author PS5
- */
+
 import java.util.ArrayList;
 
 public class Temple {
@@ -81,9 +78,9 @@ public class Temple {
        Sanctuary.add(faceSix);
        SanctuarysFaces faceSeven = new SanctuarysFaces(4,"ALL",12);
        Sanctuary.add(faceSeven);
-       SanctuarysFaces faceEight = new SanctuarysFaces(1,"1G/1S/1M",12);
+       SanctuarysFaces faceEight = new SanctuarysFaces(1,"2G/2S/2M",12);
        Sanctuary.add(faceEight);
-       SanctuarysFaces faceNine = new SanctuarysFaces(2,"1G+1M",12);
+       SanctuarysFaces faceNine = new SanctuarysFaces(2,"2Gl+2M",12);
        Sanctuary.add(faceNine);
    }
    

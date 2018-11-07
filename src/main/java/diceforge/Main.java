@@ -8,7 +8,7 @@ package diceforge;
 
 /**
  *
- * @author PS5
+ * @author Destroyer
  */
 public class Main {
     public static void main(String [] args){
