@@ -52,7 +52,7 @@ public class Engine {
             System.out.println("Bot "+(i+1)+", Roll or Roll and Forge ?");
             Random randomInt = new Random();
             int number = randomInt.nextInt(2); // 0 for Roll and 1 for Forge
-            if(i==0) number = 0; else number = 1; // For this time 1st Bot will roll and 2nd Bot will forge
+            if(i==0) number = 0;  // For this time 1st Bot will roll and 2nd Bot will forge
             
             
             if(i==0){ //First Bot ---> Actions
@@ -64,13 +64,16 @@ public class Engine {
                                       case 1:
                                           System.out.println("-------->ROLL AND FORGE");
                                           RollOneTime(botOne);
-                                          SanctuarysFaces faceToForge = new SanctuarysFaces(3,"G",2); //Fixed face to forge
-                                          if(temple.buyFace(faceToForge)){
-                                              botOne.herosInventory.DecreaseGoldPoints(faceToForge.getPrice());
-                                              botOne.forgeDiceFace(faceToForge);
-                                          }else{
+                                          if(botOne.herosInventory.getGoldPoints()>=2)
+                                          {
+                                            SanctuarysFaces faceToForge = new SanctuarysFaces(3,"G",2); //Fixed face to forge
+                                            if(temple.buyFace(faceToForge)){
+                                                botOne.herosInventory.DecreaseGoldPoints(faceToForge.getPrice());
+                                                botOne.forgeDiceFace(faceToForge);
+                                            }else{
                                               System.out.println("Purchase failed");
                                           }
+                                          }                                    
                                          break;
                       }
             }else{ // Second Bot ---> Actions (i==1)
@@ -82,12 +85,16 @@ public class Engine {
                                       case 1:
                                           System.out.println("-------->ROLL AND FORGE");
                                           RollOneTime(botTwo);
-                                          SanctuarysFaces faceToForge = new SanctuarysFaces(3,"G",2); //Fixed face to forge
-                                          if(temple.buyFace(faceToForge)){
-                                              botTwo.forgeDiceFace(faceToForge);
-                                              botTwo.herosInventory.DecreaseGoldPoints(faceToForge.getPrice());
-                                          }else{
+                                          if(botTwo.herosInventory.getGoldPoints()>=2)
+                                          {
+                                            SanctuarysFaces faceToForge = new SanctuarysFaces(3,"G",2); //Fixed face to forge
+                                            if(temple.buyFace(faceToForge)){
+                                                botTwo.forgeDiceFace(faceToForge);
+                                                botTwo.herosInventory.DecreaseGoldPoints(faceToForge.getPrice());
+                                            }
+                                            else{
                                               System.out.println("Purchase failed");
+                                           }
                                           }
                                          break;
                       }      

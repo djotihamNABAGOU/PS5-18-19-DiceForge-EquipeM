@@ -61,8 +61,8 @@ public class Dice {
     public DiceFaces rollDice(){
        Random randomInt = new Random();
        int number = randomInt.nextInt(6);
+       System.out.println("Valeur : "+this.faces[number].getValue()+" Type : "+this.faces[number].getType());
        return this.faces[number];
-       
     }
     
     

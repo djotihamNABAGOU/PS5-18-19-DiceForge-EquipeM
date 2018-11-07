@@ -86,11 +86,10 @@ public class Temple {
    
    public int faceAvailable(SanctuarysFaces sanctuaryFaces)
    {
-      SanctuarysFaces face;
       int a;
       for(a=0;a<Sanctuary.size();a++)
       {
-          if(Sanctuary.get(a).getType() == sanctuaryFaces.getType() && Sanctuary.get(a).isSelected()==false)
+          if(Sanctuary.get(a).getType().equals(sanctuaryFaces.getType()) && Sanctuary.get(a).getValue() == sanctuaryFaces.getValue() && Sanctuary.get(a).isSelected()==false)
           {
               return a;
           }
