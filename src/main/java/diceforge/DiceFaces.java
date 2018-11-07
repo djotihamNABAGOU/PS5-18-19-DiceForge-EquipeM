@@ -7,7 +7,7 @@ package diceforge;
 
 /**
  *
- * @author Destroyer
+ * @author PS5
  */
 public class DiceFaces {
     private int value;

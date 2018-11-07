@@ -10,7 +10,7 @@ import java.util.Random;
 
 /**
  *
- * @author Destroyer
+ * @author PS5
  */
 public class Engine {
     private final int set ; //Number of handle in the game

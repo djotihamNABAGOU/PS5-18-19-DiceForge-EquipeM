@@ -1,5 +1,8 @@
 package diceforge;
-
+/**
+ *
+ * @author PS5
+ */
 import java.util.ArrayList;
 
 public class Temple {

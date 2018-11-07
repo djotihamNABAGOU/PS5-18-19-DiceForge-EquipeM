@@ -1,5 +1,8 @@
 package diceforge;
-
+/**
+ *
+ * @author PS5
+ */
 public class SanctuarysFaces extends DiceFaces {
 
     private int price;

@@ -7,7 +7,7 @@ package diceforge;
 
 /**
  *
- * @author Destroyer
+ * @author PS5
  */
 public class HerosInventory {
     private int gloryPoints;
