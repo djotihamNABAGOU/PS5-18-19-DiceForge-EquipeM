@@ -44,13 +44,13 @@ public class Engine {
         botOne.firstDice.makeBrightDefaultDice();
         botOne.secondDice.makeDarkDefaultDice();
         botOne.herosInventory.makeFirstDefaultHerosInventory();
-        
+
         botTwo.firstDice.makeBrightDefaultDice();
         botTwo.secondDice.makeDarkDefaultDice();
         botTwo.herosInventory.makeSecondDefaultHerosInventory();
-             
+
     }
-    
+
     public void RollAndRollSetTimes(Bot botOne,Bot botTwo){
         for(int i=0;i<this.set;i++){
             botOne.herosInventory.increaseInventoryWithDiceRoll(botOne.firstDice.rollDice());
@@ -58,25 +58,25 @@ public class Engine {
             botTwo.herosInventory.increaseInventoryWithDiceRoll(botTwo.firstDice.rollDice());
             botTwo.herosInventory.increaseInventoryWithDiceRoll(botTwo.secondDice.rollDice());
         }
-        
+
     }
-    
+
     public void RollOneTime(Bot theBot){
          theBot.herosInventory.increaseInventoryWithDiceRoll(theBot.firstDice.rollDice());
          theBot.herosInventory.increaseInventoryWithDiceRoll(theBot.secondDice.rollDice());
     }
-    
+
     public void MakeOneSetWithTwoBot(Bot botOne,Bot botTwo, Temple temple){
         for(int i=0; i<2; i++){
             System.out.println("Bot "+(i+1)+", Roll or Roll and Forge ?");
             Random randomInt = new Random();
             int number = randomInt.nextInt(2); // 0 for Roll and 1 for Forge
             if(i==0) number = 0;  // For this time 1st Bot will roll and 2nd Bot will forge
-            
-            
+
+
             if(i==0){ //First Bot ---> Actions
                       switch(number){
-                                      case 0: 
+                                      case 0:
                                           System.out.println("-------->ROLL");
                                           RollOneTime(botOne);
                                           break;
@@ -132,6 +132,23 @@ public class Engine {
            
        
             
+        }
+    }
+
+    public void MakeNineSetWithTwoBot(Bot botOne,Bot botTwo, Temple temple){
+        for(int a = 0;a<9;a++)
+        {
+            MakeOneSetWithTwoBot(botOne, botTwo, temple);
+            System.out.println("\n");
+            System.out.println("-------------------------------------\n");
+            System.out.println("STATE AFTER "+(a+1)+" SET");
+            System.out.println("-->BOT ONE");
+            botOne.printBotInventoryState();
+            botOne.printDiceState();
+            System.out.println("-->BOT TWO");
+            botTwo.printBotInventoryState();
+            botTwo.printDiceState();
+            System.out.println("\n");
         }
     }
     

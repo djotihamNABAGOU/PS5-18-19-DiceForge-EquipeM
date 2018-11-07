@@ -30,20 +30,8 @@ public class Main {
         botTwo.printDiceState();
         
         System.out.println("-------------------------------------\n");
-        for(int a = 0;a<9;a++)
-        {
-                engine.MakeOneSetWithTwoBot(botOne, botTwo, temple);
-                System.out.println("\n");
-                System.out.println("-------------------------------------\n");
-                System.out.println("STATE AFTER "+(a+1)+" SET");
-                System.out.println("-->BOT ONE");
-                botOne.printBotInventoryState();
-                botOne.printDiceState();
-                System.out.println("-->BOT TWO");
-                botTwo.printBotInventoryState();
-                botTwo.printDiceState();
-                System.out.println("\n");
-        }
+
+        engine.MakeNineSetWithTwoBot(botOne, botTwo, temple);
         System.out.println("\n");
         System.out.println("DETERMINATING THE WINNER");
         engine.TellMeTheWinner(botOne, botTwo);
