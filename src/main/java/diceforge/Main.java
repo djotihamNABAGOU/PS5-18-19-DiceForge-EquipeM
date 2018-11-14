@@ -12,7 +12,7 @@ package diceforge;
  */
 public class Main {
     public static void main(String [] args){
-        
+
         System.out.println("********WELCOME TO DICE FORGE********\n");
         Engine engine = new Engine(9,2);
         Temple temple = new Temple();
@@ -23,10 +23,10 @@ public class Main {
         
         System.out.println("STATE BEFORE DICE SET");
         System.out.println("-->BOT ONE");
-        botOne.printBotInventoryState();
+        botOne.toString();
         botOne.printDiceState();
         System.out.println("-->BOT TWO");
-        botTwo.printBotInventoryState();
+        botTwo.toString();
         botTwo.printDiceState();
         
         System.out.println("-------------------------------------\n");
@@ -35,6 +35,7 @@ public class Main {
         System.out.println("\n");
         System.out.println("DETERMINATING THE WINNER");
         engine.TellMeTheWinner(botOne, botTwo);
+
         
     }
     

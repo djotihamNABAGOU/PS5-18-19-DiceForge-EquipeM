@@ -45,4 +45,5 @@ public class DiceTest {
         }
         assertEquals(true, result);
     }
+
 }

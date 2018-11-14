@@ -4,37 +4,37 @@ import java.util.ArrayList;
 
 public class Temple {
     
-    ArrayList<SanctuarysFaces> Sanctuary = new ArrayList<>(); 
-   
-   public Temple()
+    private ArrayList<SanctuarysFaces> Sanctuary = new ArrayList<>();
+
+    public ArrayList<SanctuarysFaces> getSanctuary() {
+        return Sanctuary;
+    }
+
+    public Temple()
    {
        int a = 0;
        
-       /* 2 Pieces D'or */
+
        for(a=0;a<4;a++)
        {
-          SanctuarysFaces face = new SanctuarysFaces(3,"G",2);
-          Sanctuary.add(face);
+           SanctuarysFaces faceG3 = new SanctuarysFaces(3,"G",2);/* 2 Pieces D'or */
+           SanctuarysFaces faceM1 = new SanctuarysFaces(1,"M",2);
+           SanctuarysFaces faceG4 = new SanctuarysFaces(4,"G",3);
+           SanctuarysFaces faceS1 = new SanctuarysFaces(1,"S",3);
+           SanctuarysFaces face3G_2Gl = new SanctuarysFaces(0,"3G/2Gl",5);
+           SanctuarysFaces faceM2 = new SanctuarysFaces(2,"M",6);
+           SanctuarysFaces faceS2 = new SanctuarysFaces(2,"S",8);
+           SanctuarysFaces face3Gl = new SanctuarysFaces(3,"Gl",8);
+           Sanctuary.add(faceG3);
+           Sanctuary.add(faceM1);
+           Sanctuary.add(faceG4);
+           Sanctuary.add(faceS1);
+           Sanctuary.add(face3G_2Gl);
+           Sanctuary.add(faceM2);
+           Sanctuary.add(faceS2);
+           Sanctuary.add(face3Gl);
        }
-       
-       for(a=0;a<4;a++)
-       {
-          SanctuarysFaces face = new SanctuarysFaces(1,"M",2);
-          Sanctuary.add(face);
-       }
-       
-       /* 3 Pieces D'or */
-       for(a=0;a<4;a++)
-       {
-          SanctuarysFaces face = new SanctuarysFaces(4,"G",3);
-          Sanctuary.add(face);
-       }
-       
-       for(a=0;a<4;a++)
-       {
-          SanctuarysFaces face = new SanctuarysFaces(1,"S",3);
-          Sanctuary.add(face);
-       }
+
        
        /* 4 Pieces D'or */
        SanctuarysFaces faceOne = new SanctuarysFaces(1,"M/S/G",4);
@@ -45,33 +45,7 @@ public class Temple {
        Sanctuary.add(faceThree);
        SanctuarysFaces faceFour = new SanctuarysFaces(6,"G",4);
        Sanctuary.add(faceFour);
-       
-       /* 5 Pieces D'or */
-       for(a=0;a<4;a++)
-       {
-          SanctuarysFaces face = new SanctuarysFaces(0,"3G/2Gl",5);
-          Sanctuary.add(face);
-       }
-       
-       /* 6 Pieces D'or */
-       for(a=0;a<4;a++)
-       {
-          SanctuarysFaces face = new SanctuarysFaces(2,"M",6);
-          Sanctuary.add(face);
-       }
-       
-       /* 8 Pieces D'or */
-       for(a=0;a<4;a++)
-       {
-          SanctuarysFaces face = new SanctuarysFaces(2,"S",8);
-          Sanctuary.add(face);
-       }
-       
-       for(a=0;a<4;a++)
-       {
-          SanctuarysFaces face = new SanctuarysFaces(3,"Gl",8);
-          Sanctuary.add(face);
-       }
+
        
        /* 12 Pieces D'or */
        SanctuarysFaces faceSix = new SanctuarysFaces(4,"Gl",12);

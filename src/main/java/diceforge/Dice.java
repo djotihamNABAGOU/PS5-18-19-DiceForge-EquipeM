@@ -23,50 +23,33 @@ public class Dice {
     }
     
     public void makeBrightDefaultDice(){
-        
-        DiceFaces firstFace = new DiceFaces(1,"G");
-        DiceFaces secondFace = new DiceFaces(1,"G");
-        DiceFaces thirdFace = new DiceFaces(1,"G");
-        DiceFaces fourthFace = new DiceFaces(1,"G");
-        DiceFaces fivethFace = new DiceFaces(1,"G");
-        DiceFaces sixthFace = new DiceFaces(1,"S");
-        
-        this.faces[0]=firstFace;
-        this.faces[1]=secondFace;
-        this.faces[2]=thirdFace;
-        this.faces[3]=fourthFace;
-        this.faces[4]=fivethFace;
-        this.faces[5]=sixthFace;
-        
+        for (int i=0; i<5; i++){
+            this.faces[i] = new DiceFaces(1,"G");
+        }
+        this.faces[5] = new DiceFaces(1,"S");
     }
     
     public void makeDarkDefaultDice(){
-        
-        DiceFaces firstFace = new DiceFaces(1,"G");
-        DiceFaces secondFace = new DiceFaces(1,"G");
-        DiceFaces thirdFace = new DiceFaces(1,"G");
-        DiceFaces fourthFace = new DiceFaces(1,"G");
-        DiceFaces fivethFace = new DiceFaces(1,"M");
-        DiceFaces sixthFace = new DiceFaces(2,"Gl");
-        
-        this.faces[0]=firstFace;
-        this.faces[1]=secondFace;
-        this.faces[2]=thirdFace;
-        this.faces[3]=fourthFace;
-        this.faces[4]=fivethFace;
-        this.faces[5]=sixthFace;
-        
+        for (int i=0; i<4; i++){
+            this.faces[i] = new DiceFaces(1,"G");
+        }
+        this.faces[4] = new DiceFaces(1,"M");
+        this.faces[5] = new DiceFaces(2,"Gl");
     }
     
     public DiceFaces rollDice(){
        Random randomInt = new Random();
        int number = randomInt.nextInt(6);
-       System.out.println("Valeur : "+this.faces[number].getValue()+" Type : "+this.faces[number].getType());
+        System.out.println(this.faces[number].toString());
        return this.faces[number];
     }
-    
-    
-    
-    
-    
+
+    @Override
+    public String toString() {
+        String diceFaces = "";
+        for (int i=0; i<6; i++){
+            diceFaces = diceFaces + faces[i].toString()+"\n";
+        }
+        return diceFaces;
+    }
 }

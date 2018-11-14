@@ -13,10 +13,26 @@ import java.util.Random;
  * @author Destroyer
  */
 public class Bot {
-    final HerosInventory herosInventory;
-    final Dice firstDice;
-    final Dice secondDice;
-    final ArrayList<DiceFaces> RemovedFaces;
+    private HerosInventory herosInventory;
+    private Dice firstDice;
+    private Dice secondDice;
+    private ArrayList<DiceFaces> RemovedFaces;
+
+    public HerosInventory getHerosInventory() {
+        return herosInventory;
+    }
+
+    public Dice getFirstDice() {
+        return firstDice;
+    }
+
+    public Dice getSecondDice() {
+        return secondDice;
+    }
+
+    public ArrayList<DiceFaces> getRemovedFaces() {
+        return RemovedFaces;
+    }
 
     public Bot() {
         firstDice = new Dice();
@@ -25,23 +41,12 @@ public class Bot {
         RemovedFaces = new ArrayList();
    
     }
-    
-    public void printBotInventoryState(){
-        System.out.println("Glory: "+this.herosInventory.getGloryPoints());
-        System.out.println("Gold: "+this.herosInventory.getGoldPoints());
-        System.out.println("Moon: "+this.herosInventory.getMoonPoints());
-        System.out.println("Sun: "+this.herosInventory.getSunPoints());
-    }
-    
+
     public void printDiceState(){
         System.out.println("------First Dice-------"); 
-        for(int i=0; i<6; i++){
-            firstDice.faces[i].printDiceFaces();    
-        }
-        System.out.println("------Second Dice-------"); 
-        for(int i=0; i<6; i++){
-            secondDice.faces[i].printDiceFaces();    
-        }
+        firstDice.toString();
+        System.out.println("------Second Dice-------");
+        secondDice.toString();
     }
     
     public void forgeDiceFace(DiceFaces face){
@@ -63,8 +68,12 @@ public class Bot {
         
         
     }
-    
-    
+
+
+    @Override
+    public String toString() {
+        return "Glory: "+this.herosInventory.getGloryPoints()+"\nGold: "+this.herosInventory.getGoldPoints()+"\nMoon: "+this.herosInventory.getMoonPoints()+"\nSun: "+this.herosInventory.getSunPoints();
+    }
     
     
     

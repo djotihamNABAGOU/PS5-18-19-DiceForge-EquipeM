@@ -22,4 +22,5 @@ public class SanctuarysFaces extends DiceFaces {
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
+
 }

@@ -111,4 +111,5 @@ public class HerosInventoryTest {
         herosInventory.makeFourthDefaultHerosInventory();
         assertTrue(herosInventory.getGloryPoints()==0 && herosInventory.getMoonPoints()==0 && herosInventory.getSunPoints()==0 && herosInventory.getGoldPoints()==0);
     }
+
 }
