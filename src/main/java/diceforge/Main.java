@@ -23,10 +23,10 @@ public class Main {
         
         System.out.println("STATE BEFORE DICE SET");
         System.out.println("-->BOT ONE");
-        botOne.toString();
+        System.out.println(botOne.toString());
         botOne.printDiceState();
         System.out.println("-->BOT TWO");
-        botTwo.toString();
+        System.out.println(botTwo.toString());
         botTwo.printDiceState();
         
         System.out.println("-------------------------------------\n");

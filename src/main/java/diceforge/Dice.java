@@ -40,7 +40,7 @@ public class Dice {
     public DiceFaces rollDice(){
        Random randomInt = new Random();
        int number = randomInt.nextInt(6);
-        System.out.println(this.faces[number].toString());
+       System.out.println(this.faces[number].toString());
        return this.faces[number];
     }
 

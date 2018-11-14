@@ -1,6 +1,6 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+6 * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package diceforge;
@@ -142,6 +142,7 @@ public class Engine {
         if(FacesAvailable.size() == 0) return new SanctuarysFaces(0,"",0);
         else{
         int caseFace = randomFace.nextInt(FacesAvailable.size()); // initialisation
+        System.out.println("La face payée est "+FacesAvailable.get(caseFace).toString());
         return FacesAvailable.get(caseFace);
         }
 

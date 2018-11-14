@@ -44,9 +44,9 @@ public class Bot {
 
     public void printDiceState(){
         System.out.println("------First Dice-------"); 
-        firstDice.toString();
+        System.out.println(firstDice.toString());
         System.out.println("------Second Dice-------");
-        secondDice.toString();
+        System.out.println(secondDice.toString());
     }
     
     public void forgeDiceFace(DiceFaces face){
