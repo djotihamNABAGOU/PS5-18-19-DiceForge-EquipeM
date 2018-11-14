@@ -1,9 +1,11 @@
-package diceforge;
+package Faces;
+
+import Faces.DiceFaces;
 
 public class SanctuarysFaces extends DiceFaces {
 
     private int price;
-    boolean selected;
+    private boolean selected;
 
     public SanctuarysFaces(int value, String type,int price) {
         super(value,type);

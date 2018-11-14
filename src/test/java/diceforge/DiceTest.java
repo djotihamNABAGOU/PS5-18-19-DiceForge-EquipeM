@@ -1,5 +1,7 @@
 package diceforge;
 
+import Faces.DiceFaces;
+import Player.Dice;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -11,12 +13,12 @@ public class DiceTest {
         Dice dice = new Dice();
         dice.makeBrightDefaultDice();
         int sun = 0, gold = 0;
-        for (int i=0; i<dice.faces.length; i++) {
-            if (dice.faces[i].getType().equals("G") && dice.faces[i].getValue() == 1) gold++;
-            if (dice.faces[i].getType().equals("S") && dice.faces[i].getValue() == 1) sun++;
+        for (int i=0; i<dice.getFaces().length; i++) {
+            if (dice.getFaces()[i].getType().equals("G") && dice.getFaces()[i].getValue() == 1) gold++;
+            if (dice.getFaces()[i].getType().equals("S") && dice.getFaces()[i].getValue() == 1) sun++;
         }
-        assertTrue(gold == 5);
-        assertTrue(sun == 1);
+        assertEquals(gold, 5);
+        assertEquals(sun , 1);
 
     }
 
@@ -25,10 +27,10 @@ public class DiceTest {
         Dice dice = new Dice();
         dice.makeDarkDefaultDice();
         int glory = 0, moon = 0, gold = 0;
-        for (int i=0; i<dice.faces.length; i++) {
-            if (dice.faces[i].getType().equals("G") && dice.faces[i].getValue() == 1) gold++;
-            if (dice.faces[i].getType().equals("M") && dice.faces[i].getValue() == 1) moon++;
-            if (dice.faces[i].getType().equals("Gl") && dice.faces[i].getValue() == 2) glory++;
+        for (int i=0; i<dice.getFaces().length; i++) {
+            if (dice.getFaces()[i].getType().equals("G") && dice.getFaces()[i].getValue() == 1) gold++;
+            if (dice.getFaces()[i].getType().equals("M") && dice.getFaces()[i].getValue() == 1) moon++;
+            if (dice.getFaces()[i].getType().equals("Gl") && dice.getFaces()[i].getValue() == 2) glory++;
         }
         assertEquals(4,gold);
         assertEquals(1,moon);
@@ -39,9 +41,9 @@ public class DiceTest {
     public void rollDice() {
         Dice dice = new Dice();
         DiceFaces face = dice.rollDice();
-        Boolean result = false;
-        for (int i=0; i<dice.faces.length; i++) {
-            if (dice.faces[i].getType().equals(face.getType()) && dice.faces[i].getValue() == face.getValue()) result = true;
+        boolean result = false;
+        for (int i=0; i<dice.getFaces().length; i++) {
+            if (dice.getFaces()[i].getType().equals(face.getType()) && dice.getFaces()[i].getValue() == face.getValue()) result = true;
         }
         assertEquals(true, result);
     }

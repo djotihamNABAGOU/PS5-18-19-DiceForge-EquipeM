@@ -1,5 +1,6 @@
 package diceforge;
 
+import Player.HerosInventory;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

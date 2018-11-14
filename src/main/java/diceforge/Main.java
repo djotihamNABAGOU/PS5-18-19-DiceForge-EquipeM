@@ -6,6 +6,8 @@
  */
 package diceforge;
 
+import Player.Bot;
+
 /**
  *
  * @author Destroyer

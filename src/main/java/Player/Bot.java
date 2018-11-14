@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package diceforge;
+package Player;
+
+import Faces.DiceFaces;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -38,8 +40,8 @@ public class Bot {
         firstDice = new Dice();
         secondDice = new Dice();
         herosInventory = new HerosInventory();
-        RemovedFaces = new ArrayList();
-   
+        RemovedFaces = new ArrayList<>();
+
     }
 
     public void printDiceState(){

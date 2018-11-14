@@ -5,7 +5,9 @@
  */
 package diceforge;
 
-import java.time.Clock;
+import Faces.SanctuarysFaces;
+import Player.Bot;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -18,13 +20,13 @@ public class Engine {
     private final int numberOfBot; //Number of Bot playing
 
     
-    public Engine(int set, int number) {
+     Engine(int set, int number) {
         this.set=set;
         this.numberOfBot=number;
 
     }
     
-    public void InitializingBots(Bot botOne,Bot botTwo){
+     void InitializingBots(Bot botOne, Bot botTwo){
         botOne.getFirstDice().makeBrightDefaultDice();
         botOne.getSecondDice().makeDarkDefaultDice();
         botOne.getHerosInventory().makeFirstDefaultHerosInventory();
@@ -45,12 +47,12 @@ public class Engine {
 
     }
 
-    public void RollOneTime(Bot theBot){
+    private void RollOneTime(Bot theBot){
          theBot.getHerosInventory().increaseInventoryWithDiceRoll(theBot.getFirstDice().rollDice());
          theBot.getHerosInventory().increaseInventoryWithDiceRoll(theBot.getSecondDice().rollDice());
     }
 
-    public void MakeOneSetWithTwoBot(Bot botOne,Bot botTwo, Temple temple){
+    private void MakeOneSetWithTwoBot(Bot botOne,Bot botTwo, Temple temple){
         for(int i=0; i<2; i++){
             System.out.println("Bot "+(i+1)+", Roll or Roll and Forge ?");
             Random randomInt = new Random();
@@ -110,7 +112,7 @@ public class Engine {
         }
     }
 
-    public void MakeNineSetWithTwoBot(Bot botOne,Bot botTwo, Temple temple){
+     void MakeNineSetWithTwoBot(Bot botOne,Bot botTwo, Temple temple){
         for(int a = 0;a<9;a++)
         {
             MakeOneSetWithTwoBot(botOne, botTwo, temple);
@@ -127,12 +129,12 @@ public class Engine {
         }
     }
     
-    public SanctuarysFaces CaseFace(Bot bot, Temple temple)  // retourne le nom de la face à payer choisie au hasard
+    private SanctuarysFaces CaseFace(Bot bot, Temple temple)  // retourne le nom de la face à payer choisie au hasard
     {
         int v = bot.getHerosInventory().getGoldPoints();
         ArrayList<SanctuarysFaces> FacesAvailable = new ArrayList<>();
         for (int i=0; i<temple.getSanctuary().size();i++){
-            if(temple.getSanctuary().get(i).isSelected()==false && !FacesAvailable.contains(temple.getSanctuary().get(i)) && v>=temple.getSanctuary().get(i).getPrice()){
+            if(!temple.getSanctuary().get(i).isSelected() && !FacesAvailable.contains(temple.getSanctuary().get(i)) && v>=temple.getSanctuary().get(i).getPrice()){
                 FacesAvailable.add(temple.getSanctuary().get(i));
             }
         }
@@ -142,13 +144,13 @@ public class Engine {
         if(FacesAvailable.size() == 0) return new SanctuarysFaces(0,"",0);
         else{
         int caseFace = randomFace.nextInt(FacesAvailable.size()); // initialisation
-        System.out.println("La face payée est "+FacesAvailable.get(caseFace).toString());
+        //System.out.println("La face payée est "+FacesAvailable.get(caseFace).toString());
         return FacesAvailable.get(caseFace);
         }
 
     }
     
-    public void TellMeTheWinner(Bot botOne,Bot botTwo){
+     void TellMeTheWinner(Bot botOne,Bot botTwo){
         if(botOne.getHerosInventory().getGloryPoints()>botTwo.getHerosInventory().getGloryPoints()){
             System.out.println("Bot 1 wins the game");
         }

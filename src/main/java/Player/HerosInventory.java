@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package diceforge;
+package Player;
+
+import Faces.DiceFaces;
 
 import java.util.Random;
 

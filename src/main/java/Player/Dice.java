@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package diceforge;
+package Player;
+
+import Faces.DiceFaces;
 
 import java.util.Random;
 
@@ -21,7 +23,11 @@ public class Dice {
             faces[i] = diceFace;
         }
     }
-    
+
+    public DiceFaces[] getFaces() {
+        return faces;
+    }
+
     public void makeBrightDefaultDice(){
         for (int i=0; i<5; i++){
             this.faces[i] = new DiceFaces(1,"G");

@@ -1,18 +1,20 @@
 package diceforge;
 
+import Faces.SanctuarysFaces;
+
 import java.util.ArrayList;
 
-public class Temple {
+ class Temple {
     
     private ArrayList<SanctuarysFaces> Sanctuary = new ArrayList<>();
 
-    public ArrayList<SanctuarysFaces> getSanctuary() {
+     ArrayList<SanctuarysFaces> getSanctuary() {
         return Sanctuary;
     }
 
-    public Temple()
+     Temple()
    {
-       int a = 0;
+       int a ;
        
 
        for(a=0;a<4;a++)
@@ -58,12 +60,12 @@ public class Temple {
        Sanctuary.add(faceNine);
    }
    
-   public int faceAvailable(SanctuarysFaces sanctuaryFaces)
+    int faceAvailable(SanctuarysFaces sanctuaryFaces)
    {
       int a;
       for(a=0;a<Sanctuary.size();a++)
       {
-          if(Sanctuary.get(a).getType().equals(sanctuaryFaces.getType()) && Sanctuary.get(a).getValue() == sanctuaryFaces.getValue() && Sanctuary.get(a).isSelected()==false)
+          if(Sanctuary.get(a).getType().equals(sanctuaryFaces.getType()) && Sanctuary.get(a).getValue() == sanctuaryFaces.getValue() && !Sanctuary.get(a).isSelected())
           {
               return a;
           }
@@ -71,7 +73,7 @@ public class Temple {
       return -1;
    }
    
-   public boolean buyFace(SanctuarysFaces sanctuaryFaces)
+    boolean buyFace(SanctuarysFaces sanctuaryFaces)
    {
        int a = faceAvailable(sanctuaryFaces);
        if (a!=-1)
