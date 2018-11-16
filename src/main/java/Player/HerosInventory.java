@@ -1,27 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Player;
-
 import Faces.DiceFaces;
-
 import java.util.Random;
 
-/**
- *
- * @author Destroyer
- */
+
 public class HerosInventory {
     private int gloryPoints;
     private int sunPoints;
     private int moonPoints;
     private int goldPoints;
     private static int gloryPointsLimit = 100;
-    private static int moonPointsLimit = 6;
-    private static int goldPointsLimit = 12;
-    private static int sunPointsLimit = 6;
+    public int moonPointsLimit = 6;
+    public int goldPointsLimit = 12;
+    public int sunPointsLimit = 6;
+    
+    public int tokenHammer = 0;   /* jeton marteau */
+    public int tokenNewt = 0;   /* jeton Triton */
+    public int tokenCerberus = 0; /* jeton Cerbere */
+      
 
     public int getGloryPoints() {
         return gloryPoints;

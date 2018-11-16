@@ -1,20 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
-6 * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package diceforge;
-
 import Faces.SanctuarysFaces;
 import Player.Bot;
-
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- *
- * @author Destroyer
- */
+
 public class Engine {
     private final int set ; //Number of handle in the game
     private final int numberOfBot; //Number of Bot playing
@@ -161,5 +151,5 @@ public class Engine {
             System.out.println("Its a tie");
         }
       }
-   
+     
 }
