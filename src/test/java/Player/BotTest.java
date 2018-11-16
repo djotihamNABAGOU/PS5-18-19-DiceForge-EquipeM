@@ -1,7 +1,6 @@
-package diceforge;
+package Player;
 
 import Faces.DiceFaces;
-import Player.Bot;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

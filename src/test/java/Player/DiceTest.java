@@ -1,7 +1,6 @@
-package diceforge;
+package Player;
 
 import Faces.DiceFaces;
-import Player.Dice;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -47,5 +46,4 @@ public class DiceTest {
         }
         assertEquals(true, result);
     }
-
 }
