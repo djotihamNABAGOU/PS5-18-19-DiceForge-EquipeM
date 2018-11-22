@@ -1,6 +1,6 @@
 package Card;
+import Player.Bot;
 import Player.Dice;
-import Player.HerosInventory;
 
 /* Cette carte "L'enigme" permet au joueur de relancer 04 fois l'un de ses 02 des
    [NB : le de à lancer 4 fois est le même]
@@ -24,13 +24,13 @@ public class TheRiddle extends Card{
     } 
     
     @Override
-    public void actionCard(HerosInventory inventory,Dice... dice)
+    public void actionCard(Bot bot,Dice... dice)
     {
-        inventory.IncreaseGloryPoints(10);
+        bot.getHerosInventory().IncreaseGloryPoints(10);
         /* Relancer l'un de ses 02 dés 4 fois et MAJ de l'inventaire , par defaut premier de pr le moment*/
         int a = 0;
         for(a=0;a<4;a++){
-            inventory.increaseInventoryWithDiceRoll(dice[1].rollDice());    
+            dice[1].rollDice().makeEffect(bot);
         }          
     } 
 }

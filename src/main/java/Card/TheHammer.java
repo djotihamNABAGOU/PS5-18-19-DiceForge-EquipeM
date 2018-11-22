@@ -1,4 +1,5 @@
 package Card;
+import Player.Bot;
 import Player.HerosInventory;
 
 /* Cette carte "Le marteau du forgeron" permet d'avoir un jeton marteau 
@@ -27,9 +28,9 @@ public class TheHammer extends Card{
     }
     
     @Override
-    public void actionCard(HerosInventory inventory)
+    public void actionCard(Bot bot)
     {
-        inventory.tokenHammer = inventory.tokenHammer + 1;   /* procure un jeton marteau */
+       bot.getHerosInventory().tokenHammer = bot.getHerosInventory().tokenHammer + 1;   /* procure un jeton marteau */
     }
     
     public void IncreaseGoldPoints(int points,HerosInventory inventory)

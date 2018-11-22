@@ -1,7 +1,8 @@
 package Player;
 import Card.Card;
 import Card.TheHammer;
-import Faces.DiceFaces;
+import Faces.GeneralFace;
+import Faces.SimpleFace;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,7 +11,7 @@ public class Bot {
     private HerosInventory herosInventory;
     private Dice firstDice;
     private Dice secondDice;
-    private ArrayList<DiceFaces> RemovedFaces;
+    private ArrayList<GeneralFace> RemovedFaces;
     
     private ArrayList<Card> enhancementCard;   /* Liste des cartes de renfort en possession du joueur */
     private ArrayList<TheHammer> hammerCard;   /* Liste des cartes marteaux en possession du joueur */
@@ -27,7 +28,7 @@ public class Bot {
         return secondDice;
     }
 
-    public ArrayList<DiceFaces> getRemovedFaces() {
+    public ArrayList<GeneralFace> getRemovedFaces() {
         return RemovedFaces;
     }
 
@@ -46,8 +47,8 @@ public class Bot {
         System.out.println(secondDice.toString());
     }
     
-    public void forgeDiceFace(DiceFaces face){
-        DiceFaces temp = new DiceFaces();
+    public void forgeDiceFace(GeneralFace face){
+        GeneralFace temp = new GeneralFace();
         
         Random randomInt = new Random();
         int numberOfFace = randomInt.nextInt(6); //Random pour prendre la face a enlever
@@ -78,7 +79,7 @@ public class Bot {
             switch(number)
             {
                 case 0 : this.herosInventory.IncreaseMoonPoints(2); break;
-                case 1 : this.herosInventory.IncreaseMoonPoints(2); break;
+                case 1 : this.herosInventory.IncreaseSunPoints(2); break;
                 case 2 : this.herosInventory.DecreaseGoldPoints(6); break;
             }
             this.herosInventory.tokenNewt = this.herosInventory.tokenNewt - 1;
@@ -87,10 +88,10 @@ public class Bot {
     
     /* permet au joueur d'utiliser un de ses jetons cerbères */
     /* Les paramètres seront les faces obtenues par le joueur après son lancer */
-    public void useCerberusToken(DiceFaces... diceface) 
+    public void useCerberusToken(SimpleFace... diceface) 
     {
-        for(DiceFaces dicefaceT : diceface){
-              this.herosInventory.increaseInventoryWithDiceRoll(dicefaceT);
+        for(SimpleFace dicefaceT : diceface){
+              this.herosInventory.increaseInventoryWithDiceFace(dicefaceT);
         }
     }
     

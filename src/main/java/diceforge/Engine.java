@@ -27,19 +27,35 @@ public class Engine {
 
     }
 
+    /*
     public void RollAndRollSetTimes(Bot botOne,Bot botTwo){
         for(int i=0;i<this.set;i++){
-            botOne.getHerosInventory().increaseInventoryWithDiceRoll(botOne.getFirstDice().rollDice());
-            botOne.getHerosInventory().increaseInventoryWithDiceRoll(botOne.getSecondDice().rollDice());
-            botTwo.getHerosInventory().increaseInventoryWithDiceRoll(botTwo.getFirstDice().rollDice());
-            botTwo.getHerosInventory().increaseInventoryWithDiceRoll(botTwo.getSecondDice().rollDice());
+            botOne.getHerosInventory().increaseInventoryWithDiceFace(botOne.getFirstDice().rollDice());
+            botOne.getHerosInventory().increaseInventoryWithDiceFace(botOne.getSecondDice().rollDice());
+            botTwo.getHerosInventory().increaseInventoryWithDiceFace(botTwo.getFirstDice().rollDice());
+            botTwo.getHerosInventory().increaseInventoryWithDiceFace(botTwo.getSecondDice().rollDice());
         }
 
     }
 
     private void RollOneTime(Bot theBot){
-         theBot.getHerosInventory().increaseInventoryWithDiceRoll(theBot.getFirstDice().rollDice());
-         theBot.getHerosInventory().increaseInventoryWithDiceRoll(theBot.getSecondDice().rollDice());
+         theBot.getHerosInventory().increaseInventoryWithDiceFace(theBot.getFirstDice().rollDice());
+         theBot.getHerosInventory().increaseInventoryWithDiceFace(theBot.getSecondDice().rollDice());
+    }-*/
+     
+    public void RollAndRollSetTimes(Bot botOne,Bot botTwo){
+        for(int i=0;i<this.set;i++){
+            botOne.getFirstDice().rollDice().makeEffect(botOne);
+            botOne.getSecondDice().rollDice().makeEffect(botOne);
+            botTwo.getFirstDice().rollDice().makeEffect(botTwo);
+            botTwo.getSecondDice().rollDice().makeEffect(botTwo);
+        }
+
+    }
+
+    private void RollOneTime(Bot theBot){
+         theBot.getFirstDice().rollDice().makeEffect(theBot);
+         theBot.getSecondDice().rollDice().makeEffect(theBot);
     }
 
     private void MakeOneSetWithTwoBot(Bot botOne,Bot botTwo, Temple temple){
@@ -124,14 +140,17 @@ public class Engine {
         int v = bot.getHerosInventory().getGoldPoints();
         ArrayList<SanctuarysFaces> FacesAvailable = new ArrayList<>();
         for (int i=0; i<temple.getSanctuary().size();i++){
-            if(!temple.getSanctuary().get(i).isSelected() && !FacesAvailable.contains(temple.getSanctuary().get(i)) && v>=temple.getSanctuary().get(i).getPrice()){
+            if(!temple.getSanctuary().get(i).isSelected() 
+               && !FacesAvailable.contains(temple.getSanctuary().get(i)) 
+               && v>=temple.getSanctuary().get(i).getPrice()){
+               
                 FacesAvailable.add(temple.getSanctuary().get(i));
             }
         }
 
         Random randomFace = new Random();
 
-        if(FacesAvailable.size() == 0) return new SanctuarysFaces(0,"",0);
+        if(FacesAvailable.size() == 0) return new SanctuarysFaces();
         else{
         int caseFace = randomFace.nextInt(FacesAvailable.size()); // initialisation
         //System.out.println("La face payée est "+FacesAvailable.get(caseFace).toString());

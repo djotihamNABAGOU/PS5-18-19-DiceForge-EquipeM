@@ -1,4 +1,5 @@
 package Card;
+import Player.Bot;
 import Player.Dice;
 import Player.HerosInventory;
 
@@ -26,15 +27,15 @@ public class TheClogs extends Card{
     }
     
     @Override
-    public void actionCard(HerosInventory inventory)
+    public void actionCard(Bot bot)
     {
-       inventory.IncreaseGloryPoints(2);
+       bot.getHerosInventory().IncreaseGloryPoints(2);
     }
     
     @Override
-    public void capacity(HerosInventory inventory,Dice dice) /* prend en param l'un des 02 des du joueur*/
+    public void capacity(Bot bot,Dice dice) /* prend en param l'un des 02 des du joueur*/
     {
-        inventory.increaseInventoryWithDiceRoll(dice.rollDice());
+        dice.rollDice().makeEffect(bot);
     }
 }
 

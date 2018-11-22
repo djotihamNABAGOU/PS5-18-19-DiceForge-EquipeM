@@ -1,6 +1,7 @@
 package diceforge;
 
 import Faces.SanctuarysFaces;
+import Faces.SimpleFace;
 
 import java.util.ArrayList;
 
@@ -12,72 +13,79 @@ import java.util.ArrayList;
         return Sanctuary;
     }
 
-     Temple()
-   {
-       int a ;
-       
-
-       for(a=0;a<4;a++)
-       {
-           SanctuarysFaces faceG3 = new SanctuarysFaces(3,"G",2);/* 2 Pieces D'or */
-           SanctuarysFaces faceM1 = new SanctuarysFaces(1,"M",2);
-           SanctuarysFaces faceG4 = new SanctuarysFaces(4,"G",3);
-           SanctuarysFaces faceS1 = new SanctuarysFaces(1,"S",3);
-           SanctuarysFaces face3G_2Gl = new SanctuarysFaces(0,"3G/2Gl",5);
-           SanctuarysFaces faceM2 = new SanctuarysFaces(2,"M",6);
-           SanctuarysFaces faceS2 = new SanctuarysFaces(2,"S",8);
-           SanctuarysFaces face3Gl = new SanctuarysFaces(3,"Gl",8);
-           Sanctuary.add(faceG3);
-           Sanctuary.add(faceM1);
-           Sanctuary.add(faceG4);
-           Sanctuary.add(faceS1);
-           Sanctuary.add(face3G_2Gl);
-           Sanctuary.add(faceM2);
-           Sanctuary.add(faceS2);
-           Sanctuary.add(face3Gl);
+    Temple(){
+       for(int a=0;a<4;a++){
+           Sanctuary.add(new SanctuarysFaces(2,"GoldenFace","Add",new SimpleFace(3,"G","GoldenFace")));
+           Sanctuary.add(new SanctuarysFaces(2,"MoonFace","Add",new SimpleFace(1,"M","MoonFace")));
+           Sanctuary.add(new SanctuarysFaces(3,"GoldenFace","Add",new SimpleFace(4,"G","GoldenFace")));
+           Sanctuary.add( new SanctuarysFaces(3,"Sunface","Add",new SimpleFace(1,"S","SunFace")));
+           Sanctuary.add( new SanctuarysFaces(5,"GoldenGloryFace","Choice",new SimpleFace(3,"G","GoldenFace"),new SimpleFace(2,"Gl","GloryFace")));
+           Sanctuary.add(new SanctuarysFaces(6,"MoonFace","Add",new SimpleFace(2,"M","MoonFace")));
+           Sanctuary.add( new SanctuarysFaces(8,"Sunface","Add",new SimpleFace(2,"S","SunFace")));
+           Sanctuary.add( new SanctuarysFaces(8,"Gloryface","Add",new SimpleFace(3,"Gl","GloryFace")));
+         
        }
-
-       
        /* 4 Pieces D'or */
-       SanctuarysFaces faceOne = new SanctuarysFaces(1,"M/S/G",4);
-       Sanctuary.add(faceOne);
-       SanctuarysFaces faceTwo = new SanctuarysFaces(3,"2G+1M",4);
-       Sanctuary.add(faceTwo);
-       SanctuarysFaces faceThree = new SanctuarysFaces(2,"1Gl+1S",4);
-       Sanctuary.add(faceThree);
-       SanctuarysFaces faceFour = new SanctuarysFaces(6,"G",4);
-       Sanctuary.add(faceFour);
-
-       
+       Sanctuary.add( new SanctuarysFaces(4,"MoonSunGoldenFace",
+                                          "Choice",
+                                          new SimpleFace(1,"M","MoonFace"),
+                                          new SimpleFace(1,"S","SunFace"),
+                                          new SimpleFace(1,"G","GoldenFace")
+                                          )
+                    );
+       Sanctuary.add( new SanctuarysFaces(4,"GoldenMoonFace",
+                                          "Add",
+                                          new SimpleFace(2,"G","GoldenFace"),
+                                          new SimpleFace(1,"M","MoonFace")
+                                          )
+                    );
+       Sanctuary.add( new SanctuarysFaces(4,"GlorySunFace",
+                                          "Add",
+                                          new SimpleFace(1,"Gl","GloryFace"),
+                                          new SimpleFace(1,"S","SunFace")
+                                          )
+                    );
+        Sanctuary.add(new SanctuarysFaces(4,"GoldenFace","Add",new SimpleFace(6,"G","GoldenFace")));
+      
        /* 12 Pieces D'or */
-       SanctuarysFaces faceSix = new SanctuarysFaces(4,"Gl",12);
-       Sanctuary.add(faceSix);
-       SanctuarysFaces faceSeven = new SanctuarysFaces(4,"ALL",12);
-       Sanctuary.add(faceSeven);
-       SanctuarysFaces faceEight = new SanctuarysFaces(1,"2G/2S/2M",12);
-       Sanctuary.add(faceEight);
-       SanctuarysFaces faceNine = new SanctuarysFaces(2,"2Gl+2M",12);
-       Sanctuary.add(faceNine);
+       Sanctuary.add(new SanctuarysFaces(12,"GloryFace","Add",new SimpleFace(4,"Gl","GloryFace")));
+       Sanctuary.add( new SanctuarysFaces(12,"MoonSunGoldenGloryFace",
+                                          "Add",
+                                          new SimpleFace(1,"M","MoonFace"),
+                                          new SimpleFace(1,"S","SunFace"),
+                                          new SimpleFace(1,"G","GoldenFace"),
+                                          new SimpleFace(1,"Gl","GloryFace")
+                                          )
+                    );
+        Sanctuary.add( new SanctuarysFaces(12,"MoonGoldenSunFace",
+                                          "Choice",
+                                          new SimpleFace(2,"M","MoonFace"),
+                                          new SimpleFace(2,"S","SunFace"),
+                                          new SimpleFace(2,"G","GoldenFace")
+                                          )
+                    );
+       Sanctuary.add( new SanctuarysFaces(12,"MoonGloryFace",
+                                          "Add",
+                                          new SimpleFace(2,"M","MoonFace"),
+                                          new SimpleFace(2,"Gl","GloryFace")
+                                          )
+                    );
    }
    
-    int faceAvailable(SanctuarysFaces sanctuaryFaces)
-   {
-      int a;
-      for(a=0;a<Sanctuary.size();a++)
-      {
-          if(Sanctuary.get(a).getType().equals(sanctuaryFaces.getType()) && Sanctuary.get(a).getValue() == sanctuaryFaces.getValue() && !Sanctuary.get(a).isSelected())
-          {
+int faceAvailable(SanctuarysFaces sanctuaryFaces){
+      for(int a=0;a<Sanctuary.size();a++){
+          if( Sanctuary.get(a).getName().equals(sanctuaryFaces.getName()) 
+              && Sanctuary.get(a).getPrice() == sanctuaryFaces.getPrice()
+              && !Sanctuary.get(a).isSelected()){
               return a;
           }
       }
       return -1;
    }
    
-    boolean buyFace(SanctuarysFaces sanctuaryFaces)
-   {
+boolean buyFace(SanctuarysFaces sanctuaryFaces){
        int a = faceAvailable(sanctuaryFaces);
-       if (a!=-1)
-       {
+       if (a!=-1){
            Sanctuary.get(a).setSelected(true);
            return true;
        }

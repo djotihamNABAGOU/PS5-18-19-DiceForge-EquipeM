@@ -1,5 +1,5 @@
 package Card;
-import Player.HerosInventory;
+import Player.Bot;
 
 /* Cette carte "L'hydre" permet tout simplement de gagner 26 points de gloire
   Type Immediat ----> Methode "ActionCard" appelé à l'achat puis Suppression de la Carte
@@ -22,8 +22,8 @@ public class TheHydra extends Card{
     } 
      
     @Override
-    public void actionCard(HerosInventory inventory)
+    public void actionCard(Bot bot)
     {
-        inventory.IncreaseGloryPoints(26);
+        bot.getHerosInventory().IncreaseGloryPoints(26);
     }
 }

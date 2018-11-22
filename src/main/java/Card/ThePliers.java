@@ -1,6 +1,7 @@
 package Card;
+import Player.Bot;
 import Player.Dice;
-import Player.HerosInventory;
+
 
 /* Cette carte "La pince" permet au joueur de relancer 02 fois ses 02 des et de collecter les ress
    Elle procure 8 points de gloire à la fin de la partie
@@ -23,13 +24,13 @@ public class ThePliers extends Card{
     } 
     
     @Override
-    public void actionCard(HerosInventory inventory,Dice... dice)
+    public void actionCard(Bot bot,Dice... dice)
     {
-        inventory.IncreaseGloryPoints(8);
+        bot.getHerosInventory().IncreaseGloryPoints(8);
         /* Pour chacun des 2 des du joueur, le lancent 2 fois et MAJ de l'inventaire */
         for (Dice dice1 : dice){
-            inventory.increaseInventoryWithDiceRoll(dice1.rollDice());    
-            inventory.increaseInventoryWithDiceRoll(dice1.rollDice());
+            dice1.rollDice().makeEffect(bot);    
+            dice1.rollDice().makeEffect(bot);
         }
             
     } 

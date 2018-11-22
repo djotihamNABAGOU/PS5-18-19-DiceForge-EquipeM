@@ -1,5 +1,6 @@
 package Card;
-import Player.HerosInventory;
+import Player.Bot;
+
 
 /* Cette carte "Le Triton" permet au joueur d'acquerir un jeton Cerbère
    Elle procure 6 points de gloire à la fin de la partie
@@ -22,10 +23,10 @@ public class TheCerberus extends Card{
     } 
     
     @Override
-    public void actionCard(HerosInventory inventory)
+    public void actionCard(Bot bot)
     {
-        inventory.IncreaseGloryPoints(6);
-        inventory.tokenCerberus = inventory.tokenCerberus + 1; /* procure un jeton cerbère */
+        bot.getHerosInventory().IncreaseGloryPoints(6);
+        bot.getHerosInventory().tokenCerberus = bot.getHerosInventory().tokenCerberus + 1; /* procure un jeton cerbère */
     }
     
 }

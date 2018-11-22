@@ -1,5 +1,6 @@
 package Card;
-import Player.HerosInventory;
+import Player.Bot;
+
 
 /* Cette carte "La meduse" permet tout simplement de gagner 14 points de gloire
    Type Immediat ----> Methode "ActionCard" appelé à l'achat puis Suppression de la Carte
@@ -22,8 +23,8 @@ public class TheJellyFish extends Card{
     }
      
     @Override
-    public void actionCard(HerosInventory inventory)
+    public void actionCard(Bot bot)
     {
-        inventory.IncreaseGloryPoints(14);
+        bot.getHerosInventory().IncreaseGloryPoints(14);
     }
 }

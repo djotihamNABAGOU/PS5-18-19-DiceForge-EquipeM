@@ -1,5 +1,6 @@
 package Card;
-import Player.HerosInventory;
+import Player.Bot;
+
 
 /* Cette carte "Le coffre du forgeron" permet d'avoir une extension de 4 places pour chacune de 
    ses ressources.
@@ -22,11 +23,11 @@ public class TheFort extends Card {
     }
     
     @Override
-    public void actionCard(HerosInventory inventory)
+    public void actionCard(Bot bot)
     {
-        inventory.goldPointsLimit = inventory.goldPointsLimit + 4;
-        inventory.moonPointsLimit = inventory.moonPointsLimit + 4;
-        inventory.sunPointsLimit = inventory.sunPointsLimit + 4;
+        bot.getHerosInventory().goldPointsLimit = bot.getHerosInventory().goldPointsLimit + 4;
+        bot.getHerosInventory().moonPointsLimit = bot.getHerosInventory().moonPointsLimit + 4;
+        bot.getHerosInventory().sunPointsLimit = bot.getHerosInventory().sunPointsLimit + 4;
     }
 }
 

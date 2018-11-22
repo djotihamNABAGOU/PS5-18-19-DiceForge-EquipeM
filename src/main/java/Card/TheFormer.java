@@ -1,4 +1,5 @@
 package Card;
+import Player.Bot;
 import Player.Dice;
 import Player.HerosInventory;
 
@@ -25,15 +26,15 @@ public class TheFormer extends Card{
     }
     
     @Override
-    public void actionCard(HerosInventory inventory)
+    public void actionCard(Bot bot)
     {
         //Ne donne pas de points de gloire donc methode vide 
     }
     
     @Override
-    public void capacity(HerosInventory inventory,Dice dice) 
+    public void capacity(Bot bot,Dice dice) 
     {
-        inventory.IncreaseGloryPoints(4);
-        inventory.DecreaseGoldPoints(3);
+        bot.getHerosInventory().IncreaseGloryPoints(4);
+        bot.getHerosInventory().DecreaseGoldPoints(3);
     }
 }

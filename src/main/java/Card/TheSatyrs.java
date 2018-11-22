@@ -1,6 +1,7 @@
 package Card;
 
-import Faces.DiceFaces;
+import Faces.GeneralFace;
+import Faces.SimpleFace;
 import Player.Bot;
 import Player.HerosInventory;
 
@@ -26,14 +27,14 @@ public class TheSatyrs extends Card{
     }
     
     @Override
-    public void actionCard(HerosInventory inventory,Bot... nb) /* prend en param les autres joueurs */
+    public void actionCard(Bot... nb) /* prend en param les autres joueurs */
     {
-        inventory.IncreaseGloryPoints(6);
+        nb[0].getHerosInventory().IncreaseGloryPoints(6);
         /* Tableau de face qui contiendra les faces des lancers des autres joueurs */
-        DiceFaces tabFace[] = new DiceFaces[nb.length*2];
-        int a = 0;
+        GeneralFace tabFace[] = new SimpleFace[(nb.length*2)-2];
+        int a = 1;
         int compteur = 0;
-        for(a=0;a<nb.length;a++) /* Tous les joueurs relancent leurs faces */
+        for(a=1;a<nb.length;a++) /* Tous les joueurs relancent leurs faces */
         {
             tabFace[compteur] = nb[a].getFirstDice().rollDice();
             compteur = compteur + 1;
@@ -42,7 +43,7 @@ public class TheSatyrs extends Card{
         }
         
         /* choisit pour l'instant par defaut la 1ere et la derniere face */
-        inventory.increaseInventoryWithDiceRoll(tabFace[0]);
-        inventory.increaseInventoryWithDiceRoll(tabFace[(nb.length*2)-1]);      
+        tabFace[0].makeEffect(nb[0]);
+        tabFace[(nb.length*2)-3].makeEffect(nb[0]);      
     } 
 } 

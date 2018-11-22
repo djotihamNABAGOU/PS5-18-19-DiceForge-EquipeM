@@ -5,7 +5,8 @@
  */
 package Player;
 
-import Faces.DiceFaces;
+import Faces.GeneralFace;
+import Faces.SimpleFace;
 
 import java.util.Random;
 
@@ -14,39 +15,39 @@ import java.util.Random;
  * @author Destroyer
  */
 public class Dice {
-    final DiceFaces faces[];
+    final GeneralFace faces[];
     
     public Dice() {
-        this.faces = new DiceFaces[6];
+        this.faces = new SimpleFace[6];
         for(int i=0; i<6;i++){
-            DiceFaces diceFace = new DiceFaces();
+            SimpleFace diceFace = new SimpleFace();
             faces[i] = diceFace;
         }
     }
 
-    public DiceFaces[] getFaces() {
+    public GeneralFace[] getFaces() {
         return faces;
     }
 
     public void makeBrightDefaultDice(){
         for (int i=0; i<5; i++){
-            this.faces[i] = new DiceFaces(1,"G");
+            this.faces[i] = new SimpleFace(1,"G","GoldenFace");
         }
-        this.faces[5] = new DiceFaces(1,"S");
+        this.faces[5] = new SimpleFace(1,"S","SunFace");
     }
     
     public void makeDarkDefaultDice(){
         for (int i=0; i<4; i++){
-            this.faces[i] = new DiceFaces(1,"G");
+            this.faces[i] = new SimpleFace(1,"G","GoldenFace");
         }
-        this.faces[4] = new DiceFaces(1,"M");
-        this.faces[5] = new DiceFaces(2,"Gl");
+        this.faces[4] = new SimpleFace(1,"M","MoonFace");
+        this.faces[5] = new SimpleFace(2,"Gl","GloryFace");
     }
     
-    public DiceFaces rollDice(){
+    public GeneralFace rollDice(){
        Random randomInt = new Random();
        int number = randomInt.nextInt(6);
-       System.out.println(this.faces[number].toString());
+       //System.out.println(this.faces[number].toString());
        return this.faces[number];
     }
 

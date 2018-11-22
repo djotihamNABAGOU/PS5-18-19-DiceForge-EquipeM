@@ -1,5 +1,6 @@
 package Card;
-import Player.HerosInventory;
+import Player.Bot;
+
 
 /* Cette carte "Les herbes folles" fait gagner 3 Or et 3 Moon comme ressource supplementaire 
    Elle procure 2 points de gloire à la fin de la partie
@@ -23,10 +24,10 @@ public class TheCrazyGrasses extends Card{
     
     
     @Override
-    public void actionCard(HerosInventory inventory)
+    public void actionCard(Bot bot)
     {
-        inventory.DecreaseGoldPoints(3);
-        inventory.IncreaseMoonPoints(3);
-        inventory.IncreaseGloryPoints(2);
+        bot.getHerosInventory().DecreaseGoldPoints(3);
+        bot.getHerosInventory().IncreaseMoonPoints(3);
+        bot.getHerosInventory().IncreaseGloryPoints(2);
     }
 }

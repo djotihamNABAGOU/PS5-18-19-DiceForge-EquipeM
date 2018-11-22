@@ -1,5 +1,6 @@
 package Card;
-import Player.HerosInventory;
+import Player.Bot;
+
 
 /* Cette carte "Le typhon" permet au joueur d'avoir un point de gloire par face de dé crafté
    Elle procure 16 points de gloire à la fin de la partie
@@ -22,8 +23,8 @@ public class TheTyphoon extends Card{
     } 
     
     @Override
-    public void actionCard(HerosInventory inventory,int nb) /* nb: nombres de faces craftés */
+    public void actionCard(Bot bot,int nb) /* nb: nombres de faces craftés */
     {
-        inventory.IncreaseGloryPoints(16+(1*nb));      
+        bot.getHerosInventory().IncreaseGloryPoints(16+(1*nb));      
     } 
 }

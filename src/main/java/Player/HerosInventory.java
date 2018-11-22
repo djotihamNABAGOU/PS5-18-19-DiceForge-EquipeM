@@ -1,5 +1,5 @@
 package Player;
-import Faces.DiceFaces;
+import Faces.SimpleFace;
 import java.util.Random;
 
 
@@ -113,7 +113,7 @@ public class HerosInventory {
         this.goldPoints=0;
     }
     
-    public void increaseInventoryWithDiceRoll(DiceFaces faceObtained){
+    public void increaseInventoryWithDiceFace(SimpleFace faceObtained){
         if(faceObtained.getType().equals("S")){
             this.IncreaseSunPoints(faceObtained.getValue());
         }
@@ -126,7 +126,7 @@ public class HerosInventory {
         if(faceObtained.getType().equals("Gl")){
             this.IncreaseGloryPoints(faceObtained.getValue());
         }
-        if(faceObtained.getType().equals("2G+1M")){
+        /*if(faceObtained.getType().equals("2G+1M")){
             this.IncreaseGoldPoints(2);
             this.IncreaseMoonPoints(1);
         }
@@ -185,7 +185,7 @@ public class HerosInventory {
         if(faceObtained.getType().equals("2Gl+2M")){
             this.IncreaseGloryPoints(2);
             this.IncreaseMoonPoints(2);
-        }
+        }*/
     }
     
     /*On doit avoir des fonctions decrease pour les achats/depenses des points*/  

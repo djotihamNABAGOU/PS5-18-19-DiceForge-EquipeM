@@ -1,4 +1,5 @@
 package Card;
+import Player.Bot;
 import Player.HerosInventory;
 
 /* Cette carte "Les ailes de la gardienne" permet au joueur de choisir entre 1G/1S/1M 
@@ -26,19 +27,19 @@ public class TheWingsOfTheGuardians extends Card{
     }
     
     @Override
-    public void actionCard(HerosInventory inventory)
+    public void actionCard(Bot bot)
     {
-       inventory.IncreaseGloryPoints(4);
+       bot.getHerosInventory().IncreaseGloryPoints(4);
     }
    
     @Override
-    public void capacity(HerosInventory inventory,int choice) /* prend en param l'un des 02 des du joueur*/
+    public void capacity(Bot bot,int choice) /* prend en param l'un des 02 des du joueur*/
     {
        switch(choice)
        {
-           case 0 : inventory.IncreaseGoldPoints(1);break;
-           case 1 : inventory.IncreaseMoonPoints(1);break;
-           case 2 : inventory.IncreaseSunPoints(1);break;
+           case 0 : bot.getHerosInventory().IncreaseGoldPoints(1);break;
+           case 1 : bot.getHerosInventory().IncreaseMoonPoints(1);break;
+           case 2 : bot.getHerosInventory().IncreaseSunPoints(1);break;
        }
     }
 }

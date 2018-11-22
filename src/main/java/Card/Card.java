@@ -12,10 +12,10 @@ public abstract class Card {
     int portail;          /* 1,2,3,4,5,6,7 */
     int amount;           /* Quantité */
     int needs;            /* permet de savoir quoi passer en attribut à la methode action d'une carte,
-                             0  ---> son inventaire
-                             1  ---> son inventaire et les autres Bots
-                             2  ---> son inventaire et ses 02 des 
-                             3  ---> son inventaire et son nombre de faces de dés craftés
+                             0  ---> Le Joueur
+                             1  ---> Tous les joueurs en respenctant "Le joueur actif est le prmier dans la liste
+                             2  ---> Le Joueur et ses 02 des 
+                             3  ---> Le Joueur et son nombre de faces de dés craftés
                           */
     
     
@@ -23,18 +23,20 @@ public abstract class Card {
     {
         amount = amount - 1;
     }
+    //if(post instanceof MessagePost)
+    // MessagePost msg = (MessagePost) post
+    // demander correction de l'ex^ressio
+    public void actionCard(Bot bot){};
     
-    public void actionCard(HerosInventory inventory){};    
+    public void actionCard(Bot... bot){};    
     
-    public void actionCard(HerosInventory inventory,Bot... nb){};
+    public void actionCard(Bot bot,Dice... dice){};
     
-    public void actionCard(HerosInventory inventory,Dice... dice){};
+    public void actionCard(Bot bot,int number){};
     
-    public void actionCard(HerosInventory inventory,int number){};
-    
-    public void capacity(HerosInventory inventory,Dice dice){};   
+    public void capacity(Bot bot,Dice dice){};   
      
-    public void capacity(HerosInventory inventory,int choice){};
+    public void capacity(Bot bot,int choice){};
     /* Methode de renforcement qui sera appelé après chaque lancers de des 
          pour les cartes renforcement que les joueurs a
        Le joueur doit être joueur actif */

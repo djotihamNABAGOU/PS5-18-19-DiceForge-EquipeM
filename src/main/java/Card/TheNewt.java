@@ -1,5 +1,5 @@
 package Card;
-import Player.HerosInventory;
+import Player.Bot;
 
 /* Cette carte "Le Triton" permet au joueur d'acquerir un jeton Triton
    Elle procure 8 points de gloire à la fin de la partie
@@ -22,9 +22,9 @@ public class TheNewt extends Card{
     } 
     
     @Override
-    public void actionCard(HerosInventory inventory)
+    public void actionCard(Bot bot)
     {
-        inventory.IncreaseGloryPoints(8);
-        inventory.tokenNewt = inventory.tokenNewt + 1; /* procure un jeton Triton */
+        bot.getHerosInventory().IncreaseGloryPoints(8);
+        bot.getHerosInventory().tokenNewt = bot.getHerosInventory().tokenNewt + 1; /* procure un jeton Triton */
     }
 }
