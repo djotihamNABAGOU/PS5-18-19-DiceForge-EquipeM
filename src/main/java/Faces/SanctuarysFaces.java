@@ -61,6 +61,17 @@ public class SanctuarysFaces extends GeneralFace {
                 
        }
     }
+
+    @Override
+    public String toString() {
+        if (this.Offered.size() == 1)
+            return this.Offered.get(0).toString();
+        else return ""
+                    +this.getName()+"->"
+                    +this.Offered.stream()
+                                .map(simpleFace -> simpleFace.toString())
+                                .reduce("",(total, count) -> total + count + " | ");
+    }
     
 
 }

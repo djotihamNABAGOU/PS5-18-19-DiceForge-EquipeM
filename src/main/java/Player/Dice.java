@@ -12,21 +12,25 @@ import java.util.Random;
 
 /**
  *
- * @author Destroyer
+ * @author The Beginners
  */
 public class Dice {
-    final GeneralFace faces[];
+    private GeneralFace faces[];
     
     public Dice() {
-        this.faces = new SimpleFace[6];
-        for(int i=0; i<6;i++){
+        this.faces = new GeneralFace[6];
+        /*for(int i=0; i<6;i++){
             SimpleFace diceFace = new SimpleFace();
             faces[i] = diceFace;
-        }
+        }*/
     }
 
     public GeneralFace[] getFaces() {
         return faces;
+    }
+
+    public void setFaces(GeneralFace face, int faceIndex){
+        faces[faceIndex] = face;
     }
 
     public void makeBrightDefaultDice(){
@@ -55,7 +59,7 @@ public class Dice {
     public String toString() {
         String diceFaces = "";
         for (int i=0; i<6; i++){
-            diceFaces = diceFaces + faces[i].toString()+"\n";
+            diceFaces += faces[i].toString()+"\n";
         }
         return diceFaces;
     }

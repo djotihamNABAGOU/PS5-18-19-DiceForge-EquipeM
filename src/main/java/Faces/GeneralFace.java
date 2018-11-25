@@ -9,14 +9,16 @@ import Player.Bot;
 
 /**
  *
- * @author Destroyer
+ * @author The Beginners
  */
 public class GeneralFace {
     
-    String name;
-     public GeneralFace() {
+    protected String name;
+
+    public GeneralFace() {
         this.name = "";
     }
+
     public GeneralFace(String name) {
         this.name = name;
     }

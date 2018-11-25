@@ -23,9 +23,7 @@ public abstract class Card {
     {
         amount = amount - 1;
     }
-    //if(post instanceof MessagePost)
-    // MessagePost msg = (MessagePost) post
-    // demander correction de l'ex^ressio
+
     public void actionCard(Bot bot){};
     
     public void actionCard(Bot... bot){};    

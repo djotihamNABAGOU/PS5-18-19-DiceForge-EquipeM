@@ -7,7 +7,7 @@ package Faces;
 
 /**
  *
- * @author Destroyer
+ * @author The Beginners
  */
 public class DiceFaces {
     private int value;

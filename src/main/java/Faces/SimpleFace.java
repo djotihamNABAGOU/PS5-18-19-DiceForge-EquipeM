@@ -9,7 +9,7 @@ import Player.Bot;
 
 /**
  *
- * @author Destroyer
+ * @author The Beginners
  */
 public class SimpleFace extends GeneralFace {
     private int value;
@@ -22,9 +22,9 @@ public class SimpleFace extends GeneralFace {
         this.type = type;
     }
 
-    public SimpleFace() {
+    /*public SimpleFace() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    }*/
 
     public int getValue() {
         return value;

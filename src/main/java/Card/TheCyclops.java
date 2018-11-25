@@ -27,13 +27,14 @@ public class TheCyclops extends Card{
         this.needs = 2;
     } 
     
+    /*
     @Override
     public void actionCard(HerosInventory inventory,Dice... dice)
     {
         inventory.IncreaseGloryPoints(8);
         Random randomInt = new Random();
         int number = randomInt.nextInt(2);
-        /* Relancer l'un de ses 02 dés 4 fois et MAJ de l'inventaire , par defaut premier de pr le moment*/
+        // Relancer l'un de ses 02 dés 4 fois et MAJ de l'inventaire , par defaut premier de pr le moment
         int a = 0;
         for(a=0;a<4;a++){
             DiceFaces face = dice[1].rollDice();
@@ -82,5 +83,5 @@ public class TheCyclops extends Card{
                 else inventory.increaseInventoryWithDiceRoll(face);
         }
     }
-        
+     */
 }

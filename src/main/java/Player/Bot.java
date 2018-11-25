@@ -3,6 +3,8 @@ import Card.Card;
 import Card.TheHammer;
 import Faces.GeneralFace;
 import Faces.SimpleFace;
+import PlayerStrategy.Strategy;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -12,10 +14,28 @@ public class Bot {
     private Dice firstDice;
     private Dice secondDice;
     private ArrayList<GeneralFace> RemovedFaces;
+    private final Strategy strategy;//stratégie du joueur durant tout le déroulement du jeu
+    private boolean active = false;
     
     private ArrayList<Card> enhancementCard;   /* Liste des cartes de renfort en possession du joueur */
     private ArrayList<TheHammer> hammerCard;   /* Liste des cartes marteaux en possession du joueur */
-    
+
+    public Bot() {
+        firstDice = new Dice();
+        secondDice = new Dice();
+        herosInventory = new HerosInventory();
+        RemovedFaces = new ArrayList<>();
+        strategy = new Strategy(this);//Un contructeur par défaut de bot crée un bot avec une stratégie aléatoire
+    }
+
+    public Bot(Strategy strategy) {
+        firstDice = new Dice();
+        secondDice = new Dice();
+        herosInventory = new HerosInventory();
+        RemovedFaces = new ArrayList<>();
+        this.strategy = strategy;
+    }
+
     public HerosInventory getHerosInventory() {
         return herosInventory;
     }
@@ -32,48 +52,26 @@ public class Bot {
         return RemovedFaces;
     }
 
-    public Bot() {
-        firstDice = new Dice();
-        secondDice = new Dice();
-        herosInventory = new HerosInventory();
-        RemovedFaces = new ArrayList<>();
-
-    }
-
     public void printDiceState(){
         System.out.println("------First Dice-------"); 
         System.out.println(firstDice.toString());
         System.out.println("------Second Dice-------");
         System.out.println(secondDice.toString());
     }
-    
-    public void forgeDiceFace(GeneralFace face){
-        GeneralFace temp = new GeneralFace();
-        
-        Random randomInt = new Random();
-        int numberOfFace = randomInt.nextInt(6); //Random pour prendre la face a enlever
-        Random randomSecondInt = new Random();
-        int numberOfDice = randomSecondInt.nextInt(2)+1; //Random pour prendre le dee sur lequel il faut forger
-        if(numberOfDice==1){ //Premier dee
-            
-            this.RemovedFaces.add(this.firstDice.faces[numberOfFace]); //Substitution--forge
-            this.firstDice.faces[numberOfFace]=face;
-            
-        }else{ // Second dee
-            this.RemovedFaces.add(this.secondDice.faces[numberOfFace]); //Substitution--forge
-            this.secondDice.faces[numberOfFace]=face;
-        }      
-    }
 
 
     @Override
     public String toString() {
-        return "Glory: "+this.herosInventory.getGloryPoints()+"\nGold: "+this.herosInventory.getGoldPoints()+"\nMoon: "+this.herosInventory.getMoonPoints()+"\nSun: "+this.herosInventory.getSunPoints();
+        return "Glory: "+this.herosInventory.getGloryPoints()
+                +"\nGold: "+this.herosInventory.getGoldPoints()
+                +"\nMoon: "+this.herosInventory.getMoonPoints()
+                +"\nSun: "+this.herosInventory.getSunPoints()
+                +"\n";
     }
     
     /* permet au joueur d'utiliser un de ses jetons Triton */
-    public void useNewtToken(int number)   /* Le paramètre indique la ressource choisie par le joueur */
-    {
+    public void useNewtToken(int number) {  /* Le paramètre indique la ressource choisie par le joueur */
+
         if(this.herosInventory.tokenNewt>=1)
         {
             switch(number)
@@ -88,8 +86,8 @@ public class Bot {
     
     /* permet au joueur d'utiliser un de ses jetons cerbères */
     /* Les paramètres seront les faces obtenues par le joueur après son lancer */
-    public void useCerberusToken(SimpleFace... diceface) 
-    {
+    public void useCerberusToken(SimpleFace... diceface) {
+
         for(SimpleFace dicefaceT : diceface){
               this.herosInventory.increaseInventoryWithDiceFace(dicefaceT);
         }
@@ -97,14 +95,26 @@ public class Bot {
     
     /* permet d'utiliser un jeton marteau */
     /* ☺♠☻ se referer à la DOC et à la classe "TheHammmer" avant de lire cette methode*/
-    public void useHammerToken(int goldPoints)  /*en parametre points d'or pr le parcours */
-    {
+    public void useHammerToken(int goldPoints) { /*en parametre points d'or pr le parcours */
+
         hammerCard.get(0).IncreaseGoldPoints(goldPoints,this.herosInventory);
         if(hammerCard.get(0).getUses()==0)
         {
             /* La carte marteau a deja ete utilise 2 fois selon les termes du jeu , suppression */
             hammerCard.remove(0);
         }
+    }
+
+    public Strategy getStrategy() {
+        return strategy;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
     
 }

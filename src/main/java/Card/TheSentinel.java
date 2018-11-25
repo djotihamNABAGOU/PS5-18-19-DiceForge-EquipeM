@@ -26,6 +26,7 @@ public class TheSentinel extends Card{
         this.needs = 2;
     } 
     
+    /*
     @Override
     public void actionCard(HerosInventory inventory,Dice... dice)
     {
@@ -33,7 +34,7 @@ public class TheSentinel extends Card{
         Random randomInt = new Random();
         int number = randomInt.nextInt(2); // Nombre choisi au hasard
        
-        /* Pour chacun des 2 des du joueur, le lancent 2 fois et MAJ de l'inventaire */
+        // Pour chacun des 2 des du joueur, le lancent 2 fois et MAJ de l'inventaire
         for (Dice dice1 : dice){
             for(int a = 0;a<2;a++)
             {
@@ -90,6 +91,6 @@ public class TheSentinel extends Card{
                 else inventory.increaseInventoryWithDiceRoll(face);
             }
         }        
-    }
+    }*/
     
 }

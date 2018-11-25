@@ -5,13 +5,9 @@ import Faces.SimpleFace;
 
 import java.util.ArrayList;
 
- class Temple {
+ public class Temple {
     
     private ArrayList<SanctuarysFaces> Sanctuary = new ArrayList<>();
-
-     ArrayList<SanctuarysFaces> getSanctuary() {
-        return Sanctuary;
-    }
 
     Temple(){
        for(int a=0;a<4;a++){
@@ -45,7 +41,7 @@ import java.util.ArrayList;
                                           new SimpleFace(1,"S","SunFace")
                                           )
                     );
-        Sanctuary.add(new SanctuarysFaces(4,"GoldenFace","Add",new SimpleFace(6,"G","GoldenFace")));
+       Sanctuary.add(new SanctuarysFaces(4,"GoldenFace","Add",new SimpleFace(6,"G","GoldenFace")));
       
        /* 12 Pieces D'or */
        Sanctuary.add(new SanctuarysFaces(12,"GloryFace","Add",new SimpleFace(4,"Gl","GloryFace")));
@@ -57,7 +53,7 @@ import java.util.ArrayList;
                                           new SimpleFace(1,"Gl","GloryFace")
                                           )
                     );
-        Sanctuary.add( new SanctuarysFaces(12,"MoonGoldenSunFace",
+       Sanctuary.add( new SanctuarysFaces(12,"MoonGoldenSunFace",
                                           "Choice",
                                           new SimpleFace(2,"M","MoonFace"),
                                           new SimpleFace(2,"S","SunFace"),
@@ -70,9 +66,13 @@ import java.util.ArrayList;
                                           new SimpleFace(2,"Gl","GloryFace")
                                           )
                     );
-   }
+    }
+
+     public ArrayList<SanctuarysFaces> getSanctuary() {
+         return Sanctuary;
+     }
    
-int faceAvailable(SanctuarysFaces sanctuaryFaces){
+    int faceAvailable(SanctuarysFaces sanctuaryFaces){
       for(int a=0;a<Sanctuary.size();a++){
           if( Sanctuary.get(a).getName().equals(sanctuaryFaces.getName()) 
               && Sanctuary.get(a).getPrice() == sanctuaryFaces.getPrice()
@@ -81,14 +81,14 @@ int faceAvailable(SanctuarysFaces sanctuaryFaces){
           }
       }
       return -1;
-   }
+    }
    
-boolean buyFace(SanctuarysFaces sanctuaryFaces){
+    public boolean buyFace(SanctuarysFaces sanctuaryFaces){
        int a = faceAvailable(sanctuaryFaces);
        if (a!=-1){
            Sanctuary.get(a).setSelected(true);
            return true;
        }
        else return false;
-   }
-}
+    }
+ }

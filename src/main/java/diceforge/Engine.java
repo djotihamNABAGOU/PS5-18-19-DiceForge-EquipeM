@@ -20,6 +20,7 @@ public class Engine {
         botOne.getFirstDice().makeBrightDefaultDice();
         botOne.getSecondDice().makeDarkDefaultDice();
         botOne.getHerosInventory().makeFirstDefaultHerosInventory();
+        botOne.setActive(true);
 
         botTwo.getFirstDice().makeBrightDefaultDice();
         botTwo.getSecondDice().makeDarkDefaultDice();
@@ -58,6 +59,7 @@ public class Engine {
          theBot.getSecondDice().rollDice().makeEffect(theBot);
     }
 
+    /*
     private void MakeOneSetWithTwoBot(Bot botOne,Bot botTwo, Temple temple){
         for(int i=0; i<2; i++){
             System.out.println("Bot "+(i+1)+", Roll or Roll and Forge ?");
@@ -118,6 +120,7 @@ public class Engine {
         }
     }
 
+
      void MakeNineSetWithTwoBot(Bot botOne,Bot botTwo, Temple temple){
         for(int a = 0;a<9;a++)
         {
@@ -134,7 +137,38 @@ public class Engine {
             System.out.println("\n");
         }
     }
-    
+    */
+    void MakeOneSetWithTwoBot(Bot botOne, Bot botTwo, Temple temple, int actionNumber){
+
+        System.out.println("-------->ROLL OF BOT 1");
+        RollOneTime(botOne);//Lancé du dé et incrémentation des points d'inventaire
+        botOne.getStrategy().apply(temple,1, actionNumber);//Application de la stratégie du bot
+        System.out.println("-------->ROLL OF BOT 2");
+        RollOneTime(botTwo);
+        botTwo.getStrategy().apply(temple,2, actionNumber);
+
+        System.out.println("\n");
+        System.out.println("-------------------------------------\n");
+        System.out.println("STATE AFTER "+(actionNumber)+" SET");
+        System.out.println("-->BOT ONE");
+        System.out.println(botOne.toString());
+        botOne.printDiceState();
+        System.out.println("-->BOT TWO");
+        System.out.println(botTwo.toString());
+        botTwo.printDiceState();
+        System.out.println("\n");
+    }
+
+    void MakeNineSetWithTwoBot(Bot botOne,Bot botTwo, Temple temple){
+        for(int a = 0;a<9;a++){
+            MakeOneSetWithTwoBot(botOne, botTwo, temple,a+1);
+            //Changement du joueur actif
+            botOne.setActive(!botOne.isActive());
+            botTwo.setActive(!botTwo.isActive());
+        }
+    }
+
+    /*
     private SanctuarysFaces CaseFace(Bot bot, Temple temple)  // retourne le nom de la face à payer choisie au hasard
     {
         int v = bot.getHerosInventory().getGoldPoints();
@@ -158,6 +192,7 @@ public class Engine {
         }
 
     }
+    */
     
      void TellMeTheWinner(Bot botOne,Bot botTwo){
         if(botOne.getHerosInventory().getGloryPoints()>botTwo.getHerosInventory().getGloryPoints()){
