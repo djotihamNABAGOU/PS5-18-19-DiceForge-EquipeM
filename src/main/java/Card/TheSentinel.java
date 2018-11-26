@@ -1,8 +1,4 @@
 package Card;
-import Faces.DiceFaces;
-import Player.Dice;
-import Player.HerosInventory;
-import java.util.Random;
 
 /* Cette carte "La Sentinelle" permet au joueur de relancer 02 fois ses 02 des
    En lancant , s'il tombe sur la face "Sun" ou "Moon", il a le choix entre 

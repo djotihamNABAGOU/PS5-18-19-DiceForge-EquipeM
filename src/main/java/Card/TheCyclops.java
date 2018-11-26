@@ -1,8 +1,4 @@
 package Card;
-import Faces.DiceFaces;
-import Player.Dice;
-import Player.HerosInventory;
-import java.util.Random;
 
 /* Cette carte "Le cyclope" permet au joueur de relancer 04 fois l'un de ses 02 des
    [NB : le de à lancer 4 fois est le même]
