@@ -10,7 +10,7 @@ import Player.Bot;
 
 /**
  *
- * @author Destroyer
+ * @author The Beginners
  */
 public class Main {
     public static void main(String [] args){
@@ -33,8 +33,8 @@ public class Main {
         
         System.out.println("-------------------------------------\n");
 
-        //engine.MakeNineSetWithTwoBot(botOne, botTwo, temple);
-        engine.MakeOneSetWithTwoBot(botOne,botTwo,temple,1);
+        engine.MakeNineSetWithTwoBot(botOne, botTwo, temple);
+        //engine.MakeOneSetWithTwoBot(botOne,botTwo,temple,1);
         System.out.println("\n");
         System.out.println("DETERMINATING THE WINNER");
         engine.TellMeTheWinner(botOne, botTwo);

@@ -10,6 +10,7 @@ import java.util.ArrayList;
     private ArrayList<SanctuarysFaces> Sanctuary = new ArrayList<>();
 
     Temple(){
+
        for(int a=0;a<4;a++){
            Sanctuary.add(new SanctuarysFaces(2,"GoldenFace","Add",new SimpleFace(3,"G","GoldenFace")));
            Sanctuary.add(new SanctuarysFaces(2,"MoonFace","Add",new SimpleFace(1,"M","MoonFace")));

@@ -56,8 +56,8 @@ public class Strategy {
                 break;
 
             case 1://exploit
-                if (supActionDone == false) System.out.println("*ACTION "+actionNumber+" FOR BOT NUMBER "+numberOfTheBot+": FEAT(Forge)");
-                else System.out.println("**SUP ACTION FOR BOT NUMBER "+numberOfTheBot+": FEAT(Forge)");
+                if (supActionDone == false) System.out.println("*ACTION "+actionNumber+" FOR BOT NUMBER "+numberOfTheBot+": FEAT(Exploit)");
+                else System.out.println("**SUP ACTION FOR BOT NUMBER "+numberOfTheBot+": FEAT(Exploit)");
 
                 System.out.println("No implemantation for now");
                 break;
@@ -77,12 +77,15 @@ public class Strategy {
         int numberOfDice = randomDice.nextInt(2)+1; //Random pour prendre le dé sur lequel il faut forger
 
         if(numberOfDice==1){ //Premier dé
-            System.out.println("FORGE ON FIRST DICE");
-            //System.out.println(bot.getFirstDice().getFaces()[numberOfFace].toString());
+            System.out.println("\tFORGE ON FIRST DICE");
+            System.out.println("\tFACE OUT: "+bot.getFirstDice().getFaces()[numberOfFace].toString());
+            System.out.println("\tFACE IN: "+face.toString());
             bot.getRemovedFaces().add(bot.getFirstDice().getFaces()[numberOfFace]); //Ajout dans la liste des faces enlevées
             bot.getFirstDice().setFaces(face,numberOfFace);
         }else{ // Second dé
-            System.out.println("FORGE ON SECOND DICE");
+            System.out.println("\tFORGE ON SECOND DICE");
+            System.out.println("\tFACE OUT: "+bot.getSecondDice().getFaces()[numberOfFace].toString());
+            System.out.println("\tFACE IN: "+face.toString());
             bot.getRemovedFaces().add(bot.getSecondDice().getFaces()[numberOfFace]);
             bot.getSecondDice().setFaces(face,numberOfFace);
         }

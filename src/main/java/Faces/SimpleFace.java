@@ -22,10 +22,6 @@ public class SimpleFace extends GeneralFace {
         this.type = type;
     }
 
-    /*public SimpleFace() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }*/
-
     public int getValue() {
         return value;
     }
@@ -48,6 +44,7 @@ public class SimpleFace extends GeneralFace {
     }
     @Override
     public void makeEffect(Bot bot){
+        System.out.println("Face obtained -> "+toString());
         bot.getHerosInventory().increaseInventoryWithDiceFace(this);
     }
 

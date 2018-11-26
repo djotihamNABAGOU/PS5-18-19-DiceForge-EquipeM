@@ -19,10 +19,6 @@ public class Dice {
     
     public Dice() {
         this.faces = new GeneralFace[6];
-        /*for(int i=0; i<6;i++){
-            SimpleFace diceFace = new SimpleFace();
-            faces[i] = diceFace;
-        }*/
     }
 
     public GeneralFace[] getFaces() {
@@ -51,7 +47,6 @@ public class Dice {
     public GeneralFace rollDice(){
        Random randomInt = new Random();
        int number = randomInt.nextInt(6);
-       //System.out.println(this.faces[number].toString());
        return this.faces[number];
     }
 
