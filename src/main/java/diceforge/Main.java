@@ -22,6 +22,7 @@ public class Main {
         Temple temple = new Temple();
         Bot botOneRandom = new Bot("Random");
         Bot botTwoRandom = new Bot("Random");
+        //Bot botTwoRandom = new Bot("Nothing");
         
         engine.InitializingBots(botOneRandom, botTwoRandom);
         

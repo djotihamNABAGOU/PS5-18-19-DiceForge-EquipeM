@@ -6,9 +6,9 @@ import Faces.GeneralFace;
 import Faces.SimpleFace;
 import PlayerStrategy.RandomStrategy;
 import PlayerStrategy.Strategy;
+import PlayerStrategy.NothingStrategy;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * @author The Beginners
@@ -19,8 +19,8 @@ public class Bot {
     private Dice secondDice;
     private ArrayList<GeneralFace> RemovedFaces;
     private final Strategy strategy;//stratégie du joueur durant tout le déroulement du jeu
+    private String strategyName;
     private boolean active = false;
-
     private final ArrayList<Card> enhancementCard = new ArrayList<Card>();   /* Liste des cartes de renfort en possession du joueur */
     private ArrayList<TheHammer> hammerCard;   /* Liste des cartes marteaux en possession du joueur */
 
@@ -33,13 +33,26 @@ public class Bot {
         strategy = new Strategy(this);//Un contructeur par défaut de bot crée un bot avec une stratégie qui dépendra entièrement du joueur(entrée standard)
     }*/
 
-    public Bot(String strategy) {
+    public Bot(String strategyName) {
         firstDice = new Dice();
         secondDice = new Dice();
         herosInventory = new HerosInventory();
         RemovedFaces = new ArrayList<>();
-        if (strategy.equals("Random")) this.strategy = new RandomStrategy(this);
-        else this.strategy = new Strategy(this);
+        this.strategyName = strategyName;
+        switch (strategyName) {
+
+            case "Random":
+                this.strategy = new RandomStrategy(this);
+                break;
+
+            case "Nothing":
+                this.strategy = new NothingStrategy(this);
+                break;
+
+            default:
+                this.strategy = new Strategy(this);
+                break;
+        }
     }
 
     public HerosInventory getHerosInventory() {
@@ -77,8 +90,11 @@ public class Bot {
 
     /**
      * permet au joueur d'utiliser un de ses jetons Triton
+     * <<<<<<< HEAD
      *
-     * @param number
+     * @param number =======
+     * @param number indique la ressource choisie par le joueur
+     *               >>>>>>> 0765f68c74af7f7ca13fe4ce3f782646de80f765
      */
     public void useNewtToken(int number) {  /* Le paramètre indique la ressource choisie par le joueur */
 
