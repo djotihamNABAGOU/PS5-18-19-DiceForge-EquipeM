@@ -5,9 +5,9 @@ import Faces.GeneralFace;
 import Faces.SimpleFace;
 import PlayerStrategy.RandomStrategy;
 import PlayerStrategy.Strategy;
+import PlayerStrategy.NothingStrategy;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 
 public class Bot {
@@ -17,6 +17,7 @@ public class Bot {
     private ArrayList<GeneralFace> RemovedFaces;
     private final Strategy strategy;//stratégie du joueur durant tout le déroulement du jeu
     private boolean active = false;
+    private String strat;
     
     private final ArrayList<Card> enhancementCard = new ArrayList<Card>();   /* Liste des cartes de renfort en possession du joueur */
     private ArrayList<TheHammer> hammerCard;   /* Liste des cartes marteaux en possession du joueur */
@@ -35,8 +36,17 @@ public class Bot {
         secondDice = new Dice();
         herosInventory = new HerosInventory();
         RemovedFaces = new ArrayList<>();
-        if (strategy.equals("Random")) this.strategy = new RandomStrategy(this);
-        else this.strategy = new Strategy(this);
+        this.strat=strategy;
+        switch (strat){
+
+            case "Random":
+                 this.strategy = new RandomStrategy(this); break;
+
+            case "Nothing":
+                this.strategy = new NothingStrategy(this);break;
+
+            default: this.strategy = new Strategy(this);break;
+    }
     }
 
     public HerosInventory getHerosInventory() {
@@ -74,7 +84,7 @@ public class Bot {
 
     /**
      * permet au joueur d'utiliser un de ses jetons Triton
-     * @param number
+     * @param number indique la ressource choisie par le joueur
      */
     public void useNewtToken(int number) {  /* Le paramètre indique la ressource choisie par le joueur */
 
