@@ -96,14 +96,14 @@ public class RandomStrategy extends Strategy{
 
                         System.out.println("No implemantation for now");
 
-                /*if (bot.getHerosInventory().getSunPoints()>=2 && supActionDone == false){//il a les conditions requises pour effectuer une action supplémenatire
-                    int choiceSupAction = random.nextInt(2); // 0 pour oui et 1 pour non
-                    if (choiceSupAction == 0){//On choisit alors quelle action supplémentaire effectuer
-                        supActionDone = true;
-                        apply(temple,numberOfTheBot,actionNumber);//On réappelle la fonction pour éviter de la duplication de code
-                        supActionDone = false;
-                    }
-                }*/
+                        /*if (bot.getHerosInventory().getSunPoints()>=2 && supActionDone == false){//il a les conditions requises pour effectuer une action supplémenatire
+                            int choiceSupAction = random.nextInt(2); // 0 pour oui et 1 pour non
+                            if (choiceSupAction == 0){//On choisit alors quelle action supplémentaire effectuer
+                                supActionDone = true;
+                                apply(temple,numberOfTheBot,actionNumber);//On réappelle la fonction pour éviter de la duplication de code
+                                supActionDone = false;
+                            }
+                        }*/
                         break;
                 }
 

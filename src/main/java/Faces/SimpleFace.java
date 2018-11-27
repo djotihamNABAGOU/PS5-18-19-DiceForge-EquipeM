@@ -8,14 +8,13 @@ package Faces;
 import Player.Bot;
 
 /**
- *
  * @author The Beginners
  */
 public class SimpleFace extends GeneralFace {
     private int value;
     private String type; /*Sun S, Moon M, Gold G, Glory Gl*/
 
-   
+
     public SimpleFace(int value, String type, String name) {
         super(name);
         this.value = value;
@@ -40,11 +39,12 @@ public class SimpleFace extends GeneralFace {
 
     @Override
     public String toString() {
-        return "Type: "+this.getType()+" Value: "+this.getValue();
+        return "Type: " + this.getType() + " Value: " + this.getValue();
     }
+
     @Override
-    public void makeEffect(Bot bot){
-        System.out.println("Face obtained -> "+toString());
+    public void makeEffect(Bot bot) {
+        System.out.println("Face obtained -> " + toString());
         bot.getHerosInventory().increaseInventoryWithDiceFace(this);
     }
 
