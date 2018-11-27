@@ -5,91 +5,131 @@ import Faces.SimpleFace;
 
 import java.util.ArrayList;
 
- public class Temple {
-    
-    private ArrayList<SanctuarysFaces> Sanctuary = new ArrayList<>();
+public class Temple {
 
-    Temple(){
+    //private ArrayList<SanctuarysFaces> Sanctuary = new ArrayList<>();
+    private ArrayList<SanctuarysFaces>[] Sanctuary = new ArrayList[10];//le sanctuaire est un tableau de 10 bassins représentés par des arraylists
+    //On aura aussi un tableau de bassins pour les faces de jardin
 
-       for(int a=0;a<4;a++){
-           Sanctuary.add(new SanctuarysFaces(2,"GoldenFace","Add",new SimpleFace(3,"G","GoldenFace")));
-           Sanctuary.add(new SanctuarysFaces(2,"MoonFace","Add",new SimpleFace(1,"M","MoonFace")));
-           Sanctuary.add(new SanctuarysFaces(3,"GoldenFace","Add",new SimpleFace(4,"G","GoldenFace")));
-           Sanctuary.add( new SanctuarysFaces(3,"Sunface","Add",new SimpleFace(1,"S","SunFace")));
-           Sanctuary.add( new SanctuarysFaces(5,"GoldenGloryFace","Choice",new SimpleFace(3,"G","GoldenFace"),new SimpleFace(2,"Gl","GloryFace")));
-           Sanctuary.add(new SanctuarysFaces(6,"MoonFace","Add",new SimpleFace(2,"M","MoonFace")));
-           Sanctuary.add( new SanctuarysFaces(8,"Sunface","Add",new SimpleFace(2,"S","SunFace")));
-           Sanctuary.add( new SanctuarysFaces(8,"Gloryface","Add",new SimpleFace(3,"Gl","GloryFace")));
-         
-       }
-       /* 4 Pieces D'or */
-       Sanctuary.add( new SanctuarysFaces(4,"MoonSunGoldenFace",
-                                          "Choice",
-                                          new SimpleFace(1,"M","MoonFace"),
-                                          new SimpleFace(1,"S","SunFace"),
-                                          new SimpleFace(1,"G","GoldenFace")
-                                          )
-                    );
-       Sanctuary.add( new SanctuarysFaces(4,"GoldenMoonFace",
-                                          "Add",
-                                          new SimpleFace(2,"G","GoldenFace"),
-                                          new SimpleFace(1,"M","MoonFace")
-                                          )
-                    );
-       Sanctuary.add( new SanctuarysFaces(4,"GlorySunFace",
-                                          "Add",
-                                          new SimpleFace(1,"Gl","GloryFace"),
-                                          new SimpleFace(1,"S","SunFace")
-                                          )
-                    );
-       Sanctuary.add(new SanctuarysFaces(4,"GoldenFace","Add",new SimpleFace(6,"G","GoldenFace")));
-      
-       /* 12 Pieces D'or */
-       Sanctuary.add(new SanctuarysFaces(12,"GloryFace","Add",new SimpleFace(4,"Gl","GloryFace")));
-       Sanctuary.add( new SanctuarysFaces(12,"MoonSunGoldenGloryFace",
-                                          "Add",
-                                          new SimpleFace(1,"M","MoonFace"),
-                                          new SimpleFace(1,"S","SunFace"),
-                                          new SimpleFace(1,"G","GoldenFace"),
-                                          new SimpleFace(1,"Gl","GloryFace")
-                                          )
-                    );
-       Sanctuary.add( new SanctuarysFaces(12,"MoonGoldenSunFace",
-                                          "Choice",
-                                          new SimpleFace(2,"M","MoonFace"),
-                                          new SimpleFace(2,"S","SunFace"),
-                                          new SimpleFace(2,"G","GoldenFace")
-                                          )
-                    );
-       Sanctuary.add( new SanctuarysFaces(12,"MoonGloryFace",
-                                          "Add",
-                                          new SimpleFace(2,"M","MoonFace"),
-                                          new SimpleFace(2,"Gl","GloryFace")
-                                          )
-                    );
+    Temple() {
+        ArrayList<SanctuarysFaces> bassinG3 = new ArrayList<>();
+        for (int a = 0; a < 4; a++) {
+            bassinG3.add(new SanctuarysFaces(2, "GoldenFace", "Add", new SimpleFace(3, "G", "GoldenFace")));
+        }
+        ArrayList<SanctuarysFaces> bassinM1 = new ArrayList<>();
+        for (int a = 0; a < 4; a++) {
+            bassinM1.add(new SanctuarysFaces(2, "MoonFace", "Add", new SimpleFace(1, "M", "MoonFace")));
+        }
+        ArrayList<SanctuarysFaces> bassinG4 = new ArrayList<>();
+        for (int a = 0; a < 4; a++) {
+            bassinG4.add(new SanctuarysFaces(3, "GoldenFace", "Add", new SimpleFace(4, "G", "GoldenFace")));
+        }
+        ArrayList<SanctuarysFaces> bassinS1 = new ArrayList<>();
+        for (int a = 0; a < 4; a++) {
+            bassinS1.add(new SanctuarysFaces(3, "Sunface", "Add", new SimpleFace(1, "S", "SunFace")));
+        }
+        ArrayList<SanctuarysFaces> bassinG3_Gl2 = new ArrayList<>();
+        for (int a = 0; a < 4; a++) {
+            bassinG3_Gl2.add(new SanctuarysFaces(5, "GoldenGloryFace", "Choice", new SimpleFace(3, "G", "GoldenFace"), new SimpleFace(2, "Gl", "GloryFace")));
+        }
+        ArrayList<SanctuarysFaces> bassinM2 = new ArrayList<>();
+        for (int a = 0; a < 4; a++) {
+            bassinM2.add(new SanctuarysFaces(6, "MoonFace", "Add", new SimpleFace(2, "M", "MoonFace")));
+        }
+        ArrayList<SanctuarysFaces> bassinS2 = new ArrayList<>();
+        for (int a = 0; a < 4; a++) {
+            bassinS2.add(new SanctuarysFaces(8, "Sunface", "Add", new SimpleFace(2, "S", "SunFace")));
+        }
+        ArrayList<SanctuarysFaces> bassinGl3 = new ArrayList<>();
+        for (int a = 0; a < 4; a++) {
+            bassinGl3.add(new SanctuarysFaces(8, "Gloryface", "Add", new SimpleFace(3, "Gl", "GloryFace")));
+        }
+
+        /* 4 Pieces D'or */
+        ArrayList<SanctuarysFaces> bassinHybride_Cost4 = new ArrayList<>();
+        bassinHybride_Cost4.add(new SanctuarysFaces(4, "MoonSunGoldenFace",
+                        "Choice",
+                        new SimpleFace(1, "M", "MoonFace"),
+                        new SimpleFace(1, "S", "SunFace"),
+                        new SimpleFace(1, "G", "GoldenFace")
+                )
+        );
+        bassinHybride_Cost4.add(new SanctuarysFaces(4, "GoldenMoonFace",
+                        "Add",
+                        new SimpleFace(2, "G", "GoldenFace"),
+                        new SimpleFace(1, "M", "MoonFace")
+                )
+        );
+        bassinHybride_Cost4.add(new SanctuarysFaces(4, "GlorySunFace",
+                        "Add",
+                        new SimpleFace(1, "Gl", "GloryFace"),
+                        new SimpleFace(1, "S", "SunFace")
+                )
+        );
+        bassinHybride_Cost4.add(new SanctuarysFaces(4, "GoldenFace", "Add", new SimpleFace(6, "G", "GoldenFace")));
+
+        /* 12 Pieces D'or */
+        ArrayList<SanctuarysFaces> bassinHybride_Cost12 = new ArrayList<>();
+        bassinHybride_Cost12.add(new SanctuarysFaces(12, "GloryFace", "Add", new SimpleFace(4, "Gl", "GloryFace")));
+        bassinHybride_Cost12.add(new SanctuarysFaces(12, "MoonSunGoldenGloryFace",
+                        "Add",
+                        new SimpleFace(1, "M", "MoonFace"),
+                        new SimpleFace(1, "S", "SunFace"),
+                        new SimpleFace(1, "G", "GoldenFace"),
+                        new SimpleFace(1, "Gl", "GloryFace")
+                )
+        );
+        bassinHybride_Cost12.add(new SanctuarysFaces(12, "MoonGoldenSunFace",
+                        "Choice",
+                        new SimpleFace(2, "M", "MoonFace"),
+                        new SimpleFace(2, "S", "SunFace"),
+                        new SimpleFace(2, "G", "GoldenFace")
+                )
+        );
+        bassinHybride_Cost12.add(new SanctuarysFaces(12, "MoonGloryFace",
+                        "Add",
+                        new SimpleFace(2, "M", "MoonFace"),
+                        new SimpleFace(2, "Gl", "GloryFace")
+                )
+        );
+        //Rangement des bassins dans le tableau sanctuaire
+        Sanctuary[0] = bassinG3;
+        Sanctuary[1] = bassinM1;
+        Sanctuary[2] = bassinG4;
+        Sanctuary[3] = bassinS1;
+        Sanctuary[4] = bassinG3_Gl2;
+        Sanctuary[5] = bassinM2;
+        Sanctuary[6] = bassinS2;
+        Sanctuary[7] = bassinGl3;
+        Sanctuary[8] = bassinHybride_Cost4;
+        Sanctuary[9] = bassinHybride_Cost12;
     }
 
-     public ArrayList<SanctuarysFaces> getSanctuary() {
-         return Sanctuary;
-     }
-   
-    int faceAvailable(SanctuarysFaces sanctuaryFaces){
-      for(int a=0;a<Sanctuary.size();a++){
-          if( Sanctuary.get(a).getName().equals(sanctuaryFaces.getName()) 
-              && Sanctuary.get(a).getPrice() == sanctuaryFaces.getPrice()
-              && !Sanctuary.get(a).isSelected()){
-              return a;
-          }
-      }
-      return -1;
+    public ArrayList<SanctuarysFaces>[] getSanctuary() {
+        return Sanctuary;
     }
-   
-    public boolean buyFace(SanctuarysFaces sanctuaryFaces){
-       int a = faceAvailable(sanctuaryFaces);
-       if (a!=-1){
-           Sanctuary.get(a).setSelected(true);
-           return true;
-       }
-       else return false;
+
+    String faceAvailable(SanctuarysFaces sanctuaryFaces) {
+        for (int a = 0; a < 10; a++) {
+            for (int i = 0; i < Sanctuary[a].size(); i++) {
+                if (Sanctuary[a].get(i).getName().equals(sanctuaryFaces.getName())
+                        && Sanctuary[a].get(i).getPrice() == sanctuaryFaces.getPrice()
+                        && !Sanctuary[a].get(i).isSelected()) {
+                    return ""+a+"-"+i;//indice du tableau puis indice du arraylist
+                }
+            }
+        }
+        return "";
     }
- }
+
+    public boolean buyFace(SanctuarysFaces sanctuaryFaces) {
+        String a = faceAvailable(sanctuaryFaces);
+        if (!a.equals("")) {
+            String[] tab = a.split("-");
+            int tabIndex = Integer.parseInt(tab[0]);
+            int arrayListIndex = Integer.parseInt(tab[1]);
+            Sanctuary[tabIndex].get(arrayListIndex).setSelected(true);
+            return true;
+        } else return false;
+    }
+}

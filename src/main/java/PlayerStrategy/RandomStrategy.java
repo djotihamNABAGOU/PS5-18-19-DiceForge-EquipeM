@@ -8,7 +8,7 @@ import diceforge.Temple;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class RandomStrategy extends Strategy{
+public class RandomStrategy extends Strategy {
     private boolean supActionDone = false;
 
     public RandomStrategy(Bot bot) {
@@ -17,6 +17,7 @@ public class RandomStrategy extends Strategy{
 
     /**
      * méthode qui applique la stratégie du bot
+     *
      * @param temple qui servira à réaliser des exploits
      */
     public void apply(Temple temple, int numberOfTheBot, int actionNumber) {
@@ -33,8 +34,8 @@ public class RandomStrategy extends Strategy{
                     int i = size;
                     int last = 0, toGet = 0;
                     while (i != 0) {
-                        toGet = random.nextInt(size) + 1;
-                        if (toGet != last){
+                        toGet = random.nextInt(size);
+                        if (toGet != last) {
                             if (bot.getEnhancementCard().get(toGet).getCapacityNeeds() == 0) {//cas de la carte L'ANCIEN
                                 bot.getEnhancementCard().get(toGet).capacity(bot);
                             }
@@ -113,50 +114,55 @@ public class RandomStrategy extends Strategy{
 
     /**
      * Permet au bot de remplacer une face de son dé avec une nouvelle face venant du sanctuaire
+     *
      * @param face de remplacement
      */
-    public void randomForgeDice(GeneralFace face){
+    public void randomForgeDice(GeneralFace face) {
 
         Random randomFace = new Random();
         int numberOfFace = randomFace.nextInt(6); //Random pour prendre la face a enlever
         Random randomDice = new Random();
-        int numberOfDice = randomDice.nextInt(2)+1; //Random pour prendre le dé sur lequel il faut forger
+        int numberOfDice = randomDice.nextInt(2) + 1; //Random pour prendre le dé sur lequel il faut forger
 
-        if(numberOfDice==1){ //Premier dé
+        if (numberOfDice == 1) { //Premier dé
             System.out.println("\tFORGE ON FIRST DICE");
-            System.out.println("\tFACE OUT: "+bot.getFirstDice().getFaces()[numberOfFace].toString());
-            System.out.println("\tFACE IN: "+face.toString());
+            System.out.println("\tFACE OUT: " + bot.getFirstDice().getFaces()[numberOfFace].toString());
+            System.out.println("\tFACE IN: " + face.toString());
             bot.getRemovedFaces().add(bot.getFirstDice().getFaces()[numberOfFace]); //Ajout dans la liste des faces enlevées
-            bot.getFirstDice().setFaces(face,numberOfFace);
-        }else{ // Second dé
+            bot.getFirstDice().setFaces(face, numberOfFace);
+        } else { // Second dé
             System.out.println("\tFORGE ON SECOND DICE");
-            System.out.println("\tFACE OUT: "+bot.getSecondDice().getFaces()[numberOfFace].toString());
-            System.out.println("\tFACE IN: "+face.toString());
+            System.out.println("\tFACE OUT: " + bot.getSecondDice().getFaces()[numberOfFace].toString());
+            System.out.println("\tFACE IN: " + face.toString());
             bot.getRemovedFaces().add(bot.getSecondDice().getFaces()[numberOfFace]);
-            bot.getSecondDice().setFaces(face,numberOfFace);
+            bot.getSecondDice().setFaces(face, numberOfFace);
         }
     }
 
     /**
      * retourne le nom de la face à payer choisie au hasard selon les ressources disponibles pour payer la face
-     * @param bot utilisé pour avoir accès à l'inventaire du bot
+     *
+     * @param bot    utilisé pour avoir accès à l'inventaire du bot
      * @param temple ustilisé pour rechercher les faces disponibles
      * @return la face à payer choisie au hasard
      * en gros, on stocke les faces du sanctuaire disponibles dans une liste FacesAvailable puis on choisit au hasard la face à retourner
      */
-    private SanctuarysFaces randomFaceToBuy(Bot bot, Temple temple){
+    private SanctuarysFaces randomFaceToBuy(Bot bot, Temple temple) {
         int v = bot.getHerosInventory().getGoldPoints();
         ArrayList<SanctuarysFaces> FacesAvailable = new ArrayList<>();
-        for (int i=0; i<temple.getSanctuary().size();i++){
-            if(!temple.getSanctuary().get(i).isSelected() && !FacesAvailable.contains(temple.getSanctuary().get(i)) && v>=temple.getSanctuary().get(i).getPrice()){
-                FacesAvailable.add(temple.getSanctuary().get(i));
+        ArrayList<SanctuarysFaces>[] sanctuary = temple.getSanctuary();
+        for (int a = 0; a < 10; a++) {
+            for (int i = 0; i < sanctuary[a].size(); i++) {
+                if (!sanctuary[a].get(i).isSelected() && !FacesAvailable.contains(sanctuary[a].get(i)) && v >= sanctuary[a].get(i).getPrice()) {
+                    FacesAvailable.add(sanctuary[a].get(i));
+                }
             }
         }
 
         Random randomFace = new Random();
 
-        if(FacesAvailable.size() == 0) return new SanctuarysFaces();
-        else{
+        if (FacesAvailable.size() == 0) return new SanctuarysFaces();
+        else {
             int faceToReturn = randomFace.nextInt(FacesAvailable.size()); // initialisation
             //System.out.println("La face payée est "+FacesAvailable.get(caseFace).toString());
             return FacesAvailable.get(faceToReturn);

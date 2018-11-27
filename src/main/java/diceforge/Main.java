@@ -6,9 +6,12 @@
  */
 package diceforge;
 
+import Faces.SanctuarysFaces;
 import Player.Bot;
 import PlayerStrategy.RandomStrategy;
 import PlayerStrategy.Strategy;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -24,8 +27,16 @@ public class Main {
         Bot botTwoRandom = new Bot("Random");
         //Bot botTwoRandom = new Bot("Nothing");
         
+        //Test permettant de savoir si le nombres de cartes dans les bassins passe éffectivement à 2 pour 2 joueurs
         engine.InitializingBots(botOneRandom, botTwoRandom);
-        
+        engine.initializingTemple(temple);
+        ArrayList<SanctuarysFaces>[] sanctuary = temple.getSanctuary();
+        for (int i=0; i<10;i++){
+            for (int a = 0; a < sanctuary[a].size(); a++) {
+                System.out.println(sanctuary[i].get(a).toString());
+            }
+        }
+        /*
         System.out.println("STATE BEFORE DICE SET");
         System.out.println("-->BOT ONE");
         System.out.println(botOneRandom.toString());
@@ -41,7 +52,7 @@ public class Main {
         System.out.println("\n");
         System.out.println("DETERMINATING THE WINNER");
         engine.TellMeTheWinner(botOneRandom, botTwoRandom);
-
+        */
         
     }
     

@@ -12,11 +12,11 @@ public class TempleTest {
     public void faceAvailable() {
         Temple temple = new Temple();
         SanctuarysFaces sanctuarysFaces = new SanctuarysFaces(2,"GoldenFace","Add",new SimpleFace(3,"G","GoldenFace"));
-        assertTrue(temple.faceAvailable(sanctuarysFaces)!=-1);//Vrai car cette face est présente 4 fois en stock
+        assertTrue(!temple.faceAvailable(sanctuarysFaces).equals(""));//Vrai car cette face est présente 4 fois en stock
         for (int i=0; i<4;i++){
             temple.buyFace(sanctuarysFaces);
         }
-        assertFalse(temple.faceAvailable(sanctuarysFaces)!=-1);//En effet, après 4 achats, le stock de cette face est nul
+        assertFalse(!temple.faceAvailable(sanctuarysFaces).equals(""));//En effet, après 4 achats, le stock de cette face est nul
     }
 
     @Test
