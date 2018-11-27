@@ -18,7 +18,7 @@ public class Bot {
     private final Strategy strategy;//stratégie du joueur durant tout le déroulement du jeu
     private boolean active = false;
     
-    private ArrayList<Card> enhancementCard;   /* Liste des cartes de renfort en possession du joueur */
+    private final ArrayList<Card> enhancementCard = new ArrayList<Card>();   /* Liste des cartes de renfort en possession du joueur */
     private ArrayList<TheHammer> hammerCard;   /* Liste des cartes marteaux en possession du joueur */
 
     /*
@@ -122,5 +122,8 @@ public class Bot {
     public void setActive(boolean active) {
         this.active = active;
     }
-    
+
+    public ArrayList<Card> getEnhancementCard() {
+        return enhancementCard;
+    }
 }

@@ -24,6 +24,7 @@ public class TheWingsOfTheGuardians extends Card{
         this.price = 2;
         this.portail = 6;
         this.needs = 0;
+        this.capacityNeeds = 2;
     }
     
     @Override

@@ -23,6 +23,7 @@ public class TheFormer extends Card{
         this.price = 1;
         this.portail = 7;
         this.needs = 0;
+        this.capacityNeeds = 0;
     }
     
     @Override
@@ -32,7 +33,7 @@ public class TheFormer extends Card{
     }
     
     @Override
-    public void capacity(Bot bot,Dice dice) 
+    public void capacity(Bot bot)
     {
         bot.getHerosInventory().IncreaseGloryPoints(4);
         bot.getHerosInventory().DecreaseGoldPoints(3);

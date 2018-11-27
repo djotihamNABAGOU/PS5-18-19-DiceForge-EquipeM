@@ -17,6 +17,11 @@ public abstract class Card {
                              2  ---> Le Joueur et ses 02 des 
                              3  ---> Le Joueur et son nombre de faces de dés craftés
                           */
+    int capacityNeeds;    /*permet de savoir quoi passer en attribut à la methode capacity d'une carte,
+                             0  ---> Le bot
+                             1  ---> le bot et un de ses dés
+                             2  ---> Le bot et son choix
+                           */
     
     
     public void buyCard()     
@@ -24,20 +29,24 @@ public abstract class Card {
         amount = amount - 1;
     }
 
-    public void actionCard(Bot bot){};
+    public void actionCard(Bot bot){}
     
-    public void actionCard(Bot... bot){};    
+    public void actionCard(Bot... bot){}
     
-    public void actionCard(Bot bot,Dice... dice){};
+    public void actionCard(Bot bot,Dice... dice){}
     
-    public void actionCard(Bot bot,int number){};
-    
-    public void capacity(Bot bot,Dice dice){};   
+    public void actionCard(Bot bot,int number){}
+
+    public void capacity(Bot bot){}
+
+    public void capacity(Bot bot,Dice dice){}
      
-    public void capacity(Bot bot,int choice){};
+    public void capacity(Bot bot,int choice){}
     /* Methode de renforcement qui sera appelé après chaque lancers de des 
          pour les cartes renforcement que les joueurs a
        Le joueur doit être joueur actif */
-    
- 
+
+    public int getCapacityNeeds() {
+        return capacityNeeds;
+    }
 }
