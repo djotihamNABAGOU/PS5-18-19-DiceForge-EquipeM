@@ -18,7 +18,7 @@ public class TheJellyFish extends Card{
             this.amount = amount;
         else this.amount = 3;
         this.price = 4;
-        this.portail = 5;
+        this.portal = 5;
         this.needs = 0;
     }
      

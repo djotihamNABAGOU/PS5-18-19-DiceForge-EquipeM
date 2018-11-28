@@ -22,7 +22,7 @@ public class TheWingsOfTheGuardians extends Card{
             this.amount = amount;
         else this.amount = 3;
         this.price = 2;
-        this.portail = 6;
+        this.portal = 6;
         this.needs = 0;
         this.capacityNeeds = 2;
     }

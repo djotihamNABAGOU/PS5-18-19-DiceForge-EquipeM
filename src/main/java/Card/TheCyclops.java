@@ -19,7 +19,7 @@ public class TheCyclops extends Card{
             this.amount = amount;
         else this.amount = 3;
         this.price = 6;
-        this.portail = 4;
+        this.portal = 4;
         this.needs = 2;
     } 
     

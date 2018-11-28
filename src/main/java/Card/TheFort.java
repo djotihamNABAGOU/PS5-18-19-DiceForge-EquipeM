@@ -18,7 +18,7 @@ public class TheFort extends Card {
             this.amount = amount;
         else this.amount = 3;
         this.price = 1;
-        this.portail = 1;
+        this.portal = 1;
         this.needs = 0;
     }
     

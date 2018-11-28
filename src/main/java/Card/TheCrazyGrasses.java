@@ -18,7 +18,7 @@ public class TheCrazyGrasses extends Card{
             this.amount = amount;
         else this.amount = 3;
         this.price = 1;
-        this.portail = 7;
+        this.portal = 7;
         this.needs = 0;
     }
     

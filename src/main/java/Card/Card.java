@@ -9,7 +9,7 @@ public abstract class Card {
     String type;          /* Gold , Sun , Moon , Sun+Moon  ---> type de ressource pour le payement */
     int price;            /* prix */
     String TypeCard;      /* Immediat I , renfort R, automatique A*/
-    int portail;          /* 1,2,3,4,5,6,7 */
+    int portal;          /* 1,2,3,4,5,6,7 */
     int amount;           /* Quantité */
     int needs;            /* permet de savoir quoi passer en attribut à la methode action d'une carte,
                              0  ---> Le Joueur

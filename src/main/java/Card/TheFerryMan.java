@@ -17,7 +17,7 @@ public class TheFerryMan extends Card{
             this.amount = amount;
         else this.amount = 3;
         this.price = 4;
-        this.portail = 3;
+        this.portal = 3;
         this.needs = 0;
     }
     

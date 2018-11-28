@@ -22,7 +22,7 @@ public class TheClogs extends Card{
             this.amount = amount;
         else this.amount = 3;
         this.price = 2;
-        this.portail = 2;
+        this.portal = 2;
         this.needs = 0;
     }
     

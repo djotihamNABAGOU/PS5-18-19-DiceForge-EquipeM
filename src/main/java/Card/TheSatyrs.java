@@ -22,7 +22,7 @@ public class TheSatyrs extends Card{
             this.amount = amount;
         else this.amount = 3;
         this.price = 3;
-        this.portail = 2;
+        this.portal = 2;
         this.needs = 1;
     }
     
