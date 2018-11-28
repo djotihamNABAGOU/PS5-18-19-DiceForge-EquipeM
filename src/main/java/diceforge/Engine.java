@@ -8,6 +8,7 @@ import java.util.Random;
 
 
 public class Engine {
+    private final int round;//nombres de tours ou de parties
     private final int set; //Number of handle in the game
     private final int numberOfBot; //Number of Bot playing
 
@@ -17,27 +18,63 @@ public class Engine {
      * @param set    : nombre de manches
      * @param number : nombres de bots
      */
-    Engine(int set, int number) {
+    Engine(int round, int set, int number) {
+        this.round = round;
         this.set = set;
         this.numberOfBot = number;
-
     }
 
     /**
      * Méthode d'initialisation des bots avec leurs 2 dés (clair et foncé) et un joueur actif
-     * @param botOne : premier joueur
-     * @param botTwo : deuxième joueur
+     * @param tabBots tableau de bots (compris entre 2 et 4 bots)
      */
-    void InitializingBots(Bot botOne, Bot botTwo) {
-        botOne.getFirstDice().makeBrightDefaultDice();
-        botOne.getSecondDice().makeDarkDefaultDice();
-        botOne.getHerosInventory().makeFirstDefaultHerosInventory();
-        botOne.setActive(true);
+    void InitializingBots(Bot... tabBots) {
+        switch (tabBots.length) {
+            case 2:
+                tabBots[0].getFirstDice().makeBrightDefaultDice();
+                tabBots[0].getSecondDice().makeDarkDefaultDice();
+                tabBots[0].getHerosInventory().makeFirstDefaultHerosInventory();
+                tabBots[0].setActive(true);
 
-        botTwo.getFirstDice().makeBrightDefaultDice();
-        botTwo.getSecondDice().makeDarkDefaultDice();
-        botTwo.getHerosInventory().makeSecondDefaultHerosInventory();
+                tabBots[1].getFirstDice().makeBrightDefaultDice();
+                tabBots[1].getSecondDice().makeDarkDefaultDice();
+                tabBots[1].getHerosInventory().makeSecondDefaultHerosInventory();
+                break;
 
+            case 3:
+                tabBots[0].getFirstDice().makeBrightDefaultDice();
+                tabBots[0].getSecondDice().makeDarkDefaultDice();
+                tabBots[0].getHerosInventory().makeFirstDefaultHerosInventory();
+                tabBots[0].setActive(true);
+
+                tabBots[1].getFirstDice().makeBrightDefaultDice();
+                tabBots[1].getSecondDice().makeDarkDefaultDice();
+                tabBots[1].getHerosInventory().makeSecondDefaultHerosInventory();
+
+                tabBots[2].getFirstDice().makeBrightDefaultDice();
+                tabBots[2].getSecondDice().makeDarkDefaultDice();
+                tabBots[2].getHerosInventory().makeThirdDefaultHerosInventory();
+                break;
+
+            case 4:
+                tabBots[0].getFirstDice().makeBrightDefaultDice();
+                tabBots[0].getSecondDice().makeDarkDefaultDice();
+                tabBots[0].getHerosInventory().makeFirstDefaultHerosInventory();
+                tabBots[0].setActive(true);
+
+                tabBots[1].getFirstDice().makeBrightDefaultDice();
+                tabBots[1].getSecondDice().makeDarkDefaultDice();
+                tabBots[1].getHerosInventory().makeSecondDefaultHerosInventory();
+
+                tabBots[2].getFirstDice().makeBrightDefaultDice();
+                tabBots[2].getSecondDice().makeDarkDefaultDice();
+                tabBots[2].getHerosInventory().makeThirdDefaultHerosInventory();
+
+                tabBots[3].getFirstDice().makeBrightDefaultDice();
+                tabBots[3].getSecondDice().makeDarkDefaultDice();
+                tabBots[3].getHerosInventory().makeFourthDefaultHerosInventory();
+                break;
+        }
     }
 
     void initializingTemple(Temple temple){
@@ -108,8 +145,8 @@ public class Engine {
         System.out.println("\n");
     }
 
-    void MakeNineSetWithTwoBot(Bot botOne, Bot botTwo, Temple temple) {
-        for (int a = 0; a < 9; a++) {
+    void makeSets(Bot botOne, Bot botTwo, Temple temple) {
+        for (int a = 0; a < this.set; a++) {
             MakeOneSetWithTwoBot(botOne, botTwo, temple, a + 1);
             //Changement du joueur actif
             botOne.setActive(!botOne.isActive());
@@ -117,12 +154,33 @@ public class Engine {
         }
     }
 
+    void makeRound(Bot botOne, Bot botTwo, Temple temple){
+        for (int i=0; i<this.round;i++){
+            makeSets(botOne,botTwo,temple);
+            System.out.println("\n");
+            System.out.println("DETERMINATING THE WINNER");
+            TellMeTheWinner(botOne, botTwo);
+        }
+        System.out.println("**********Results*********");
+        if (botOne.roundsWin > botTwo.roundsWin){
+            System.out.println("Bot 1 wins the game with "+(((float)botOne.roundsWin/1000)*100)+"% of won rounds aigainst "+((float)botTwo.roundsWin/1000)*100+"% won rounds for the Bot 2. Congratulations Bot 1!");
+        }
+        if (botOne.roundsWin < botTwo.roundsWin){
+            System.out.println("Bot 2 wins the game with "+((float)botTwo.roundsWin/1000)*100+"% of won rounds aigainst "+((float)botOne.roundsWin/1000)*100+"% won rounds for the Bot 1. Congratulations Bot 2!");
+        }
+        if (botOne.roundsWin == botTwo.roundsWin){
+            System.out.println("No winner, It's a tie !");
+        }
+    }
+
     void TellMeTheWinner(Bot botOne, Bot botTwo) {
         if (botOne.getHerosInventory().getGloryPoints() > botTwo.getHerosInventory().getGloryPoints()) {
-            System.out.println("Bot 1 wins the game");
+            botOne.roundsWin++;
+            System.out.println("Bot 1 wins the round");
         }
         if (botOne.getHerosInventory().getGloryPoints() < botTwo.getHerosInventory().getGloryPoints()) {
-            System.out.println("Bot 2 wins the game");
+            botTwo.roundsWin++;
+            System.out.println("Bot 2 wins the round");
         }
         if (botOne.getHerosInventory().getGloryPoints() == botTwo.getHerosInventory().getGloryPoints()) {
             System.out.println("It's a tie");

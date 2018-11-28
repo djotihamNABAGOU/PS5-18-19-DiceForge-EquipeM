@@ -12,39 +12,29 @@ public class Temple {
     //On aura aussi un tableau de bassins pour les faces de jardin
 
     Temple() {
+        
         ArrayList<SanctuarysFaces> bassinG3 = new ArrayList<>();
-        for (int a = 0; a < 4; a++) {
-            bassinG3.add(new SanctuarysFaces(2, "GoldenFace", "Add", new SimpleFace(3, "G", "GoldenFace")));
-        }
         ArrayList<SanctuarysFaces> bassinM1 = new ArrayList<>();
-        for (int a = 0; a < 4; a++) {
-            bassinM1.add(new SanctuarysFaces(2, "MoonFace", "Add", new SimpleFace(1, "M", "MoonFace")));
-        }
         ArrayList<SanctuarysFaces> bassinG4 = new ArrayList<>();
-        for (int a = 0; a < 4; a++) {
-            bassinG4.add(new SanctuarysFaces(3, "GoldenFace", "Add", new SimpleFace(4, "G", "GoldenFace")));
-        }
         ArrayList<SanctuarysFaces> bassinS1 = new ArrayList<>();
-        for (int a = 0; a < 4; a++) {
-            bassinS1.add(new SanctuarysFaces(3, "Sunface", "Add", new SimpleFace(1, "S", "SunFace")));
-        }
         ArrayList<SanctuarysFaces> bassinG3_Gl2 = new ArrayList<>();
-        for (int a = 0; a < 4; a++) {
-            bassinG3_Gl2.add(new SanctuarysFaces(5, "GoldenGloryFace", "Choice", new SimpleFace(3, "G", "GoldenFace"), new SimpleFace(2, "Gl", "GloryFace")));
-        }
         ArrayList<SanctuarysFaces> bassinM2 = new ArrayList<>();
-        for (int a = 0; a < 4; a++) {
-            bassinM2.add(new SanctuarysFaces(6, "MoonFace", "Add", new SimpleFace(2, "M", "MoonFace")));
-        }
         ArrayList<SanctuarysFaces> bassinS2 = new ArrayList<>();
-        for (int a = 0; a < 4; a++) {
-            bassinS2.add(new SanctuarysFaces(8, "Sunface", "Add", new SimpleFace(2, "S", "SunFace")));
-        }
         ArrayList<SanctuarysFaces> bassinGl3 = new ArrayList<>();
+        
+        
         for (int a = 0; a < 4; a++) {
+            
+            bassinG3.add(new SanctuarysFaces(2, "GoldenFace", "Add", new SimpleFace(3, "G", "GoldenFace")));
+            bassinM1.add(new SanctuarysFaces(2, "MoonFace", "Add", new SimpleFace(1, "M", "MoonFace")));
+            bassinG4.add(new SanctuarysFaces(3, "GoldenFace", "Add", new SimpleFace(4, "G", "GoldenFace")));
+            bassinS1.add(new SanctuarysFaces(3, "Sunface", "Add", new SimpleFace(1, "S", "SunFace")));
+            bassinG3_Gl2.add(new SanctuarysFaces(5, "GoldenGloryFace", "Choice", new SimpleFace(3, "G", "GoldenFace"), new SimpleFace(2, "Gl", "GloryFace")));
+            bassinM2.add(new SanctuarysFaces(6, "MoonFace", "Add", new SimpleFace(2, "M", "MoonFace")));
+            bassinS2.add(new SanctuarysFaces(8, "Sunface", "Add", new SimpleFace(2, "S", "SunFace")));
             bassinGl3.add(new SanctuarysFaces(8, "Gloryface", "Add", new SimpleFace(3, "Gl", "GloryFace")));
         }
-
+        
         /* 4 Pieces D'or */
         ArrayList<SanctuarysFaces> bassinHybride_Cost4 = new ArrayList<>();
         bassinHybride_Cost4.add(new SanctuarysFaces(4, "MoonSunGoldenFace",
@@ -92,6 +82,7 @@ public class Temple {
                         new SimpleFace(2, "Gl", "GloryFace")
                 )
         );
+        
         //Rangement des bassins dans le tableau sanctuaire
         Sanctuary[0] = bassinG3;
         Sanctuary[1] = bassinM1;
