@@ -23,6 +23,7 @@ public class Bot {
     private boolean active = false;
     private final ArrayList<Card> enhancementCard = new ArrayList<Card>();   /* Liste des cartes de renfort en possession du joueur */
     private ArrayList<TheHammer> hammerCard;   /* Liste des cartes marteaux en possession du joueur */
+    public int roundsWin;
 
     /*
     public Bot() {
@@ -53,6 +54,7 @@ public class Bot {
                 this.strategy = new Strategy(this);
                 break;
         }
+        this.roundsWin = 0;
     }
 
     public HerosInventory getHerosInventory() {
