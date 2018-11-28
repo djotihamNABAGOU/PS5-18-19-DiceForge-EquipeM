@@ -1,5 +1,6 @@
 package diceforge;
 
+import Faces.GeneralFace;
 import Faces.SanctuarysFaces;
 import Player.Bot;
 
@@ -28,54 +29,20 @@ public class Engine {
      * Méthode d'initialisation des bots avec leurs 2 dés (clair et foncé) et un joueur actif
      * @param tabBots tableau de bots (compris entre 2 et 4 bots)
      */
-    void InitializingBots(Bot... tabBots) {
-        switch (tabBots.length) {
-            case 2:
-                tabBots[0].getFirstDice().makeBrightDefaultDice();
-                tabBots[0].getSecondDice().makeDarkDefaultDice();
-                tabBots[0].getHerosInventory().makeFirstDefaultHerosInventory();
-                tabBots[0].setActive(true);
-
-                tabBots[1].getFirstDice().makeBrightDefaultDice();
-                tabBots[1].getSecondDice().makeDarkDefaultDice();
-                tabBots[1].getHerosInventory().makeSecondDefaultHerosInventory();
-                break;
-
-            case 3:
-                tabBots[0].getFirstDice().makeBrightDefaultDice();
-                tabBots[0].getSecondDice().makeDarkDefaultDice();
-                tabBots[0].getHerosInventory().makeFirstDefaultHerosInventory();
-                tabBots[0].setActive(true);
-
-                tabBots[1].getFirstDice().makeBrightDefaultDice();
-                tabBots[1].getSecondDice().makeDarkDefaultDice();
-                tabBots[1].getHerosInventory().makeSecondDefaultHerosInventory();
-
-                tabBots[2].getFirstDice().makeBrightDefaultDice();
-                tabBots[2].getSecondDice().makeDarkDefaultDice();
-                tabBots[2].getHerosInventory().makeThirdDefaultHerosInventory();
-                break;
-
-            case 4:
-                tabBots[0].getFirstDice().makeBrightDefaultDice();
-                tabBots[0].getSecondDice().makeDarkDefaultDice();
-                tabBots[0].getHerosInventory().makeFirstDefaultHerosInventory();
-                tabBots[0].setActive(true);
-
-                tabBots[1].getFirstDice().makeBrightDefaultDice();
-                tabBots[1].getSecondDice().makeDarkDefaultDice();
-                tabBots[1].getHerosInventory().makeSecondDefaultHerosInventory();
-
-                tabBots[2].getFirstDice().makeBrightDefaultDice();
-                tabBots[2].getSecondDice().makeDarkDefaultDice();
-                tabBots[2].getHerosInventory().makeThirdDefaultHerosInventory();
-
-                tabBots[3].getFirstDice().makeBrightDefaultDice();
-                tabBots[3].getSecondDice().makeDarkDefaultDice();
-                tabBots[3].getHerosInventory().makeFourthDefaultHerosInventory();
-                break;
+    void InitializingBots(Bot... data) {  // prend en paramÃ¨tres une liste de robots
+        int a = 0;
+        int goldpoints = 3; // points d'or : 3 pr le premier (-1 par la suite)
+        for(Bot bot : data)
+        {
+            bot.getFirstDice().makeBrightDefaultDice();
+            bot.getSecondDice().makeDarkDefaultDice();
+            bot.getHerosInventory().makeDefaultHerosInventory(goldpoints);
+            if(a == 0) bot.setActive(true);  // choisit comme actif le premier joueur
+            a = a + 1;
+            goldpoints = goldpoints - 1;  // decremente au fur et Ã  mesure  
         }
     }
+    
 
     void initializingTemple(Temple temple){
         if (numberOfBot == 2){
@@ -93,70 +60,78 @@ public class Engine {
         }
     }
 
-    /**
-     * ?????????
-     * @param botOne
-     * @param botTwo
-     */
-    public void RollAndRollSetTimes(Bot botOne, Bot botTwo) {
-        for (int i = 0; i < this.set; i++) {
-            botOne.getFirstDice().rollDice().makeEffect(botOne);
-            botOne.getSecondDice().rollDice().makeEffect(botOne);
-            botTwo.getFirstDice().rollDice().makeEffect(botTwo);
-            botTwo.getSecondDice().rollDice().makeEffect(botTwo);
-        }
-
-    }
 
     /**
      * méthode de lancé de dé
-     * @param theBot : joueur qui lance le dé
+     * @param Les bots du jeu
      */
-    private void RollOneTime(Bot theBot) {
-        theBot.getFirstDice().rollDice().makeEffect(theBot);
-        theBot.getSecondDice().rollDice().makeEffect(theBot);
-    }
+    private void RollOneTime(Temple temple,int actionNumber,Bot... data) {
+        GeneralFace[] listFaces = new GeneralFace[data.length*2]; 
+        int a = 0; // Compteur pour le parcours des faces 
+        
+        for(Bot bot : data)
+        {
+          listFaces[a] = bot.getFirstDice().rollDice();
+          a = a + 1;
+          listFaces[a] = bot.getSecondDice().rollDice();
+          a = a + 1;
+        }  // AprÃ¨s la boucle, les faces obtenues sont stockÃ©es respectivement dans la liste 
+        a = 0;
+        int compteur = 0;
+        
+        /* le 1er attribut compteur permet de connaitre la position des dÃ©s du joueur dans la liste
+           de dÃ©s passÃ©es.
+           Exemple : compteur = 0  ---> dÃ©s[0] et dÃ©s[1]
+                     compteur = 2  ---> dÃ©s[4] et dÃ©s[5]
+        */
+        
+        while(a<(data.length*2)) 
+        {
+            System.out.println("-------->ROLL OF BOT "+(compteur+1));
+            listFaces[a].makeEffect(compteur,data[compteur],listFaces);
+            listFaces[a+1].makeEffect(compteur,data[compteur],listFaces);
+            data[compteur].getStrategy().apply(temple,(compteur+1),actionNumber);
+            a = a + 2;
+            compteur = compteur + 1;
+        }
 
-    /**
-     * méthode permettant de faire une manche
-     * @param botOne
-     * @param botTwo
+    }
+    
+     /**
+     * mÃ©thode permettant de faire une manche
+     * @param les bots
      * @param temple
      * @param actionNumber
      */
-    void MakeOneSetWithTwoBot(Bot botOne, Bot botTwo, Temple temple, int actionNumber) {
-
-        System.out.println("-------->ROLL OF BOT 1");
-        RollOneTime(botOne);//Lancé du dé et incrémentation des points d'inventaire
-        botOne.getStrategy().apply(temple, 1, actionNumber);//Application de la stratégie du bot
-        System.out.println("-------->ROLL OF BOT 2");
-        RollOneTime(botTwo);
-        botTwo.getStrategy().apply(temple, 2, actionNumber);
-
+    void MakeOneSetWithBot(Temple temple, int actionNumber,Bot... data) {
+        
         System.out.println("\n");
         System.out.println("-------------------------------------\n");
-        System.out.println("STATE AFTER " + (actionNumber) + " SET");
-        System.out.println("-->BOT ONE");
-        System.out.println(botOne.toString());
-        botOne.printDiceState();
-        System.out.println("-->BOT TWO");
-        System.out.println(botTwo.toString());
-        botTwo.printDiceState();
+        for(int a=0;a<=data.length;a++)
+        {
+             System.out.println("STATE AFTER " + (actionNumber) + " SET");
+             System.out.println("-->BOT "+a);
+             System.out.println(data[a].toString());
+             data[a].printDiceState();
+        }
         System.out.println("\n");
     }
+    
 
-    void makeSets(Bot botOne, Bot botTwo, Temple temple) {
+    void makeSets(Temple temple,Bot... data) {
         for (int a = 0; a < this.set; a++) {
-            MakeOneSetWithTwoBot(botOne, botTwo, temple, a + 1);
+            MakeOneSetWithBot(temple, a + 1,data);
             //Changement du joueur actif
-            botOne.setActive(!botOne.isActive());
-            botTwo.setActive(!botTwo.isActive());
+            for(Bot bot : data)
+            {
+                bot.setActive(!bot.isActive());
+            }
         }
     }
 
     void makeRound(Bot botOne, Bot botTwo, Temple temple){
         for (int i=0; i<this.round;i++){
-            makeSets(botOne,botTwo,temple);
+            makeSets(temple,botOne,botTwo);
             System.out.println("\n");
             System.out.println("DETERMINATING THE WINNER");
             TellMeTheWinner(botOne, botTwo);

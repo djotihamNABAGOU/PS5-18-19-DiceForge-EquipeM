@@ -88,30 +88,13 @@ public class HerosInventory {
         }
     }
     
-    public void makeFirstDefaultHerosInventory(){  //First Hero's inventory initializing
+    public void makeDefaultHerosInventory(int a){   //Hero's inventory initializing
         this.gloryPoints=0;
         this.goldPoints=0;
         this.moonPoints=0;
-        this.goldPoints=3;
+        this.goldPoints=a;
     }
-    public void makeSecondDefaultHerosInventory(){  //Second Hero's inventory initializing
-        this.gloryPoints=0;
-        this.goldPoints=0;
-        this.moonPoints=0;
-        this.goldPoints=2;
-    }
-    public void makeThirdDefaultHerosInventory(){  //Third Hero's inventory initializing
-        this.gloryPoints=0;
-        this.goldPoints=0;
-        this.moonPoints=0;
-        this.goldPoints=1;
-    }
-    public void makeFourthDefaultHerosInventory(){  //Fourth Hero's inventory initializing
-        this.gloryPoints=0;
-        this.goldPoints=0;
-        this.moonPoints=0;
-        this.goldPoints=0;
-    }
+  
     
     public void increaseInventoryWithDiceFace(SimpleFace faceObtained){
         if(faceObtained.getType().equals("S")){

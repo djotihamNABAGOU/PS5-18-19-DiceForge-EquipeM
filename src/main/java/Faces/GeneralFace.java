@@ -31,7 +31,7 @@ public class GeneralFace {
         this.name = name;
     }
     
-    public void makeEffect(Bot bot){
+    public void makeEffect(int numBot,Bot bot,GeneralFace... data){
         System.out.println("I am General face, please implement effect in subclasses");
     }
     

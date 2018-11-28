@@ -49,7 +49,7 @@ public class SanctuarysFaces extends GeneralFace {
     }
     
     @Override
-    public void makeEffect(Bot bot){
+    public void makeEffect(int numBot,Bot bot,GeneralFace... data){
        if(this.mode.equals("Add")){
           this.Offered.forEach(item->{
               bot.getHerosInventory().increaseInventoryWithDiceFace(item);

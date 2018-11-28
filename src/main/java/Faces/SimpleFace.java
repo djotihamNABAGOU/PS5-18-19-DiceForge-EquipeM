@@ -43,7 +43,7 @@ public class SimpleFace extends GeneralFace {
     }
 
     @Override
-    public void makeEffect(Bot bot) {
+    public void makeEffect(int numBot,Bot bot,GeneralFace... data) {
         System.out.println("Face obtained -> " + toString());
         bot.getHerosInventory().increaseInventoryWithDiceFace(this);
     }
