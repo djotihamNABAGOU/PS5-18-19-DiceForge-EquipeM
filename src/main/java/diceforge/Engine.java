@@ -107,7 +107,8 @@ public class Engine {
         
         System.out.println("\n");
         System.out.println("-------------------------------------\n");
-        for(int a=0;a<=data.length;a++)
+        RollOneTime(temple, actionNumber, data);
+        for(int a=0;a<data.length;a++)
         {
              System.out.println("STATE AFTER " + (actionNumber) + " SET");
              System.out.println("-->BOT "+a);
