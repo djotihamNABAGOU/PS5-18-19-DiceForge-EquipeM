@@ -14,6 +14,7 @@ public class TheFormer extends Card{
  
     public TheFormer(int amount)   /* prend en parametre le nombre de joueurs */
     { 
+        this.name = "TheFormer";
         this.gloryPoints = 0;
         this.type = "S";
         this.TypeCard = "R";

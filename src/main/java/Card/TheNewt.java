@@ -10,6 +10,7 @@ public class TheNewt extends Card{
     
     public TheNewt(int amount) /* prend en parametre le nombre de joueurs */
     {
+        this.name = "TheNewt";
         this.gloryPoints = 8;
         this.type = "S";
         this.TypeCard = "I";   /* I pour désigner immédiat */

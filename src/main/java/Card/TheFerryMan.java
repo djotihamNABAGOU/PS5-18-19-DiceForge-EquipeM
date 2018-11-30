@@ -10,6 +10,7 @@ public class TheFerryMan extends Card{
     
     public TheFerryMan(int amount) /* prend en parametre le nombre de joueurs */
     {
+        this.name = "TheFerryMan";
         this.gloryPoints = 12;
         this.type = "M";
         this.TypeCard = "I";   /* I pour désigner immédiat */

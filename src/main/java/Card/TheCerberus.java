@@ -11,6 +11,7 @@ public class TheCerberus extends Card{
     
     public TheCerberus(int amount) /* prend en parametre le nombre de joueurs */
     {
+        this.name = "TheCerberus";
         this.gloryPoints = 6;
         this.type = "M";
         this.TypeCard = "I";   /* I pour désigner immédiat */

@@ -11,6 +11,7 @@ public class TheCrazyGrasses extends Card{
     
     public TheCrazyGrasses(int amount)   /* prend en parametre le nombre de joueurs */
     { 
+        this.name = "TheCrazyGrasses";
         this.gloryPoints = 2;
         this.type = "S";
         this.TypeCard = "I";

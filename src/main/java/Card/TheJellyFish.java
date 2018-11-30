@@ -11,6 +11,7 @@ public class TheJellyFish extends Card{
     
     public TheJellyFish(int amount) /* prend en parametre le nombre de joueurs */
     {
+        this.name = "TheJellyFish";
         this.gloryPoints = 14;
         this.type = "S";
         this.TypeCard = "I";   /* I pour désigner immédiat */

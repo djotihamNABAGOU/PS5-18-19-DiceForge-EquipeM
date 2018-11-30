@@ -11,6 +11,7 @@ public class TheFort extends Card {
     
     public TheFort(int amount) /* prend en parametre le nombre de joueurs */
     {
+        this.name = "TheFort";
         this.gloryPoints = 0;
         this.type = "M";
         this.TypeCard = "I";   /* I pour désigner immédiat */

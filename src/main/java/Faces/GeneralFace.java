@@ -6,6 +6,8 @@
 package Faces;
 
 import Player.Bot;
+import diceforge.Temple;
+import java.util.ArrayList;
 
 /**
  *
@@ -26,13 +28,25 @@ public class GeneralFace {
     public String getName() {
         return name;
     }
+    
+    @Override
+    public boolean equals(Object obj)
+    {
+        GeneralFace other = (GeneralFace) obj;
+        return name.equals(other.name);
+    }
 
     public void setName(String name) {
         this.name = name;
     }
     
-    public void makeEffect(int numBot,Bot bot,GeneralFace... data){
+    public void makeEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
         System.out.println("I am General face, please implement effect in subclasses");
     }
+    
+    public void makeEffectFaceMultiplier(Temple temple,int numBot,Bot bot,int a,ArrayList<GeneralFace>... data){
+        System.out.println("I am General face, please implement effect in subclasses");
+    }
+        
     
 }

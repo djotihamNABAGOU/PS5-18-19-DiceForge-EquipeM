@@ -2,9 +2,11 @@ package Card;
 import Player.Bot;
 import Player.Dice;
 import Player.HerosInventory;
+import diceforge.Temple;
 
 public abstract class Card {
     
+    String name;
     int gloryPoints;      /* Points de gloire accordés par la carte */
     String type;          /* Gold , Sun , Moon , Sun+Moon  ---> type de ressource pour le payement */
     int price;            /* prix */
@@ -23,12 +25,20 @@ public abstract class Card {
                              2  ---> Le bot et son choix
                            */
     
+    @Override
+    public boolean equals(Object obj)
+    {
+        Card other = (Card) obj;
+        return name.equals(other.name);
+    }
     
     public void buyCard()     
     {
         amount = amount - 1;
     }
 
+    public void actionCard(Bot bot,Temple temple){}
+    
     public void actionCard(Bot bot){}
     
     public void actionCard(Bot... bot){}

@@ -11,6 +11,7 @@ public class TheSentinel extends Card{
     
     public TheSentinel(int amount) /* prend en parametre le nombre de joueurs */
     {
+        this.name = "TheSentinel";
         this.gloryPoints = 6;
         this.type = "M";
         this.TypeCard = "I";   /* I pour désigner immédiat */

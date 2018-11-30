@@ -11,6 +11,7 @@ public class TheTyphoon extends Card{
     
     public TheTyphoon(int amount) /* prend en parametre le nombre de joueurs */
     {
+        this.name = "TheTyphoon";
         this.gloryPoints = 16;
         this.type = "M+S";
         this.TypeCard = "I";   /* I pour désigner immédiat */

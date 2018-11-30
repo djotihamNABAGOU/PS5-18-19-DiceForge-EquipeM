@@ -1,5 +1,8 @@
 package diceforge;
 
+import Card.Card;
+import Faces.GardenFace;
+import Faces.GeneralFace;
 import Faces.SanctuarysFaces;
 import Faces.SimpleFace;
 
@@ -10,8 +13,9 @@ public class Temple {
     //private ArrayList<SanctuarysFaces> Sanctuary = new ArrayList<>();
     private ArrayList<SanctuarysFaces>[] Sanctuary = new ArrayList[10];//le sanctuaire est un tableau de 10 bassins représentés par des arraylists
     //On aura aussi un tableau de bassins pour les faces de jardin
+     private ArrayList<GardenFace>[] Garden = new ArrayList[5];
 
-    Temple() {
+    public Temple() {
         
         ArrayList<SanctuarysFaces> bassinG3 = new ArrayList<>();
         ArrayList<SanctuarysFaces> bassinM1 = new ArrayList<>();
@@ -122,5 +126,20 @@ public class Temple {
             Sanctuary[tabIndex].get(arrayListIndex).setSelected(true);
             return true;
         } else return false;
+    }
+    
+    // Methode pour recupérer une face du jardin grâce à la carte correspondante
+    public GardenFace takeGardenFace(Card card) {
+        GardenFace returnFace = new GardenFace();
+        for (int a = 0; a < 5; a++) {
+            for (int i = 0; i < Garden[a].size(); i++) {
+                if (Garden[a].get(i).getCard().equals(card) && !Garden[a].get(i).isSelected())
+                {
+                    Garden[a].get(i).setSelected(true);
+                    returnFace = Garden[a].get(i);
+                }
+             }
+            }
+        return returnFace;
     }
 }

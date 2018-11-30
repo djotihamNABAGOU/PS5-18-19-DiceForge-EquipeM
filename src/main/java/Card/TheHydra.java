@@ -10,6 +10,7 @@ public class TheHydra extends Card{
     
     public TheHydra(int amount) /* prend en parametre le nombre de joueurs */
     {
+        this.name = "TheHydra";
         this.gloryPoints = 26;
         this.type = "M+S";
         this.TypeCard = "I";   /* I pour désigner immédiat */

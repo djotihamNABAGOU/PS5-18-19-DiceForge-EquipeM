@@ -15,6 +15,7 @@ public class TheWingsOfTheGuardians extends Card{
     
     public TheWingsOfTheGuardians(int amount)   /* prend en parametre le nombre de joueurs */
     { 
+        this.name = "TheWingsOfTheGuardians";
         this.gloryPoints = 4;
         this.type = "S";
         this.TypeCard = "R";

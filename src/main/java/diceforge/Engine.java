@@ -65,33 +65,31 @@ public class Engine {
      * méthode de lancé de dé
      * @param Les bots du jeu
      */
-    private void RollOneTime(Temple temple,int actionNumber,Bot... data) {
-        GeneralFace[] listFaces = new GeneralFace[data.length*2]; 
+    private void RollOneTime(Temple temple,int actionNumber,Bot... data){
+        
+        ArrayList<GeneralFace>[] listFaces = new ArrayList[data.length];
         int a = 0; // Compteur pour le parcours des faces 
         
         for(Bot bot : data)
         {
-          listFaces[a] = bot.getFirstDice().rollDice();
-          a = a + 1;
-          listFaces[a] = bot.getSecondDice().rollDice();
+          listFaces[a].add(bot.getFirstDice().rollDice());
+          listFaces[a].add(bot.getSecondDice().rollDice());
           a = a + 1;
         }  // AprÃ¨s la boucle, les faces obtenues sont stockÃ©es respectivement dans la liste 
         a = 0;
         int compteur = 0;
         
-        /* le 1er attribut compteur permet de connaitre la position des dÃ©s du joueur dans la liste
-           de dÃ©s passÃ©es.
-           Exemple : compteur = 0  ---> dÃ©s[0] et dÃ©s[1]
-                     compteur = 2  ---> dÃ©s[4] et dÃ©s[5]
+        /* le 1er attribut compteur permet de connaitre la position des des du joueur dans la liste
+           de dess passees.
         */
         
-        while(a<(data.length*2)) 
+        while(a<data.length) 
         {
             System.out.println("-------->ROLL OF BOT "+(compteur+1));
-            listFaces[a].makeEffect(compteur,data[compteur],listFaces);
-            listFaces[a+1].makeEffect(compteur,data[compteur],listFaces);
+            listFaces[a].get(0).makeEffect(temple,compteur,data[compteur],listFaces);
+            listFaces[a].get(1).makeEffect(temple,compteur,data[compteur],listFaces);
             data[compteur].getStrategy().apply(temple,(compteur+1),actionNumber);
-            a = a + 2;
+            a = a + 1;
             compteur = compteur + 1;
         }
 

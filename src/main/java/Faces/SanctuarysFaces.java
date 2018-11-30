@@ -1,5 +1,6 @@
 package Faces;
 import Player.Bot;
+import diceforge.Temple;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -10,6 +11,11 @@ public class SanctuarysFaces extends GeneralFace {
     private boolean selected;
     private final ArrayList<SimpleFace> Offered;
     private final String mode ; //Add,Choice or None
+
+    public ArrayList<SimpleFace> getOffered() {
+        return Offered;
+    }
+    
 
     public SanctuarysFaces() {
         super("null");
@@ -40,6 +46,10 @@ public class SanctuarysFaces extends GeneralFace {
         return price;
     }
 
+    public String getMode(){
+        return mode;
+    }
+    
     public boolean isSelected() {
         return selected;
     }
@@ -49,17 +59,37 @@ public class SanctuarysFaces extends GeneralFace {
     }
     
     @Override
-    public void makeEffect(int numBot,Bot bot,GeneralFace... data){
+    public void makeEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+        
+       /* Si le joueur possède une face multiplier : Ne rien faire car c'est la face
+           Multiplier qui s'activera et fera effet
+        */
+        int a = 0; // Pas de face Multiplier obtenue, passe à 1 sinon
+        if(data.length!=0){ // si == 0, faveur mineure
+           for(GeneralFace face : data[numBot]){
+                if(face instanceof MultiplierFace){
+                    a = 1;
+                }
+            } 
+        }
+        
+        if(a==0){
+            makeEffectFaceMultiplier(temple,numBot,bot,1);
+        }
+    }
+    
+    @Override
+    public void makeEffectFaceMultiplier(Temple temple,int numBot,Bot bot,int a,ArrayList<GeneralFace>... data)
+    {
        if(this.mode.equals("Add")){
           this.Offered.forEach(item->{
-              bot.getHerosInventory().increaseInventoryWithDiceFace(item);
+              bot.getHerosInventory().increaseInventoryWithDiceFace(item,a);
           });
-       }else{
-                Random randomInt = new Random();
-                int choice = randomInt.nextInt(this.Offered.size());
-                bot.getHerosInventory().increaseInventoryWithDiceFace(this.Offered.get(choice));
+       }else{           
+                int choice = bot.giveMeYourChoice(this.Offered);
+                bot.getHerosInventory().increaseInventoryWithDiceFace(this.Offered.get(choice),a);
                 
-       }
+       } 
     }
 
     @Override

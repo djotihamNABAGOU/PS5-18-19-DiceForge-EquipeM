@@ -12,6 +12,7 @@ public class TheCyclops extends Card{
     
     public TheCyclops(int amount) /* prend en parametre le nombre de joueurs */
     {
+        this.name = "TheCyclops";
         this.gloryPoints = 8;
         this.type = "S";
         this.TypeCard = "I";   /* I pour désigner immédiat */

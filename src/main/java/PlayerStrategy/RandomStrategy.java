@@ -70,10 +70,10 @@ public class RandomStrategy extends Strategy {
                             System.out.println("*ACTION " + actionNumber + " FOR BOT NUMBER " + numberOfTheBot + ": FORGE");
                         else System.out.println("**SUP ACTION FOR BOT NUMBER " + numberOfTheBot + ": FORGE");
 
-                        SanctuarysFaces face = randomFaceToBuy(bot, temple);
+                        SanctuarysFaces face = FaceToBuy(bot, temple);
                         if (face.getPrice() != 0) {
                             if (temple.buyFace(face)) {
-                                randomForgeDice(face);
+                                ForgeDice(face);
                                 bot.getHerosInventory().DecreaseGoldPoints(face.getPrice());
                             } else {
                                 System.out.println("Purchase failed");
@@ -116,8 +116,10 @@ public class RandomStrategy extends Strategy {
      * Permet au bot de remplacer une face de son dé avec une nouvelle face venant du sanctuaire
      *
      * @param face de remplacement
+     * @param position
      */
-    public void randomForgeDice(GeneralFace face) {
+    @Override
+    public void ForgeDice(GeneralFace face) {
 
         Random randomFace = new Random();
         int numberOfFace = randomFace.nextInt(6); //Random pour prendre la face a enlever
@@ -147,7 +149,8 @@ public class RandomStrategy extends Strategy {
      * @return la face à payer choisie au hasard
      * en gros, on stocke les faces du sanctuaire disponibles dans une liste FacesAvailable puis on choisit au hasard la face à retourner
      */
-    private SanctuarysFaces randomFaceToBuy(Bot bot, Temple temple) {
+    @Override
+    public SanctuarysFaces FaceToBuy(Bot bot, Temple temple) {
         int v = bot.getHerosInventory().getGoldPoints();
         ArrayList<SanctuarysFaces> FacesAvailable = new ArrayList<>();
         ArrayList<SanctuarysFaces>[] sanctuary = temple.getSanctuary();

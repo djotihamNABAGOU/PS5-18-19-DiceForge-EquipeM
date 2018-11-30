@@ -16,6 +16,7 @@ public class TheHammer extends Card{
     
     public TheHammer(int amount)  /* prend en parametre le nombre de joueurs */
     {
+        this.name = "TheHammer";
         this.gloryPoints = 0;
         this.type = "M";
         this.TypeCard = "I";
