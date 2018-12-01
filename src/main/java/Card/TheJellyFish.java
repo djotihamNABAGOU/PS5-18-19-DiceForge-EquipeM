@@ -1,5 +1,8 @@
 package Card;
+import Faces.GeneralFace;
 import Player.Bot;
+import diceforge.Temple;
+import java.util.ArrayList;
 
 
 /* Cette carte "La meduse" permet tout simplement de gagner 14 points de gloire
@@ -20,12 +23,10 @@ public class TheJellyFish extends Card{
         else this.amount = 3;
         this.price = 4;
         this.portail = 5;
-        this.needs = 0;
     }
      
     @Override
-    public void actionCard(Bot bot)
-    {
+    public void actionCard(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
         bot.getHerosInventory().IncreaseGloryPoints(14);
     }
 }

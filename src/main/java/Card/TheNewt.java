@@ -1,5 +1,8 @@
 package Card;
+import Faces.GeneralFace;
 import Player.Bot;
+import diceforge.Temple;
+import java.util.ArrayList;
 
 /* Cette carte "Le Triton" permet au joueur d'acquerir un jeton Triton
    Elle procure 8 points de gloire à la fin de la partie
@@ -19,12 +22,11 @@ public class TheNewt extends Card{
         else this.amount = 3;
         this.price = 4;
         this.portail = 5;
-        this.needs = 0;
     } 
     
+    
     @Override
-    public void actionCard(Bot bot)
-    {
+    public void actionCard(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
         bot.getHerosInventory().IncreaseGloryPoints(8);
         bot.getHerosInventory().tokenNewt = bot.getHerosInventory().tokenNewt + 1; /* procure un jeton Triton */
     }

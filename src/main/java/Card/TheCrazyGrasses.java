@@ -1,5 +1,8 @@
 package Card;
+import Faces.GeneralFace;
 import Player.Bot;
+import diceforge.Temple;
+import java.util.ArrayList;
 
 
 /* Cette carte "Les herbes folles" fait gagner 3 Or et 3 Moon comme ressource supplementaire 
@@ -20,14 +23,12 @@ public class TheCrazyGrasses extends Card{
         else this.amount = 3;
         this.price = 1;
         this.portail = 7;
-        this.needs = 0;
     }
     
     
     @Override
-    public void actionCard(Bot bot)
-    {
-        bot.getHerosInventory().DecreaseGoldPoints(3);
+    public void actionCard(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
+        bot.getHerosInventory().IncreaseGoldPoints(3);
         bot.getHerosInventory().IncreaseMoonPoints(3);
         bot.getHerosInventory().IncreaseGloryPoints(2);
     }

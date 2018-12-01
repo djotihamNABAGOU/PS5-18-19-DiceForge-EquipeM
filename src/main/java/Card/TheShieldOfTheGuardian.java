@@ -3,6 +3,7 @@ import Faces.GardenFace;
 import Faces.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
+import java.util.ArrayList;
 
 /* Cette carte "Les ailes de la gardienne" permet d'avoir une face "aile de la gardienne"
    Type Immediat ----> Methode "ActionCard" appelé à l'achat puis suppression immédiate
@@ -22,12 +23,10 @@ public class TheShieldOfTheGuardian extends Card{
         else this.amount = 3;
         this.price = 3;
         this.portail = 6;
-        this.needs = 0;
     }
     
     @Override
-    public void actionCard(Bot bot,Temple temple)
-    {
+    public void actionCard(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
         bot.getHerosInventory().IncreaseGloryPoints(gloryPoints);
         GardenFace myface = temple.takeGardenFace(this); //Recuperer la face correspondante du temple
         GeneralFace face = myface;   // La mettre dans generalFace

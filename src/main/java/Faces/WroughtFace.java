@@ -21,7 +21,7 @@ public class WroughtFace extends GardenFace{
     }
 
     @Override
-    public void makeEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data) {
+    public void makeEffect(int action,Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data) {
         
         /* Si le joueur possède une face multiplier : Ne rien faire car c'est la face
            Multiplier qui s'activera et fera effet
@@ -36,14 +36,33 @@ public class WroughtFace extends GardenFace{
         }
         
         if(a==0){
-            makeEffectFaceMultiplier(temple,numBot,bot,1); // // Forge avec côut réduit de 2 car [a==1]
-        }
+            if(action==0){
+                makeEffectFaceMultiplier(action,temple,numBot,bot,1); // // Forge avec côut réduit de 2 car [a==1]
+            }
+       }
     }
     
     @Override
-    public void makeEffectFaceMultiplier(Temple temple,int numBot,Bot bot,int a,ArrayList<GeneralFace>... data){
+    public void makeEffectFaceMultiplier(int action,Temple temple,int numBot,Bot bot,int a,ArrayList<GeneralFace>... data){
         int b =  a*2; // côut réduit de 6 car [a==3]
-        SanctuarysFaces myFace = bot.giveMeYourWroughtChoice(temple);
+        if(action==0){
+            SanctuarysFaces myFace = bot.getStrategy().giveMeYourWroughtChoice(temple);
+            if(myFace.getPrice() != 0) {    // face non vide
+                    if (temple.buyFace(myFace)) {
+                           bot.getStrategy().ForgeDice(myFace);
+                           bot.getHerosInventory().DecreaseGoldPoints(myFace.getPrice()-b);
+                    }else {
+                           System.out.println("Purchase failed");
+                   }
+            } 
+        }   
+    }
+     
+    @Override
+    public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+        
+        int b =  2; // côut réduit de 2
+        SanctuarysFaces myFace = bot.getStrategy().giveMeYourWroughtChoice(temple);
          if(myFace.getPrice() != 0) {    // face non vide
                  if (temple.buyFace(myFace)) {
                         bot.getStrategy().ForgeDice(myFace);
@@ -51,7 +70,21 @@ public class WroughtFace extends GardenFace{
                  }else {
                         System.out.println("Purchase failed");
                 }
-         }   
+         } 
     }
-      
+    
+    //Effet sentinel
+    
+    @Override
+    public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+        makeEffect(0,temple, numBot, bot, data); 
+    }
+    
+    
+    @Override
+    public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,int a,Bot bot,ArrayList<GeneralFace>... data){
+        makeEffectFaceMultiplier(0,temple, numBot, bot, a, data);
+    }
+    
+    
 }

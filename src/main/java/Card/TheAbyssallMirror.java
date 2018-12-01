@@ -5,24 +5,24 @@ import Player.Bot;
 import diceforge.Temple;
 import java.util.ArrayList;
 
-/* Cette carte "Le casque d'invisibilité" permet d'avoir une face "*3"
+/* Cette carte "Le mirroir abysall" permet d'avoir une face "miroir"
    Type Immediat ----> Methode "ActionCard" appelé à l'achat puis suppression immédiate
-   Elle procure 4 points de gloire à la fin de la partie
+   Elle procure 10 points de gloire à la fin de la partie
 */
 
-public class TheInvisibilityHelmet extends Card{
+public class TheAbyssallMirror extends Card{
       
-    public TheInvisibilityHelmet(int amount)  /* prend en parametre le nombre de joueurs */
+    public TheAbyssallMirror(int amount)  /* prend en parametre le nombre de joueurs */
     {
-        this.name = "TheInvisibilityHelmet";
-        this.gloryPoints = 4;
-        this.type = "M";
+        this.name = "TheAbyssallMirror";
+        this.gloryPoints = 10;
+        this.type = "S";
         this.TypeCard = "I";
         if(amount==2 || amount ==4) /* S'il y'a 3 joueurs , il restera une carte qui ne sera jamais utilisé*/
             this.amount = amount;
         else this.amount = 3;
         this.price = 5;
-        this.portail = 3;
+        this.portail = 5;
     }
     
     @Override

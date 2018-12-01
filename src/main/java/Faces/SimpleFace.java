@@ -55,7 +55,7 @@ public class SimpleFace extends GeneralFace {
     }
 
     @Override
-    public void makeEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeEffect(int action,Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
         
         /* Si le joueur possède une face multiplier : Ne rien faire car c'est la face
            Multiplier qui s'activera et fera effet
@@ -70,14 +70,94 @@ public class SimpleFace extends GeneralFace {
         }
             
         if(a==0){
-            makeEffectFaceMultiplier(temple,numBot,bot,1);
+                makeEffectFaceMultiplier(action,temple,numBot,bot,1);
         }
     }
     
     @Override
-    public void makeEffectFaceMultiplier(Temple temple,int numBot,Bot bot,int a,ArrayList<GeneralFace>... data)
+    public void makeEffectFaceMultiplier(int action,Temple temple,int numBot,Bot bot,int a,ArrayList<GeneralFace>... data)
     {
         System.out.println("Face obtained  -> " + toString());
-        bot.getHerosInventory().increaseInventoryWithDiceFace(this,a);
+        if(action==0){
+            bot.getHerosInventory().increaseInventoryWithDiceFace(this,a);
+        }else{
+            bot.getHerosInventory().decreaseInventoryWithDiceFace(this,a);
+        }
+        
     }
+    
+   
+    @Override
+    public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+        
+        System.out.println("Face obtained  -> " + toString());
+        if(this.type.equals("G")){ // Si la face procure de l'or
+            int val = this.value;  // Recuperer la valeur
+            for(int a=0;a<val;a++){ 
+                int choice = bot.getStrategy().changeByGloryPoint(); //0 si oui , 1 sinon
+                if(choice==0){   // OuI
+                    bot.getHerosInventory().IncreaseGloryPoints(1);
+                }else {
+                    bot.getHerosInventory().IncreaseGoldPoints(1);
+                }
+            }
+        }
+        else bot.getHerosInventory().increaseInventoryWithDiceFace(this,1);
+    }
+    
+    
+    // Effets Sentinel 
+    
+    @Override
+    public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+        
+        /* Si le joueur possède une face multiplier : Ne rien faire car c'est la face
+           Multiplier qui s'activera et fera effet
+        */
+        int a = 0; // Pas de face Multiplier obtenue, passe à 1 sinon
+        if(data.length!=0){ // si == 0, faveur mineure
+           for(GeneralFace face : data[numBot]){
+                if(face instanceof MultiplierFace){
+                    a = 1;
+                }
+            } 
+        }
+            
+        if(a==0){
+            makeEffectFaceMultiplierCardSentinelEffect(temple,numBot,1,bot);
+        }
+    }
+    
+    
+    
+    @Override
+    public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,int d,Bot bot,ArrayList<GeneralFace>... data){
+        for(int b=0;b<d;b++){
+            System.out.println("Face obtained  -> " + toString());
+            if(this.type.equals("S")){ // Si la face est de type Sun 
+                int val = this.value;  // Recuperer la valeur
+                for(int a=0;a<val;a++){ 
+                    int choice = bot.getStrategy().changeByGloryPoint(); //0 si oui , 1 sinon
+                    if(choice==0){   // OuI
+                        bot.getHerosInventory().IncreaseGloryPoints(2);
+                    }else {
+                        bot.getHerosInventory().IncreaseSunPoints(1);
+                    }
+                }
+            }else if(this.type.equals("M")){ // Si la face est de type Moon
+                int val = this.value;  // Recuperer la valeur
+                for(int a=0;a<val;a++){ 
+                    int choice = bot.getStrategy().changeByGloryPoint(); //0 si oui , 1 sinon
+                    if(choice==0){   // OuI
+                        bot.getHerosInventory().IncreaseGloryPoints(2);
+                    }else {
+                        bot.getHerosInventory().IncreaseMoonPoints(1);
+                    }
+              }
+            }else{
+               bot.getHerosInventory().increaseInventoryWithDiceFace(this,1);       
+            }
+        }
+    }
+    
 }

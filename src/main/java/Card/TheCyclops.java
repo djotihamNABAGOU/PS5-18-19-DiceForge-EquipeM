@@ -1,5 +1,10 @@
 package Card;
 
+import Faces.GeneralFace;
+import Player.Bot;
+import diceforge.Temple;
+import java.util.ArrayList;
+
 /* Cette carte "Le cyclope" permet au joueur de relancer 04 fois l'un de ses 02 des
    [NB : le de à lancer 4 fois est le même]
    Et pour chaque ressource d'or obtenue , le joueur peut l'échanger contre 1 point de gloire
@@ -21,64 +26,17 @@ public class TheCyclops extends Card{
         else this.amount = 3;
         this.price = 6;
         this.portail = 4;
-        this.needs = 2;
     } 
     
-    /*
+    
     @Override
-    public void actionCard(HerosInventory inventory,Dice... dice)
-    {
-        inventory.IncreaseGloryPoints(8);
-        Random randomInt = new Random();
-        int number = randomInt.nextInt(2);
-        // Relancer l'un de ses 02 dés 4 fois et MAJ de l'inventaire , par defaut premier de pr le moment
-        int a = 0;
-        for(a=0;a<4;a++){
-            DiceFaces face = dice[1].rollDice();
-               
-                if(face.getType().equals("G") || face.getType().equals("M/S/G")){           
-                     switch(number){
-                         case 0 : inventory.increaseInventoryWithDiceRoll(face);break;
-                         case 1 : inventory.IncreaseGloryPoints(1*face.getValue());break;
-                     }
-                }
-                else if(face.getType().equals("2G+1M"))
-                {
-                     switch(number){
-                         case 0 : inventory.increaseInventoryWithDiceRoll(face);break;
-                         case 1 : {
-                                    inventory.IncreaseGloryPoints(2);
-                                    inventory.IncreaseMoonPoints(1);
-                         }break;
-                     }
-                }
-                else if(face.getType().equals("3G/2Gl"))
-                {    
-                    switch(number){
-                         case 0 : inventory.increaseInventoryWithDiceRoll(face);break;
-                         case 1 : inventory.IncreaseGloryPoints(3);break;
-                     }           
-                }
-                else if(face.getType().equals("ALL"))
-                {    
-                     switch(number){
-                         case 0 : inventory.increaseInventoryWithDiceRoll(face);break;
-                         case 1 : {
-                                    inventory.IncreaseMoonPoints(1);
-                                    inventory.IncreaseSunPoints(1);
-                                    inventory.IncreaseGoldPoints(2);
-                         }break;
-                     }
-                }
-                else if(face.getType().equals("2G/2S/2M"))
-                {
-                     switch(number){
-                         case 0 : inventory.increaseInventoryWithDiceRoll(face);break;
-                         case 1 : inventory.IncreaseGloryPoints(2);break;
-                     }   
-                }
-                else inventory.increaseInventoryWithDiceRoll(face);
-        }
+    public void actionCard(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
+       bot.getHerosInventory().IncreaseGloryPoints(gloryPoints);
+       int a = bot.getStrategy().throwWhichDice();  // choix du dé à lancer
+       for(int b = 0;b<4;b++){
+           GeneralFace myFace = bot.rollOneDice(a);     // face obtenue
+           myFace. makeCardCyclopEffect(temple,numBot, bot, listFaces);  // Effet Cyclop de la face   
+       }
     }
-     */
+                        
 }

@@ -1,5 +1,8 @@
 package Card;
+import Faces.GeneralFace;
 import Player.Bot;
+import diceforge.Temple;
+import java.util.ArrayList;
 
 
 /* Cette carte "Le coffre du forgeron" permet d'avoir une extension de 4 places pour chacune de 
@@ -20,12 +23,10 @@ public class TheFort extends Card {
         else this.amount = 3;
         this.price = 1;
         this.portail = 1;
-        this.needs = 0;
     }
     
     @Override
-    public void actionCard(Bot bot)
-    {
+    public void actionCard(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
         bot.getHerosInventory().goldPointsLimit = bot.getHerosInventory().goldPointsLimit + 4;
         bot.getHerosInventory().moonPointsLimit = bot.getHerosInventory().moonPointsLimit + 4;
         bot.getHerosInventory().sunPointsLimit = bot.getHerosInventory().sunPointsLimit + 4;

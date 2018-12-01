@@ -75,6 +75,10 @@ public class Bot {
     public ArrayList<GeneralFace> getRemovedFaces() {
         return RemovedFaces;
     }
+    
+    public ArrayList<Card> getAutomaticCard() {
+        return automaticCard;
+    }
 
     public void printDiceState() {
         System.out.println("------First Dice-------");
@@ -153,29 +157,18 @@ public class Bot {
     public ArrayList<Card> getEnhancementCard() {
         return enhancementCard;
     }
-
-    //Demande au joueur de choisir une face parmi celles proposées
-    public int giveMeYourChoice(ArrayList<SimpleFace> Offered) {
-        
-        // A implementer 
-        // ----> return 0 pr l"instant, donc le premier choix
-        return 0;
-    }
     
-    public int giveMeYourGChoice(ArrayList<GeneralFace> Offered) {
+    //Lancer un dé au choix prédefini
+    public GeneralFace rollOneDice(int a){
         
-        // A implementer 
-        // ----> return 0 pr l"instant, donc le premier choix
-        return 0;
+        switch(a){
+            case 0 : return this.getFirstDice().rollDice();
+            case 1 : return this.getSecondDice().rollDice();
+            default: return this.getFirstDice().rollDice();
+        }
     }
+                    
+        
     
-    //Demande au joueur de choisir une face à forger parmi celles disponibles au temple
-    public SanctuarysFaces giveMeYourWroughtChoice(Temple temple) {
-        SanctuarysFaces myFace = new SanctuarysFaces();
-        
-        // Corps de la méthode à implémenter
-      
-        return myFace;
-    }
     
 }

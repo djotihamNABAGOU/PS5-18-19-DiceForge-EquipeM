@@ -1,6 +1,9 @@
 package Card;
+import Faces.GeneralFace;
 import Player.Bot;
 import Player.HerosInventory;
+import diceforge.Temple;
+import java.util.ArrayList;
 
 /* Cette carte "Le marteau du forgeron" permet d'avoir un jeton marteau 
    Type Immediat ----> Methode "ActionCard" appelé à l'achat mais pas de suppression immédiate
@@ -25,12 +28,10 @@ public class TheHammer extends Card{
         else this.amount = 3;
         this.price = 1;
         this.portail = 1;
-        this.needs = 0;
     }
     
     @Override
-    public void actionCard(Bot bot)
-    {
+    public void actionCard(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
        bot.getHerosInventory().tokenHammer = bot.getHerosInventory().tokenHammer + 1;   /* procure un jeton marteau */
     }
     

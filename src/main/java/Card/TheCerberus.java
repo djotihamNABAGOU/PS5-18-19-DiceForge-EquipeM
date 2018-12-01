@@ -1,5 +1,8 @@
 package Card;
+import Faces.GeneralFace;
 import Player.Bot;
+import diceforge.Temple;
+import java.util.ArrayList;
 
 
 /* Cette carte "Le Triton" permet au joueur d'acquerir un jeton Cerbère
@@ -20,13 +23,12 @@ public class TheCerberus extends Card{
         else this.amount = 3;
         this.price = 5;
         this.portail = 3;
-        this.needs = 0;
     } 
     
+   
+    
     @Override
-    public void actionCard(Bot bot)
-    {
-        bot.getHerosInventory().IncreaseGloryPoints(6);
+    public void actionCard(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
         bot.getHerosInventory().tokenCerberus = bot.getHerosInventory().tokenCerberus + 1; /* procure un jeton cerbère */
     }
     

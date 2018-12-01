@@ -25,12 +25,10 @@ public class TheWildBoar extends Card{
         else this.amount = 3;
         this.price = 3;
         this.portail = 2;
-        this.needs = 0;
     }
     
     @Override
-    public void actionCard(Bot bot,Temple temple)
-    {
+    public void actionCard(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
         bot.getHerosInventory().IncreaseGloryPoints(gloryPoints);
         GardenFace myface = temple.takeGardenFace(this); //Recuperer la face correspondante du temple
         GeneralFace face = myface;   // La mettre dans generalFace
@@ -40,18 +38,14 @@ public class TheWildBoar extends Card{
     }
     
     @Override
-    public void capacity(Bot bot){
+    public void capacity(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces){
         ArrayList<SimpleFace> Offered = new ArrayList<>();
         Offered.add(new SimpleFace(1, "S", "SunFace"));
         Offered.add(new SimpleFace(1, "M", "MoonFace"));
         Offered.add(new SimpleFace(3, "Gl", "GloryFace"));
-        
-        // Temple juste crée pour être passé en paramètre, n'est pas utilisé dans ce cas précis
-        // Car on sait implicitement qu'il s"agit d"une SIMPLEFACE 
-        Temple temple = new Temple();
-        
-        int choice = bot.giveMeYourChoice(Offered);
-        Offered.get(choice).makeEffect(temple,1,bot);
+       
+        int choice = bot.getStrategy().giveMeYourChoice(Offered);
+        Offered.get(choice).makeEffect(0,temple,1,bot);
     }
   
 }

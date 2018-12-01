@@ -1,49 +1,67 @@
-//package Card;
-//
-//import Faces.GeneralFace;
-//import Faces.SimpleFace;
-//import Player.Bot;
-//import Player.HerosInventory;
-//
-///* Cette carte "Les satyres" permet au joueur qui l'achete de choisir 2 faces parmi les faces de des des
-//   autres joueurs après que ceux ci aient relancer tous leurs deux dés
-//   Elle procure 6 points de gloire à la fin de la partie
-//   Type Immediat ----> Methode "ActionCard" appelé à l'achat puis Suppression de la Carte
-//*/
-//
-//public class TheSatyrs extends Card{
-//    
-//    public TheSatyrs(int amount) /* prend en parametre le nombre de joueurs */
-//    {
-//        this.gloryPoints = 6;
-//        this.type = "M";
-//        this.TypeCard = "I";
-//        if(amount==2 || amount ==4) /* S'il y'a 3 joueurs , il restera une carte qui ne sera jamais utilisé*/
-//            this.amount = amount;
-//        else this.amount = 3;
-//        this.price = 3;
-//        this.portail = 2;
-//        this.needs = 1;
-//    }
-//    
-//    @Override
-//    public void actionCard(Bot... nb) /* prend en param les autres joueurs */
-//    {
-//        nb[0].getHerosInventory().IncreaseGloryPoints(6);
-//        /* Tableau de face qui contiendra les faces des lancers des autres joueurs */
-//        GeneralFace tabFace[] = new SimpleFace[(nb.length*2)-2];
-//        int a = 1;
-//        int compteur = 0;
-//        for(a=1;a<nb.length;a++) /* Tous les joueurs relancent leurs faces */
-//        {
-//            tabFace[compteur] = nb[a].getFirstDice().rollDice();
-//            compteur = compteur + 1;
-//            tabFace[compteur] = nb[a].getSecondDice().rollDice();
-//            compteur = compteur + 1;
-//        }
-//        
-//        /* choisit pour l'instant par defaut la 1ere et la derniere face */
-//        tabFace[0].makeEffect(nb[0]);
-//        tabFace[(nb.length*2)-3].makeEffect(nb[0]);      
-//    } 
-//} 
+package Card;
+
+import Faces.GeneralFace;
+import Player.Bot;
+import diceforge.Temple;
+import java.util.ArrayList;
+
+/* Cette carte "Les satyres" permet au joueur qui l'achete de choisir 2 faces parmi les faces de des des
+   autres joueurs après que ceux ci aient relancer tous leurs deux dés
+   Elle procure 6 points de gloire à la fin de la partie
+   Type Immediat ----> Methode "ActionCard" appelé à l'achat puis Suppression de la Carte
+*/
+
+public class TheSatyrs extends Card{
+    
+    public TheSatyrs(int amount) /* prend en parametre le nombre de joueurs */
+    {
+        this.gloryPoints = 6;
+        this.type = "M";
+        this.TypeCard = "I";
+        if(amount==2 || amount ==4) /* S'il y'a 3 joueurs , il restera une carte qui ne sera jamais utilisé*/
+            this.amount = amount;
+        else this.amount = 3;
+        this.price = 3;
+        this.portail = 2;
+    }
+    
+    @Override
+    public void actionCard(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
+        bot.getHerosInventory().IncreaseGloryPoints(6);
+        
+        //Lancer des dés par les autres joueurs et remplacements des faces dans la liste
+        for(int a=0;a<listBot.size();a++){
+           if(a!=numBot){  // le joueur lui ne relance plus
+              GeneralFace one = listBot.get(a).getFirstDice().rollDice();
+              GeneralFace two = listBot.get(a).getSecondDice().rollDice();  
+              listFaces[a].set(0,one); // changement par la nouvelle face  
+              listFaces[a].set(1,two); // changement par la nouvelle face
+           }
+        }
+        
+        // Ranger les faces dans une liste pour le choix du joueur 
+        ArrayList<GeneralFace> list = new ArrayList<>();
+        for(int b=0;b<listFaces.length;b++){
+            for(GeneralFace face : listFaces[b]){
+                if(b!=numBot){
+                    list.add(face);
+                }
+            }
+        }
+        
+        GeneralFace one = list.get(bot.getStrategy().giveMeYourGChoice(list));  // 1er choix
+        list.remove(one); // Supprimer la face choisie de la liste avt le second choix
+        GeneralFace two = list.get(bot.getStrategy().giveMeYourGChoice(list));  // 2em choix
+        
+        //Ranger les nouvelles faces du joueur
+        listFaces[numBot].set(0,one); // changement par la nouvelle face  
+        listFaces[numBot].set(1,two); // changement par la nouvelle face
+        
+        //Appliquer enfin l'effet des faces
+        for(int a=0;a<2;a++){
+          
+           listFaces[numBot].get(0).makeEffect(0,temple, numBot, bot, listFaces); 
+           listFaces[numBot].get(1).makeEffect(0,temple, numBot, bot, listFaces);
+        }    
+    } 
+} 

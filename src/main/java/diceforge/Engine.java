@@ -86,9 +86,9 @@ public class Engine {
         while(a<data.length) 
         {
             System.out.println("-------->ROLL OF BOT "+(compteur+1));
-            listFaces[a].get(0).makeEffect(temple,compteur,data[compteur],listFaces);
-            listFaces[a].get(1).makeEffect(temple,compteur,data[compteur],listFaces);
-            data[compteur].getStrategy().apply(temple,(compteur+1),actionNumber);
+            listFaces[a].get(0).makeEffect(0,temple,compteur,data[compteur],listFaces);
+            listFaces[a].get(1).makeEffect(0,temple,compteur,data[compteur],listFaces);
+            data[compteur].getStrategy().apply(temple,compteur,actionNumber,listFaces,data);
             a = a + 1;
             compteur = compteur + 1;
         }

@@ -1,5 +1,8 @@
 package Card;
+import Faces.GeneralFace;
 import Player.Bot;
+import diceforge.Temple;
+import java.util.ArrayList;
 
 
 /* Cette carte "Le typhon" permet au joueur d'avoir un point de gloire par face de dé crafté
@@ -20,12 +23,11 @@ public class TheTyphoon extends Card{
         else this.amount = 3;
         this.price = 10;
         this.portail = 4;
-        this.needs = 3;
     } 
     
     @Override
-    public void actionCard(Bot bot,int nb) /* nb: nombres de faces craftés */
-    {
+    public void actionCard(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
+        int nb = bot.getRemovedFaces().size();
         bot.getHerosInventory().IncreaseGloryPoints(16+(1*nb));      
     } 
 }

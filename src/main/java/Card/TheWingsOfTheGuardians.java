@@ -1,6 +1,8 @@
 package Card;
+import Faces.GeneralFace;
 import Player.Bot;
-import Player.HerosInventory;
+import diceforge.Temple;
+import java.util.ArrayList;
 
 /* Cette carte "Les ailes de la gardienne" permet au joueur de choisir entre 1G/1S/1M 
    comme ressource supplementaire 
@@ -24,19 +26,16 @@ public class TheWingsOfTheGuardians extends Card{
         else this.amount = 3;
         this.price = 2;
         this.portail = 6;
-        this.needs = 0;
-        this.capacityNeeds = 2;
     }
     
     @Override
-    public void actionCard(Bot bot)
-    {
+    public void actionCard(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
        bot.getHerosInventory().IncreaseGloryPoints(4);
     }
    
     @Override
-    public void capacity(Bot bot,int choice) /* prend en param l'un des 02 des du joueur*/
-    {
+    public void capacity(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces){
+       int choice = bot.getStrategy().whichResource();
        switch(choice)
        {
            case 0 : bot.getHerosInventory().IncreaseGoldPoints(1);break;
