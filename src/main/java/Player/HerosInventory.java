@@ -1,6 +1,5 @@
 package Player;
 import Faces.SimpleFace;
-import java.util.Random;
 
 
 public class HerosInventory {
@@ -76,9 +75,40 @@ public class HerosInventory {
             this.goldPoints=goldPointsLimit;
         }
     }
+    
     public void DecreaseGoldPoints(int points){
-       this.goldPoints-=points;
+       if(this.goldPoints<=points){
+           this.goldPoints = 0;
+       }else {
+           this.goldPoints -=points;
+       }       
     }
+    
+    public void DecreaseGloryPoints(int points){
+       if(this.gloryPoints<=points){
+           this.gloryPoints = 0;
+       }else {
+           this.gloryPoints -=points;
+       }       
+    }
+    
+    public void DecreaseSunPoints(int points){
+       if(this.sunPoints<=points){
+           this.sunPoints = 0;
+       }else {
+           this.sunPoints -=points;
+       }       
+    }
+    
+    
+    public void DecreaseMoonPoints(int points){
+       if(this.moonPoints<=points){
+           this.moonPoints = 0;
+       }else {
+           this.moonPoints -=points;
+       }       
+    }
+    
     public void IncreaseSunPoints(int points){
         int maxToAdd = sunPointsLimit - this.sunPoints;
         if(maxToAdd>points){
@@ -88,105 +118,45 @@ public class HerosInventory {
         }
     }
     
-    public void makeFirstDefaultHerosInventory(){  //First Hero's inventory initializing
+    public void makeDefaultHerosInventory(int a){   //Hero's inventory initializing
         this.gloryPoints=0;
         this.goldPoints=0;
         this.moonPoints=0;
-        this.goldPoints=3;
+        this.goldPoints=a;
     }
-    public void makeSecondDefaultHerosInventory(){  //Second Hero's inventory initializing
-        this.gloryPoints=0;
-        this.goldPoints=0;
-        this.moonPoints=0;
-        this.goldPoints=2;
-    }
-    public void makeThirdDefaultHerosInventory(){  //Third Hero's inventory initializing
-        this.gloryPoints=0;
-        this.goldPoints=0;
-        this.moonPoints=0;
-        this.goldPoints=1;
-    }
-    public void makeFourthDefaultHerosInventory(){  //Fourth Hero's inventory initializing
-        this.gloryPoints=0;
-        this.goldPoints=0;
-        this.moonPoints=0;
-        this.goldPoints=0;
-    }
+  
     
-    public void increaseInventoryWithDiceFace(SimpleFace faceObtained){
+    public void increaseInventoryWithDiceFace(SimpleFace faceObtained,int multiplier){
         if(faceObtained.getType().equals("S")){
-            this.IncreaseSunPoints(faceObtained.getValue());
+            this.IncreaseSunPoints(faceObtained.getValue()*multiplier);
         }
         if(faceObtained.getType().equals("M")){
-            this.IncreaseMoonPoints(faceObtained.getValue());
+            this.IncreaseMoonPoints(faceObtained.getValue()*multiplier);
         }
         if(faceObtained.getType().equals("G")){
-            this.IncreaseGoldPoints(faceObtained.getValue());
+            this.IncreaseGoldPoints(faceObtained.getValue()*multiplier);
         }
         if(faceObtained.getType().equals("Gl")){
-            this.IncreaseGloryPoints(faceObtained.getValue());
+            this.IncreaseGloryPoints(faceObtained.getValue()*multiplier);
         }
-        /*if(faceObtained.getType().equals("2G+1M")){
-            this.IncreaseGoldPoints(2);
-            this.IncreaseMoonPoints(1);
-        }
-        if(faceObtained.getType().equals("1Gl+1S")){
-            this.IncreaseGloryPoints(1); 
-            this.IncreaseSunPoints(1);
-        }
-        if(faceObtained.getType().equals("M/S/G")){
-            Random randomInt = new Random();
-            int number = randomInt.nextInt(3);
-            switch(number) {
-                case 0:
-                    this.IncreaseMoonPoints(1); 
-                    break;
-                case 1:
-                    this.IncreaseSunPoints(1);
-                    break;
-                case 2:
-                    this.IncreaseGoldPoints(1);
-                    break;
-            }
-        }
-        if(faceObtained.getType().equals("3G/2Gl")){
-            Random randomInt = new Random();
-            int number = randomInt.nextInt(2);
-            switch(number) {
-                case 0:
-                    this.IncreaseGoldPoints(3); 
-                    break;
-                case 1:
-                    this.IncreaseGloryPoints(2);
-                    break;
-            }
-        }
-        if(faceObtained.getType().equals("ALL")){
-            this.IncreaseSunPoints(1);
-            this.IncreaseMoonPoints(1);
-            this.IncreaseGloryPoints(1);
-            this.IncreaseGoldPoints(1);
-        }
-        if(faceObtained.getType().equals("2G/2S/2M")){
-            Random randomInt = new Random();
-            int number = randomInt.nextInt(3);
-            switch(number) {
-                case 0:
-                    this.IncreaseMoonPoints(2); 
-                    break;
-                case 1:
-                    this.IncreaseSunPoints(2);
-                    break;
-                case 2:
-                    this.IncreaseGoldPoints(2);
-                    break;
-            }
-        }
-        if(faceObtained.getType().equals("2Gl+2M")){
-            this.IncreaseGloryPoints(2);
-            this.IncreaseMoonPoints(2);
-        }*/
+       
     }
     
+    
+    public void decreaseInventoryWithDiceFace(SimpleFace faceObtained,int multiplier){
+        if(faceObtained.getType().equals("S")){
+            this.DecreaseSunPoints(faceObtained.getValue()*multiplier);
+        }
+        if(faceObtained.getType().equals("M")){
+            this.DecreaseMoonPoints(faceObtained.getValue()*multiplier);
+        }
+        if(faceObtained.getType().equals("G")){
+            this.DecreaseGoldPoints(faceObtained.getValue()*multiplier);
+        }
+        if(faceObtained.getType().equals("Gl")){
+            this.DecreaseGloryPoints(faceObtained.getValue()*multiplier);
+        }
+       
+    }
     /*On doit avoir des fonctions decrease pour les achats/depenses des points*/  
 }

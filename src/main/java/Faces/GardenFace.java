@@ -5,58 +5,55 @@
  */
 package Faces;
 
+import Card.Card;
 import Player.Bot;
 import diceforge.Temple;
 import java.util.ArrayList;
 
-/**
- *
- * @author The Beginners
- */
-public class GeneralFace {
+public class GardenFace extends GeneralFace{
     
-    protected String name;
-
-    public GeneralFace() {
-        this.name = "";
+    private Card card;  // Carte qui permet d'avoir la face
+    private boolean selected;
+    
+    public GardenFace()
+    {
+   
     }
-
-    public GeneralFace(String name) {
-        this.name = name;
+    
+    public GardenFace(String name,Card card)
+    {
+        super(name);
+        this.card = card;
+        this.selected = false;
     }
-
-    public String getName() {
-        return name;
+    
+    public boolean isSelected() {
+        return selected;
+    }
+    
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+    
+    public Card getCard()
+    {
+        return card;
     }
     
     @Override
-    public boolean equals(Object obj)
-    {
-        GeneralFace other = (GeneralFace) obj;
-        return name.equals(other.name);
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    // int action ---> sert pr savoir s"il faut incrementer ou decrementer 
-    // Utilisé pour la carte minotaure et pour eviter une duplication de code
-    // 0 --> incremente ; 1 --> decremente
     public void makeEffect(int action,Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
-        System.out.println("I am General face, please implement effect in subclasses");
+        System.out.println("I am Garden face, please implement effect in subclasses");
     }
     
-    //Methode qui est déclenchée si on obtient  une face Multiplier dans son lancer
+    @Override
     public void makeEffectFaceMultiplier(int action,Temple temple,int numBot,Bot bot,int a,ArrayList<GeneralFace>... data){
-        System.out.println("I am General face, please implement effect in subclasses");
+        System.out.println("I am Garden face, please implement effect in subclasses");   
     }
     
-
-
-
+    
     
     //Methode appelée par l'utilisation d'une carte Cyclope
+    @Override
     public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
         System.out.println("I am General face, please implement effect in subclasses");
     }
@@ -65,16 +62,17 @@ public class GeneralFace {
     
     
     
-    
     //Methode appelée par l'utilisation d'une carte Sentinel
+    @Override
     public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
         System.out.println("I am General face, please implement effect in subclasses");
     }
     
-    //Methode appelée par l'utilisation d'une carte Sentinel
+    @Override
     public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,int a,Bot bot,ArrayList<GeneralFace>... data){
         System.out.println("I am General face, please implement effect in subclasses");
     }
-       
+    
+    
     
 }

@@ -1,5 +1,6 @@
 package Card;
 
+import Faces.GardenFace;
 import Faces.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
@@ -8,17 +9,18 @@ import java.util.ArrayList;
 
 
 /**
- * Cette carte "Les sabots d'argent" permet de relancer une fois le dé de son choix pdt son tour
- * de joueur actif
+ * Cette carte "La grande ourse" permet d'obtenir 3 points de gloire lorsqu'on est chassé ou qu'on
+ * est chassé
  * Elle procure 2 points de gloire à la fin de la partie
  * Type Renfort  ----> Methode "ActionCard" appelé à l'achat de la carte
  * ----> Carte conservé dans la liste des cartes de renforcement du joueur
- * ----> Methode "Capacity" appelé à chaque tour actif du joueur en possesion
+ * ----> Methode "Capacity" appelé si la condition automatique se produit
  */
 
-public class TheClogs extends Card {
+public class TheGreatBear extends Card {
 
-    public TheClogs(int amount)   /* prend en parametre le nombre de joueurs */ {
+    public TheGreatBear(int amount)  /* prend en parametre le nombre de joueurs */ {
+        this.name = "TheGreatBear";
         this.gloryPoints = 2;
         this.type = "M";
         this.TypeCard = "R";
@@ -31,17 +33,12 @@ public class TheClogs extends Card {
 
     @Override
     public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
-        bot.getHerosInventory().IncreaseGloryPoints(2);
+        bot.getHerosInventory().IncreaseGloryPoints(gloryPoints);
     }
 
-
-    // les faces de sautres adversairees est le dernier argument 
     @Override
     public void capacity(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces) {
-        int a = bot.getStrategy().throwWhichDice();  // choix du dé à lancer
-        GeneralFace myFace = bot.rollOneDice(a);     // face obtenue
-        myFace.makeEffect(0, temple, numBot, bot, listFaces);   // Effet de la face
+        bot.getHerosInventory().IncreaseGloryPoints(3);
     }
 
 }
-

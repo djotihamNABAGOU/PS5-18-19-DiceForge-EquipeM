@@ -3,10 +3,12 @@ package Player;
 import Card.Card;
 import Card.TheHammer;
 import Faces.GeneralFace;
+import Faces.SanctuarysFaces;
 import Faces.SimpleFace;
 import PlayerStrategy.RandomStrategy;
 import PlayerStrategy.Strategy;
 import PlayerStrategy.NothingStrategy;
+import diceforge.Temple;
 
 import java.util.ArrayList;
 
@@ -23,16 +25,8 @@ public class Bot {
     private boolean active = false;
     private final ArrayList<Card> enhancementCard = new ArrayList<Card>();   /* Liste des cartes de renfort en possession du joueur */
     private ArrayList<TheHammer> hammerCard;   /* Liste des cartes marteaux en possession du joueur */
-    public int roundsWin;
-
-    /*
-    public Bot() {
-        firstDice = new Dice();
-        secondDice = new Dice();
-        herosInventory = new HerosInventory();
-        RemovedFaces = new ArrayList<>();
-        strategy = new Strategy(this);//Un contructeur par défaut de bot crée un bot avec une stratégie qui dépendra entièrement du joueur(entrée standard)
-    }*/
+    private ArrayList<Card> automaticCard;   /* Liste des cartes à effets automatiques en possession du joueur */
+    public int wonRounds;
 
     public Bot(String strategyName) {
         firstDice = new Dice();
@@ -54,7 +48,7 @@ public class Bot {
                 this.strategy = new Strategy(this);
                 break;
         }
-        this.roundsWin = 0;
+        this.wonRounds = 0;
     }
 
     public HerosInventory getHerosInventory() {
@@ -71,6 +65,10 @@ public class Bot {
 
     public ArrayList<GeneralFace> getRemovedFaces() {
         return RemovedFaces;
+    }
+
+    public ArrayList<Card> getAutomaticCard() {
+        return automaticCard;
     }
 
     public void printDiceState() {
@@ -92,11 +90,9 @@ public class Bot {
 
     /**
      * permet au joueur d'utiliser un de ses jetons Triton
-     * <<<<<<< HEAD
      *
      * @param number =======
      * @param number indique la ressource choisie par le joueur
-     *               >>>>>>> 0765f68c74af7f7ca13fe4ce3f782646de80f765
      */
     public void useNewtToken(int number) {  /* Le paramètre indique la ressource choisie par le joueur */
 
@@ -121,7 +117,7 @@ public class Bot {
     public void useCerberusToken(SimpleFace... diceface) {
 
         for (SimpleFace dicefaceT : diceface) {
-            this.herosInventory.increaseInventoryWithDiceFace(dicefaceT);
+            this.herosInventory.increaseInventoryWithDiceFace(dicefaceT, 1);
         }
     }
 
@@ -151,4 +147,19 @@ public class Bot {
     public ArrayList<Card> getEnhancementCard() {
         return enhancementCard;
     }
+
+    //Lancer un dé au choix prédefini
+    public GeneralFace rollOneDice(int a) {
+
+        switch (a) {
+            case 0:
+                return this.getFirstDice().rollDice();
+            case 1:
+                return this.getSecondDice().rollDice();
+            default:
+                return this.getFirstDice().rollDice();
+        }
+    }
+
+
 }

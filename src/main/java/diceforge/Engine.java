@@ -1,9 +1,11 @@
 package diceforge;
 
+import Faces.GeneralFace;
 import Faces.SanctuarysFaces;
 import Player.Bot;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 
@@ -15,6 +17,7 @@ public class Engine {
     /**
      * Contructeur du moteur de jeu
      *
+     * @param round  : nombres de parties
      * @param set    : nombre de manches
      * @param number : nombres de bots
      */
@@ -26,60 +29,30 @@ public class Engine {
 
     /**
      * Méthode d'initialisation des bots avec leurs 2 dés (clair et foncé) et un joueur actif
-     * @param tabBots tableau de bots (compris entre 2 et 4 bots)
+     *
+     * @param data tableau de bots, contient le nombre de bots pour la partie
      */
-    void InitializingBots(Bot... tabBots) {
-        switch (tabBots.length) {
-            case 2:
-                tabBots[0].getFirstDice().makeBrightDefaultDice();
-                tabBots[0].getSecondDice().makeDarkDefaultDice();
-                tabBots[0].getHerosInventory().makeFirstDefaultHerosInventory();
-                tabBots[0].setActive(true);
-
-                tabBots[1].getFirstDice().makeBrightDefaultDice();
-                tabBots[1].getSecondDice().makeDarkDefaultDice();
-                tabBots[1].getHerosInventory().makeSecondDefaultHerosInventory();
-                break;
-
-            case 3:
-                tabBots[0].getFirstDice().makeBrightDefaultDice();
-                tabBots[0].getSecondDice().makeDarkDefaultDice();
-                tabBots[0].getHerosInventory().makeFirstDefaultHerosInventory();
-                tabBots[0].setActive(true);
-
-                tabBots[1].getFirstDice().makeBrightDefaultDice();
-                tabBots[1].getSecondDice().makeDarkDefaultDice();
-                tabBots[1].getHerosInventory().makeSecondDefaultHerosInventory();
-
-                tabBots[2].getFirstDice().makeBrightDefaultDice();
-                tabBots[2].getSecondDice().makeDarkDefaultDice();
-                tabBots[2].getHerosInventory().makeThirdDefaultHerosInventory();
-                break;
-
-            case 4:
-                tabBots[0].getFirstDice().makeBrightDefaultDice();
-                tabBots[0].getSecondDice().makeDarkDefaultDice();
-                tabBots[0].getHerosInventory().makeFirstDefaultHerosInventory();
-                tabBots[0].setActive(true);
-
-                tabBots[1].getFirstDice().makeBrightDefaultDice();
-                tabBots[1].getSecondDice().makeDarkDefaultDice();
-                tabBots[1].getHerosInventory().makeSecondDefaultHerosInventory();
-
-                tabBots[2].getFirstDice().makeBrightDefaultDice();
-                tabBots[2].getSecondDice().makeDarkDefaultDice();
-                tabBots[2].getHerosInventory().makeThirdDefaultHerosInventory();
-
-                tabBots[3].getFirstDice().makeBrightDefaultDice();
-                tabBots[3].getSecondDice().makeDarkDefaultDice();
-                tabBots[3].getHerosInventory().makeFourthDefaultHerosInventory();
-                break;
+    void InitializingBots(Bot... data) {  // prend en paramÃ¨tres une liste de robots
+        int a = 0;
+        int goldpoints = 3; // points d'or : 3 pr le premier (-1 par la suite)
+        for (Bot bot : data) {
+            bot.getFirstDice().makeBrightDefaultDice();
+            bot.getSecondDice().makeDarkDefaultDice();
+            bot.getHerosInventory().makeDefaultHerosInventory(goldpoints);
+            if (a == 0) bot.setActive(true);  // choisit comme actif le premier joueur
+            a = a + 1;
+            goldpoints = goldpoints - 1;  // decremente au fur et Ã  mesure  
         }
     }
 
-    void initializingTemple(Temple temple){
-        if (numberOfBot == 2){
-            for (int i=0; i<10; i++){
+    /**
+     * Méthode d'initialisation du temple avec un nombre de faces dépendant du nombre de joueurs
+     *
+     * @param temple : temple
+     */
+    void initializingTemple(Temple temple) {
+        if (numberOfBot == 2) {
+            for (int i = 0; i < 10; i++) {
                 ArrayList<SanctuarysFaces>[] sanctuary = temple.getSanctuary();
                 int size = sanctuary[i].size();
                 Random randomBassin = new Random();
@@ -94,87 +67,108 @@ public class Engine {
     }
 
     /**
-     * ?????????
-     * @param botOne
-     * @param botTwo
-     */
-    public void RollAndRollSetTimes(Bot botOne, Bot botTwo) {
-        for (int i = 0; i < this.set; i++) {
-            botOne.getFirstDice().rollDice().makeEffect(botOne);
-            botOne.getSecondDice().rollDice().makeEffect(botOne);
-            botTwo.getFirstDice().rollDice().makeEffect(botTwo);
-            botTwo.getSecondDice().rollDice().makeEffect(botTwo);
-        }
-
-    }
-
-    /**
-     * méthode de lancé de dé
-     * @param theBot : joueur qui lance le dé
-     */
-    private void RollOneTime(Bot theBot) {
-        theBot.getFirstDice().rollDice().makeEffect(theBot);
-        theBot.getSecondDice().rollDice().makeEffect(theBot);
-    }
-
-    /**
-     * méthode permettant de faire une manche
-     * @param botOne
-     * @param botTwo
+     * Méthode de lancé de dé
+     *
      * @param temple
-     * @param actionNumber
+     * @param actionNumber :
+     * @param data         : nombres de bots du jeu
      */
-    void MakeOneSetWithTwoBot(Bot botOne, Bot botTwo, Temple temple, int actionNumber) {
+    private void RollOneTime(Temple temple, int actionNumber, Bot... data) {
 
-        System.out.println("-------->ROLL OF BOT 1");
-        RollOneTime(botOne);//Lancé du dé et incrémentation des points d'inventaire
-        botOne.getStrategy().apply(temple, 1, actionNumber);//Application de la stratégie du bot
-        System.out.println("-------->ROLL OF BOT 2");
-        RollOneTime(botTwo);
-        botTwo.getStrategy().apply(temple, 2, actionNumber);
+        ArrayList<GeneralFace>[] listFaces = new ArrayList[data.length];
+        int a = 0; // Compteur pour le parcours des faces 
 
-        System.out.println("\n");
-        System.out.println("-------------------------------------\n");
-        System.out.println("STATE AFTER " + (actionNumber) + " SET");
-        System.out.println("-->BOT ONE");
-        System.out.println(botOne.toString());
-        botOne.printDiceState();
-        System.out.println("-->BOT TWO");
-        System.out.println(botTwo.toString());
-        botTwo.printDiceState();
-        System.out.println("\n");
+        for (Bot bot : data) {
+            listFaces[a].add(bot.getFirstDice().rollDice());
+            listFaces[a].add(bot.getSecondDice().rollDice());
+            a = a + 1;
+        }  // Après la boucle, les faces obtenues sont stockÃ©es respectivement dans la liste
+        a = 0;
+        int compteur = 0;
+        
+        /* le 1er attribut compteur permet de connaitre la position des des du joueur dans la liste
+           de dés passés.
+        */
+
+        while (a < data.length) {
+            System.out.println("-------->ROLL OF BOT " + (compteur + 1));
+            listFaces[a].get(0).makeEffect(0, temple, compteur, data[compteur], listFaces);
+            listFaces[a].get(1).makeEffect(0, temple, compteur, data[compteur], listFaces);
+            data[compteur].getStrategy().apply(temple, compteur, actionNumber, listFaces, data);
+            a = a + 1;
+            compteur = compteur + 1;
+        }
+
     }
 
-    void makeSets(Bot botOne, Bot botTwo, Temple temple) {
+    /**
+     * Méthode permettant de faire des manches
+     *
+     * @param temple
+     * @param data
+     */
+    void makeSets(Temple temple, Bot... data) {
         for (int a = 0; a < this.set; a++) {
-            MakeOneSetWithTwoBot(botOne, botTwo, temple, a + 1);
-            //Changement du joueur actif
-            botOne.setActive(!botOne.isActive());
-            botTwo.setActive(!botTwo.isActive());
-        }
-    }
-
-    void makeRound(Bot botOne, Bot botTwo, Temple temple){
-        for (int i=0; i<this.round;i++){
-            makeSets(botOne,botTwo,temple);
             System.out.println("\n");
-            System.out.println("DETERMINATING THE WINNER");
-            TellMeTheWinner(botOne, botTwo);
-        }
-        System.out.println("**********Results*********");
-        if (botOne.roundsWin > botTwo.roundsWin){
-            System.out.println("Bot 1 wins the game with "+(((float)botOne.roundsWin/1000)*100)+"% of won rounds aigainst "+((float)botTwo.roundsWin/1000)*100+"% won rounds for the Bot 2. Congratulations Bot 1!");
-        }
-        if (botOne.roundsWin < botTwo.roundsWin){
-            System.out.println("Bot 2 wins the game with "+((float)botTwo.roundsWin/1000)*100+"% of won rounds aigainst "+((float)botOne.roundsWin/1000)*100+"% won rounds for the Bot 1. Congratulations Bot 2!");
-        }
-        if (botOne.roundsWin == botTwo.roundsWin){
-            System.out.println("No winner, It's a tie !");
+            System.out.println("-------------------------------------\n");
+            RollOneTime(temple, a + 1, data);
+            for (int i = 0; i < data.length; i++) {
+                System.out.println("STATE AFTER " + (a + 1) + " SET");
+                System.out.println("-->BOT " + i);
+                System.out.println(data[i].toString());
+                data[i].printDiceState();
+            }
+            System.out.println("\n");
+            //Changement du joueur actif
+            for (Bot bot : data) {
+                bot.setActive(!bot.isActive());
+            }
         }
     }
 
-    void TellMeTheWinner(Bot botOne, Bot botTwo) {
-        if (botOne.getHerosInventory().getGloryPoints() > botTwo.getHerosInventory().getGloryPoints()) {
+    /**
+     * Méthode permettant de déterminer le gagnant d'une partie
+     *
+     * @param data
+     */
+    void tellMeTheWinnerOfRound(Bot... data) {
+        int winnerIndex = 0, winnerWonSets = 0, equalityIndex = 0;
+        for (int i = 0; i < data.length; i++) {
+            if (data[i].wonRounds > winnerWonSets) {
+                winnerIndex = i + 1;
+                winnerWonSets = data[i].wonRounds;
+            }
+            if (data[i].wonRounds == winnerWonSets) {
+                equalityIndex = i + 1;
+            }
+        }
+        //Vérifications à la sortie de la boucle
+        if (equalityIndex > winnerIndex) {
+            if (equalityIndex - winnerIndex == 1) {
+                System.out.println("We have 2 winners for the round, Bot " + winnerIndex + " and Bot " + equalityIndex + ".");
+                data[winnerIndex].wonRounds++;
+                data[equalityIndex].wonRounds++;
+            }
+            if (equalityIndex - winnerIndex == 2) {
+                if (winnerWonSets == data[equalityIndex - 1].wonRounds) {
+                    System.out.println("We have 3 winners for the round, Bot " + winnerIndex + ", Bot " + (equalityIndex - 1) + " and Bot " + equalityIndex + ".");
+                    data[winnerIndex].wonRounds++;
+                    data[equalityIndex - 1].wonRounds++;
+                    data[equalityIndex].wonRounds++;
+                } else {//l'intermédiaire est forcément inférieur ***code dupliqué mais nécessaire pour la compréhension***
+                    System.out.println("We have 2 winners for the round, Bot " + winnerIndex + " and Bot " + equalityIndex + ".");
+                    data[winnerIndex].wonRounds++;
+                    data[equalityIndex].wonRounds++;
+                }
+            }
+            if (equalityIndex - winnerIndex == 3) {//genre personne n'a gagné, 0 parties gagnées pour tout le monde
+                System.out.println("It's a tie, No winner for the round!");
+            }
+        }
+        if (winnerIndex > equalityIndex) {
+            System.out.println("Congratulations Bot " + winnerIndex + " !");
+        }
+        /*if (botOne.getHerosInventory().getGloryPoints() > botTwo.getHerosInventory().getGloryPoints()) {
             botOne.roundsWin++;
             System.out.println("Bot 1 wins the round");
         }
@@ -184,7 +178,73 @@ public class Engine {
         }
         if (botOne.getHerosInventory().getGloryPoints() == botTwo.getHerosInventory().getGloryPoints()) {
             System.out.println("It's a tie");
+        }*/
+    }
+
+    /**
+     * Méthode permettant de déterminer le gagnant du jeu
+     */
+    void tellMeTheWinnerOfTheGame(Bot... data) {
+        int winnerIndex = 0, winnerWonRounds = 0, equalityIndex = 0;
+        System.out.println("**********Results*********");
+        for (int i = 0; i < data.length; i++) {
+            System.out.println("Bot " + (i + 1) + " : " + (((float) data[i].wonRounds / 1000) * 100) + "% of won rounds.");
+            if (data[i].wonRounds > winnerWonRounds) {
+                winnerIndex = i + 1;
+                winnerWonRounds = data[i].wonRounds;
+            }
+            if (data[i].wonRounds == winnerWonRounds) {
+                equalityIndex = i + 1;
+            }
         }
+        //Vérifications à la sortie de la boucle
+        if (equalityIndex > winnerIndex) {
+            if (equalityIndex - winnerIndex == 1) {
+                System.out.println("We have 2 winners.");
+                System.out.println("Equality between Bot " + winnerIndex + " and Bot " + equalityIndex + ". Congratulations!");
+            }
+            if (equalityIndex - winnerIndex == 2) {
+                if (winnerWonRounds == data[equalityIndex - 1].wonRounds) {
+                    System.out.println("We have 3 winners.");
+                    System.out.println("Equality between Bot " + winnerIndex + ", Bot " + (equalityIndex - 1) + " and Bot " + equalityIndex + ". Congratulations!");
+                } else {//l'intermédiaire est forcément inférieur
+                    System.out.println("We have 2 winners.");
+                    System.out.println("Equality between Bot " + winnerIndex + " and Bot " + equalityIndex + ". Congratulations");
+                }
+            }
+            if (equalityIndex - winnerIndex == 3) {//genre personne n'a gagné, 0 parties gagnées pour tout le monde
+                System.out.println("It's a tie, No winner!");
+            }
+        }
+        if (winnerIndex > equalityIndex) {
+            System.out.println("Congratulations Bot " + winnerIndex + " !");
+        }
+        /*if (botOne.roundsWin > botTwo.roundsWin) {
+            System.out.println("Bot 1 wins the game with " + (((float) botOne.roundsWin / 1000) * 100) + "% of won rounds aigainst " + ((float) botTwo.roundsWin / 1000) * 100 + "% won rounds for the Bot 2. Congratulations Bot 1!");
+        }
+        if (botOne.roundsWin < botTwo.roundsWin) {
+            System.out.println("Bot 2 wins the game with " + ((float) botTwo.roundsWin / 1000) * 100 + "% of won rounds aigainst " + ((float) botOne.roundsWin / 1000) * 100 + "% won rounds for the Bot 1. Congratulations Bot 2!");
+        }
+        if (botOne.roundsWin == botTwo.roundsWin) {
+            System.out.println("No winner, It's a tie !");
+        }*/
+    }
+
+    /**
+     * Méthode permettant de faire des rounds
+     *
+     * @param data
+     * @param temple
+     */
+    void makeRound(Temple temple, Bot... data) {
+        for (int i = 0; i < this.round; i++) {
+            System.out.println("#####\tROUND " + i + "\t#####");
+            makeSets(temple, data);
+            System.out.println("\n");
+            System.out.println("DETERMINATING THE WINNER");
+            tellMeTheWinnerOfRound(data);
+        }
+        tellMeTheWinnerOfTheGame(data);
     }
 
 }

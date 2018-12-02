@@ -48,7 +48,17 @@ public class Dice {
         int number = randomInt.nextInt(6);
         return this.faces[number];
     }
-
+    
+    public boolean equalityFace(GeneralFace face,int position)
+    {
+       if(this.faces[position].equals(face)){
+           return true;
+       }
+       else return false;
+    }
+    
+   
+    
     @Override
     public String toString() {
         String diceFaces = "";

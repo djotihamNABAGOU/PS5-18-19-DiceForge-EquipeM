@@ -6,12 +6,7 @@
  */
 package diceforge;
 
-import Faces.SanctuarysFaces;
 import Player.Bot;
-import PlayerStrategy.RandomStrategy;
-import PlayerStrategy.Strategy;
-
-import java.util.ArrayList;
 
 /**
  *

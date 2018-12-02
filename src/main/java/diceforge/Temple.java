@@ -1,5 +1,8 @@
 package diceforge;
 
+import Card.Card;
+import Faces.GardenFace;
+import Faces.GeneralFace;
 import Faces.SanctuarysFaces;
 import Faces.SimpleFace;
 
@@ -10,9 +13,10 @@ public class Temple {
     //private ArrayList<SanctuarysFaces> Sanctuary = new ArrayList<>();
     private ArrayList<SanctuarysFaces>[] Sanctuary = new ArrayList[10];//le sanctuaire est un tableau de 10 bassins représentés par des arraylists
     //On aura aussi un tableau de bassins pour les faces de jardin
+    private ArrayList<GardenFace>[] Garden = new ArrayList[5];
 
-    Temple() {
-        
+    public Temple() {
+
         ArrayList<SanctuarysFaces> bassinG3 = new ArrayList<>();
         ArrayList<SanctuarysFaces> bassinM1 = new ArrayList<>();
         ArrayList<SanctuarysFaces> bassinG4 = new ArrayList<>();
@@ -21,10 +25,10 @@ public class Temple {
         ArrayList<SanctuarysFaces> bassinM2 = new ArrayList<>();
         ArrayList<SanctuarysFaces> bassinS2 = new ArrayList<>();
         ArrayList<SanctuarysFaces> bassinGl3 = new ArrayList<>();
-        
-        
+
+
         for (int a = 0; a < 4; a++) {
-            
+
             bassinG3.add(new SanctuarysFaces(2, "GoldenFace", "Add", new SimpleFace(3, "G", "GoldenFace")));
             bassinM1.add(new SanctuarysFaces(2, "MoonFace", "Add", new SimpleFace(1, "M", "MoonFace")));
             bassinG4.add(new SanctuarysFaces(3, "GoldenFace", "Add", new SimpleFace(4, "G", "GoldenFace")));
@@ -34,7 +38,7 @@ public class Temple {
             bassinS2.add(new SanctuarysFaces(8, "Sunface", "Add", new SimpleFace(2, "S", "SunFace")));
             bassinGl3.add(new SanctuarysFaces(8, "Gloryface", "Add", new SimpleFace(3, "Gl", "GloryFace")));
         }
-        
+
         /* 4 Pieces D'or */
         ArrayList<SanctuarysFaces> bassinHybride_Cost4 = new ArrayList<>();
         bassinHybride_Cost4.add(new SanctuarysFaces(4, "MoonSunGoldenFace",
@@ -82,7 +86,7 @@ public class Temple {
                         new SimpleFace(2, "Gl", "GloryFace")
                 )
         );
-        
+
         //Rangement des bassins dans le tableau sanctuaire
         Sanctuary[0] = bassinG3;
         Sanctuary[1] = bassinM1;
@@ -106,7 +110,7 @@ public class Temple {
                 if (Sanctuary[a].get(i).getName().equals(sanctuaryFaces.getName())
                         && Sanctuary[a].get(i).getPrice() == sanctuaryFaces.getPrice()
                         && !Sanctuary[a].get(i).isSelected()) {
-                    return ""+a+"-"+i;//indice du tableau puis indice du arraylist
+                    return "" + a + "-" + i;//indice du tableau puis indice du arraylist
                 }
             }
         }
@@ -122,5 +126,19 @@ public class Temple {
             Sanctuary[tabIndex].get(arrayListIndex).setSelected(true);
             return true;
         } else return false;
+    }
+
+    // Methode pour recupérer une face du jardin grâce à la carte correspondante
+    public GardenFace takeGardenFace(Card card) {
+        GardenFace returnFace = new GardenFace();
+        for (int a = 0; a < 5; a++) {
+            for (int i = 0; i < Garden[a].size(); i++) {
+                if (Garden[a].get(i).getCard().equals(card) && !Garden[a].get(i).isSelected()) {
+                    Garden[a].get(i).setSelected(true);
+                    returnFace = Garden[a].get(i);
+                }
+            }
+        }
+        return returnFace;
     }
 }
