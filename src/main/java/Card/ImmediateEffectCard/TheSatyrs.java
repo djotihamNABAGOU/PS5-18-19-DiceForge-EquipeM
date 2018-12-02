@@ -1,5 +1,6 @@
-package Card;
+package Card.ImmediateEffectCard;
 
+import Card.Card;
 import Faces.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
@@ -58,11 +59,16 @@ public class TheSatyrs extends Card {
         listFaces[numBot].set(0, one); // changement par la nouvelle face
         listFaces[numBot].set(1, two); // changement par la nouvelle face
 
-        //Appliquer enfin l'effet des faces
-        for (int a = 0; a < 2; a++) {
-
-            listFaces[numBot].get(0).makeEffect(0, temple, numBot, bot, listFaces);
-            listFaces[numBot].get(1).makeEffect(0, temple, numBot, bot, listFaces);
+        Bot[] tabBot = new Bot[listBot.size()];
+        for (int b = 0; b < listBot.size(); b++) {
+            tabBot[b] = listBot.get(b);
         }
+
+        //Appliquer enfin l'effet des faces
+
+
+        listFaces[numBot].get(0).makeEffect(0, 1, temple, numBot, bot, listFaces, tabBot);
+        listFaces[numBot].get(1).makeEffect(0, 1, temple, numBot, bot, listFaces, tabBot);
+
     }
 } 

@@ -1,5 +1,6 @@
-package Card;
+package Card.ImmediateEffectCard;
 
+import Card.Card;
 import Faces.GeneralFace;
 import Player.Bot;
 import Player.HerosInventory;

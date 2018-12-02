@@ -1,14 +1,12 @@
 package Player;
 
-import Card.Card;
-import Card.TheHammer;
+import Card.Reinforcement;
+import Card.ImmediateEffectCard.TheHammer;
 import Faces.GeneralFace;
-import Faces.SanctuarysFaces;
 import Faces.SimpleFace;
 import PlayerStrategy.RandomStrategy;
 import PlayerStrategy.Strategy;
 import PlayerStrategy.NothingStrategy;
-import diceforge.Temple;
 
 import java.util.ArrayList;
 
@@ -23,9 +21,9 @@ public class Bot {
     private final Strategy strategy;//stratégie du joueur durant tout le déroulement du jeu
     private String strategyName;
     private boolean active = false;
-    private final ArrayList<Card> enhancementCard = new ArrayList<Card>();   /* Liste des cartes de renfort en possession du joueur */
+    private final ArrayList<Reinforcement> enhancementCard = new ArrayList<Reinforcement>();   /* Liste des cartes de renfort en possession du joueur */
     private ArrayList<TheHammer> hammerCard;   /* Liste des cartes marteaux en possession du joueur */
-    private ArrayList<Card> automaticCard;   /* Liste des cartes à effets automatiques en possession du joueur */
+    private ArrayList<Reinforcement> automaticCard;   /* Liste des cartes à effets automatiques en possession du joueur */
     public int wonRounds;
 
     public Bot(String strategyName) {
@@ -67,7 +65,7 @@ public class Bot {
         return RemovedFaces;
     }
 
-    public ArrayList<Card> getAutomaticCard() {
+    public ArrayList<Reinforcement> getAutomaticCard() {
         return automaticCard;
     }
 
@@ -144,7 +142,7 @@ public class Bot {
         this.active = active;
     }
 
-    public ArrayList<Card> getEnhancementCard() {
+    public ArrayList<Reinforcement> getEnhancementCard() {
         return enhancementCard;
     }
 

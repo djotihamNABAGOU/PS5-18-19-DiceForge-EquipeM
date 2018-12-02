@@ -1,46 +1,37 @@
 package Card;
+
 import Faces.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
+
 import java.util.ArrayList;
 
-public abstract class Card {
-    
-    String name;
-    int gloryPoints;      /* Points de gloire accordés par la carte */
-    String type;          /* Gold , Sun , Moon , Sun+Moon  ---> type de ressource pour le payement */
-    int price;            /* prix */
-    String TypeCard;      /* Immediat I , renfort R, automatique A*/
-    int portal;          /* 1,2,3,4,5,6,7 */
-    int amount;           /* Quantité */
+public class Card {
 
-    
+    protected String name;          //Nom de la carte
+    protected int gloryPoints;      /* Points de gloire accordés par la carte */
+    protected String type;          /* Gold , Sun , Moon , Sun+Moon  ---> type de ressource pour le payement */
+    protected int price;            /* prix */
+    protected String TypeCard;      /* Immediat I , renfort R, automatique A*/
+    protected int portal;          /* 1,2,3,4,5,6,7 */
+    protected int amount;           /* Quantité */
+
+
+    public Card() {
+    }
+
     @Override
-    public boolean equals(Object obj)
-    {
+    public boolean equals(Object obj) {
         Card other = (Card) obj;
         return name.equals(other.name);
     }
-    
-    public void buyCard()     
-    {
+
+    protected void buyCard() {
         amount = amount - 1;
     }
 
-    
-    public void actionCard(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
+    // voir commentaire sur les parametres dans la classe "GeneralFaces"
+    protected void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
     }
-    
-    
-    /**
-     *Methode de renforcement qui sera appelé après chaque lancers de des
-     *          pour les cartes renforcement que les joueurs a
-     *        Le joueur doit être joueur actif
-     * @param temple
-     * @param bot
-     * @param numBot
-     * @param listFaces
-     */
-    public void capacity(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces){}
-    
+
 }

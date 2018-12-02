@@ -21,49 +21,56 @@ public class MultiplierFace extends GardenFace{
         return super.toString();
     }
 
+    
+   
     @Override
-    public void makeEffect(int action,Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data) {
+    public void makeEffect(int action,int favMin,Temple temple,int numBot,
+                               Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         // Active l'effet multiplicateur de l'autre face à laquelle elle est associé
         
-        if (data.length != 0){   // == 0 Faveur Mineure, n'obtient rien
+        if (favMin != 0){   // == 0 Faveur Mineure, n'obtient rien
              if(data[numBot].get(0)==this){  
-                   data[numBot].get(1).makeEffectFaceMultiplier(action,temple,numBot,bot,3);
+                   data[numBot].get(1).makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,3,data,listBot);
              }else{
-                   data[numBot].get(0).makeEffectFaceMultiplier(action,temple,numBot,bot,3);
+                   data[numBot].get(0).makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,3,data,listBot);
              }
         }
     }
     
     // Ne s"activera que si et seulement si le joueur est tomber sur 2 faces "*3", le joueur ne gagne rien
+    
     @Override
-    public void makeEffectFaceMultiplier(int action,Temple temple,int numBot,Bot bot,int a,ArrayList<GeneralFace>... data){
+    public void makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
+                                      Bot bot,int a,ArrayList<GeneralFace>[] data,Bot... listBot){
         System.out.println("I do not provide anything");   
     }
       
     @Override
-    public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         // Cette face ne procure rien [ Lire la doc ]
     }
     
     
     // Sentinelle effet
     
+    
     @Override
-    public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data) {
+    public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot) {
         // Active l'effet multiplicateur de l'autre face à laquelle elle est associé
         
-        if (data.length != 0){   // == 0 Faveur Mineure, n'obtient rien
+      
              if(data[numBot].get(0)==this){  
-                   data[numBot].get(1).makeEffectFaceMultiplierCardSentinelEffect(temple,numBot,3,bot);
+                   data[numBot].get(1).makeEffectFaceMultiplierCardSentinelEffect(temple,numBot,3,bot,data);
              }else{
-                   data[numBot].get(0).makeEffectFaceMultiplierCardSentinelEffect(temple,numBot,3,bot);
+                   data[numBot].get(0).makeEffectFaceMultiplierCardSentinelEffect(temple,numBot,3,bot,data);
              }
-        }
+        
     }
     
     // Ne s"activera que si et seulement si le joueur est tomber sur 2 faces "*3", le joueur ne gagne rien
+    
     @Override
-    public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,int a,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,int a,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         System.out.println("I do not provide anything"); 
     }
     

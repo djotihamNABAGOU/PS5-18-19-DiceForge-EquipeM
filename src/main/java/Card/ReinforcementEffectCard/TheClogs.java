@@ -1,5 +1,6 @@
-package Card;
+package Card.ReinforcementEffectCard;
 
+import Card.Reinforcement;
 import Faces.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
  * ----> Methode "Capacity" appelé à chaque tour actif du joueur en possesion
  */
 
-public class TheClogs extends Card {
+public class TheClogs extends Reinforcement {
 
     public TheClogs(int amount)   /* prend en parametre le nombre de joueurs */ {
         this.gloryPoints = 2;
@@ -37,10 +38,14 @@ public class TheClogs extends Card {
 
     // les faces de sautres adversairees est le dernier argument 
     @Override
-    public void capacity(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces) {
+    public void capacity(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
         int a = bot.getStrategy().throwWhichDice();  // choix du dé à lancer
         GeneralFace myFace = bot.rollOneDice(a);     // face obtenue
-        myFace.makeEffect(0, temple, numBot, bot, listFaces);   // Effet de la face
+        Bot[] tabBot = new Bot[listBot.size()];
+        for (int b = 0; b < listBot.size(); b++) {
+            tabBot[b] = listBot.get(b);
+        }
+        myFace.makeEffect(0, 0, temple, numBot, bot, listFaces, tabBot);   // Effet de la face
     }
 
 }

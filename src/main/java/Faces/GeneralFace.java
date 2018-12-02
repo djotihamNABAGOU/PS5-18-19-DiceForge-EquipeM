@@ -39,16 +39,33 @@ public class GeneralFace {
     public void setName(String name) {
         this.name = name;
     }
-
-    // int action ---> sert pr savoir s"il faut incrementer ou decrementer 
-    // Utilisé pour la carte minotaure et pour eviter une duplication de code
-    // 0 --> incremente ; 1 --> decremente
-    public void makeEffect(int action,Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+    
+    /* Le commentaire Suivant concerne les paramètres et vaut pour toutes les methodes ci dessous : 
+    
+       action ---> sert pr savoir s"il faut incrementer ou decrementer les points obtenues,
+                       Utilisé surtt pour la carte minotaure et pour eviter une duplication de code
+                       0 --> incremente ; 1 --> decremente
+       favMin ---> indique si la face en présence est obtenue lors d'une "faveur Mineure" , 0 Oui / 1 Non
+       temple ---> Temple du jeu
+       numBot ---> Numero du joueur actuel qui possède la face dont l'effet s'active
+       Bot    ---> Le joueur Actuel qui possède la face dont l'effet s'active
+       data   ---> Tableau de ArrayList qui contient les faces obtenues par tous les joueurs lors d'un 
+                   lancé de dés , Exemple : 
+                   data[0].get(0) ---> face obtenue par le lancé du premier dé du premier joueur
+                   data[0].get(1) ---> face obtenue par le lancé du deuxièmz dé du premier joueur 
+       listBot ---> Liste qui contient tous les joueurs de la partie
+       a       ---> Nombres de fois qu'il faut effectuer l'operation { face Multilplier }
+    
+    */
+    
+    public void makeEffect(int action,int favMin,Temple temple,int numBot,
+                               Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         System.out.println("I am General face, please implement effect in subclasses");
     }
     
     //Methode qui est déclenchée si on obtient  une face Multiplier dans son lancer
-    public void makeEffectFaceMultiplier(int action,Temple temple,int numBot,Bot bot,int a,ArrayList<GeneralFace>... data){
+    public void makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
+                                      Bot bot,int a,ArrayList<GeneralFace>[] data,Bot... listBot){
         System.out.println("I am General face, please implement effect in subclasses");
     }
     
@@ -57,22 +74,23 @@ public class GeneralFace {
 
     
     //Methode appelée par l'utilisation d'une carte Cyclope
-    public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,
+                                                                                        Bot... listBot){
         System.out.println("I am General face, please implement effect in subclasses");
     }
     
     
     
-    
-    
-    
+   
     //Methode appelée par l'utilisation d'une carte Sentinel
-    public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,
+                                                Bot... listBot){
         System.out.println("I am General face, please implement effect in subclasses");
     }
     
     //Methode appelée par l'utilisation d'une carte Sentinel
-    public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,int a,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,
+                                          int a,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         System.out.println("I am General face, please implement effect in subclasses");
     }
        

@@ -9,30 +9,22 @@ package diceforge;
 import Player.Bot;
 
 /**
- *
  * @author The Beginners
  */
 public class Main {
-    public static void main(String [] args){
+    public static void main(String[] args) {
 
         System.out.println("********WELCOME TO DICE FORGE********\n");
-        Engine engine = new Engine(1000,9,2);
+        Engine engine = new Engine(1000, 10, 4);
         Temple temple = new Temple();
         Bot botOneRandom = new Bot("Random");
-        //Bot botTwoRandom = new Bot("Random");
-        Bot botTwoRandom = new Bot("Nothing");
-        
-
-        engine.InitializingBots(botOneRandom, botTwoRandom);
+        Bot botTwoRandom = new Bot("Random");
+        Bot botThreeNothing = new Bot("Nothing");
+        Bot botFourNothing = new Bot("Nothing");
+        //Initialisation des Bots et du temple
+        engine.InitializingBots(botOneRandom, botTwoRandom, botThreeNothing, botFourNothing);
         engine.initializingTemple(temple);
-        /*Test permettant de savoir si le nombres de cartes dans les bassins passe éffectivement à 2 pour 2 joueurs
-        ArrayList<SanctuarysFaces>[] sanctuary = temple.getSanctuary();
-        for (int i=0; i<10;i++){
-            for (int a = 0; a < sanctuary[a].size(); a++) {
-                System.out.println(sanctuary[i].get(a).toString());
-            }
-        }
-        */
+
         System.out.println("STATE BEFORE DICE SET");
         System.out.println("-->BOT ONE");
         System.out.println(botOneRandom.toString());
@@ -40,16 +32,15 @@ public class Main {
         System.out.println("-->BOT TWO");
         System.out.println(botTwoRandom.toString());
         botTwoRandom.printDiceState();
-        
-        System.out.println("-------------------------------------\n");
-        engine.makeRound(botOneRandom,botTwoRandom,temple);
-        //engine.MakeNineSetWithTwoBot(botOneRandom, botTwoRandom, temple);
-        //engine.MakeOneSetWithTwoBot(botOneRandom,botTwoRandom,temple,1);
-        //System.out.println("\n");
-        //System.out.println("DETERMINATING THE WINNER");
-        //engine.TellMeTheWinner(botOneRandom, botTwoRandom);
+        System.out.println("-->BOT THREE");
+        System.out.println(botThreeNothing.toString());
+        botThreeNothing.printDiceState();
+        System.out.println("-->BOT FOUR");
+        System.out.println(botFourNothing.toString());
+        botFourNothing.printDiceState();
 
-        
+        System.out.println("-------------------------------------\n");
+        engine.makeRound(temple, botOneRandom, botTwoRandom, botThreeNothing, botFourNothing);
     }
-    
+
 }

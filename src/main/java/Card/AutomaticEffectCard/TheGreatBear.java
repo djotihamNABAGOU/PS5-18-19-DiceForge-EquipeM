@@ -1,6 +1,6 @@
-package Card;
+package Card.AutomaticEffectCard;
 
-import Faces.GardenFace;
+import Card.Reinforcement;
 import Faces.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
@@ -17,13 +17,13 @@ import java.util.ArrayList;
  * ----> Methode "Capacity" appelé si la condition automatique se produit
  */
 
-public class TheGreatBear extends Card {
+public class TheGreatBear extends Reinforcement {
 
     public TheGreatBear(int amount)  /* prend en parametre le nombre de joueurs */ {
         this.name = "TheGreatBear";
         this.gloryPoints = 2;
         this.type = "M";
-        this.TypeCard = "R";
+        this.TypeCard = "A";
         if (amount == 2 || amount == 4) /* S'il y'a 3 joueurs , il restera une carte qui ne sera jamais utilisé*/
             this.amount = amount;
         else this.amount = 3;
@@ -37,7 +37,7 @@ public class TheGreatBear extends Card {
     }
 
     @Override
-    public void capacity(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces) {
+    public void capacity(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
         bot.getHerosInventory().IncreaseGloryPoints(3);
     }
 

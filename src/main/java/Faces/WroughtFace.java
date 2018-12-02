@@ -21,29 +21,32 @@ public class WroughtFace extends GardenFace{
     }
 
     @Override
-    public void makeEffect(int action,Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data) {
+    public void makeEffect(int action,int favMin,Temple temple,int numBot,
+                                      Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         
         /* Si le joueur possède une face multiplier : Ne rien faire car c'est la face
            Multiplier qui s'activera et fera effet
         */
         int a = 0; // Pas de face Multiplier obtenue, passe à 1 sinon
-        if(data.length!=0){ // si == 0, faveur mineure
+        
            for(GeneralFace face : data[numBot]){
                 if(face instanceof MultiplierFace){
                     a = 1;
                 }
             } 
-        }
+        
         
         if(a==0){
             if(action==0){
-                makeEffectFaceMultiplier(action,temple,numBot,bot,1); // // Forge avec côut réduit de 2 car [a==1]
+                makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,1,data,listBot); // // Forge avec côut réduit de 2 car [a==1]
             }
        }
     }
     
     @Override
-    public void makeEffectFaceMultiplier(int action,Temple temple,int numBot,Bot bot,int a,ArrayList<GeneralFace>... data){
+    public void makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
+                                      Bot bot,int a,ArrayList<GeneralFace>[] data,Bot... listBot){
+        
         int b =  a*2; // côut réduit de 6 car [a==3]
         if(action==0){
             SanctuarysFaces myFace = bot.getStrategy().giveMeYourWroughtChoice(temple);
@@ -57,9 +60,10 @@ public class WroughtFace extends GardenFace{
             } 
         }   
     }
-     
+    
+    
     @Override
-    public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         
         int b =  2; // côut réduit de 2
         SanctuarysFaces myFace = bot.getStrategy().giveMeYourWroughtChoice(temple);
@@ -75,15 +79,17 @@ public class WroughtFace extends GardenFace{
     
     //Effet sentinel
     
+    
     @Override
-    public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
-        makeEffect(0,temple, numBot, bot, data); 
+    public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
+        makeEffect(0,1,temple, numBot, bot, data,listBot); 
     }
     
     
     @Override
-    public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,int a,Bot bot,ArrayList<GeneralFace>... data){
-        makeEffectFaceMultiplier(0,temple, numBot, bot, a, data);
+    public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,
+                                          int a,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
+        makeEffectFaceMultiplier(0,1,temple, numBot, bot, a, data,listBot);
     }
     
     

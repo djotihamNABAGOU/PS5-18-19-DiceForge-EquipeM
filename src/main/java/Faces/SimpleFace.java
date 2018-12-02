@@ -55,28 +55,29 @@ public class SimpleFace extends GeneralFace {
     }
 
     @Override
-    public void makeEffect(int action,Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeEffect(int action,int favMin,Temple temple,int numBot,
+                               Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         
         /* Si le joueur possède une face multiplier : Ne rien faire car c'est la face
            Multiplier qui s'activera et fera effet
         */
         int a = 0; // Pas de face Multiplier obtenue, passe à 1 sinon
-        if(data.length!=0){ // si == 0, faveur mineure
+        
            for(GeneralFace face : data[numBot]){
                 if(face instanceof MultiplierFace){
                     a = 1;
                 }
             } 
-        }
-            
+           
         if(a==0){
-                makeEffectFaceMultiplier(action,temple,numBot,bot,1);
+                makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,1,data);
         }
     }
     
     @Override
-    public void makeEffectFaceMultiplier(int action,Temple temple,int numBot,Bot bot,int a,ArrayList<GeneralFace>... data)
-    {
+    public void makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
+                                      Bot bot,int a,ArrayList<GeneralFace>[] data,Bot... listBot){
+        
         System.out.println("Face obtained  -> " + toString());
         if(action==0){
             bot.getHerosInventory().increaseInventoryWithDiceFace(this,a);
@@ -88,7 +89,8 @@ public class SimpleFace extends GeneralFace {
     
    
     @Override
-    public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,
+                                                                                        Bot... listBot){
         
         System.out.println("Face obtained  -> " + toString());
         if(this.type.equals("G")){ // Si la face procure de l'or
@@ -109,7 +111,8 @@ public class SimpleFace extends GeneralFace {
     // Effets Sentinel 
     
     @Override
-    public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,
+                                                Bot... listBot){
         
         /* Si le joueur possède une face multiplier : Ne rien faire car c'est la face
            Multiplier qui s'activera et fera effet
@@ -124,14 +127,15 @@ public class SimpleFace extends GeneralFace {
         }
             
         if(a==0){
-            makeEffectFaceMultiplierCardSentinelEffect(temple,numBot,1,bot);
+            makeEffectFaceMultiplierCardSentinelEffect(temple,numBot,1,bot,data,listBot);
         }
     }
     
     
     
     @Override
-    public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,int d,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,
+                                          int d,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         for(int b=0;b<d;b++){
             System.out.println("Face obtained  -> " + toString());
             if(this.type.equals("S")){ // Si la face est de type Sun 

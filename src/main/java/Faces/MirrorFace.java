@@ -23,7 +23,8 @@ public class MirrorFace extends GardenFace{
     
    
     @Override
-    public void makeEffect(int action,Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeEffect(int action,int favMin,Temple temple,int numBot,
+                               Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         
         int c = 0; // Pas de face Multiplier obtenue, passe à 1 sinon
         int a = 0;   //Face en présence
@@ -37,8 +38,7 @@ public class MirrorFace extends GardenFace{
             myNewFace = faceMirrorDecrease(numBot, bot, data);
         }
         
-        
-        if(data.length!=0){ // Si == 0, en presence de faveur mineure
+      
         
                 if(data[numBot].get(0) == this){
                     // Verifier si la seconde face est une face mirroir aussi
@@ -83,11 +83,11 @@ public class MirrorFace extends GardenFace{
                         c = 1;
                     }
                 }
-        }
+        
         
         if(c==0){
             // Appliquer la méthode de la nouvelle face 
-            myNewFace.makeEffect(action,temple, numBot, bot, data);
+            myNewFace.makeEffect(action,favMin,temple, numBot, bot, data,listBot);
              
         }       
     }
@@ -115,7 +115,9 @@ public class MirrorFace extends GardenFace{
        ---> La deuxième face obtenue est une face mirroir
     */
     @Override
-    public void makeEffectFaceMultiplier(int action,Temple temple,int numBot,Bot bot,int a,ArrayList<GeneralFace>... data){
+    public void makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
+                                      Bot bot,int a,ArrayList<GeneralFace>[] data,Bot... listBot){
+        
         GeneralFace myNewFace = new GeneralFace();
         if(action==0){
             myNewFace = faceMirror(numBot, bot, data);  // face choisie
@@ -129,14 +131,15 @@ public class MirrorFace extends GardenFace{
            data[numBot].set(1,myNewFace);
         }
         // Appliquer la méthode Multiplier de la nouvelle face
-        myNewFace.makeEffectFaceMultiplier(action,temple, numBot, bot, a, data);
+        myNewFace.makeEffectFaceMultiplier(action,favMin,temple, numBot, bot, a, data,listBot);
         
     }
     
     //Effet Cyclope
     
+    
     @Override
-    public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         GeneralFace myNewFace = faceMirror(numBot, bot, data);  // face choisie
         myNewFace.makeCardCyclopEffect(temple, numBot, bot, data); 
     }
@@ -144,8 +147,9 @@ public class MirrorFace extends GardenFace{
     
     //Effet sentinel
     
+    
     @Override
-    public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         
         int c = 0; // Pas de face Multiplier obtenue, passe à 1 sinon
         int a = 0;   //Face en présence
@@ -206,8 +210,9 @@ public class MirrorFace extends GardenFace{
     
     
     
+    
     @Override
-    public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,int a,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,int a,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         GeneralFace myNewFace = faceMirror(numBot, bot, data);  // face choisie
         // Remplacer la face mirroir par la face choisie
         if(data[numBot].get(0)== this){

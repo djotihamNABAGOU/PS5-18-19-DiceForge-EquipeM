@@ -1,5 +1,6 @@
-package Card;
+package Card.ReinforcementEffectCard;
 
+import Card.Reinforcement;
 import Faces.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
  */
 
 
-public class TheWingsOfTheGuardians extends Card {
+public class TheWingsOfTheGuardians extends Reinforcement {
 
     public TheWingsOfTheGuardians(int amount)   /* prend en parametre le nombre de joueurs */ {
         this.name = "TheWingsOfTheGuardians";
@@ -36,7 +37,7 @@ public class TheWingsOfTheGuardians extends Card {
     }
 
     @Override
-    public void capacity(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces) {
+    public void capacity(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
         int choice = bot.getStrategy().whichResource();
         switch (choice) {
             case 0:

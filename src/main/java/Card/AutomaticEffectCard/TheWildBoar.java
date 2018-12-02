@@ -1,5 +1,6 @@
-package Card;
+package Card.AutomaticEffectCard;
 
+import Card.Reinforcement;
 import Faces.GardenFace;
 import Faces.GeneralFace;
 import Faces.SimpleFace;
@@ -15,13 +16,13 @@ import java.util.ArrayList;
  * Elle procure 4 points de gloire à la fin de la partie
  */
 
-public class TheWildBoar extends Card {
+public class TheWildBoar extends Reinforcement {
 
     public TheWildBoar(int amount, String Type)  /* prend en parametre le nombre de joueurs */ {   // prend aussi le type (y'en a 4)
         this.name = "TheWildBoar" + Type;
         this.gloryPoints = 4;
         this.type = "M";
-        this.TypeCard = "I";
+        this.TypeCard = "A";
         if (amount == 2 || amount == 4) /* S'il y'a 3 joueurs , il restera une carte qui ne sera jamais utilisé*/
             this.amount = amount;
         else this.amount = 3;
@@ -39,16 +40,24 @@ public class TheWildBoar extends Card {
         bot.getStrategy().ForgeDice(face);
     }
 
+
     @Override
-    public void capacity(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces) {
+    public void capacity(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
         ArrayList<SimpleFace> Offered = new ArrayList<>();
         Offered.add(new SimpleFace(1, "S", "SunFace"));
         Offered.add(new SimpleFace(1, "M", "MoonFace"));
         Offered.add(new SimpleFace(3, "Gl", "GloryFace"));
 
+        Bot[] tabBot = new Bot[listBot.size()];
+        for (int b = 0; b < listBot.size(); b++) {
+            tabBot[b] = listBot.get(b);
+        }
+
+
         int choice = bot.getStrategy().giveMeYourChoice(Offered);
-        Offered.get(choice).makeEffect(0, temple, 1, bot);
+        Offered.get(choice).makeEffect(0, 1, temple, numBot, bot, listFaces, tabBot);
     }
+
 
 }
 

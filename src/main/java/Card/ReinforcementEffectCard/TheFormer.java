@@ -1,5 +1,6 @@
-package Card;
+package Card.ReinforcementEffectCard;
 
+import Card.Reinforcement;
 import Faces.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  * ----> Methode "Capacity" appelé à chaque tour actif du joueur en possesion
  */
 
-public class TheFormer extends Card {
+public class TheFormer extends Reinforcement {
 
     public TheFormer(int amount)   /* prend en parametre le nombre de joueurs */ {
         this.name = "TheFormer";
@@ -34,8 +35,7 @@ public class TheFormer extends Card {
     }
 
     @Override
-    public void capacity(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces) {
-
+    public void capacity(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
         int choice = bot.getStrategy().applyFormerEffect(); // 0 si oui , 1 sinon
         if (choice == 0) {
             bot.getHerosInventory().IncreaseGloryPoints(4);
