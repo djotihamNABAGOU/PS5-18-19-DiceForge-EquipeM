@@ -34,7 +34,7 @@ public class TheWingsOfTheGuardians extends Card{
     }
    
     @Override
-    public void capacity(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces){
+    public void capacity(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
        int choice = bot.getStrategy().whichResource();
        switch(choice)
        {

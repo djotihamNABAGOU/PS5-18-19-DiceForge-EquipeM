@@ -27,19 +27,12 @@ public abstract class Card {
         amount = amount - 1;
     }
 
-    
+    // voir commentaire sur les parametres dans la classe "GeneralFaces"
     public void actionCard(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
     }
     
     
-    /**
-     *
-     * @param temple
-     * @param bot
-     * @param numBot
-     * @param listFaces
-     */
-    public void capacity(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces){}
+    public void capacity(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){}
     /* Methode de renforcement qui sera appelé après chaque lancers de des 
          pour les cartes renforcement que les joueurs a
        Le joueur doit être joueur actif */

@@ -3,12 +3,10 @@ package Player;
 import Card.Card;
 import Card.TheHammer;
 import Faces.GeneralFace;
-import Faces.SanctuarysFaces;
 import Faces.SimpleFace;
 import PlayerStrategy.RandomStrategy;
 import PlayerStrategy.Strategy;
 import PlayerStrategy.NothingStrategy;
-import diceforge.Temple;
 
 import java.util.ArrayList;
 

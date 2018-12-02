@@ -40,21 +40,26 @@ public class GardenFace extends GeneralFace{
         return card;
     }
     
+    
     @Override
-    public void makeEffect(int action,Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeEffect(int action,int favMin,Temple temple,int numBot,
+                               Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         System.out.println("I am Garden face, please implement effect in subclasses");
     }
     
+    
     @Override
-    public void makeEffectFaceMultiplier(int action,Temple temple,int numBot,Bot bot,int a,ArrayList<GeneralFace>... data){
+    public void makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
+                                      Bot bot,int a,ArrayList<GeneralFace>[] data,Bot... listBot){
         System.out.println("I am Garden face, please implement effect in subclasses");   
     }
     
     
     
     //Methode appelée par l'utilisation d'une carte Cyclope
+    
     @Override
-    public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         System.out.println("I am General face, please implement effect in subclasses");
     }
     
@@ -63,13 +68,16 @@ public class GardenFace extends GeneralFace{
     
     
     //Methode appelée par l'utilisation d'une carte Sentinel
+    
+    
     @Override
-    public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         System.out.println("I am General face, please implement effect in subclasses");
     }
     
+    
     @Override
-    public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,int a,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,int a,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         System.out.println("I am General face, please implement effect in subclasses");
     }
     

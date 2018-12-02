@@ -38,14 +38,20 @@ public class TheWildBoar extends Card{
     }
     
     @Override
-    public void capacity(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces){
+    public void capacity(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
         ArrayList<SimpleFace> Offered = new ArrayList<>();
         Offered.add(new SimpleFace(1, "S", "SunFace"));
         Offered.add(new SimpleFace(1, "M", "MoonFace"));
         Offered.add(new SimpleFace(3, "Gl", "GloryFace"));
        
+        Bot[] tabBot = new Bot[listBot.size()];
+        for(int b=0;b<listBot.size();b++){
+            tabBot[b] = listBot.get(b);
+        }
+        
+        
         int choice = bot.getStrategy().giveMeYourChoice(Offered);
-        Offered.get(choice).makeEffect(0,temple,1,bot);
+        Offered.get(choice).makeEffect(0,1,temple,numBot,bot,listFaces,tabBot);
     }
   
 }

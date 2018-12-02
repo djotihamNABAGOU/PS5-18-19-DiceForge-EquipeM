@@ -28,14 +28,21 @@ public class ThePliers extends Card{
     public void actionCard(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
         bot.getHerosInventory().IncreaseGloryPoints(gloryPoints);
         /* Pour chacun des 2 des du joueur, le lancent 2 fois et MAJ de l'inventaire */
+        Bot[] tabBot = new Bot[listBot.size()];
+        for(int b=0;b<listBot.size();b++){
+            tabBot[b] = listBot.get(b);
+        }
+        
         for(int a=0;a<2;a++){
            GeneralFace one = bot.getFirstDice().rollDice();
            GeneralFace two = bot.getSecondDice().rollDice();
            listFaces[numBot].set(0,one); // changement par la nouvelle face  
            listFaces[numBot].set(1,two); // changement par la nouvelle face
            // Appliquer effets des faces
-           listFaces[numBot].get(0).makeEffect(0,temple, numBot, bot, listFaces); 
-           listFaces[numBot].get(1).makeEffect(0,temple, numBot, bot, listFaces);
+           
+           
+           listFaces[numBot].get(0).makeEffect(0,1,temple, numBot, bot, listFaces,tabBot); 
+           listFaces[numBot].get(1).makeEffect(0,1,temple, numBot, bot, listFaces,tabBot);
         }    
     } 
 }

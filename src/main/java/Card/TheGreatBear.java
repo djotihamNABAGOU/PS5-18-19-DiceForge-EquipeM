@@ -1,5 +1,4 @@
 package Card;
-import Faces.GardenFace;
 import Faces.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
@@ -35,7 +34,7 @@ public class TheGreatBear extends Card{
     }
     
     @Override
-    public void capacity(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces){
+    public void capacity(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
        bot.getHerosInventory().IncreaseGloryPoints(3);
     }
   

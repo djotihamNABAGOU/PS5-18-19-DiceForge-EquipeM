@@ -31,6 +31,13 @@ public class TheSentinel extends Card{
     @Override
     public void actionCard(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
         bot.getHerosInventory().IncreaseGloryPoints(gloryPoints);
+        
+        Bot[] tabBot = new Bot[listBot.size()];
+        for(int b=0;b<listBot.size();b++){
+            tabBot[b] = listBot.get(b);
+        }
+        
+        
         /* Pour chacun des 2 des du joueur, le lancent 2 fois et MAJ de l'inventaire */
         for(int a=0;a<2;a++){
            GeneralFace one = bot.getFirstDice().rollDice();
@@ -38,8 +45,8 @@ public class TheSentinel extends Card{
            listFaces[numBot].set(0,one); // changement par la nouvelle face  
            listFaces[numBot].set(1,two); // changement par la nouvelle face
            // Appliquer effets des faces
-           listFaces[numBot].get(0).makeCardSentinelEffect(temple, numBot, bot, listFaces); 
-           listFaces[numBot].get(1).makeCardSentinelEffect(temple, numBot, bot, listFaces);
+           listFaces[numBot].get(0).makeCardSentinelEffect(temple, numBot, bot, listFaces,tabBot); 
+           listFaces[numBot].get(1).makeCardSentinelEffect(temple, numBot, bot, listFaces,tabBot);
         }    
     }
 }

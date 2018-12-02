@@ -32,7 +32,7 @@ public class TheFormer extends Card{
     }
     
     @Override
-    public void capacity(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces){
+    public void capacity(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
       
         int choice = bot.getStrategy().applyFormerEffect(); // 0 si oui , 1 sinon
         if(choice==0){

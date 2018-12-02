@@ -58,35 +58,37 @@ public class SanctuarysFaces extends GeneralFace {
     }
     
     @Override
-    public void makeEffect(int action,Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeEffect(int action,int favMin,Temple temple,int numBot,
+                               Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         
        /* Si le joueur possède une face multiplier : Ne rien faire car c'est la face
            Multiplier qui s'activera et fera effet
         */
         int a = 0; // Pas de face Multiplier obtenue, passe à 1 sinon
-        if(data.length!=0){ // si == 0, faveur mineure
+
            for(GeneralFace face : data[numBot]){
                 if(face instanceof MultiplierFace){
                     a = 1;
                 }
             } 
-        }
+        
         
         if(a==0){
-            makeEffectFaceMultiplier(action,temple,numBot,bot,1);
+            makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,1,data,listBot);
         }
     }
     
     @Override
-    public void makeEffectFaceMultiplier(int action,Temple temple,int numBot,Bot bot,int a,ArrayList<GeneralFace>... data)
-    {
+    public void makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
+                                      Bot bot,int a,ArrayList<GeneralFace>[] data,Bot... listBot){
+        
        if(this.mode.equals("Add")){
           this.Offered.forEach(item->{
-               item.makeEffectFaceMultiplier(action, temple, numBot, bot, a, data);
+               item.makeEffectFaceMultiplier(action,favMin,temple, numBot, bot, a, data,listBot);
           });
        }else{           
                 int choice = bot.getStrategy().giveMeYourChoice(this.Offered);
-                this.Offered.get(choice).makeEffect(action, temple, numBot, bot, data);
+                this.Offered.get(choice).makeEffectFaceMultiplier(action,favMin,temple, numBot, bot, a, data,listBot);
                 
        } 
     }
@@ -96,7 +98,8 @@ public class SanctuarysFaces extends GeneralFace {
     
     // Effet Cyclope
     @Override
-    public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,
+                                                                                        Bot... listBot){
         if(this.mode.equals("Add")){
           this.Offered.forEach(item->{
               item.makeCardCyclopEffect(temple, numBot, bot, data);
@@ -114,7 +117,8 @@ public class SanctuarysFaces extends GeneralFace {
     // Effet Sentinelle
     
     @Override
-    public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,
+                                                Bot... listBot){
         
         /* Si le joueur possède une face multiplier : Ne rien faire car c'est la face
            Multiplier qui s'activera et fera effet
@@ -136,7 +140,8 @@ public class SanctuarysFaces extends GeneralFace {
     
     
     @Override
-    public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,int d,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,
+                                          int d,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         for(int b=0;b<d;b++){
              if(this.mode.equals("Add")){
           this.Offered.forEach(item->{

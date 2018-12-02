@@ -30,10 +30,16 @@ public class TheRiddle extends Card{
     public void actionCard(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
         bot.getHerosInventory().IncreaseGloryPoints(gloryPoints);
         /* Relancer l'un de ses 02 dés 4 fois et MAJ de l'inventaire */
+        
+        Bot[] tabBot = new Bot[listBot.size()];
+        for(int b=0;b<listBot.size();b++){
+            tabBot[b] = listBot.get(b);
+        }
+        
         int a = bot.getStrategy().throwWhichDice();  // choix du dé à lancer
         for(int b = 0;b<4;b++){
            GeneralFace myFace = bot.rollOneDice(a);     // face obtenue
-           myFace. makeEffect(0,temple,numBot, bot, listFaces);  // Effet Cyclop de la face   
+           myFace. makeEffect(0,0,temple,numBot, bot,listFaces,tabBot);  
         }
     }     
     

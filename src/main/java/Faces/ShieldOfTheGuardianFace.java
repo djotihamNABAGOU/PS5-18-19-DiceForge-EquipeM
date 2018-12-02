@@ -36,23 +36,24 @@ public class ShieldOfTheGuardianFace extends GardenFace{
     }
 
     @Override
-    public void makeEffect(int action,Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data) {
+    public void makeEffect(int action,int favMin,Temple temple,int numBot,
+                               Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         
         /* Si le joueur possède une face multiplier : Ne rien faire car c'est la face
            Multiplier qui s'activera et fera effet
         */
         int a = 0; // Pas de face Multiplier obtenue, passe à 1 sinon
-        if(data.length!=0){ // si == 0, faveur mineure
+        
            for(GeneralFace face : data[numBot]){
                 if(face instanceof MultiplierFace){
                     a = 1;
                 }
             } 
-        }
+        
         
         if(a==0){
-                if(data.length==0) { // Reçu via une faveur mineure
-                    Type2.makeEffectFaceMultiplier(action,temple,numBot,bot,1);  // GAIN B 
+                if(favMin==0) { // Reçu via une faveur mineure
+                    Type2.makeEffectFaceMultiplier(action,1,temple,numBot,bot,1,data,listBot);  // GAIN B 
                 }
                 else {
                     comparaison(action,temple,numBot, bot, 0, 1, data);
@@ -62,21 +63,24 @@ public class ShieldOfTheGuardianFace extends GardenFace{
     }
     
     @Override
-    public void makeEffectFaceMultiplier(int action,Temple temple,int numBot,Bot bot,int a,ArrayList<GeneralFace>... data)
-    {
+    public void makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
+                                      Bot bot,int a,ArrayList<GeneralFace>[] data,Bot... listBot){
+        
         System.out.println("Face obtained  -> " + Type2.toString());
-        Type2.makeEffectFaceMultiplier(action,temple,numBot,bot,3);   
+        Type2.makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,3,data,listBot);   
        // Donne 3* le gain B en présence de la face "*3" 
     }
     
     @Override
-    public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
-         Type2.makeEffectFaceMultiplier(0,temple,numBot,bot,1);  // GAIN B 
+    public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,
+                                                                                        Bot... listBot){
+        
+         Type2.makeEffectFaceMultiplier(0,1,temple,numBot,bot,1,data,listBot);  // GAIN B 
     }
     
     
     // determine le gain
-    public void comparaison(int action,Temple temple,int numBot,Bot bot,int a,int b,ArrayList<GeneralFace>... data)
+    public void comparaison(int action,Temple temple,int numBot,Bot bot,int a,int b,ArrayList<GeneralFace>[] data,Bot... listBot)
     {
         if(data[numBot].get(a).getName().equals("ShieldOfTheGuardianFace")){
             // Le traitement s"effectuera sur la seconde face ---> face b
@@ -106,9 +110,9 @@ public class ShieldOfTheGuardianFace extends GardenFace{
                 
                 // les autres Faces du Jardin et les faces du sanctuaires qui rapporte plusieurs gains
                 if(action==0){
-                    Type2.makeEffectFaceMultiplier(0,temple,numBot,bot,1);   // GAIN B
+                    Type2.makeEffectFaceMultiplier(0,1,temple,numBot,bot,1,data,listBot);   // GAIN B
                 }else{
-                    Type2.makeEffectFaceMultiplier(1,temple,numBot,bot,1);   // GAIN B   
+                    Type2.makeEffectFaceMultiplier(0,1,temple,numBot,bot,1,data,listBot);   // GAIN B   
                 }
                  
                 
@@ -123,9 +127,9 @@ public class ShieldOfTheGuardianFace extends GardenFace{
                        
                 }else{
                     if(action==0){
-                        Type2.makeEffectFaceMultiplier(0,temple,numBot,bot,1);   // GAIN B
+                        Type2.makeEffectFaceMultiplier(0,1,temple,numBot,bot,1,data,listBot);   // GAIN B  
                     }else{
-                        Type2.makeEffectFaceMultiplier(1,temple,numBot,bot,1);   // GAIN B
+                        Type2.makeEffectFaceMultiplier(0,1,temple,numBot,bot,1,data,listBot);   // GAIN B  
                     }
                     
                 }
@@ -139,7 +143,8 @@ public class ShieldOfTheGuardianFace extends GardenFace{
     // effet Sentinnel
     
     @Override
-    public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,
+                                                Bot... listBot){
         /* Si le joueur possède une face multiplier : Ne rien faire car c'est la face
            Multiplier qui s'activera et fera effet
         */
@@ -161,9 +166,11 @@ public class ShieldOfTheGuardianFace extends GardenFace{
     
  
     @Override
-    public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,int a,Bot bot,ArrayList<GeneralFace>... data){
+    public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,
+                                          int a,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
+        
         System.out.println("Face obtained  -> " + Type2.toString());
-        Type2.makeEffectFaceMultiplierCardSentinelEffect(temple,numBot,3,bot);   
+        Type2.makeEffectFaceMultiplier(0,1,temple,numBot,bot,1,data,listBot);   // GAIN B    
        // Donne 3* le gain B en présence de la face "*3" 
     }
     
@@ -171,7 +178,7 @@ public class ShieldOfTheGuardianFace extends GardenFace{
     
     
     // determine le gain version Sentinel
-    public void comparaisonSentinel(Temple temple,int numBot,Bot bot,int a,int b,ArrayList<GeneralFace>... data)
+    public void comparaisonSentinel(Temple temple,int numBot,Bot bot,int a,int b,ArrayList<GeneralFace>[] data,Bot... listBot)
     {
         if(data[numBot].get(a).getName().equals("ShieldOfTheGuardianFace")){
             // Le traitement s"effectuera sur la seconde face ---> face b
@@ -200,14 +207,14 @@ public class ShieldOfTheGuardianFace extends GardenFace{
             {
                 
                 // les autres Faces du Jardin et les faces du sanctuaires qui rapporte plusieurs gains
-                 Type2.makeEffectFaceMultiplierCardSentinelEffect(temple,numBot,1,bot);   // GAIN B
+                 Type2.makeEffectFaceMultiplier(0,1,temple,numBot,bot,1,data,listBot);   // GAIN B  
                 
             }else{  // Face simple
                 
                 if(temp.getName().equals(Type2.getName())){
                     bot.getHerosInventory().IncreaseGloryPoints(5);  // GAIN A car les types concordent   
                 }else{
-                    Type2.makeEffectFaceMultiplierCardSentinelEffect(temple,numBot,1,bot);   // GAIN B
+                   Type2.makeEffectFaceMultiplier(0,1,temple,numBot,bot,1,data,listBot);   // GAIN B  
                 }
             }
       }

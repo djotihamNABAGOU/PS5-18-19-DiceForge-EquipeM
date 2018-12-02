@@ -39,13 +39,17 @@ public class TheMinotaur extends Card{
            }
         }
         
-  
+       Bot[] tabBot = new Bot[listBot.size()];
+        for(int b=0;b<listBot.size();b++){
+            tabBot[b] = listBot.get(b);
+        }
+        
         //Appliquer enfin l'effet des faces pour les autres joeurs seulement
         // Seul cas oû on decremente ---> int action = 1
         for(int a=0;a<listBot.size();a++){
           if(a!=numBot){
-             listFaces[a].get(0).makeEffect(1,temple, numBot, bot, listFaces); 
-             listFaces[a].get(1).makeEffect(1,temple, numBot, bot, listFaces);
+             listFaces[a].get(0).makeEffect(1,1,temple, numBot, bot, listFaces,tabBot); 
+             listFaces[a].get(1).makeEffect(1,1,temple, numBot, bot, listFaces,tabBot);
           }
         }    
     } 
