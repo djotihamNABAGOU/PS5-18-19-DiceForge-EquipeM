@@ -7,6 +7,7 @@ import Faces.SimpleFace;
 import PlayerStrategy.RandomStrategy;
 import PlayerStrategy.Strategy;
 import PlayerStrategy.NothingStrategy;
+import diceforge.Temple;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,9 @@ public class Bot {
     private ArrayList<TheHammer> hammerCard;   /* Liste des cartes marteaux en possession du joueur */
     private ArrayList<Reinforcement> automaticCard;   /* Liste des cartes à effets automatiques en possession du joueur */
     public int wonRounds;
+    private int portal;          /* 1,2,3,4,5,6,7  values of the gate in Island
+                                   0 is the default value i.e. the bot is on orginal gate
+                                    This value must be update when the bot move on a gate */
 
     public Bot(String strategyName) {
         firstDice = new Dice();
@@ -32,6 +36,7 @@ public class Bot {
         herosInventory = new HerosInventory();
         RemovedFaces = new ArrayList<>();
         this.strategyName = strategyName;
+        this.portal =0; /*Bot is on the default gate at the beginning*/
         switch (strategyName) {
 
             case "Random":
@@ -157,6 +162,21 @@ public class Bot {
             default:
                 return this.getFirstDice().rollDice();
         }
+    }
+    
+    public void updateMyPortal(int gate){
+        this.portal=gate;
+    }
+    public int getMyPortal(){
+        return this.portal;
+    }
+    
+    /*Hunted bot must do some action-> they are implements here*/
+    public void justHuntedBotAct(int action,int favMin,Temple temple,int numBot,
+                               Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
+         
+        this.getFirstDice().rollDice().makeEffect(action, favMin, temple, numBot, this, data, listBot);
+        this.getSecondDice().rollDice().makeEffect(action, favMin, temple, numBot, this, data, listBot);
     }
 
 

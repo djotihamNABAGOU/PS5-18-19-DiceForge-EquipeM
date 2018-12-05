@@ -29,4 +29,8 @@ public class Card {
     protected void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
     }
 
+    public int getPortal(){
+    	return this.portal;
+    }
+
 }
