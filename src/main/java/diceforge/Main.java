@@ -15,8 +15,9 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("********WELCOME TO DICE FORGE********\n");
-        Engine engine = new Engine(1000, 10, 4);
-        Temple temple = new Temple();
+        int nb = 4;
+        Engine engine = new Engine(1000, 10, nb);
+        Temple temple = new Temple(nb);
         Bot botOneRandom = new Bot("Random");
         Bot botTwoRandom = new Bot("Random");
         Bot botThreeNothing = new Bot("Nothing");

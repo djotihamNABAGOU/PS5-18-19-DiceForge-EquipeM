@@ -5,7 +5,6 @@ import Faces.SanctuarysFaces;
 import Player.Bot;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Random;
 
 
@@ -127,115 +126,77 @@ public class Engine {
         }
     }
 
-    /**
+        /**
      * Méthode permettant de déterminer le gagnant d'une partie
      *
      * @param data
      */
     void tellMeTheWinnerOfRound(Bot... data) {
-        int winnerIndex = 0, //indice du gagnant
-                winnerWonSets = 0,//nombres de manches gagnées par le gagnant
-                equalityIndex = 0;//indice d'égalité
-        for (int i = 0; i < data.length; i++) {
-            if (data[i].getHerosInventory().getGloryPoints() == winnerWonSets) {
-                equalityIndex = i + 1;
-            }
-            if (data[i].getHerosInventory().getGloryPoints() > winnerWonSets) {
-                winnerIndex = i + 1;
-                winnerWonSets = data[i].getHerosInventory().getGloryPoints();
+                
+        int winnerGloryPoints = 0;  
+        for(int i=0;i<data.length;i++){
+            if(data[i].getHerosInventory().getGloryPoints()>winnerGloryPoints){
+               winnerGloryPoints = data[i].getHerosInventory().getGloryPoints();
             }
         }
-        System.out.println("winner index: " + winnerIndex);
-        System.out.println("equality index: " + equalityIndex);
-        //Vérifications à la sortie de la boucle
-        if (equalityIndex > winnerIndex) {
-            if (equalityIndex - winnerIndex == 1) {
-                System.out.println("We have 2 winners for the round, Bot " + winnerIndex + " and Bot " + equalityIndex + ".");
-                data[winnerIndex - 1].wonRounds++;
-                data[equalityIndex - 1].wonRounds++;
-            }
-            if (equalityIndex - winnerIndex == 2) {
-                if (winnerWonSets == data[equalityIndex - 2].getHerosInventory().getGloryPoints()) {
-                    System.out.println("We have 3 winners for the round, Bot " + winnerIndex + ", Bot " + (equalityIndex - 1) + " and Bot " + equalityIndex + ".");
-                    data[winnerIndex - 1].wonRounds++;
-                    data[equalityIndex - 2].wonRounds++;
-                    data[equalityIndex - 1].wonRounds++;
-                } else {//l'intermédiaire est forcément inférieur ***code dupliqué mais nécessaire pour la compréhension***
-                    System.out.println("We have 2 winners for the round, Bot " + winnerIndex + " and Bot " + equalityIndex + ".");
-                    data[winnerIndex - 1].wonRounds++;
-                    data[equalityIndex - 1].wonRounds++;
-                }
-            }
-            if (equalityIndex - winnerIndex == 3) {//genre personne n'a gagné, 0 parties gagnées pour tout le monde
-                System.out.println("It's a tie, No winner for the round!");
+        //Stocke la liste de tous les bots qui ont le nombre de points gagnants
+        ArrayList<Integer> listIndice = new ArrayList<>();  
+        for(int i=0;i<data.length;i++){
+            if(data[i].getHerosInventory().getGloryPoints()==winnerGloryPoints){
+               listIndice.add(i);
             }
         }
-        if (winnerIndex > equalityIndex) {
-            data[winnerIndex - 1].wonRounds++;
-            System.out.println("Congratulations Bot " + winnerIndex + " !");
+       
+        System.out.println("Winner glory points : "+winnerGloryPoints);
+        if (listIndice.size() == 1){    
+           System.out.println("Winner for the round, Bot " + (listIndice.get(0)+1)); 
+           System.out.println("Congratulations Bot " + (listIndice.get(0)+1) + " !");
+           data[listIndice.get(0)].wonRounds++;     
+        }else if(listIndice.size()==2){     
+           System.out.println("We have 2 winners for the round, Bot " + (listIndice.get(0)+1) + " and Bot " + (listIndice.get(1)+1) + ".");
+           data[listIndice.get(0)].wonRounds++;
+           data[listIndice.get(1)].wonRounds++;   
+        }else if(listIndice.size() == 3){  
+           System.out.println("We have 3 winners for the round, Bot " + (listIndice.get(0)+1) + ", Bot " + (listIndice.get(1)+1) + " and Bot " + (listIndice.get(2)+1) + ".");
+           data[listIndice.get(0)].wonRounds++;
+           data[listIndice.get(1)].wonRounds++;
+           data[listIndice.get(2)].wonRounds++;  
+        }else {
+           System.out.println("It's a tie, No winner for the round!");
         }
-        /*if (botOne.getHerosInventory().getGloryPoints() > botTwo.getHerosInventory().getGloryPoints()) {
-            botOne.roundsWin++;
-            System.out.println("Bot 1 wins the round");
-        }
-        if (botOne.getHerosInventory().getGloryPoints() < botTwo.getHerosInventory().getGloryPoints()) {
-            botTwo.roundsWin++;
-            System.out.println("Bot 2 wins the round");
-        }
-        if (botOne.getHerosInventory().getGloryPoints() == botTwo.getHerosInventory().getGloryPoints()) {
-            System.out.println("It's a tie");
-        }*/
     }
 
     /**
      * Méthode permettant de déterminer le gagnant du jeu
      */
     void tellMeTheWinnerOfTheGame(Bot... data) {
-        int winnerIndex = 0, //indice du gagnant
-                winnerWonRounds = 0, //nombres de parties gagnées par le gagnant
-                equalityIndex = 0; //indice d'égalité
+      
+        int winnerWonRounds = 0;
         System.out.println("**********Results*********");
         for (int i = 0; i < data.length; i++) {
             System.out.println("Bot " + (i + 1) + " : " + (((float) data[i].wonRounds / this.round) * 100) + "% of won rounds.");
-            if (data[i].wonRounds == winnerWonRounds) {
-                equalityIndex = i + 1;
-            }
             if (data[i].wonRounds > winnerWonRounds) {
-                winnerIndex = i + 1;
                 winnerWonRounds = data[i].wonRounds;
             }
         }
-        //Vérifications à la sortie de la boucle
-        if (equalityIndex > winnerIndex) {
-            if (equalityIndex - winnerIndex == 1) {
-                System.out.println("We have 2 winners.");
-                System.out.println("Equality between Bot " + winnerIndex + " and Bot " + equalityIndex + ". Congratulations!");
+        //Stocke la liste de tous les bots qui ont le même ratio gagnant
+        ArrayList<Integer> listIndice = new ArrayList<>();  
+        for(int i=0;i<data.length;i++){
+            if(data[i].wonRounds == winnerWonRounds){
+               listIndice.add(i);
             }
-            if (equalityIndex - winnerIndex == 2) {
-                if (winnerWonRounds == data[equalityIndex - 2].wonRounds) {
-                    System.out.println("We have 3 winners.");
-                    System.out.println("Equality between Bot " + winnerIndex + ", Bot " + (equalityIndex - 1) + " and Bot " + equalityIndex + ". Congratulations!");
-                } else {//l'intermédiaire est forcément inférieur
-                    System.out.println("We have 2 winners.");
-                    System.out.println("Equality between Bot " + winnerIndex + " and Bot " + equalityIndex + ". Congratulations");
-                }
-            }
-            if (equalityIndex - winnerIndex == 3) {//genre personne n'a gagné, 0 parties gagnées pour tout le monde
-                System.out.println("It's a tie, No winner!");
-            }
+        }  
+        if (listIndice.size() == 1) {      
+           System.out.println("Congratulations Bot " + listIndice.get(0) + " !");      
+        }else if(listIndice.size()==2){     
+           System.out.println("We have 2 winners.");
+           System.out.println("Equality between Bot " + listIndice.get(0) + " and Bot " + listIndice.get(1) + ". Congratulations!");   
+        }else if(listIndice.size() == 3){       
+           System.out.println("We have 3 winners.");
+           System.out.println("Equality between Bot " + listIndice.get(0) + ", Bot " + listIndice.get(1) + " and Bot " + listIndice.get(2) + ". Congratulations!");    
+        }else {
+           System.out.println("It's a tie, No winner !");
         }
-        if (winnerIndex > equalityIndex) {
-            System.out.println("Congratulations Bot " + winnerIndex + " !");
-        }
-        /*if (botOne.roundsWin > botTwo.roundsWin) {
-            System.out.println("Bot 1 wins the game with " + (((float) botOne.roundsWin / 1000) * 100) + "% of won rounds aigainst " + ((float) botTwo.roundsWin / 1000) * 100 + "% won rounds for the Bot 2. Congratulations Bot 1!");
-        }
-        if (botOne.roundsWin < botTwo.roundsWin) {
-            System.out.println("Bot 2 wins the game with " + ((float) botTwo.roundsWin / 1000) * 100 + "% of won rounds aigainst " + ((float) botOne.roundsWin / 1000) * 100 + "% won rounds for the Bot 1. Congratulations Bot 2!");
-        }
-        if (botOne.roundsWin == botTwo.roundsWin) {
-            System.out.println("No winner, It's a tie !");
-        }*/
     }
 
     /**

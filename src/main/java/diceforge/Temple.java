@@ -1,10 +1,18 @@
 package diceforge;
 
+import Card.AutomaticEffectCard.TheWildBoar;
 import Card.Card;
+import Card.ImmediateEffectCard.TheAbyssallMirror;
+import Card.ImmediateEffectCard.TheCelestialSail;
+import Card.ImmediateEffectCard.TheInvisibilityHelmet;
 import Faces.GardenFace;
-import Faces.GeneralFace;
+import Faces.MirrorFace;
+import Faces.MultiplierFace;
 import Faces.SanctuarysFaces;
+import Faces.ShieldOfTheGuardianFace;
 import Faces.SimpleFace;
+import Faces.WildBoardFace;
+import Faces.WroughtFace;
 
 import java.util.ArrayList;
 
@@ -15,7 +23,7 @@ public class Temple {
     //On aura aussi un tableau de bassins pour les faces de jardin
     private ArrayList<GardenFace>[] Garden = new ArrayList[5];
 
-    public Temple() {
+    public Temple(int nb) {
 
         ArrayList<SanctuarysFaces> bassinG3 = new ArrayList<>();
         ArrayList<SanctuarysFaces> bassinM1 = new ArrayList<>();
@@ -25,6 +33,10 @@ public class Temple {
         ArrayList<SanctuarysFaces> bassinM2 = new ArrayList<>();
         ArrayList<SanctuarysFaces> bassinS2 = new ArrayList<>();
         ArrayList<SanctuarysFaces> bassinGl3 = new ArrayList<>();
+        
+        ArrayList<GardenFace> bassinMirror = new ArrayList<>();
+        ArrayList<GardenFace> bassinWrought = new ArrayList<>();
+        ArrayList<GardenFace> bassinMultiplier = new ArrayList<>();
 
 
         for (int a = 0; a < 4; a++) {
@@ -37,6 +49,11 @@ public class Temple {
             bassinM2.add(new SanctuarysFaces(6, "MoonFace", "Add", new SimpleFace(2, "M", "MoonFace")));
             bassinS2.add(new SanctuarysFaces(8, "Sunface", "Add", new SimpleFace(2, "S", "SunFace")));
             bassinGl3.add(new SanctuarysFaces(8, "Gloryface", "Add", new SimpleFace(3, "Gl", "GloryFace")));
+        
+            // face du bassin
+            bassinMirror.add(new MirrorFace("MirrorFace",new TheAbyssallMirror(nb))); 
+            bassinWrought.add(new WroughtFace("WroughtFace",new TheCelestialSail(nb))); 
+            bassinMultiplier.add(new MultiplierFace("MultiplierFace",new TheInvisibilityHelmet(nb))); 
         }
 
         /* 4 Pieces D'or */
@@ -86,7 +103,24 @@ public class Temple {
                         new SimpleFace(2, "Gl", "GloryFace")
                 )
         );
-
+        
+        // Face AILE DE LA GARDIENNE 
+        
+        ArrayList<GardenFace> bassinShield = new ArrayList<>();
+        bassinShield.add(new ShieldOfTheGuardianFace("ShieldOfTheGuardianFace",new TheInvisibilityHelmet(nb),new SimpleFace(3, "G", "GoldenFace")));
+        bassinShield.add(new ShieldOfTheGuardianFace("ShieldOfTheGuardianFace",new TheInvisibilityHelmet(nb),new SimpleFace(2, "S", "SunFace")));
+        bassinShield.add(new ShieldOfTheGuardianFace("ShieldOfTheGuardianFace",new TheInvisibilityHelmet(nb),new SimpleFace(2, "M", "MoonFace")));
+        bassinShield.add(new ShieldOfTheGuardianFace("ShieldOfTheGuardianFace",new TheInvisibilityHelmet(nb),new SimpleFace(2, "Gl", "GloryFace")));
+        
+        // Face SANGLIER ACHARNE
+        
+        ArrayList<GardenFace> bassinWild = new ArrayList<>();
+        bassinWild.add(new WildBoardFace("TheWildBoargreen",new TheWildBoar(nb,"green")));
+        bassinWild.add(new WildBoardFace("TheWildBoarblue",new TheWildBoar(nb,"blue")));
+        bassinWild.add(new WildBoardFace("TheWildBoaryellow",new TheWildBoar(nb,"yellow")));
+        bassinWild.add(new WildBoardFace("TheWildBoarbrown",new TheWildBoar(nb,"brown")));
+        
+        
         //Rangement des bassins dans le tableau sanctuaire
         Sanctuary[0] = bassinG3;
         Sanctuary[1] = bassinM1;
@@ -98,6 +132,15 @@ public class Temple {
         Sanctuary[7] = bassinGl3;
         Sanctuary[8] = bassinHybride_Cost4;
         Sanctuary[9] = bassinHybride_Cost12;
+        
+        //Rangement des bassins dans le tableau garden
+        Garden[0] = bassinMirror;
+        Garden[1] = bassinShield;
+        Garden[2] = bassinWrought;
+        Garden[3] = bassinWild;
+        Garden[4] = bassinMultiplier;
+        
+      
     }
 
     public ArrayList<SanctuarysFaces>[] getSanctuary() {
@@ -140,5 +183,19 @@ public class Temple {
             }
         }
         return returnFace;
+    }
+    
+    // Methode pour retourner le bassin dans lequel se trouve une face
+    public int giveMeTheBasin(SanctuarysFaces face){
+         int basin = 0;
+         for (int a = 0; a < 10; a++) {
+            for (int i = 0; i < Sanctuary[a].size(); i++) {
+                if (Sanctuary[a].get(i).getName().equals(face.getName())
+                        && Sanctuary[a].get(i).getPrice() == face.getPrice()){
+                     basin = a;
+                }
+            }
+        }
+        return basin;
     }
 }

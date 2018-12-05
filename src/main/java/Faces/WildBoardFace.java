@@ -5,9 +5,11 @@
 package Faces;
 
 import Card.Card;
+import Card.Reinforcement;
 import Player.Bot;
 import diceforge.Temple;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class WildBoardFace extends GardenFace{
     
@@ -59,6 +61,26 @@ public class WildBoardFace extends GardenFace{
         for(int b=0;b<a;b++){
             Offered.get(choice).makeEffect(action,favMin,temple,1,bot,data,listBot);
         }
+        
+        
+        // Parcours des joueurs pour l'activation de l"effet automatique de la CARTE SANGLIER
+        
+        ArrayList<Bot> lt = new ArrayList<>();
+        lt.addAll(Arrays.asList(listBot));
+        for(int nbfois=0;nbfois<a;nbfois++){
+            for(int z=0;z<listBot.length;z++){
+                // Parcours des cartes à effets automatiques des autres joueurs
+                if(z!=numBot){
+                    ArrayList<Reinforcement> automatic = listBot[z].getEnhancementCard();
+                    for(int base = 0;base<automatic.size();base++){
+                        if(automatic.get(base).equals(this.getCard())){ 
+                            listBot[z].getAutomaticCard().get(base).capacity(temple, listBot[z], z, data, lt);
+                        }
+                    }
+                }
+            }
+        }
+            
     }
     
     @Override
@@ -106,5 +128,24 @@ public class WildBoardFace extends GardenFace{
                 bot.getHerosInventory().IncreaseGloryPoints(2);
             }
         }
+        
+        // Parcours des joueurs pour l'activation de l"effet automatique de la CARTE SANGLIER
+        
+        ArrayList<Bot> lt = new ArrayList<>();
+        lt.addAll(Arrays.asList(listBot));
+        for(int nbfois=0;nbfois<a;nbfois++){
+            for(int z=0;z<listBot.length;z++){
+                // Parcours des cartes à effets automatiques des autres joueurs
+                if(z!=numBot){
+                    ArrayList<Reinforcement> automatic = listBot[z].getEnhancementCard();
+                    for(int base = 0;base<automatic.size();base++){
+                        if(automatic.get(base).equals(this.getCard())){ 
+                            listBot[z].getAutomaticCard().get(base).capacity(temple, listBot[z], z, data, lt);
+                        }
+                    }
+                }
+            }
+        }
     }
+    
 }
