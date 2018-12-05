@@ -18,6 +18,15 @@ public class Strategy {
         this.bot = bot;
     }
 
+    /**
+     * méthode qui applique la stratégie du bot
+     *
+     * @param temple qui servira à réaliser des exploits
+     * @param numberOfTheBot
+     * @param actionNumber
+     * @param listFaces
+     * @param data
+     */
     public void apply(Temple temple, int numberOfTheBot, int actionNumber,ArrayList<GeneralFace>[] listFaces,Bot... data){
         System.out.println("I am General Strategy, please implement effect in subclasses");
     }

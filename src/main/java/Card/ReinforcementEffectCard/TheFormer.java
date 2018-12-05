@@ -35,7 +35,7 @@ public class TheFormer extends Reinforcement {
     }
 
     @Override
-    public void capacity(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
+    public void capacity(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, Bot... tabBot) {
         int choice = bot.getStrategy().applyFormerEffect(); // 0 si oui , 1 sinon
         if (choice == 0) {
             bot.getHerosInventory().IncreaseGloryPoints(4);

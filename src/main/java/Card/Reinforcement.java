@@ -23,6 +23,6 @@ public class Reinforcement extends Card {
      * @param listFaces
      * @param listBot
      */
-    public void capacity(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
+    public void capacity(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, Bot... tabBot) {
     }
 }

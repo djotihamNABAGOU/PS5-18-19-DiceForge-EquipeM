@@ -121,8 +121,16 @@ public class Engine {
             }
             System.out.println("\n");
             //Changement du joueur actif
+            boolean findActiveBot = false;
             for (Bot bot : data) {
-                bot.setActive(!bot.isActive());
+                if (findActiveBot == true){//le précédent était donc actif, il ne l'est plus
+                    bot.setActive(true);//il devient le nouveau joueur actif
+                    break;
+                }
+                if (bot.isActive()){
+                    findActiveBot = true;//On a trouvé le joueur actif
+                    bot.setActive(false);//il redevient inactif, le bot suivant sera alors actif
+                }
             }
         }
     }
@@ -145,8 +153,8 @@ public class Engine {
                 winnerWonSets = data[i].getHerosInventory().getGloryPoints();
             }
         }
-        System.out.println("winner index: " + winnerIndex);
-        System.out.println("equality index: " + equalityIndex);
+        //System.out.println("winner index: " + winnerIndex);
+        //System.out.println("equality index: " + equalityIndex);
         //Vérifications à la sortie de la boucle
         if (equalityIndex > winnerIndex) {
             if (equalityIndex - winnerIndex == 1) {
@@ -174,17 +182,6 @@ public class Engine {
             data[winnerIndex - 1].wonRounds++;
             System.out.println("Congratulations Bot " + winnerIndex + " !");
         }
-        /*if (botOne.getHerosInventory().getGloryPoints() > botTwo.getHerosInventory().getGloryPoints()) {
-            botOne.roundsWin++;
-            System.out.println("Bot 1 wins the round");
-        }
-        if (botOne.getHerosInventory().getGloryPoints() < botTwo.getHerosInventory().getGloryPoints()) {
-            botTwo.roundsWin++;
-            System.out.println("Bot 2 wins the round");
-        }
-        if (botOne.getHerosInventory().getGloryPoints() == botTwo.getHerosInventory().getGloryPoints()) {
-            System.out.println("It's a tie");
-        }*/
     }
 
     /**
@@ -227,15 +224,6 @@ public class Engine {
         if (winnerIndex > equalityIndex) {
             System.out.println("Congratulations Bot " + winnerIndex + " !");
         }
-        /*if (botOne.roundsWin > botTwo.roundsWin) {
-            System.out.println("Bot 1 wins the game with " + (((float) botOne.roundsWin / 1000) * 100) + "% of won rounds aigainst " + ((float) botTwo.roundsWin / 1000) * 100 + "% won rounds for the Bot 2. Congratulations Bot 1!");
-        }
-        if (botOne.roundsWin < botTwo.roundsWin) {
-            System.out.println("Bot 2 wins the game with " + ((float) botTwo.roundsWin / 1000) * 100 + "% of won rounds aigainst " + ((float) botOne.roundsWin / 1000) * 100 + "% won rounds for the Bot 1. Congratulations Bot 2!");
-        }
-        if (botOne.roundsWin == botTwo.roundsWin) {
-            System.out.println("No winner, It's a tie !");
-        }*/
     }
 
     /**
