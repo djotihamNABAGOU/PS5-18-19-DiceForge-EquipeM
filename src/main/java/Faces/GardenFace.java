@@ -40,13 +40,11 @@ public class GardenFace extends GeneralFace{
         return card;
     }
     
-    
     @Override
-    public void makeEffect(int action,int favMin,Temple temple,int numBot,
+     public void makeEffect(int action,int favMin,Temple temple,int numBot,
                                Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
-        System.out.println("I am Garden face, please implement effect in subclasses");
+        System.out.println("I am General face, please implement effect in subclasses");
     }
-    
     
     @Override
     public void makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
@@ -69,12 +67,7 @@ public class GardenFace extends GeneralFace{
     
     //Methode appelée par l'utilisation d'une carte Sentinel
     
-    
-    @Override
-    public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
-        System.out.println("I am General face, please implement effect in subclasses");
-    }
-    
+   
     
     @Override
     public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,int a,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
@@ -82,5 +75,11 @@ public class GardenFace extends GeneralFace{
     }
     
     
-    
+    @Override
+    public int giveMeShieldGain(int action,Bot bot,int numBot,ShieldOfTheGuardianFace face,ArrayList<GeneralFace>[] data,Bot... listBot){
+        return 0;
+    }
+ 
+    @Override
+    public void initialize() {}
 }

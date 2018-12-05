@@ -58,20 +58,8 @@ public class SimpleFace extends GeneralFace {
     public void makeEffect(int action,int favMin,Temple temple,int numBot,
                                Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         
-        /* Si le joueur possède une face multiplier : Ne rien faire car c'est la face
-           Multiplier qui s'activera et fera effet
-        */
-        int a = 0; // Pas de face Multiplier obtenue, passe à 1 sinon
-        
-           for(GeneralFace face : data[numBot]){
-                if(face instanceof MultiplierFace){
-                    a = 1;
-                }
-            } 
-           
-        if(a==0){
                 makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,1,data);
-        }
+        
     }
     
     @Override
@@ -114,21 +102,9 @@ public class SimpleFace extends GeneralFace {
     public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,
                                                 Bot... listBot){
         
-        /* Si le joueur possède une face multiplier : Ne rien faire car c'est la face
-           Multiplier qui s'activera et fera effet
-        */
-        int a = 0; // Pas de face Multiplier obtenue, passe à 1 sinon
-        if(data.length!=0){ // si == 0, faveur mineure
-           for(GeneralFace face : data[numBot]){
-                if(face instanceof MultiplierFace){
-                    a = 1;
-                }
-            } 
-        }
-            
-        if(a==0){
-            makeEffectFaceMultiplierCardSentinelEffect(temple,numBot,1,bot,data,listBot);
-        }
+        
+         makeEffectFaceMultiplierCardSentinelEffect(temple,numBot,1,bot,data,listBot);
+        
     }
     
     
@@ -164,4 +140,16 @@ public class SimpleFace extends GeneralFace {
         }
     }
     
+    
+    @Override
+    public int giveMeShieldGain(int action,Bot bot,int numBot,ShieldOfTheGuardianFace face,ArrayList<GeneralFace>[] data,Bot... listBot){
+        int a = 1;
+        if(face.getType2().getType().equals(this.getType())){
+           a = 0;    
+        }
+        return a;
+    }
+    
+    @Override
+    public void initialize() { }
 }

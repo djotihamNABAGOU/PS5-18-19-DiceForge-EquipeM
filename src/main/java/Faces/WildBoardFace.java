@@ -9,9 +9,10 @@ import Card.Reinforcement;
 import Player.Bot;
 import diceforge.Temple;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class WildBoardFace extends GardenFace{
+    
+    SimpleFace faceSelected; // face choisi
     
     public WildBoardFace(String name,Card card) {
         super(name,card);
@@ -21,50 +22,49 @@ public class WildBoardFace extends GardenFace{
     public String toString() {
         return super.toString();
     }
-
+    
+    // choix entre les 2 faces proposees par la carte sanglier
+    public void caseFace(int action,Bot bot){
+  
+            ArrayList<SimpleFace> Offered = new ArrayList<>();
+            Offered.add(new SimpleFace(1, "S", "SunFace"));
+            Offered.add(new SimpleFace(1, "M", "MoonFace"));
+            int choice = -1;
+            if(action==0){
+                choice = bot.getStrategy().giveMeYourChoice(Offered);
+            }else{
+                choice = bot.getStrategy().giveMeYourChoicedecrease(Offered);
+            }
+            this.faceSelected = Offered.get(choice);
+       
+    }
+    
     @Override
     public void makeEffect(int action,int favMin,Temple temple,int numBot,
                                Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         
-        /* Si le joueur possède une face multiplier : Ne rien faire car c'est la face
-           Multiplier qui s'activera et fera effet
-        */
-        int a = 0; // Pas de face Multiplier obtenue, passe à 1 sinon
-        
-           for(GeneralFace face : data[numBot]){
-                if(face instanceof MultiplierFace){
-                    a = 1;
-                }
-            } 
-        
-        
-        if(a==0){
-            makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,1,data,listBot); // gain choisie * 1 (a=1)
-            
+        if(this.faceSelected==null){
+                caseFace(action, bot);
         }
+        this.faceSelected.makeEffect(action,favMin,temple,1,bot,data,listBot);
     }
+    
     
     @Override
     public void makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
                                       Bot bot,int a,ArrayList<GeneralFace>[] data,Bot... listBot){
         
-        ArrayList<SimpleFace> Offered = new ArrayList<>();
-        Offered.add(new SimpleFace(1, "S", "SunFace"));
-        Offered.add(new SimpleFace(1, "M", "MoonFace"));
-        int choice = -1;
-        if(action==0){
-            choice = bot.getStrategy().giveMeYourChoice(Offered);
-        }else{
-            choice = bot.getStrategy().giveMeYourChoicedecrease(Offered);
+        if(this.faceSelected==null){
+                caseFace(action, bot);
         }
         
         for(int b=0;b<a;b++){
-            Offered.get(choice).makeEffect(action,favMin,temple,1,bot,data,listBot);
+                  this.faceSelected.makeEffect(action,favMin,temple,1,bot,data,listBot);
         }
-        
+
         
         // Parcours des joueurs pour l'activation de l"effet automatique de la CARTE SANGLIER
-
+        
         for(int nbfois=0;nbfois<a;nbfois++){
             for(int z=0;z<listBot.length;z++){
                 // Parcours des cartes à effets automatiques des autres joueurs
@@ -93,21 +93,9 @@ public class WildBoardFace extends GardenFace{
     @Override
     public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,
                                                 Bot... listBot){
-       /* Si le joueur possède une face multiplier : Ne rien faire car c'est la face
-           Multiplier qui s'activera et fera effet
-        */
-        int a = 0; // Pas de face Multiplier obtenue, passe à 1 sinon
-        if(data.length!=0){ // si == 0, faveur mineure
-           for(GeneralFace face : data[numBot]){
-                if(face instanceof MultiplierFace){
-                    a = 1;
-                }
-            } 
-        }
-        
-        if(a==0){
+       
             makeEffectFaceMultiplierCardSentinelEffect(temple,numBot,1,bot,data,listBot); // gain choisie * 1 (a=1)
-        }   
+           
     }
     
     
@@ -128,7 +116,7 @@ public class WildBoardFace extends GardenFace{
         }
         
         // Parcours des joueurs pour l'activation de l"effet automatique de la CARTE SANGLIER
-
+        
         for(int nbfois=0;nbfois<a;nbfois++){
             for(int z=0;z<listBot.length;z++){
                 // Parcours des cartes à effets automatiques des autres joueurs
@@ -144,4 +132,17 @@ public class WildBoardFace extends GardenFace{
         }
     }
     
+    @Override
+    public int giveMeShieldGain(int action,Bot bot,int numBot,ShieldOfTheGuardianFace face,ArrayList<GeneralFace>[] data,Bot... listBot){
+        int a = 1;
+        if(face.getType2().getType().equals(this.faceSelected.getType())){
+           a = 0;    
+        }
+        return a;
+    }
+    
+    @Override
+    public void initialize() {
+        this.faceSelected = null;
+    }
 }
