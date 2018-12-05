@@ -32,7 +32,7 @@ public class Strategy {
     
     public void ForgeDice(GeneralFace face) {}
     
-    public SanctuarysFaces FaceToBuy(Bot bot, Temple temple) {
+    public SanctuarysFaces FaceToBuy(Bot bot, Temple temple, int bassin) {
         SanctuarysFaces face = new SanctuarysFaces();
         return face;
     }

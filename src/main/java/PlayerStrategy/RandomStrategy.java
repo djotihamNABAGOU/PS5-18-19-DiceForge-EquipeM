@@ -12,32 +12,40 @@ import java.util.Random;
 
 public class RandomStrategy extends Strategy {
     private boolean supActionDone = false;
+    /*Pour éviter de forger consécutivement deux faces venant d'un même bassin, il nous faut
+     * garder une trace du bassin dans lequel la dernière forge s'est éffectuée car le bot
+     * peut non seulement forger plusieurs faces s'il le désire, mais peut aussi faire une action sup
+     * s'il est joueur actif.
+     * On initialise donc une variable bassin à -1 pour désigner un bassin inexistant*/
+    private int bassin = -1;
 
     public RandomStrategy(Bot bot) {
         super(bot);
     }
 
     @Override
-    public void apply(Temple temple, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces,Bot... data) {
+    public void apply(Temple temple, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces, Bot... data) {
         //Seul le joueur actif peut appliquer une stratégie après le lancé des dés
         if (bot.isActive()) {
             //System.out.println("ok ok");
             //1->Choix d'appel des renforts, LE JOUEUR ACTIF PEUT APPELER DES RENFORTS
             Random random = new Random();
             int choice = random.nextInt(2); // 0 pour oui et 1 pour non
-            if (choice == 0) {
-                if (bot.getEnhancementCard().size() != 0) {
-                    System.out.println("\t->ENHANCEMENT<-");
-                    //il les active dans l'ordre de son choix, et donc ici, dans un ordre aléatoire
-                    int size = bot.getEnhancementCard().size();
-                    int i = size;
-                    int last = 0, toGet = 0;
-                    while (i != 0) {
-                        toGet = random.nextInt(size);
-                        if (toGet != last) {
-                            bot.getEnhancementCard().get(toGet).capacity(temple,bot,numberOfTheBot,listFaces, data);
-                            last = toGet;
-                            i--;
+            if (supActionDone == false) {//on ne doit pas appeler des renforts lors d'une action sup
+                if (choice == 0) {
+                    if (bot.getEnhancementCard().size() != 0) {
+                        System.out.println("\t->ENHANCEMENT<-");
+                        //il les active dans l'ordre de son choix, et donc ici, dans un ordre aléatoire
+                        int size = bot.getEnhancementCard().size();
+                        int i = size;
+                        int last = 0, toGet = 0;
+                        while (i != 0) {
+                            toGet = random.nextInt(size);
+                            if (toGet != last) {
+                                bot.getEnhancementCard().get(toGet).capacity(temple, bot, numberOfTheBot, listFaces, data);
+                                last = toGet;
+                                i--;
+                            }
                         }
                     }
                 }
@@ -59,24 +67,23 @@ public class RandomStrategy extends Strategy {
                         //Tant qu'il a les ressources, il peut forger plusieurs faces de sanctuaire
                         //Choix de forger plusieurs faces
                         choice = random.nextInt(2); // 0 pour oui, 1 pour non
-                        if (choice == 0) {
+                        if (choice == 0) {//forge de plusieurs faces
                             SanctuarysFaces face;
-                            int nb = 1;
-                            while (!(face = FaceToBuy(bot, temple)).getName().equals("null")) {
-                                //if (face.getPrice() != 0) { car si on est ici, c'est que on peut payer
-                                    if (temple.buyFace(face)) {
-                                        System.out.println("PURCHASE "+nb);
-                                        ForgeDice(face);
-                                        bot.getHerosInventory().DecreaseGoldPoints(face.getPrice());
-                                    } else {
-                                        System.out.println("Purchase failed");
-                                    }
-                                //}
-                                nb++;
+                            int nbPurchase = 1;//indice de forge
+                            while (!(face = FaceToBuy(bot, temple, bassin)).getName().equals("null")) {
+                                bassin = temple.giveMeTheBasin(face);//enregistrement du bassin de la nouvelle face
+                                if (temple.buyFace(face)) {
+                                    System.out.println("PURCHASE " + nbPurchase);
+                                    ForgeDice(face);
+                                    bot.getHerosInventory().DecreaseGoldPoints(face.getPrice());
+                                    nbPurchase++;
+                                } else {
+                                    System.out.println("Purchase failed");
+                                }
                             }
-                        }else {
+                        } else {//forge d'une seule face
                             SanctuarysFaces face;
-                            if (!(face = FaceToBuy(bot, temple)).getName().equals("null")) {
+                            if (!(face = FaceToBuy(bot, temple, bassin)).getName().equals("null")) {
                                 if (temple.buyFace(face)) {
                                     ForgeDice(face);
                                     bot.getHerosInventory().DecreaseGoldPoints(face.getPrice());
@@ -179,14 +186,16 @@ public class RandomStrategy extends Strategy {
      * en gros, on stocke les faces du sanctuaire disponibles dans une liste FacesAvailable puis on choisit au hasard la face à retourner
      */
     @Override
-    public SanctuarysFaces FaceToBuy(Bot bot, Temple temple) {
+    public SanctuarysFaces FaceToBuy(Bot bot, Temple temple, int bassin) {
         int v = bot.getHerosInventory().getGoldPoints();
         ArrayList<SanctuarysFaces> FacesAvailable = new ArrayList<>();
         ArrayList<SanctuarysFaces>[] sanctuary = temple.getSanctuary();
         for (int a = 0; a < 10; a++) {
-            for (int i = 0; i < sanctuary[a].size(); i++) {
-                if (!sanctuary[a].get(i).isSelected() && !FacesAvailable.contains(sanctuary[a].get(i)) && v >= sanctuary[a].get(i).getPrice()) {
-                    FacesAvailable.add(sanctuary[a].get(i));
+            if (a != bassin) {//car il ne peut retirer de faces d'un même bassin consécutivement
+                for (int i = 0; i < sanctuary[a].size(); i++) {
+                    if (!sanctuary[a].get(i).isSelected() && !FacesAvailable.contains(sanctuary[a].get(i)) && v >= sanctuary[a].get(i).getPrice()) {
+                        FacesAvailable.add(sanctuary[a].get(i));
+                    }
                 }
             }
         }

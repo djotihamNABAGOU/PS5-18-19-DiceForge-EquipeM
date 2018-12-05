@@ -92,6 +92,7 @@ public class Engine {
 
         while (a < data.length) {
             System.out.println("-------->ROLL OF BOT " + (compteur + 1));
+            if (data[compteur].isActive()) System.out.println("I'm active!");
             listFaces[a].get(0).makeEffect(0, 1, temple, compteur, data[compteur], listFaces, data);
             listFaces[a].get(1).makeEffect(0, 1, temple, compteur, data[compteur], listFaces, data);
             data[compteur].getStrategy().apply(temple, compteur+1, listFaces, data);
@@ -116,7 +117,7 @@ public class Engine {
             for (int i = 0; i < data.length; i++) {
                 System.out.println("-->BOT " + (i + 1));
                 System.out.println(data[i].toString());
-                data[i].printDiceState();
+                //data[i].printDiceState();
             }
             System.out.println("\n");
             //Changement du joueur actif
