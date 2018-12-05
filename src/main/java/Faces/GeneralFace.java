@@ -70,18 +70,13 @@ public class GeneralFace {
     }
     
 
-
-
-    
     //Methode appelée par l'utilisation d'une carte Cyclope
     public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,
                                                                                         Bot... listBot){
         System.out.println("I am General face, please implement effect in subclasses");
     }
     
-    
-    
-   
+  
     //Methode appelée par l'utilisation d'une carte Sentinel
     public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,
                                                 Bot... listBot){
@@ -94,5 +89,16 @@ public class GeneralFace {
         System.out.println("I am General face, please implement effect in subclasses");
     }
        
+    //Donner le type de ressource que procure la face en présence de la face "AILE DE LA GARDIENNE
+    //0  ----> pour le GAIN A
+    //1  ----> pour le GAIN B
+    public int giveMeShieldGain(int action,Bot bot,int numBot,ShieldOfTheGuardianFace face,ArrayList<GeneralFace>[] data,Bot... listBot){
+        return 0;
+    }
+
+    //initialise la face en question
+    public void initialize() {
+        
+    }
     
 }

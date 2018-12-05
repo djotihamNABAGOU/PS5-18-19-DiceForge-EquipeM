@@ -98,7 +98,11 @@ public class Engine {
             a = a + 1;
             compteur = compteur + 1;
         }
-
+        
+        for(Bot bot : data){
+            bot.getFirstDice().resetFace();
+            bot.getSecondDice().resetFace();
+        }
     }
 
     /**

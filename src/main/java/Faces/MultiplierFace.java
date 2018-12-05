@@ -26,13 +26,13 @@ public class MultiplierFace extends GardenFace{
     @Override
     public void makeEffect(int action,int favMin,Temple temple,int numBot,
                                Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
-        // Active l'effet multiplicateur de l'autre face à laquelle elle est associé
+        // Active l'effet multiplicateur de l'autre face à laquelle elle est associé avec multiple = 2
         
         if (favMin != 0){   // == 0 Faveur Mineure, n'obtient rien
              if(data[numBot].get(0)==this){  
-                   data[numBot].get(1).makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,3,data,listBot);
+                   data[numBot].get(1).makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,2,data,listBot);
              }else{
-                   data[numBot].get(0).makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,3,data,listBot);
+                   data[numBot].get(0).makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,2,data,listBot);
              }
         }
     }
@@ -60,9 +60,9 @@ public class MultiplierFace extends GardenFace{
         
       
              if(data[numBot].get(0)==this){  
-                   data[numBot].get(1).makeEffectFaceMultiplierCardSentinelEffect(temple,numBot,3,bot,data);
+                   data[numBot].get(1).makeEffectFaceMultiplierCardSentinelEffect(temple,numBot,2,bot,data);
              }else{
-                   data[numBot].get(0).makeEffectFaceMultiplierCardSentinelEffect(temple,numBot,3,bot,data);
+                   data[numBot].get(0).makeEffectFaceMultiplierCardSentinelEffect(temple,numBot,2,bot,data);
              }
         
     }
@@ -73,5 +73,13 @@ public class MultiplierFace extends GardenFace{
     public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,int a,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         System.out.println("I do not provide anything"); 
     }
+    
+    @Override
+    public int giveMeShieldGain(int action,Bot bot,int numBot,ShieldOfTheGuardianFace face,ArrayList<GeneralFace>[] data,Bot... listBot){
+        return 1;
+    }
+    
+    @Override
+    public void initialize() {}
     
 }

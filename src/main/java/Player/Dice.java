@@ -67,4 +67,10 @@ public class Dice {
         }
         return diceFaces;
     }
+    
+    public void resetFace(){
+     for (int i = 0; i < 6; i++) {
+            this.faces[i].initialize();
+        }   
+    }
 }

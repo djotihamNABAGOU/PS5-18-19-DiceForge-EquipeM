@@ -61,21 +61,8 @@ public class SanctuarysFaces extends GeneralFace {
     public void makeEffect(int action,int favMin,Temple temple,int numBot,
                                Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         
-       /* Si le joueur possède une face multiplier : Ne rien faire car c'est la face
-           Multiplier qui s'activera et fera effet
-        */
-        int a = 0; // Pas de face Multiplier obtenue, passe à 1 sinon
-
-           for(GeneralFace face : data[numBot]){
-                if(face instanceof MultiplierFace){
-                    a = 1;
-                }
-            } 
-        
-        
-        if(a==0){
-            makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,1,data,listBot);
-        }
+              makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,1,data,listBot);
+     
     }
     
     @Override
@@ -120,21 +107,8 @@ public class SanctuarysFaces extends GeneralFace {
     public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,
                                                 Bot... listBot){
         
-        /* Si le joueur possède une face multiplier : Ne rien faire car c'est la face
-           Multiplier qui s'activera et fera effet
-        */
-        int a = 0; // Pas de face Multiplier obtenue, passe à 1 sinon
-        if(data.length!=0){ // si == 0, faveur mineure
-           for(GeneralFace face : data[numBot]){
-                if(face instanceof MultiplierFace){
-                    a = 1;
-                }
-            } 
-        }
-            
-        if(a==0){
             makeEffectFaceMultiplierCardSentinelEffect(temple, numBot, 1, bot, data);
-        }
+        
     }
     
     
@@ -154,10 +128,7 @@ public class SanctuarysFaces extends GeneralFace {
        } 
         }
     }
-     
-   
     
- 
     @Override
     public String toString() {
         if (this.Offered.size() == 1)
@@ -169,5 +140,25 @@ public class SanctuarysFaces extends GeneralFace {
                                 .reduce("",(total, count) -> total + count + " | ");
     }
     
-
+    @Override
+    public int giveMeShieldGain(int action,Bot bot,int numBot,ShieldOfTheGuardianFace face,ArrayList<GeneralFace>[] data,Bot... listBot){
+        int a = 1;
+        if(this.mode.equals("Choice")){
+              int number = bot.getStrategy().giveMeYourChoice(this.Offered);
+              if(this.Offered.get(number).getType().equals(face.getType2().getType())){
+                  a = 0;
+              }
+        }else{
+            for(int c=0;c<this.Offered.size();c++){
+               if(this.Offered.get(c).getType().equals(face.getType2().getType())){
+                   a = 0;
+               } 
+            }
+        }
+        return a;
+    }
+    
+    @Override
+    public void initialize() {}
+    
 }
