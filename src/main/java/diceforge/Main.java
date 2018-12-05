@@ -15,16 +15,21 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("********WELCOME TO DICE FORGE********\n");
-        Engine engine = new Engine(1000, 10, 4);
-        Temple temple = new Temple();
+        //Création des Bots
         Bot botOneRandom = new Bot("Random");
         Bot botTwoRandom = new Bot("Random");
         Bot botThreeNothing = new Bot("Nothing");
         Bot botFourNothing = new Bot("Nothing");
-        //Initialisation des Bots et du temple
+
+        //Création du moteur de jeu, du temple et de l'île
+        Engine engine = new Engine(2, 10, 4);
+        Temple temple = new Temple();
+
+        //Initialisation des Bots, du temple et de l'île
         engine.InitializingBots(botOneRandom, botTwoRandom, botThreeNothing, botFourNothing);
         engine.initializingTemple(temple);
 
+        //Affichage de l'état des bots
         System.out.println("STATE BEFORE DICE SET");
         System.out.println("-->BOT ONE");
         System.out.println(botOneRandom.toString());
@@ -38,8 +43,8 @@ public class Main {
         System.out.println("-->BOT FOUR");
         System.out.println(botFourNothing.toString());
         botFourNothing.printDiceState();
-
         System.out.println("-------------------------------------\n");
+        //Lancement du jeu
         engine.makeRound(temple, botOneRandom, botTwoRandom, botThreeNothing, botFourNothing);
     }
 

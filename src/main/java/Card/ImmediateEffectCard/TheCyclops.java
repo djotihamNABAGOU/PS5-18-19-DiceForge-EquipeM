@@ -18,34 +18,31 @@ import java.util.ArrayList;
 
 public class TheCyclops extends Card {
 
-    public TheCyclops(int amount) /* prend en parametre le nombre de joueurs */ {
+    public TheCyclops() {
         this.name = "TheCyclops";
         this.gloryPoints = 8;
         this.type = "S";
         this.TypeCard = "I";   /* I pour désigner immédiat */
-        if (amount == 2 || amount == 4) /* S'il y'a 3 joueurs , il restera une carte qui ne sera jamais utilisé*/
-            this.amount = amount;
-        else this.amount = 3;
         this.price = 6;
         this.portal = 4;
     }
 
 
     @Override
-    public void actionCard(Temple temple,Bot bot,int numBot,ArrayList<GeneralFace>[] listFaces,ArrayList<Bot> listBot){
-       bot.getHerosInventory().IncreaseGloryPoints(gloryPoints);
-       int a = bot.getStrategy().throwWhichDice();  // choix du dé à lancer
-       
-       Bot[] tabBot = new Bot[listBot.size()];
-        for(int b=0;b<listBot.size();b++){
+    public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
+        bot.getHerosInventory().IncreaseGloryPoints(gloryPoints);
+        int a = bot.getStrategy().throwWhichDice();  // choix du dé à lancer
+
+        Bot[] tabBot = new Bot[listBot.size()];
+        for (int b = 0; b < listBot.size(); b++) {
             tabBot[b] = listBot.get(b);
         }
-        
-        
-       for(int b = 0;b<4;b++){
-           GeneralFace myFace = bot.rollOneDice(a);     // face obtenue
-           myFace. makeCardCyclopEffect(temple,numBot, bot, listFaces,tabBot);  // Effet Cyclop de la face   
-       }
+
+
+        for (int b = 0; b < 4; b++) {
+            GeneralFace myFace = bot.rollOneDice(a);     // face obtenue
+            myFace.makeCardCyclopEffect(temple, numBot, bot, listFaces, tabBot);  // Effet Cyclop de la face
+        }
     }
 
 }

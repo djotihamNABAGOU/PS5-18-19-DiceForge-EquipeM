@@ -19,14 +19,11 @@ import java.util.ArrayList;
 
 public class TheGreatBear extends Reinforcement {
 
-    public TheGreatBear(int amount)  /* prend en parametre le nombre de joueurs */ {
+    public TheGreatBear() {
         this.name = "TheGreatBear";
         this.gloryPoints = 2;
         this.type = "M";
         this.TypeCard = "A";
-        if (amount == 2 || amount == 4) /* S'il y'a 3 joueurs , il restera une carte qui ne sera jamais utilisé*/
-            this.amount = amount;
-        else this.amount = 3;
         this.price = 2;
         this.portal = 2;
     }

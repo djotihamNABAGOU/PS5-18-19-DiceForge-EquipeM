@@ -15,14 +15,11 @@ import java.util.ArrayList;
 
 public class TheNewt extends Card {
 
-    public TheNewt(int amount) /* prend en parametre le nombre de joueurs */ {
+    public TheNewt() {
         this.name = "TheNewt";
         this.gloryPoints = 8;
         this.type = "S";
         this.TypeCard = "I";   /* I pour désigner immédiat */
-        if (amount == 2 || amount == 4) /* S'il y'a 3 joueurs , il restera une carte qui ne sera jamais utilisé*/
-            this.amount = amount;
-        else this.amount = 3;
         this.price = 4;
         this.portal = 5;
     }

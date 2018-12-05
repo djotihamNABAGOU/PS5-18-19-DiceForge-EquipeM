@@ -18,9 +18,10 @@ public class RandomStrategy extends Strategy {
     }
 
     @Override
-    public void apply(Temple temple, int numberOfTheBot, int actionNumber,ArrayList<GeneralFace>[] listFaces,Bot... data) {
+    public void apply(Temple temple, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces,Bot... data) {
         //Seul le joueur actif peut appliquer une stratégie après le lancé des dés
         if (bot.isActive()) {
+            //System.out.println("ok ok");
             //1->Choix d'appel des renforts, LE JOUEUR ACTIF PEUT APPELER DES RENFORTS
             Random random = new Random();
             int choice = random.nextInt(2); // 0 pour oui et 1 pour non
@@ -52,7 +53,7 @@ public class RandomStrategy extends Strategy {
                 switch (choice) {
                     case 0://forge
                         if (supActionDone == false)
-                            System.out.println("*ACTION " + actionNumber + " FOR BOT NUMBER " + numberOfTheBot + ": FORGE");
+                            System.out.println("*ACTION OF BOT NUMBER " + numberOfTheBot + ": FORGE");
                         else System.out.println("**SUP ACTION FOR BOT NUMBER " + numberOfTheBot + ": FORGE");
 
                         //Tant qu'il a les ressources, il peut forger plusieurs faces de sanctuaire
@@ -89,7 +90,7 @@ public class RandomStrategy extends Strategy {
                             int choiceSupAction = random.nextInt(2); // 0 pour oui et 1 pour non
                             if (choiceSupAction == 0) {//On choisit alors quelle action supplémentaire effectuer
                                 supActionDone = true;
-                                apply(temple, numberOfTheBot, actionNumber, listFaces, data);//On réappelle la fonction pour éviter de la duplication de code
+                                apply(temple, numberOfTheBot, listFaces, data);//On réappelle la fonction pour éviter de la duplication de code
                                 supActionDone = false;
                             }
                         }
@@ -97,7 +98,7 @@ public class RandomStrategy extends Strategy {
 
                     case 1://exploit
                         if (supActionDone == false)
-                            System.out.println("*ACTION " + actionNumber + " FOR BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
+                            System.out.println("*ACTION OF BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
                         else System.out.println("**SUP ACTION FOR BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
 
                         System.out.println("No implemantation for now");

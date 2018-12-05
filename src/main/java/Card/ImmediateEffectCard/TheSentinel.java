@@ -17,14 +17,11 @@ import java.util.ArrayList;
 
 public class TheSentinel extends Card {
 
-    public TheSentinel(int amount) /* prend en parametre le nombre de joueurs */ {
+    public TheSentinel() {
         this.name = "TheSentinel";
         this.gloryPoints = 6;
         this.type = "M";
         this.TypeCard = "I";   /* I pour désigner immédiat */
-        if (amount == 2 || amount == 4) /* S'il y'a 3 joueurs , il restera une carte qui ne sera jamais utilisé*/
-            this.amount = amount;
-        else this.amount = 3;
         this.price = 6;
         this.portal = 4;
     }

@@ -16,14 +16,11 @@ import java.util.ArrayList;
 
 public class TheCelestialSail extends Card {
 
-    public TheCelestialSail(int amount)  /* prend en parametre le nombre de joueurs */ {
+    public TheCelestialSail() {
         this.name = "TheCelestialSail";
         this.gloryPoints = 4;
         this.type = "S";
         this.TypeCard = "I";
-        if (amount == 2 || amount == 4) /* S'il y'a 3 joueurs , il restera une carte qui ne sera jamais utilisé*/
-            this.amount = amount;
-        else this.amount = 3;
         this.price = 2;
         this.portal = 6;
     }

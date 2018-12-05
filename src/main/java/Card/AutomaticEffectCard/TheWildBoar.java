@@ -18,14 +18,11 @@ import java.util.ArrayList;
 
 public class TheWildBoar extends Reinforcement {
 
-    public TheWildBoar(int amount, String Type)  /* prend en parametre le nombre de joueurs */ {   // prend aussi le type (y'en a 4)
+    public TheWildBoar(String Type) {   // prend aussi le type (y'en a 4)
         this.name = "TheWildBoar" + Type;
         this.gloryPoints = 4;
         this.type = "M";
         this.TypeCard = "A";
-        if (amount == 2 || amount == 4) /* S'il y'a 3 joueurs , il restera une carte qui ne sera jamais utilisé*/
-            this.amount = amount;
-        else this.amount = 3;
         this.price = 3;
         this.portal = 2;
     }

@@ -21,14 +21,11 @@ public class TheHammer extends Card {
     int GoldPoints = 0;       /* represente les 15 emplacements d'or pour le parcours */
     int uses = 2;             /* Nombres d'utilisation restantes */
 
-    public TheHammer(int amount)  /* prend en parametre le nombre de joueurs */ {
+    public TheHammer(int amount) {
         this.name = "TheHammer";
         this.gloryPoints = 0;
         this.type = "M";
         this.TypeCard = "I";
-        if (amount == 2 || amount == 4) /* S'il y'a 3 joueurs , il restera une carte qui ne sera jamais utilisé*/
-            this.amount = amount;
-        else this.amount = 3;
         this.price = 1;
         this.portal = 1;
     }

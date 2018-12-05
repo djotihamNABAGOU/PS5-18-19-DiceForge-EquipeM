@@ -19,13 +19,10 @@ import java.util.ArrayList;
 
 public class TheClogs extends Reinforcement {
 
-    public TheClogs(int amount)   /* prend en parametre le nombre de joueurs */ {
+    public TheClogs() {
         this.gloryPoints = 2;
         this.type = "M";
         this.TypeCard = "R";
-        if (amount == 2 || amount == 4) /* S'il y'a 3 joueurs , il restera une carte qui ne sera jamais utilisé*/
-            this.amount = amount;
-        else this.amount = 3;
         this.price = 2;
         this.portal = 2;
     }

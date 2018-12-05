@@ -23,11 +23,10 @@ public class Strategy {
      *
      * @param temple qui servira à réaliser des exploits
      * @param numberOfTheBot
-     * @param actionNumber
      * @param listFaces
      * @param data
      */
-    public void apply(Temple temple, int numberOfTheBot, int actionNumber,ArrayList<GeneralFace>[] listFaces,Bot... data){
+    public void apply(Temple temple, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces,Bot... data){
         System.out.println("I am General Strategy, please implement effect in subclasses");
     }
     

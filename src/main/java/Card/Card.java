@@ -14,7 +14,6 @@ public class Card {
     protected int price;            /* prix */
     protected String TypeCard;      /* Immediat I , renfort R, automatique A*/
     protected int portal;          /* 1,2,3,4,5,6,7 */
-    protected int amount;           /* Quantité */
 
 
     public Card() {
@@ -24,10 +23,6 @@ public class Card {
     public boolean equals(Object obj) {
         Card other = (Card) obj;
         return name.equals(other.name);
-    }
-
-    protected void buyCard() {
-        amount = amount - 1;
     }
 
     // voir commentaire sur les parametres dans la classe "GeneralFaces"
