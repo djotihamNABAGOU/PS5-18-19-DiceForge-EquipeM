@@ -4,6 +4,7 @@ import Card.Reinforcement;
 import Card.ImmediateEffectCard.TheHammer;
 import Faces.GeneralFace;
 import Faces.SimpleFace;
+//import PlayerStrategy.ImediaCardStrategy;
 import PlayerStrategy.RandomStrategy;
 import PlayerStrategy.Strategy;
 import PlayerStrategy.NothingStrategy;
@@ -22,7 +23,7 @@ public class Bot {
     private final Strategy strategy;//stratégie du joueur durant tout le déroulement du jeu
     private String strategyName;
     private boolean active = false;
-    private final ArrayList<Reinforcement> enhancementCard = new ArrayList<Reinforcement>();   /* Liste des cartes de renfort en possession du joueur */
+    private final ArrayList<Reinforcement> enhancementCard = new ArrayList<>();   /* Liste des cartes de renfort en possession du joueur */
     private ArrayList<TheHammer> hammerCard;   /* Liste des cartes marteaux en possession du joueur */
     private ArrayList<Reinforcement> automaticCard;   /* Liste des cartes à effets automatiques en possession du joueur */
     public int wonRounds;
@@ -46,6 +47,9 @@ public class Bot {
             case "Nothing":
                 this.strategy = new NothingStrategy(this);
                 break;
+
+           /* case "Immediat":
+                this.strategy = new ImediaCardStrategy(this);break;*/
 
             default:
                 this.strategy = new Strategy(this);

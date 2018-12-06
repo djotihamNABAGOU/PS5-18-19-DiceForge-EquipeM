@@ -162,7 +162,7 @@ public class HerosInventoryTest {
         HerosInventory herosInventory = new HerosInventory();
         int intialSun=herosInventory.getSunPoints(); int initialMoon=0; int initialGold=0; int initialGlory=0;
         if(face instanceof SimpleFace) {
-            SimpleFace fa; 
+            SimpleFace fa;
             fa = (SimpleFace) face;
             int faceValue =fa.getValue();
             String faceType =fa.getType();
