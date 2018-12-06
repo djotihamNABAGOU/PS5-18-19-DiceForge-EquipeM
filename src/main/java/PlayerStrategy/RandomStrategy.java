@@ -1,5 +1,6 @@
 package PlayerStrategy;
 
+import Card.Card;
 import Faces.GeneralFace;
 import Faces.SanctuarysFaces;
 import Player.Bot;
@@ -110,14 +111,26 @@ public class RandomStrategy extends Strategy {
 
                         System.out.println("No implemantation for now");
 
-                        /*if (bot.getHerosInventory().getSunPoints()>=2 && supActionDone == false){//il a les conditions requises pour effectuer une action supplémenatire
+                        /*
+                        Card card;
+                        if (!(card = CardToBuy(bot, island)).getName().equals("null")) {
+                            if (island.buyCard(card)) {
+                                feat(card);
+                                bot.getHerosInventory().DecreaseGoldPoints(face.getPrice());
+                            } else {
+                                System.out.println("Purchase failed");
+                            }
+                        }
+                        */
+                        //Fin exploit, Action supplémentaire si joueur actif
+                        if (bot.getHerosInventory().getSunPoints()>=2 && supActionDone == false){//il a les conditions requises pour effectuer une action supplémenatire
                             int choiceSupAction = random.nextInt(2); // 0 pour oui et 1 pour non
                             if (choiceSupAction == 0){//On choisit alors quelle action supplémentaire effectuer
                                 supActionDone = true;
-                                apply(temple,numberOfTheBot,actionNumber);//On réappelle la fonction pour éviter de la duplication de code
+                                apply(temple,numberOfTheBot,listFaces, data);//On réappelle la fonction pour éviter de la duplication de code
                                 supActionDone = false;
                             }
-                        }*/
+                        }
                         break;
                 }
 
