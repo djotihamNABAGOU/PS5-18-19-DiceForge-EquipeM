@@ -1,5 +1,5 @@
 package Player;
-import Faces.SimpleFace;
+import Faces.Sanctuary.SimpleFace;
 import java.util.Random;
 
 

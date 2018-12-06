@@ -2,8 +2,8 @@ package Player;
 
 import Card.Reinforcement;
 import Card.ImmediateEffectCard.TheHammer;
-import Faces.GeneralFace;
-import Faces.SimpleFace;
+import Faces.Sanctuary.GeneralFace;
+import Faces.Sanctuary.SimpleFace;
 //import PlayerStrategy.ImediaCardStrategy;
 import PlayerStrategy.RandomStrategy;
 import PlayerStrategy.Strategy;

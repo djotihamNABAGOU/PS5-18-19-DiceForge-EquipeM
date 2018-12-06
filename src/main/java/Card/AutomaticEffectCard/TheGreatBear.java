@@ -1,7 +1,7 @@
 package Card.AutomaticEffectCard;
 
 import Card.Reinforcement;
-import Faces.GeneralFace;
+import Faces.Sanctuary.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
 

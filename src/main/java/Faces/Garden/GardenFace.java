@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Faces;
+package Faces.Garden;
 
 import Card.Card;
+import Faces.Sanctuary.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
 import java.util.ArrayList;

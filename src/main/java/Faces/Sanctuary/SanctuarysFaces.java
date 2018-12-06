@@ -1,4 +1,5 @@
-package Faces;
+package Faces.Sanctuary;
+import Faces.Garden.ShieldOfTheGuardianFace;
 import Player.Bot;
 import diceforge.Temple;
 import java.util.ArrayList;

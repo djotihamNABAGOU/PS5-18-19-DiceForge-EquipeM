@@ -1,8 +1,8 @@
 package PlayerStrategy;
 
-import Faces.GeneralFace;
-import Faces.SanctuarysFaces;
-import Faces.SimpleFace;
+import Faces.Sanctuary.GeneralFace;
+import Faces.Sanctuary.SanctuarysFaces;
+import Faces.Sanctuary.SimpleFace;
 import Player.Bot;
 import diceforge.Temple;
 import java.util.ArrayList;

@@ -1,8 +1,8 @@
 package Card.ImmediateEffectCard;
 
 import Card.Card;
-import Faces.GardenFace;
-import Faces.GeneralFace;
+import Faces.Garden.GardenFace;
+import Faces.Sanctuary.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
 

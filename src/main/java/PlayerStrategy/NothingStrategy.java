@@ -1,6 +1,6 @@
 package PlayerStrategy;
 
-import Faces.GeneralFace;
+import Faces.Sanctuary.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
 import java.util.ArrayList;

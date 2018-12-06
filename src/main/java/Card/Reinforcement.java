@@ -1,7 +1,7 @@
 package Card;
 
 import Card.Card;
-import Faces.GeneralFace;
+import Faces.Sanctuary.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
 

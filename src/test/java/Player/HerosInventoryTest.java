@@ -1,8 +1,8 @@
 package Player;
 
-import Faces.GeneralFace;
-import Faces.SanctuarysFaces;
-import Faces.SimpleFace;
+import Faces.Sanctuary.GeneralFace;
+import Faces.Sanctuary.SanctuarysFaces;
+import Faces.Sanctuary.SimpleFace;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

@@ -1,7 +1,7 @@
 package Card.ImmediateEffectCard;
 
 import Card.Card;
-import Faces.GeneralFace;
+import Faces.Sanctuary.GeneralFace;
 import Player.Bot;
 import Player.HerosInventory;
 import diceforge.Temple;

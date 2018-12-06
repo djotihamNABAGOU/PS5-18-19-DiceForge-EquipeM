@@ -1,9 +1,9 @@
 package Card.AutomaticEffectCard;
 
 import Card.Reinforcement;
-import Faces.GardenFace;
-import Faces.GeneralFace;
-import Faces.SimpleFace;
+import Faces.Garden.GardenFace;
+import Faces.Sanctuary.GeneralFace;
+import Faces.Sanctuary.SimpleFace;
 import Player.Bot;
 import diceforge.Temple;
 

@@ -1,7 +1,7 @@
 package diceforge;
 
 import Card.Card;
-import Faces.GeneralFace;
+import Faces.Sanctuary.GeneralFace;
 import Player.Bot;
 
 import java.util.ArrayList;
