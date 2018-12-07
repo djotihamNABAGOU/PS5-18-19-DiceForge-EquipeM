@@ -16,7 +16,7 @@ public class TheFortTest {
     private Bot bot = new Bot("");
     private ArrayList<GeneralFace>[] listFaces = new ArrayList[6];
     private ArrayList<Bot> listBot = new ArrayList<>();
-    private TheFort theFort = new TheFort(4);
+    private TheFort theFort = new TheFort();
 
     @Test
     public void actionCard() {

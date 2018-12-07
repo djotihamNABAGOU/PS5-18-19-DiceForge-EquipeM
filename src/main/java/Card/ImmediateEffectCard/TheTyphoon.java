@@ -7,13 +7,11 @@ import diceforge.Temple;
 
 import java.util.ArrayList;
 
-
 /**
  * Cette carte "Le typhon" permet au joueur d'avoir un point de gloire par face de dé crafté
  * Elle procure 16 points de gloire à la fin de la partie
  * Type Immediat ----> Methode "ActionCard" appelé à l'achat puis Suppression de la Carte
  */
-
 public class TheTyphoon extends Card {
 
     public TheTyphoon() {

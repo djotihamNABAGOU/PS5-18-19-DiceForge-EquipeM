@@ -6,8 +6,6 @@ import Player.Bot;
 import diceforge.Temple;
 
 import java.util.ArrayList;
-
-
 /**
  * Cette carte "Le coffre du forgeron" permet d'avoir une extension de 4 places pour chacune de
  * ses ressources.

@@ -16,7 +16,7 @@ public class TheHydraTest {
     private Bot bot = new Bot("");
     private ArrayList<GeneralFace>[] listFaces = new ArrayList[6];
     private ArrayList<Bot> listBot = new ArrayList<>();
-    private TheHydra theHydra = new TheHydra(4);
+    private TheHydra theHydra = new TheHydra();
 
     @Test
     public void actionCard() {

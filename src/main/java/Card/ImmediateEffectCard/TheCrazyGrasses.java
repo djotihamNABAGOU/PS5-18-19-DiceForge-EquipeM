@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class TheCrazyGrasses extends Card {
 
-     TheCrazyGrasses() {
+     public TheCrazyGrasses()   /* prend en parametre le nombre de joueurs */ {
         this.name = "TheCrazyGrasses";
         this.gloryPoints = 2;
         this.type = "S";
@@ -24,7 +24,6 @@ public class TheCrazyGrasses extends Card {
         this.price = 1;
         this.portal = 7;
     }
-
 
     @Override
     public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {

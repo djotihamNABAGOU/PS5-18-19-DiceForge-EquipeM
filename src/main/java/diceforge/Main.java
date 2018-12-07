@@ -12,22 +12,26 @@ import Player.Bot;
  * @author The Beginners
  */
 public class Main {
+    //nombre de joueurs
+    private static final int numberOfBots = 4;
+    //Création des Bots
+    private static final Bot botOneRandom = new Bot("Random");
+    private static final Bot botTwoRandom = new Bot("Random");
+    private static final Bot botThreeNothing = new Bot("Nothing");
+    private static final Bot botFourNothing = new Bot("Advanced");
+    //Création du moteur de jeu, du temple et de l'île
+    private static final Engine engine = new Engine(100, 10, numberOfBots);
+    private static final Temple temple = new Temple();
+    private static final Island island = new Island();
+
     public static void main(String[] args) {
 
         System.out.println("********WELCOME TO DICE FORGE********\n");
-        //Création des Bots
-        Bot botOneRandom = new Bot("Random");
-        Bot botTwoRandom = new Bot("Random");
-        Bot botThreeNothing = new Bot("Nothing");
-        Bot botFourNothing = new Bot("Nothing");
-
-        //Création du moteur de jeu, du temple et de l'île
-        Engine engine = new Engine(2, 10, 4);
-        Temple temple = new Temple();
 
         //Initialisation des Bots, du temple et de l'île
         engine.InitializingBots(botOneRandom, botTwoRandom, botThreeNothing, botFourNothing);
-        engine.initializingTemple(temple);
+        temple.initializingTemple(numberOfBots);
+        island.initializeIsland(numberOfBots);
 
         //Affichage de l'état des bots
         System.out.println("STATE BEFORE DICE SET");
@@ -45,7 +49,7 @@ public class Main {
         botFourNothing.printDiceState();
         System.out.println("-------------------------------------\n");
         //Lancement du jeu
-        engine.makeRound(temple, botOneRandom, botTwoRandom, botThreeNothing, botFourNothing);
+        engine.makeRound(temple, island, botOneRandom, botTwoRandom, botThreeNothing, botFourNothing);
     }
 
 }

@@ -16,7 +16,7 @@ public class TheFerryManTest {
     private Bot bot = new Bot("");
     private ArrayList<GeneralFace>[] listFaces = new ArrayList[6];
     private ArrayList<Bot> listBot = new ArrayList<>();
-    private TheFerryMan theFerryMan  = new TheFerryMan(4);
+    private TheFerryMan theFerryMan  = new TheFerryMan();
 
 
     @Test

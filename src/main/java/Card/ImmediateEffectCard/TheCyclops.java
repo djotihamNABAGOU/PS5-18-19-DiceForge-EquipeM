@@ -27,7 +27,6 @@ public class TheCyclops extends Card {
         this.portal = 4;
     }
 
-
     @Override
     public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
         bot.getHerosInventory().IncreaseGloryPoints(gloryPoints);
@@ -37,7 +36,6 @@ public class TheCyclops extends Card {
         for (int b = 0; b < listBot.size(); b++) {
             tabBot[b] = listBot.get(b);
         }
-
 
         for (int b = 0; b < 4; b++) {
             GeneralFace myFace = bot.rollOneDice(a);     // face obtenue

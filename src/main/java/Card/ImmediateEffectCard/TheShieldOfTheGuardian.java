@@ -7,13 +7,11 @@ import Player.Bot;
 import diceforge.Temple;
 
 import java.util.ArrayList;
-
 /**
  * Cette carte "Les ailes de la gardienne" permet d'avoir une face "aile de la gardienne"
  * Type Immediat ----> Methode "ActionCard" appelé à l'achat puis suppression immédiate
  * Elle procure 6 points de gloire à la fin de la partie
  */
-
 public class TheShieldOfTheGuardian extends Card {
 
     public TheShieldOfTheGuardian() {

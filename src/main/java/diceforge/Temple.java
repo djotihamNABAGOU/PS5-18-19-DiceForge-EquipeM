@@ -15,6 +15,7 @@ import Faces.Garden.WildBoardFace;
 import Faces.Garden.WroughtFace;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Temple {
 
@@ -141,6 +142,27 @@ public class Temple {
         Garden[4] = bassinMultiplier;
         
       
+    }
+
+    /**
+     * Méthode d'initialisation du temple avec un nombre de faces dépendant du nombre de joueurs
+     *
+     * @param numberOfBot : nombre de joueurs
+     */
+    void initializingTemple(int numberOfBot) {
+        if (numberOfBot == 2) {
+            for (int i = 0; i < 10; i++) {
+                ArrayList<SanctuarysFaces>[] sanctuary = this.getSanctuary();
+                int size = sanctuary[i].size();
+                Random randomBassin = new Random();
+                int condition = size - 2;//Il faut retirer 2 faces
+                while (size != condition) {
+                    int result = randomBassin.nextInt(size);
+                    sanctuary[i].remove(result);
+                    size--;
+                }
+            }
+        }
     }
 
     public ArrayList<SanctuarysFaces>[] getSanctuary() {

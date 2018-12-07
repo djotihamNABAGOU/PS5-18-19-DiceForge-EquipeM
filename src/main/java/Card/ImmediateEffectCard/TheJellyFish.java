@@ -6,8 +6,6 @@ import Player.Bot;
 import diceforge.Temple;
 
 import java.util.ArrayList;
-
-
 /**
  * Cette carte "La meduse" permet tout simplement de gagner 14 points de gloire
  * Type Immediat ----> Methode "ActionCard" appelé à l'achat puis Suppression de la Carte

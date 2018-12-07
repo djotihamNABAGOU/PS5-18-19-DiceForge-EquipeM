@@ -33,7 +33,6 @@ public class TheClogs extends Reinforcement {
         bot.getHerosInventory().IncreaseGloryPoints(2);
     }
 
-
     // les faces de sautres adversairees est le dernier argument 
     @Override
     public void capacity(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, Bot... tabBot) {
@@ -43,14 +42,14 @@ public class TheClogs extends Reinforcement {
         for (int b = 0; b < listBot.size(); b++) {
             tabBot[b] = listBot.get(b);
         }*/
-       int val = myFace.makeEffect(0, 0, temple, numBot, bot, listFaces, tabBot);   // Effet de la face
-       if(bot.getHerosInventory().tokenCerberus>0){
-                
-                int rep = bot.getStrategy().useTokenCerberus(val); 
-                if(rep==1){
-                    myFace.makeEffect(0, 0, temple, numBot, bot, listFaces, tabBot);
-                }
-       }
+        int val = myFace.makeEffect(0, 0, temple, numBot, bot, listFaces, tabBot);   // Effet de la face
+        if (bot.getHerosInventory().tokenCerberus > 0) {
+
+            int rep = bot.getStrategy().useTokenCerberus(val);
+            if (rep == 1) {
+                myFace.makeEffect(0, 0, temple, numBot, bot, listFaces, tabBot);
+            }
+        }
     }
 
 }

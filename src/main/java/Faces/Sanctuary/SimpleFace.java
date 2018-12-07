@@ -82,7 +82,7 @@ public class SimpleFace extends GeneralFace {
             if(this.type.equals("G")){  // pour une face simple d'or
                 int winGoldPoint = this.value*a;
                 // Verifier si le joueur possède une carte marteau
-                if(bot.getHammerCard().size()>0){
+                if(bot.getHammer().size()>0){
                    winGoldPoint = bot.getStrategy().applyHammerStrategy(this.value*a);
                 }
                 bot.getHerosInventory().IncreaseGoldPoints(winGoldPoint);
@@ -112,7 +112,7 @@ public class SimpleFace extends GeneralFace {
                 }else {
                     int winGoldPoint = 1;
                     // Verifier si le joueur possède une carte marteau
-                    if(bot.getHammerCard().size()>0){
+                    if(bot.getHammer().size()>0){
                        winGoldPoint = bot.getStrategy().applyHammerStrategy(1);
                     }
                     bot.getHerosInventory().IncreaseGoldPoints(winGoldPoint);
@@ -165,7 +165,7 @@ public class SimpleFace extends GeneralFace {
                 if(this.type.equals("G")){  // pour une face simple d'or
                     int winGoldPoint = this.value;
                     // Verifier si le joueur possède une carte marteau
-                    if(bot.getHammerCard().size()>0){
+                    if(bot.getHammer().size()>0){
                        winGoldPoint = bot.getStrategy().applyHammerStrategy(this.value);
                     }
                     bot.getHerosInventory().IncreaseGoldPoints(winGoldPoint);

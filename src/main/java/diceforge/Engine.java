@@ -45,27 +45,6 @@ public class Engine {
     }
 
     /**
-     * Méthode d'initialisation du temple avec un nombre de faces dépendant du nombre de joueurs
-     *
-     * @param temple : temple
-     */
-    void initializingTemple(Temple temple) {
-        if (numberOfBot == 2) {
-            for (int i = 0; i < 10; i++) {
-                ArrayList<SanctuarysFaces>[] sanctuary = temple.getSanctuary();
-                int size = sanctuary[i].size();
-                Random randomBassin = new Random();
-                int condition = size - 2;//Il faut retirer 2 faces
-                while (size != condition) {
-                    int result = randomBassin.nextInt(size);
-                    sanctuary[i].remove(result);
-                    size--;
-                }
-            }
-        }
-    }
-
-    /**
      * Méthode de lancé de dé
      *
      * @param temple

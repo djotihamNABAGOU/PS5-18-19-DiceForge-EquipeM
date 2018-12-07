@@ -6,14 +6,12 @@ import Player.Bot;
 import diceforge.Temple;
 
 import java.util.ArrayList;
-
 /**
  * Cette carte "Les satyres" permet au joueur qui l'achete de choisir 2 faces parmi les faces de des des
  * autres joueurs après que ceux ci aient relancer tous leurs deux dés
  * Elle procure 6 points de gloire à la fin de la partie
  * Type Immediat ----> Methode "ActionCard" appelé à l'achat puis Suppression de la Carte
  */
-
 public class TheSatyrs extends Card {
 
     public TheSatyrs() {
@@ -63,8 +61,6 @@ public class TheSatyrs extends Card {
         }
 
         //Appliquer enfin l'effet des faces
-
-
         listFaces[numBot].get(0).makeEffect(0, 1, temple, numBot, bot, listFaces, tabBot);
         listFaces[numBot].get(1).makeEffect(0, 1, temple, numBot, bot, listFaces, tabBot);
 

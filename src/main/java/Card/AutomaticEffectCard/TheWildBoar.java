@@ -37,7 +37,6 @@ public class TheWildBoar extends Reinforcement {
         bot.getStrategy().ForgeDice(face);
     }
 
-
     @Override
     public void capacity(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, Bot... tabBot) {
         ArrayList<SimpleFace> Offered = new ArrayList<>();

@@ -6,13 +6,11 @@ import Player.Bot;
 import diceforge.Temple;
 
 import java.util.ArrayList;
-
 /**
  * Cette carte "Le Triton" permet au joueur d'acquerir un jeton Triton
  * Elle procure 8 points de gloire à la fin de la partie
  * Type Immediat ----> Methode "ActionCard" appelé à l'achat puis Suppression de la Carte
  */
-
 public class TheNewt extends Card {
 
     public TheNewt() {
@@ -23,7 +21,6 @@ public class TheNewt extends Card {
         this.price = 4;
         this.portal = 5;
     }
-
 
     @Override
     public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {

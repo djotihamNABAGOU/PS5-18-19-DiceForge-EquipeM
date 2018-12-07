@@ -39,7 +39,7 @@ public class TheWingsOfTheGuardians extends Reinforcement {
         switch (choice) {
             case 0: {
                           int winnerGoldPoints = 1;
-                          if(bot.getHammerCard().size()>0){
+                          if(bot.getHammer().size()>0){
                               winnerGoldPoints = bot.getStrategy().applyHammerStrategy(1);
                           }
                           bot.getHerosInventory().IncreaseGoldPoints(winnerGoldPoints);

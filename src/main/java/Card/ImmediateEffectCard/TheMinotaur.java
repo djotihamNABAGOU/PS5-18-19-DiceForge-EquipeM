@@ -6,13 +6,10 @@ import Player.Bot;
 import diceforge.Temple;
 
 import java.util.ArrayList;
-
 /**
  * Cette carte "Le minautaure"
  * voir DOC ☺☻
  */
-
-
 public class TheMinotaur extends Card {
 
     public TheMinotaur() {

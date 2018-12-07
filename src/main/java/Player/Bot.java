@@ -1,12 +1,16 @@
 package Player;
+
+import Card.Card;
 import Card.Reinforcement;
 import Card.ImmediateEffectCard.TheHammer;
 import Faces.Sanctuary.GeneralFace;
 import Faces.Sanctuary.SimpleFace;
+import PlayerStrategy.AdvancedStrategy;
 import PlayerStrategy.RandomStrategy;
 import PlayerStrategy.Strategy;
 import PlayerStrategy.NothingStrategy;
 import diceforge.Temple;
+
 import java.util.ArrayList;
 
 /**
@@ -22,7 +26,7 @@ public class Bot {
     private boolean active = false;
     private final ArrayList<Reinforcement> enhancementCard = new ArrayList<>();   /* Liste des cartes de renfort en possession du joueur */
     private ArrayList<TheHammer> hammerCard = new ArrayList<>();   /* Liste des cartes marteaux en possession du joueur */
-    private ArrayList<Reinforcement> automaticCard = new ArrayList<>();   /* Liste des cartes à effets automatiques en possession du joueur */
+    private ArrayList<Reinforcement> automaticCard = new ArrayList<>();   /* Liste des cartes Ã  effets automatiques en possession du joueur */
     public int wonRounds;
     private int portal;          /* 1,2,3,4,5,6,7  values of the gate in Island
                                    0 is the default value i.e. the bot is on orginal gate
@@ -45,8 +49,9 @@ public class Bot {
                 this.strategy = new NothingStrategy(this);
                 break;
 
-           /* case "Immediat":
-                this.strategy = new ImediaCardStrategy(this);break;*/
+            case "Advanced":
+                this.strategy = new AdvancedStrategy(this);
+                break;
 
             default:
                 this.strategy = new Strategy(this);
@@ -54,6 +59,19 @@ public class Bot {
         }
         this.wonRounds = 0;
     }
+    
+    public ArrayList<TheHammer> getHammer(){
+        return this.hammerCard;
+    }
+    
+    public ArrayList<Reinforcement> getEnhancement(){
+        return this.enhancementCard;
+    }
+    
+    public ArrayList<Reinforcement> getAutomatics(){
+        return this.automaticCard;
+    }
+    
 
     public HerosInventory getHerosInventory() {
         return herosInventory;
@@ -93,28 +111,6 @@ public class Bot {
     }
 
     
-    
-    public void useNewtToken() {  
-        int number  = this.getStrategy().giveMeTokenResource();  // Ressource choisie par le joueur  
-        if (this.herosInventory.tokenNewt >= 1) {
-            switch (number) {
-                case 0:
-                    this.herosInventory.IncreaseMoonPoints(2);
-                    break;
-                case 1:
-                    this.herosInventory.IncreaseSunPoints(2);
-                    break;
-                case 2: {
-                          int winnerGoldPoints = 6;
-                          if(this.hammerCard.size()>0){
-                              winnerGoldPoints = this.strategy.applyHammerStrategy(6);
-                          }
-                          this.herosInventory.IncreaseGoldPoints(winnerGoldPoints);
-                        }break;          
-            }
-            this.herosInventory.tokenNewt = this.herosInventory.tokenNewt - 1;
-        }
-    }
 
     /* permet au joueur d'utiliser un de ses jetons cerbères */
     /* Les paramètres seront les faces obtenues par le joueur après son lancer */
@@ -152,12 +148,30 @@ public class Bot {
         return enhancementCard;
     }
 
-    public ArrayList<TheHammer> getHammerCard() {
-        return hammerCard;
+    public void useNewtToken() {  
+        int number  = this.getStrategy().giveMeTokenResource();  // Ressource choisie par le joueur  
+        if (this.herosInventory.tokenNewt >= 1) {
+            switch (number) {
+                case 0:
+                    this.herosInventory.IncreaseMoonPoints(2);
+                    break;
+                case 1:
+                    this.herosInventory.IncreaseSunPoints(2);
+                    break;
+                case 2: {
+                          int winnerGoldPoints = 6;
+                          if(this.hammerCard.size()>0){
+                              winnerGoldPoints = this.strategy.applyHammerStrategy(6);
+                          }
+                          this.herosInventory.IncreaseGoldPoints(winnerGoldPoints);
+                        }break;          
+            }
+            this.herosInventory.tokenNewt = this.herosInventory.tokenNewt - 1;
+        }
     }
     
-    //Lancer un dé au choix prédefini
-    public GeneralFace rollOneDice(int a) {
+    //Lancer un dÃ© au choix prÃ©defini
+    public Faces.Sanctuary.GeneralFace rollOneDice(int a) {
 
         switch (a) {
             case 0:
@@ -168,6 +182,7 @@ public class Bot {
                 return this.getFirstDice().rollDice();
         }
     }
+    
     
     public void updateMyPortal(int gate){
         this.portal=gate;
@@ -182,6 +197,30 @@ public class Bot {
          
         this.getFirstDice().rollDice().makeEffect(action, favMin, temple, numBot, this, data, listBot);
         this.getSecondDice().rollDice().makeEffect(action, favMin, temple, numBot, this, data, listBot);
+        this.updateMyPortal(0); //This Bot  must return to the orginal portal
+        
+        //Use of fonctional method
+        /*
+         this.automaticCard.stream().filter((card) -> (card.getName().equals("TheGreatBear"))).forEachOrdered((card) -> {
+            card.capacity(temple, this, numBot, data, listBot);
+        });
+        */
+        for(Reinforcement card : this.automaticCard){
+            if(card.getName().equals("TheGreatBear")){
+                card.capacity(temple, this, numBot, data, listBot);
+            }
+        }
+    }
+    
+    /*Hunter bot must do some action-> they are implements here*/
+    public void hunterBotAct(int action,int favMin,Temple temple,int numBot,
+                               Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
+        
+      for(Reinforcement card : this.automaticCard){
+            if(card.getName().equals("TheGreatBear")){
+                card.capacity(temple, this, numBot, data, listBot);
+            }
+        }
     }
 
 

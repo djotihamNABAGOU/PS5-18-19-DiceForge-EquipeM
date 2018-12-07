@@ -6,14 +6,11 @@ import Player.Bot;
 import diceforge.Temple;
 
 import java.util.ArrayList;
-
-
 /**
  * Cette carte "La pince" permet au joueur de relancer 02 fois ses 02 des et de collecter les ress
  * Elle procure 8 points de gloire à la fin de la partie
  * Type Immediat ----> Methode "ActionCard" appelé à l'achat puis Suppression de la Carte
  */
-
 public class ThePliers extends Card {
 
     public ThePliers() {

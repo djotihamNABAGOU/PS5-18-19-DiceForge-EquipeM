@@ -6,14 +6,12 @@ import Player.Bot;
 import diceforge.Temple;
 
 import java.util.ArrayList;
-
 /**
  * Cette carte "L'enigme" permet au joueur de relancer 04 fois l'un de ses 02 des
  * [NB : le de à lancer 4 fois est le même]
  * Elle procure 10 points de gloire à la fin de la partie
  * Type Immediat ----> Methode "ActionCard" appelé à l'achat puis Suppression de la Carte
  */
-
 public class TheRiddle extends Card {
 
     public TheRiddle() {
@@ -24,7 +22,6 @@ public class TheRiddle extends Card {
         this.price = 6;
         this.portal = 4;
     }
-
 
     @Override
     public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
