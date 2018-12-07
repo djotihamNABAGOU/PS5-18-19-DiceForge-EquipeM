@@ -33,7 +33,7 @@ public class WildBoardFace extends GardenFace{
             Offered.add(new SimpleFace(1, "M", "MoonFace"));
             int choice = -1;
             if(action==0){
-                choice = bot.getStrategy().giveMeYourChoice(Offered);
+                choice = bot.getStrategy().giveMeYourChoice(Offered,0);
             }else{
                 choice = bot.getStrategy().giveMeYourChoicedecrease(Offered);
             }
@@ -109,7 +109,7 @@ public class WildBoardFace extends GardenFace{
         ArrayList<SimpleFace> Offered = new ArrayList<>();
         Offered.add(new SimpleFace(1, "S", "SunFace"));
         Offered.add(new SimpleFace(1, "M", "MoonFace"));
-        int choice = bot.getStrategy().giveMeYourChoice(Offered);
+        int choice = bot.getStrategy().giveMeYourChoice(Offered,0);
         for(int b=0;b<a;b++){
             int apply = bot.getStrategy().changeByGloryPoint(); // choix du bot
             if(apply==1){

@@ -35,6 +35,7 @@ public class TheFormer extends Reinforcement {
     public void capacity(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, Bot... tabBot) {
         int choice = bot.getStrategy().applyFormerEffect(); // 0 si oui , 1 sinon
         if (choice == 0) {
+            System.out.println(this.getName()+ " effect card applied successfully !");
             bot.getHerosInventory().IncreaseGloryPoints(4);
             bot.getHerosInventory().DecreaseGoldPoints(3);
         }

@@ -78,7 +78,7 @@ public class SanctuarysFaces extends GeneralFace {
               val = val + item.makeEffectFaceMultiplier(action,favMin,temple, numBot, bot, a, data,listBot);
           }
        }else{           
-             int choice = bot.getStrategy().giveMeYourChoice(this.Offered);
+             int choice = bot.getStrategy().giveMeYourChoice(this.Offered,0);
               val = this.Offered.get(choice).makeEffectFaceMultiplier(action,favMin,temple, numBot, bot, a, data,listBot);
         }
         return val;
@@ -96,7 +96,7 @@ public class SanctuarysFaces extends GeneralFace {
               item.makeCardCyclopEffect(temple, numBot, bot, data);
           });
        }else{           
-                int choice = bot.getStrategy().giveMeYourChoice(this.Offered);
+                int choice = bot.getStrategy().giveMeYourChoice(this.Offered,0);
                 this.Offered.get(choice).makeCardCyclopEffect(temple, numBot, bot, data);
                 
        } 
@@ -126,7 +126,7 @@ public class SanctuarysFaces extends GeneralFace {
               item.makeCardSentinelEffect(temple, numBot, bot, data);
           });
        }else{           
-                int choice = bot.getStrategy().giveMeYourChoice(this.Offered);
+                int choice = bot.getStrategy().giveMeYourChoice(this.Offered,0);
                 this.Offered.get(choice).makeCardSentinelEffect(temple, numBot, bot, data);
                 
        } 
@@ -148,7 +148,7 @@ public class SanctuarysFaces extends GeneralFace {
     public int giveMeShieldGain(int action,Bot bot,int numBot,ShieldOfTheGuardianFace face,ArrayList<GeneralFace>[] data,Bot... listBot){
         int a = 1;
         if(this.mode.equals("Choice")){
-              int number = bot.getStrategy().giveMeYourChoice(this.Offered);
+              int number = bot.getStrategy().giveMeYourChoice(this.Offered,0);
               if(this.Offered.get(number).getType().equals(face.getType2().getType())){
                   a = 0;
               }

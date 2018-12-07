@@ -51,7 +51,7 @@ public class TheWildBoar extends Reinforcement {
         }
         */
 
-        int choice = bot.getStrategy().giveMeYourChoice(Offered);
+        int choice = bot.getStrategy().giveMeYourChoice(Offered,1);
         Offered.get(choice).makeEffect(0, 1, temple, numBot, bot, listFaces, tabBot);
     }
 

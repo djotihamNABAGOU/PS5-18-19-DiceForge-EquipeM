@@ -3,6 +3,7 @@ package PlayerStrategy;
 import Card.Card;
 import Faces.Sanctuary.GeneralFace;
 import Faces.Sanctuary.SanctuarysFaces;
+import Faces.Sanctuary.SimpleFace;
 import Player.Bot;
 import diceforge.Island;
 import diceforge.Temple;
@@ -13,23 +14,18 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class RandomStrategy extends Strategy {
-    private boolean supActionDone = false;
-    /*Pour éviter de forger consécutivement deux faces venant d'un même bassin, il nous faut
-     * garder une trace du bassin dans lequel la dernière forge s'est éffectuée car le bot
-     * peut non seulement forger plusieurs faces s'il le désire, mais peut aussi faire une action sup
-     * s'il est joueur actif.
-     * On initialise donc une variable bassin à -1 pour désigner un bassin inexistant*/
-    private int bassin = -1;
 
     public RandomStrategy(Bot bot) {
         super(bot);
     }
 
+    /**************************************************************************************************/
+    /***************************      METHODE PRINCIPALE DE LA CLASSE       **************************/
+    /*************************************************************************************************/
     @Override
     public void apply(Temple temple, Island island, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces, Bot... data) {
         //Seul le joueur actif peut appliquer une stratégie après le lancé des dés
         if (bot.isActive()) {
-            //System.out.println("ok ok");
             //1->Choix d'appel des renforts, LE JOUEUR ACTIF PEUT APPELER DES RENFORTS
             Random random = new Random();
             int choice = random.nextInt(2); // 0 pour oui et 1 pour non
@@ -38,17 +34,7 @@ public class RandomStrategy extends Strategy {
                     if (bot.getEnhancementCard().size() != 0) {
                         System.out.println("\t->ENHANCEMENT<-");
                         //il les active dans l'ordre de son choix, et donc ici, dans un ordre aléatoire
-                        int size = bot.getEnhancementCard().size();
-                        int i = size;
-                        int last = 0, toGet = 0;
-                        while (i != 0) {
-                            toGet = random.nextInt(size);
-                            if (toGet != last) {
-                                bot.getEnhancementCard().get(toGet).capacity(temple, bot, numberOfTheBot, listFaces, data);
-                                last = toGet;
-                                i--;
-                            }
-                        }
+                        callTheReinforcements(temple, bot, numberOfTheBot, listFaces, data);
                     }
                 }
             }
@@ -96,8 +82,10 @@ public class RandomStrategy extends Strategy {
                         }
                         //Fin forge, Action supplémentaire si joueur actif
                         if (bot.getHerosInventory().getSunPoints() >= 2 && supActionDone == false) {//il a les conditions requises pour effectuer une action supplémenatire
+                            //choix de faire une action sup
                             int choiceSupAction = random.nextInt(2); // 0 pour oui et 1 pour non
-                            if (choiceSupAction == 0) {//On choisit alors quelle action supplémentaire effectuer
+                            if (choiceSupAction == 0) {//Action sup
+                                bot.getHerosInventory().IncreaseSunPoints(2);//Il paie
                                 supActionDone = true;
                                 apply(temple, island, numberOfTheBot, listFaces, data);//On réappelle la fonction pour éviter de la duplication de code
                                 supActionDone = false;
@@ -110,7 +98,7 @@ public class RandomStrategy extends Strategy {
                             System.out.println("*ACTION OF BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
                         else System.out.println("**SUP ACTION FOR BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
 
-                        //System.out.println("No implemantation for now");
+                        /*System.out.println("No implemantation for now");
 
                         Card card;
                         if (!(card = CardToBuy(bot, island)).getName().equals("")) {
@@ -127,10 +115,10 @@ public class RandomStrategy extends Strategy {
                             int choiceSupAction = random.nextInt(2); // 0 pour oui et 1 pour non
                             if (choiceSupAction == 0){//On choisit alors quelle action supplémentaire effectuer
                                 supActionDone = true;
-                                apply(temple,numberOfTheBot,listFaces, data);//On réappelle la fonction pour éviter de la duplication de code
+                                apply(temple, island, numberOfTheBot,listFaces, data);//On réappelle la fonction pour éviter de la duplication de code
                                 supActionDone = false;
                             }
-                        }
+                        }*/
                         break;
                 }
 
@@ -138,46 +126,23 @@ public class RandomStrategy extends Strategy {
         }
     }
 
-    private Card CardToBuy(Bot bot, Island island) {
-        int gold = bot.getHerosInventory().getGoldPoints();
-        int sun = bot.getHerosInventory().getSunPoints();
-        int moon = bot.getHerosInventory().getMoonPoints();
-        ArrayList<Card> CardAvailable = new ArrayList<>();
-        ArrayList<Card> sanctuary = island.getCards();
-        for (int a = 0; a < 10; a++) {
-            if (a != bassin) {//car il ne peut retirer de faces d'un même bassin consécutivement
-                for (int i = 0; i < sanctuary[a].size(); i++) {
-                    if (!sanctuary[a].get(i).isSelected() && !FacesAvailable.contains(sanctuary[a].get(i)) && v >= sanctuary[a].get(i).getPrice()) {
-                        FacesAvailable.add(sanctuary[a].get(i));
-                    }
-                }
+    /************************************************************************************************/
+    /*********************       METHODES CONCERNANT L'APPEL DES RENFORTS       *********************/
+    /***********************************************************************************************/
+    @Override
+    public void callTheReinforcements(Temple temple, Bot bot, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces, Bot... data){
+        Random random = new Random();
+        int size = bot.getEnhancementCard().size();
+        int i = size;
+        int last = 0, toGet = 0;
+        while (i != 0) {
+            toGet = random.nextInt(size);
+            if (toGet != last) {
+                bot.getEnhancementCard().get(toGet).capacity(temple, bot, numberOfTheBot, listFaces, data);
+                last = toGet;
+                i--;
             }
         }
-
-        Random randomFace = new Random();
-
-        if (FacesAvailable.size() == 0) return new SanctuarysFaces();
-        else {
-            int faceToReturn = randomFace.nextInt(FacesAvailable.size()); // initialisation
-            //System.out.println("La face payée est "+FacesAvailable.get(caseFace).toString());
-            return FacesAvailable.get(faceToReturn);
-        }
-    }
-
-    @Override
-    public int throwWhichDice() {
-        Random random = new Random();
-        int choice = -1;
-        choice = random.nextInt(2); // 0 pour le premier dé, 1 pour le second
-        return choice;
-    }
-
-    @Override
-    public int applyFormerEffect() {
-        Random random = new Random();
-        int choice = -1;
-        choice = random.nextInt(2); // 0 pour oui, 1 pour non
-        return choice;
     }
 
     @Override
@@ -187,6 +152,20 @@ public class RandomStrategy extends Strategy {
         choice = random.nextInt(3); // 0 pour Gold, 1 pour Moon, 2 pour Sun
         return choice;
     }
+
+    @Override
+    public int applyFormerEffect() {
+        int choice = -1;
+        if (bot.getHerosInventory().getGloryPoints()>=3) {
+            Random random = new Random();
+            choice = random.nextInt(2); // 0 pour oui, 1 pour non
+        }else System.out.println("Not enough gold to apply TheFormer effect card");
+        return choice;
+    }
+
+    /************************************************************************************************/
+    /*********************       METHODES CONCERNANT LA FORGE         ******************************/
+    /***********************************************************************************************/
 
     /**
      * Permet au bot de remplacer une face de son dé avec une nouvelle face venant du sanctuaire
@@ -250,4 +229,49 @@ public class RandomStrategy extends Strategy {
 
     }
 
+    /************************************************************************************************/
+    /*********************       METHODES CONCERNANT L'EXPLOIT         ******************************/
+    /***********************************************************************************************/
+    /*
+    private Card CardToBuy(Bot bot, Island island) {
+        int gold = bot.getHerosInventory().getGoldPoints();
+        int sun = bot.getHerosInventory().getSunPoints();
+        int moon = bot.getHerosInventory().getMoonPoints();
+        ArrayList<Card> CardAvailable = new ArrayList<>();
+        ArrayList<Card> sanctuary = island.getCards();
+        for (int a = 0; a < 10; a++) {
+            if (a != bassin) {//car il ne peut retirer de faces d'un même bassin consécutivement
+                for (int i = 0; i < sanctuary[a].size(); i++) {
+                    if (!sanctuary[a].get(i).isSelected() && !FacesAvailable.contains(sanctuary[a].get(i)) && v >= sanctuary[a].get(i).getPrice()) {
+                        FacesAvailable.add(sanctuary[a].get(i));
+                    }
+                }
+            }
+        }
+
+        Random randomFace = new Random();
+
+        if (FacesAvailable.size() == 0) return new SanctuarysFaces();
+        else {
+            int faceToReturn = randomFace.nextInt(FacesAvailable.size()); // initialisation
+            //System.out.println("La face payée est "+FacesAvailable.get(caseFace).toString());
+            return FacesAvailable.get(faceToReturn);
+        }
+    }*/
+
+    @Override
+    public int giveMeYourChoice(ArrayList<SimpleFace> Offered, int whichAction) {
+        Random random = new Random();
+        int choice = -1;
+        choice = random.nextInt(Offered.size());
+        return choice;
+    }
+
+    @Override
+    public int throwWhichDice() {
+        Random random = new Random();
+        int choice = -1;
+        choice = random.nextInt(2); // 0 pour le premier dé, 1 pour le second
+        return choice;
+    }
 }

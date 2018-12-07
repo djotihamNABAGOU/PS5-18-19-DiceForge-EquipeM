@@ -72,7 +72,7 @@ public class Engine {
      * @param actionNumber :
      * @param data         : nombres de bots du jeu
      */
-    private void RollOneTime(Temple temple, int actionNumber, Bot... data) {
+    private void RollOneTime(Temple temple, Island island, int actionNumber, Bot... data) {
 
         ArrayList<GeneralFace>[] listFaces = new ArrayList[data.length];
         int a = 0; // Compteur pour le parcours des faces 
@@ -103,7 +103,7 @@ public class Engine {
                 }
             }
             
-            data[a].getStrategy().apply(temple, a+1, listFaces, data);
+            data[a].getStrategy().apply(temple, island,a+1, listFaces, data);
             a = a + 1;
         }
         
@@ -119,10 +119,10 @@ public class Engine {
      * @param temple
      * @param data
      */
-    private void makeSets(Temple temple, Bot... data) {
+    private void makeSets(Temple temple, Island island, Bot... data) {
         for (int a = 0; a < this.set; a++) {
             System.out.println("---------------SET " + (a + 1) + "---------------\n");
-            RollOneTime(temple, a + 1, data);
+            RollOneTime(temple, island,a + 1, data);
             System.out.println();
             System.out.println("---------------STATE AFTER " + (a + 1) + " SET---------------");
             for (int i = 0; i < data.length; i++) {
@@ -226,10 +226,10 @@ public class Engine {
      * @param data
      * @param temple
      */
-    void makeRound(Temple temple, Bot... data) {
+    void makeRound(Temple temple, Island island, Bot... data) {
         for (int i = 0; i < this.round; i++) {
             System.out.println("#####\tROUND " + (i + 1) + "\t#####");
-            makeSets(temple, data);
+            makeSets(temple, island, data);
             System.out.println("\n");
             System.out.println("DETERMINATING THE WINNER");
             tellMeTheWinnerOfRound(data);

@@ -44,13 +44,13 @@ public class Temple {
             bassinG3.add(new SanctuarysFaces(2, "GoldenFace", "Add", new SimpleFace(3, "G", "GoldenFace")));
             bassinM1.add(new SanctuarysFaces(2, "MoonFace", "Add", new SimpleFace(1, "M", "MoonFace")));
             bassinG4.add(new SanctuarysFaces(3, "GoldenFace", "Add", new SimpleFace(4, "G", "GoldenFace")));
-            bassinS1.add(new SanctuarysFaces(3, "Sunface", "Add", new SimpleFace(1, "S", "SunFace")));
+            bassinS1.add(new SanctuarysFaces(3, "SunFace", "Add", new SimpleFace(1, "S", "SunFace")));
             bassinG3_Gl2.add(new SanctuarysFaces(5, "GoldenGloryFace", "Choice", new SimpleFace(3, "G", "GoldenFace"), new SimpleFace(2, "Gl", "GloryFace")));
             bassinM2.add(new SanctuarysFaces(6, "MoonFace", "Add", new SimpleFace(2, "M", "MoonFace")));
-            bassinS2.add(new SanctuarysFaces(8, "Sunface", "Add", new SimpleFace(2, "S", "SunFace")));
-            bassinGl3.add(new SanctuarysFaces(8, "Gloryface", "Add", new SimpleFace(3, "Gl", "GloryFace")));
+            bassinS2.add(new SanctuarysFaces(8, "SunFace", "Add", new SimpleFace(2, "S", "SunFace")));
+            bassinGl3.add(new SanctuarysFaces(8, "GloryFace", "Add", new SimpleFace(3, "Gl", "GloryFace")));
         
-            // face du bassin
+            // face du jardin
             bassinMirror.add(new MirrorFace("MirrorFace",new TheAbyssallMirror()));
             bassinWrought.add(new WroughtFace("WroughtFace",new TheCelestialSail()));
             bassinMultiplier.add(new MultiplierFace("MultiplierFace",new TheInvisibilityHelmet()));
