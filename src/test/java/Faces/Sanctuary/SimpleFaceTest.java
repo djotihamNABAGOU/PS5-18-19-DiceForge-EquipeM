@@ -7,7 +7,6 @@ package Faces.Sanctuary;
 
 
 import Card.ImmediateEffectCard.TheInvisibilityHelmet;
-import Faces.Garden.GardenFace;
 import Faces.Garden.MultiplierFace;
 import Faces.Garden.ShieldOfTheGuardianFace;
 import Player.Bot;

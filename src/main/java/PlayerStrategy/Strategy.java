@@ -114,8 +114,7 @@ public class Strategy {
         return 0;
     }
     
-    public int applyHammerStrategy(int winGoldPoints){
-        
+    public int applyHammerStrategy(int winGoldPoints){    
         /* Cette méthode sera appelé automatiquement si le joueur en question a une carte marteau 
            et vient de gagner des points d'or 
            NB : Juste implémenter la méthode selon la stratégie , pas se soucier de l'appel (déja géré)
@@ -145,7 +144,7 @@ public class Strategy {
         return 0;
     }
     
-    public int useTokenCerberus(int val1) {
+    public int useTokenCerberus(int val1){
         /*
            Cette méthode sera appelé automatiquement si le joueur en question a un jeton cerbers et vient
            d'obtenir une faveur mineur 

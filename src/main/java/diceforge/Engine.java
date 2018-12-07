@@ -134,7 +134,7 @@ public class Engine {
             //Changement du joueur actif
             boolean findActiveBot = false;
             for (int i=0;i<data.length;i++) {
-                if (findActiveBot ){//le précédent était donc actif, il ne l'est plus
+                if (findActiveBot ){        //le précédent était donc actif, il ne l'est plus
                     data[i].setActive(true);//il devient le nouveau joueur actif
                     break;
                 }
