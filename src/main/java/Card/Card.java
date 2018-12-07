@@ -1,5 +1,6 @@
 package Card;
 
+import Card.ReinforcementEffectCard.TheClogs;
 import Faces.Sanctuary.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
@@ -25,9 +26,9 @@ public class Card {
     public Card() {
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        Card other = (Card) obj;
+    
+    public boolean equalss(Card other) {
+        //System.out.println("ok");
         return name.equals(other.name);
     }
 

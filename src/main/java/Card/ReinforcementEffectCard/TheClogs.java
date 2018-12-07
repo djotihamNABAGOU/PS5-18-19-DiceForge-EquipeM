@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class TheClogs extends Reinforcement {
 
     public TheClogs() {
+        this.name="TheClogs";
         this.gloryPoints = 2;
         this.type = "M";
         this.TypeCard = "R";

@@ -12,7 +12,8 @@ import Player.Bot;
 import java.util.ArrayList;
 
 public class Island {
-    ArrayList<Card>[] cards;
+    ArrayList<Card>[] cards = new ArrayList[15];
+    
 
     public Island() {
         for(int i=0; i<15; i++){
@@ -98,7 +99,7 @@ public class Island {
     
     public ArrayList<Card> availableCards(Card card){
         ArrayList<Card> result = new ArrayList<>();
-        for(int i=0; i<14; i++){
+        for(int i=0; i<15; i++){
             if(!this.cards[i].isEmpty()){
                result.add(this.cards[i].get(0)); 
             }
@@ -109,8 +110,10 @@ public class Island {
     /*This Method tell us if a card*/
     public boolean cardIsAivalable(Card card){
         for(int i=0; i<15; i++){
-            if(this.cards[i].get(0)!=null){
-                 return this.cards[i].get(0).equals(card);
+            if(!this.cards[i].isEmpty()){
+                 if(this.cards[i].get(0).getName().equals(card.getName())){
+                     return true;
+                 }
             }
         }
         return false;

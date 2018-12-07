@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class TheRiddle extends Card {
 
     public TheRiddle() {
+        this.name="TheRiddle";
         this.gloryPoints = 10;
         this.type = "S";
         this.TypeCard = "I";   /* I pour désigner immédiat */

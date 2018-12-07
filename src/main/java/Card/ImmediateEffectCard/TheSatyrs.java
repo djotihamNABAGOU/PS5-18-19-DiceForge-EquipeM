@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class TheSatyrs extends Card {
 
     public TheSatyrs() {
+        this.name="TheSatyrs";
         this.gloryPoints = 6;
         this.type = "M";
         this.TypeCard = "I";
