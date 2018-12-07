@@ -2,8 +2,8 @@ package Player;
 
 import Card.Reinforcement;
 import Card.ImmediateEffectCard.TheHammer;
-import Faces.GeneralFace;
-import Faces.SimpleFace;
+import Faces.Sanctuary.GeneralFace;
+import Faces.Sanctuary.SimpleFace;
 import PlayerStrategy.RandomStrategy;
 import PlayerStrategy.Strategy;
 import PlayerStrategy.NothingStrategy;
@@ -22,9 +22,9 @@ public class Bot {
     private final Strategy strategy;//stratégie du joueur durant tout le déroulement du jeu
     private String strategyName;
     private boolean active = false;
-    private final ArrayList<Reinforcement> enhancementCard = new ArrayList<Reinforcement>();   /* Liste des cartes de renfort en possession du joueur */
-    ArrayList<TheHammer> hammerCard;   /* Liste des cartes marteaux en possession du joueur */
-    private ArrayList<Reinforcement> automaticCard;   /* Liste des cartes à effets automatiques en possession du joueur */
+    private final ArrayList<Reinforcement> enhancementCard = new ArrayList<>();   /* Liste des cartes de renfort en possession du joueur */
+    private ArrayList<TheHammer> hammerCard = new ArrayList<>();   /* Liste des cartes marteaux en possession du joueur */
+    private ArrayList<Reinforcement> automaticCard = new ArrayList<>();   /* Liste des cartes Ã  effets automatiques en possession du joueur */
     public int wonRounds;
     private int portal;          /* 1,2,3,4,5,6,7  values of the gate in Island
                                    0 is the default value i.e. the bot is on orginal gate
@@ -53,12 +53,15 @@ public class Bot {
         }
         this.wonRounds = 0;
     }
+    
     public ArrayList<TheHammer> getHammer(){
         return this.hammerCard;
     }
+    
     public ArrayList<Reinforcement> getEnhancement(){
         return this.enhancementCard;
     }
+    
     public ArrayList<Reinforcement> getAutomatics(){
         return this.automaticCard;
     }
@@ -101,29 +104,7 @@ public class Bot {
                 + "\n";
     }
 
-    /**
-     * permet au joueur d'utiliser un de ses jetons Triton
-     *
-     * @param number =======
-     * @param number indique la ressource choisie par le joueur
-     */
-    public void useNewtToken(int number) {  /* Le paramètre indique la ressource choisie par le joueur */
-
-        if (this.herosInventory.tokenNewt >= 1) {
-            switch (number) {
-                case 0:
-                    this.herosInventory.IncreaseMoonPoints(2);
-                    break;
-                case 1:
-                    this.herosInventory.IncreaseSunPoints(2);
-                    break;
-                case 2:
-                    this.herosInventory.DecreaseGoldPoints(6);
-                    break;
-            }
-            this.herosInventory.tokenNewt = this.herosInventory.tokenNewt - 1;
-        }
-    }
+    
 
     /* permet au joueur d'utiliser un de ses jetons cerbères */
     /* Les paramètres seront les faces obtenues par le joueur après son lancer */
@@ -161,8 +142,30 @@ public class Bot {
         return enhancementCard;
     }
 
-    //Lancer un dé au choix prédefini
-    public GeneralFace rollOneDice(int a) {
+    public void useNewtToken() {  
+        int number  = this.getStrategy().giveMeTokenResource();  // Ressource choisie par le joueur  
+        if (this.herosInventory.tokenNewt >= 1) {
+            switch (number) {
+                case 0:
+                    this.herosInventory.IncreaseMoonPoints(2);
+                    break;
+                case 1:
+                    this.herosInventory.IncreaseSunPoints(2);
+                    break;
+                case 2: {
+                          int winnerGoldPoints = 6;
+                          if(this.hammerCard.size()>0){
+                              winnerGoldPoints = this.strategy.applyHammerStrategy(6);
+                          }
+                          this.herosInventory.IncreaseGoldPoints(winnerGoldPoints);
+                        }break;          
+            }
+            this.herosInventory.tokenNewt = this.herosInventory.tokenNewt - 1;
+        }
+    }
+    
+    //Lancer un dÃ© au choix prÃ©defini
+    public Faces.Sanctuary.GeneralFace rollOneDice(int a) {
 
         switch (a) {
             case 0:
@@ -173,6 +176,7 @@ public class Bot {
                 return this.getFirstDice().rollDice();
         }
     }
+    
     
     public void updateMyPortal(int gate){
         this.portal=gate;
