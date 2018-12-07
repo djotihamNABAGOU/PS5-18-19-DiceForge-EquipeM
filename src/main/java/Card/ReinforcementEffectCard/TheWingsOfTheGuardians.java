@@ -37,9 +37,13 @@ public class TheWingsOfTheGuardians extends Reinforcement {
     public void capacity(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, Bot... tabBot) {
         int choice = bot.getStrategy().whichResource();
         switch (choice) {
-            case 0:
-                bot.getHerosInventory().IncreaseGoldPoints(1);
-                break;
+            case 0: {
+                          int winnerGoldPoints = 1;
+                          if(bot.getHammerCard().size()>0){
+                              winnerGoldPoints = bot.getStrategy().applyHammerStrategy(1);
+                          }
+                          bot.getHerosInventory().IncreaseGoldPoints(winnerGoldPoints);
+                    }break;                
             case 1:
                 bot.getHerosInventory().IncreaseMoonPoints(1);
                 break;

@@ -38,27 +38,30 @@ public class ShieldOfTheGuardianFace extends GardenFace{
     }
 
     @Override
-    public void makeEffect(int action,int favMin,Temple temple,int numBot,
+    public int makeEffect(int action,int favMin,Temple temple,int numBot,
                                Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
 
+        int val = 0;
         
                 if(favMin==0) { // Reçu via une faveur mineure
-                    Type2.makeEffectFaceMultiplier(action,1,temple,numBot,bot,1,data,listBot);  // GAIN B 
+                    val = Type2.makeEffectFaceMultiplier(action,1,temple,numBot,bot,1,data,listBot);  // GAIN B 
                 }
                 else {
-                    comparaison(action,temple,numBot, bot, 0, 1, data);
-                    comparaison(action,temple,numBot, bot, 1, 0, data);
+                    val = val + comparaison(action,temple,numBot, bot, 0, 1, data);
+                    val = val +  comparaison(action,temple,numBot, bot, 1, 0, data);
                 }
-        
+        return val;
     }
     
     @Override
-    public void makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
+    public int makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
                                       Bot bot,int a,ArrayList<GeneralFace>[] data,Bot... listBot){
         
+        int val = 0;
         System.out.println("Face obtained  -> " + Type2.toString());
-        Type2.makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,2,data,listBot);   
+        val = Type2.makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,2,data,listBot);   
        // Donne 3* le gain B en présence de la face "*3" 
+        return val;
     }
     
     @Override
@@ -70,18 +73,21 @@ public class ShieldOfTheGuardianFace extends GardenFace{
     
     
     // determine le gain
-    public void comparaison(int action,Temple temple,int numBot,Bot bot,int a,int b,ArrayList<GeneralFace>[] data,Bot... listBot)
+    public int comparaison(int action,Temple temple,int numBot,Bot bot,int a,int b,ArrayList<GeneralFace>[] data,Bot... listBot)
     {
+        int val = 0;
         if(data[numBot].get(a).getName().equals("ShieldOfTheGuardianFace")){
             // Le traitement s"effectuera sur la seconde face ---> face b
-            
+           
            int numberGain = data[numBot].get(b).giveMeShieldGain(action, bot, numBot, this, data, listBot);
            if(numberGain==0){
                bot.getHerosInventory().IncreaseGloryPoints(5);
+               val = 20;  // 5 glory * 4
            }else{
-               Type2.makeEffectFaceMultiplier(0,1,temple,numBot,bot,1,data,listBot); 
+               val = Type2.makeEffectFaceMultiplier(0,1,temple,numBot,bot,1,data,listBot); 
            }
         }
+        return val;
     }
     
     

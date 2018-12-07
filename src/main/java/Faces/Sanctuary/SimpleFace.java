@@ -56,24 +56,45 @@ public class SimpleFace extends GeneralFace {
     }
 
     @Override
-    public void makeEffect(int action,int favMin,Temple temple,int numBot,
+    public int makeEffect(int action,int favMin,Temple temple,int numBot,
                                Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         
-                makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,1,data);
+            return makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,1,data);
         
     }
     
     @Override
-    public void makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
+    public int makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
                                       Bot bot,int a,ArrayList<GeneralFace>[] data,Bot... listBot){
+        
+        // Calcul de l'entier renvoyé par la face 
+           int val = 0;
+           if(this.type.equals("G"))        val = value*a;
+           else if(this.type.equals("S"))   val = (value*2)*a;
+           else if(this.type.equals("M"))   val = (value*2)*a;
+           else if(this.type.equals("Gl"))  val = (value*4)*a;
+           
+        // fin
         
         System.out.println("Face obtained  -> " + toString());
         if(action==0){
-            bot.getHerosInventory().increaseInventoryWithDiceFace(this,a);
+            
+            if(this.type.equals("G")){  // pour une face simple d'or
+                int winGoldPoint = this.value*a;
+                // Verifier si le joueur possède une carte marteau
+                if(bot.getHammerCard().size()>0){
+                   winGoldPoint = bot.getStrategy().applyHammerStrategy(this.value*a);
+                }
+                bot.getHerosInventory().IncreaseGoldPoints(winGoldPoint);
+            }else{
+                bot.getHerosInventory().increaseInventoryWithDiceFace(this,a);
+            }
+          
         }else{
             bot.getHerosInventory().decreaseInventoryWithDiceFace(this,a);
         }
-        
+         
+        return val;
     }
     
    
@@ -89,7 +110,12 @@ public class SimpleFace extends GeneralFace {
                 if(choice==0){   // OuI
                     bot.getHerosInventory().IncreaseGloryPoints(1);
                 }else {
-                    bot.getHerosInventory().IncreaseGoldPoints(1);
+                    int winGoldPoint = 1;
+                    // Verifier si le joueur possède une carte marteau
+                    if(bot.getHammerCard().size()>0){
+                       winGoldPoint = bot.getStrategy().applyHammerStrategy(1);
+                    }
+                    bot.getHerosInventory().IncreaseGoldPoints(winGoldPoint);
                 }
             }
         }
@@ -136,7 +162,16 @@ public class SimpleFace extends GeneralFace {
                     }
               }
             }else{
-               bot.getHerosInventory().increaseInventoryWithDiceFace(this,1);       
+                if(this.type.equals("G")){  // pour une face simple d'or
+                    int winGoldPoint = this.value;
+                    // Verifier si le joueur possède une carte marteau
+                    if(bot.getHammerCard().size()>0){
+                       winGoldPoint = bot.getStrategy().applyHammerStrategy(this.value);
+                    }
+                    bot.getHerosInventory().IncreaseGoldPoints(winGoldPoint);
+                }else{
+                    bot.getHerosInventory().increaseInventoryWithDiceFace(this,1);
+                }    
             }
         }
     }
@@ -153,4 +188,6 @@ public class SimpleFace extends GeneralFace {
     
     @Override
     public void initialize() { }
+    
+  
 }

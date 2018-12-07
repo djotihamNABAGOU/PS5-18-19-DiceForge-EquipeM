@@ -3,7 +3,6 @@ package Card.ImmediateEffectCard;
 import Card.Card;
 import Faces.Sanctuary.GeneralFace;
 import Player.Bot;
-import Player.Dice;
 import diceforge.Temple;
 
 import java.util.ArrayList;
@@ -40,7 +39,14 @@ public class TheRiddle extends Card {
         int a = bot.getStrategy().throwWhichDice();  // choix du dé à lancer
         for (int b = 0; b < 4; b++) {
             GeneralFace myFace = bot.rollOneDice(a);     // face obtenue
-            myFace.makeEffect(0, 0, temple, numBot, bot, listFaces, tabBot);
+            int val = myFace.makeEffect(0, 0, temple, numBot, bot, listFaces, tabBot);
+            if(bot.getHerosInventory().tokenCerberus>0){
+                
+                int rep = bot.getStrategy().useTokenCerberus(val); 
+                if(rep==1){
+                    myFace.makeEffect(0, 0, temple, numBot, bot, listFaces, tabBot);
+                }
+            }
         }
     }
 

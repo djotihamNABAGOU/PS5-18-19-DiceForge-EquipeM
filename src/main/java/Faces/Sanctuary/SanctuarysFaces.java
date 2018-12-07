@@ -59,26 +59,29 @@ public class SanctuarysFaces extends GeneralFace {
     }
     
     @Override
-    public void makeEffect(int action,int favMin,Temple temple,int numBot,
+    public int makeEffect(int action,int favMin,Temple temple,int numBot,
                                Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         
-              makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,1,data,listBot);
+              return makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,1,data,listBot);
      
     }
     
     @Override
-    public void makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
+    public int makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
                                       Bot bot,int a,ArrayList<GeneralFace>[] data,Bot... listBot){
         
+       int val = 0;
+       
+       
        if(this.mode.equals("Add")){
-          this.Offered.forEach(item->{
-               item.makeEffectFaceMultiplier(action,favMin,temple, numBot, bot, a, data,listBot);
-          });
+         for (SimpleFace item : this.Offered){
+              val = val + item.makeEffectFaceMultiplier(action,favMin,temple, numBot, bot, a, data,listBot);
+          }
        }else{           
-                int choice = bot.getStrategy().giveMeYourChoice(this.Offered);
-                this.Offered.get(choice).makeEffectFaceMultiplier(action,favMin,temple, numBot, bot, a, data,listBot);
-                
-       } 
+             int choice = bot.getStrategy().giveMeYourChoice(this.Offered);
+              val = this.Offered.get(choice).makeEffectFaceMultiplier(action,favMin,temple, numBot, bot, a, data,listBot);
+        }
+        return val;
     }
     
     

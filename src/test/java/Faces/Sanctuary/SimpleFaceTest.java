@@ -7,7 +7,6 @@ package Faces.Sanctuary;
 
 
 import Card.ImmediateEffectCard.TheInvisibilityHelmet;
-import Faces.Garden.GardenFace;
 import Faces.Garden.MultiplierFace;
 import Faces.Garden.ShieldOfTheGuardianFace;
 import Player.Bot;
@@ -46,12 +45,12 @@ public class SimpleFaceTest {
           listFaces[1].add(new SimpleFace(4, "G", "GoldenFace"));
           listFaces[1].add(new SimpleFace(4, "G", "GoldenFace"));
           
-          int a = 0;
-          while (a < data.length) {
-             listFaces[a].get(0).makeEffect(0, 1, temple, a, data[a], listFaces, data);
-             listFaces[a].get(1).makeEffect(0, 1, temple, a, data[a], listFaces, data);
-             a = a + 1;
-         }
+         
+          assertTrue(listFaces[0].get(0).makeEffect(0, 1, temple, 0, data[0], listFaces, data)==12);
+          assertTrue(listFaces[0].get(1).makeEffect(0, 1, temple, 0, data[0], listFaces, data)==2);
+          assertTrue(listFaces[1].get(0).makeEffect(0, 1, temple, 1, data[1], listFaces, data)==4);
+          assertTrue(listFaces[1].get(1).makeEffect(0, 1, temple, 1, data[1], listFaces, data)==4);  
+   
 
           //Le bot 1 aura donc après ce tour 3 pt de gloire , 1 Sun , 3 Or , 0 Moon        
           assertTrue(data[0].getHerosInventory().getGoldPoints()==3);
@@ -90,12 +89,10 @@ public class SimpleFaceTest {
           listFaces[1].add(new SimpleFace(4, "G", "GoldenFace"));
           listFaces[1].add(new SimpleFace(4, "G", "GoldenFace"));
           
-          int a = 0;
-          while (a < data.length) {
-             listFaces[a].get(0).makeEffect(0, 1, temple, a, data[a], listFaces, data);
-             listFaces[a].get(1).makeEffect(0, 1, temple, a, data[a], listFaces, data);
-             a = a + 1;
-         }
+          assertTrue(listFaces[0].get(0).makeEffect(0, 1, temple, 0, data[0], listFaces, data)==12);
+          assertTrue(listFaces[0].get(1).makeEffect(0, 1, temple, 0, data[0], listFaces, data)==24);
+          assertTrue(listFaces[1].get(0).makeEffect(0, 1, temple, 1, data[1], listFaces, data)==4);
+          assertTrue(listFaces[1].get(1).makeEffect(0, 1, temple, 1, data[1], listFaces, data)==4);
 
           //Le bot 1 aura donc après ce tour 9 pt de gloire , 0 Sun , 3 Or , 0 Moon        
           assertTrue(data[0].getHerosInventory().getGoldPoints()==3);

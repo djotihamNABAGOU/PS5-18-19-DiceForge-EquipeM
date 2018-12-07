@@ -84,20 +84,27 @@ public class Engine {
             a = a + 1;
         }  // Après la boucle, les faces obtenues sont stockÃ©es respectivement dans la liste
         a = 0;
-        int compteur = 0;
         
-        /* le 1er attribut compteur permet de connaitre la position des des du joueur dans la liste
-           de dés passés.
-        */
+        // Utilisé pour répéter l"action des 2 faces , cas jeton cerbers
+        int rep = 0; 
 
         while (a < data.length) {
-            System.out.println("-------->ROLL OF BOT " + (compteur + 1));
-            if (data[compteur].isActive()) System.out.println("I'm active!");
-            listFaces[a].get(0).makeEffect(0, 1, temple, compteur, data[compteur], listFaces, data);
-            listFaces[a].get(1).makeEffect(0, 1, temple, compteur, data[compteur], listFaces, data);
-            data[compteur].getStrategy().apply(temple, compteur+1, listFaces, data);
+            System.out.println("-------->ROLL OF BOT " + (a + 1));
+            if (data[a].isActive()) System.out.println("I'm active!");
+            int val1 =  listFaces[a].get(0).makeEffect(0, 1, temple, a, data[a], listFaces, data);
+            int val2 = listFaces[a].get(1).makeEffect(0, 1, temple, a, data[a], listFaces, data);
+            
+            if(data[a].getHerosInventory().tokenCerberus>0){
+                
+                rep = data[a].getStrategy().useTokenCerberus(val1,val2); 
+                if(rep==1){
+                    listFaces[a].get(0).makeEffect(0, 1, temple, a, data[a], listFaces, data);
+                    listFaces[a].get(1).makeEffect(0, 1, temple, a, data[a], listFaces, data);
+                }
+            }
+            
+            data[a].getStrategy().apply(temple, a+1, listFaces, data);
             a = a + 1;
-            compteur = compteur + 1;
         }
         
         for(Bot bot : data){
@@ -127,7 +134,7 @@ public class Engine {
             //Changement du joueur actif
             boolean findActiveBot = false;
             for (int i=0;i<data.length;i++) {
-                if (findActiveBot ){//le précédent était donc actif, il ne l'est plus
+                if (findActiveBot ){        //le précédent était donc actif, il ne l'est plus
                     data[i].setActive(true);//il devient le nouveau joueur actif
                     break;
                 }
