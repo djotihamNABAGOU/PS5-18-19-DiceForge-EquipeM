@@ -1,7 +1,7 @@
 package Card.ImmediateEffectCard;
 
 import Card.Card;
-import Faces.GeneralFace;
+import Faces.Sanctuary.GeneralFace;
 import Player.Bot;
 import Player.Dice;
 import diceforge.Temple;
@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class TheRiddle extends Card {
 
     public TheRiddle() {
+        this.name = "TheRiddle";
         this.gloryPoints = 10;
         this.type = "S";
         this.TypeCard = "I";   /* I pour désigner immédiat */

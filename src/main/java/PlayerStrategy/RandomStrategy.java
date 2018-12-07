@@ -1,9 +1,10 @@
 package PlayerStrategy;
 
 import Card.Card;
-import Faces.GeneralFace;
-import Faces.SanctuarysFaces;
+import Faces.Sanctuary.GeneralFace;
+import Faces.Sanctuary.SanctuarysFaces;
 import Player.Bot;
+import diceforge.Island;
 import diceforge.Temple;
 
 import java.lang.reflect.Array;
@@ -25,7 +26,7 @@ public class RandomStrategy extends Strategy {
     }
 
     @Override
-    public void apply(Temple temple, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces, Bot... data) {
+    public void apply(Temple temple, Island island, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces, Bot... data) {
         //Seul le joueur actif peut appliquer une stratégie après le lancé des dés
         if (bot.isActive()) {
             //System.out.println("ok ok");
@@ -98,7 +99,7 @@ public class RandomStrategy extends Strategy {
                             int choiceSupAction = random.nextInt(2); // 0 pour oui et 1 pour non
                             if (choiceSupAction == 0) {//On choisit alors quelle action supplémentaire effectuer
                                 supActionDone = true;
-                                apply(temple, numberOfTheBot, listFaces, data);//On réappelle la fonction pour éviter de la duplication de code
+                                apply(temple, island, numberOfTheBot, listFaces, data);//On réappelle la fonction pour éviter de la duplication de code
                                 supActionDone = false;
                             }
                         }
@@ -109,11 +110,10 @@ public class RandomStrategy extends Strategy {
                             System.out.println("*ACTION OF BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
                         else System.out.println("**SUP ACTION FOR BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
 
-                        System.out.println("No implemantation for now");
+                        //System.out.println("No implemantation for now");
 
-                        /*
                         Card card;
-                        if (!(card = CardToBuy(bot, island)).getName().equals("null")) {
+                        if (!(card = CardToBuy(bot, island)).getName().equals("")) {
                             if (island.buyCard(card)) {
                                 feat(card);
                                 bot.getHerosInventory().DecreaseGoldPoints(face.getPrice());
@@ -121,7 +121,7 @@ public class RandomStrategy extends Strategy {
                                 System.out.println("Purchase failed");
                             }
                         }
-                        */
+
                         //Fin exploit, Action supplémentaire si joueur actif
                         if (bot.getHerosInventory().getSunPoints()>=2 && supActionDone == false){//il a les conditions requises pour effectuer une action supplémenatire
                             int choiceSupAction = random.nextInt(2); // 0 pour oui et 1 pour non
@@ -135,6 +135,32 @@ public class RandomStrategy extends Strategy {
                 }
 
             }
+        }
+    }
+
+    private Card CardToBuy(Bot bot, Island island) {
+        int gold = bot.getHerosInventory().getGoldPoints();
+        int sun = bot.getHerosInventory().getSunPoints();
+        int moon = bot.getHerosInventory().getMoonPoints();
+        ArrayList<Card> CardAvailable = new ArrayList<>();
+        ArrayList<Card> sanctuary = island.getCards();
+        for (int a = 0; a < 10; a++) {
+            if (a != bassin) {//car il ne peut retirer de faces d'un même bassin consécutivement
+                for (int i = 0; i < sanctuary[a].size(); i++) {
+                    if (!sanctuary[a].get(i).isSelected() && !FacesAvailable.contains(sanctuary[a].get(i)) && v >= sanctuary[a].get(i).getPrice()) {
+                        FacesAvailable.add(sanctuary[a].get(i));
+                    }
+                }
+            }
+        }
+
+        Random randomFace = new Random();
+
+        if (FacesAvailable.size() == 0) return new SanctuarysFaces();
+        else {
+            int faceToReturn = randomFace.nextInt(FacesAvailable.size()); // initialisation
+            //System.out.println("La face payée est "+FacesAvailable.get(caseFace).toString());
+            return FacesAvailable.get(faceToReturn);
         }
     }
 

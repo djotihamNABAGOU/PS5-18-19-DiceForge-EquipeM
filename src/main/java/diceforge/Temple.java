@@ -5,21 +5,21 @@ import Card.Card;
 import Card.ImmediateEffectCard.TheAbyssallMirror;
 import Card.ImmediateEffectCard.TheCelestialSail;
 import Card.ImmediateEffectCard.TheInvisibilityHelmet;
-import Faces.GardenFace;
-import Faces.MirrorFace;
-import Faces.MultiplierFace;
-import Faces.SanctuarysFaces;
-import Faces.ShieldOfTheGuardianFace;
-import Faces.SimpleFace;
-import Faces.WildBoardFace;
-import Faces.WroughtFace;
+import Faces.Garden.GardenFace;
+import Faces.Garden.MirrorFace;
+import Faces.Garden.MultiplierFace;
+import Faces.Sanctuary.SanctuarysFaces;
+import Faces.Garden.ShieldOfTheGuardianFace;
+import Faces.Sanctuary.SimpleFace;
+import Faces.Garden.WildBoardFace;
+import Faces.Garden.WroughtFace;
 
 import java.util.ArrayList;
 
 public class Temple {
 
-    //private ArrayList<SanctuarysFaces> Sanctuary = new ArrayList<>();
-    private ArrayList<SanctuarysFaces>[] Sanctuary = new ArrayList[10];//le sanctuaire est un tableau de 10 bassins représentés par des arraylists
+    //le sanctuaire est un tableau de 10 bassins représentés par des arraylists
+    private ArrayList<SanctuarysFaces>[] Sanctuary = new ArrayList[10];
     //On aura aussi un tableau de bassins pour les faces de jardin
     private ArrayList<GardenFace>[] Garden = new ArrayList[5];
 

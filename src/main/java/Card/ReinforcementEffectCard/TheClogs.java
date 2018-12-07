@@ -1,7 +1,7 @@
 package Card.ReinforcementEffectCard;
 
 import Card.Reinforcement;
-import Faces.GeneralFace;
+import Faces.Sanctuary.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
 
@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class TheClogs extends Reinforcement {
 
     public TheClogs() {
+        this.name = "TheClogs";
         this.gloryPoints = 2;
         this.type = "M";
         this.TypeCard = "R";

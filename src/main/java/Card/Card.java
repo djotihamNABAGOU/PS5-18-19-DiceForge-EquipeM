@@ -1,6 +1,6 @@
 package Card;
 
-import Faces.GeneralFace;
+import Faces.Sanctuary.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
 
@@ -17,6 +17,7 @@ public class Card {
 
 
     public Card() {
+        this.name = "";
     }
 
     @Override
@@ -33,4 +34,7 @@ public class Card {
     	return this.portal;
     }
 
+    public String getName() {
+        return name;
+    }
 }

@@ -1,6 +1,6 @@
 package Player;
 
-import Faces.GeneralFace;
+import Faces.Sanctuary.GeneralFace;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

@@ -2,9 +2,11 @@
  * Face "Forge"
    ☻ Veuillez prendre le temps de lire la doc concernant cette face dans le pdf avant de lire la classe
  */
-package Faces;
+package Faces.Garden;
 
 import Card.Card;
+import Faces.Sanctuary.GeneralFace;
+import Faces.Sanctuary.SanctuarysFaces;
 import Player.Bot;
 import diceforge.Temple;
 import java.util.ArrayList;

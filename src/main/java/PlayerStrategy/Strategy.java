@@ -1,9 +1,10 @@
 package PlayerStrategy;
 
-import Faces.GeneralFace;
-import Faces.SanctuarysFaces;
-import Faces.SimpleFace;
+import Faces.Sanctuary.GeneralFace;
+import Faces.Sanctuary.SanctuarysFaces;
+import Faces.Sanctuary.SimpleFace;
 import Player.Bot;
+import diceforge.Island;
 import diceforge.Temple;
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ public class Strategy {
      * @param listFaces
      * @param data
      */
-    public void apply(Temple temple, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces,Bot... data){
+    public void apply(Temple temple, Island island, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces, Bot... data){
         System.out.println("I am General Strategy, please implement effect in subclasses");
     }
     

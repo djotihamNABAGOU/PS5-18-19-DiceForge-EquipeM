@@ -1,7 +1,7 @@
 package Card.ImmediateEffectCard;
 
 import Card.Card;
-import Faces.GeneralFace;
+import Faces.Sanctuary.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
 
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class TheCrazyGrasses extends Card {
 
-    public TheCrazyGrasses() {
+     TheCrazyGrasses() {
         this.name = "TheCrazyGrasses";
         this.gloryPoints = 2;
         this.type = "S";
@@ -31,5 +31,6 @@ public class TheCrazyGrasses extends Card {
         bot.getHerosInventory().IncreaseGoldPoints(3);
         bot.getHerosInventory().IncreaseMoonPoints(3);
         bot.getHerosInventory().IncreaseGloryPoints(2);
+        bot.getHerosInventory().DecreaseSunPoints(1);
     }
 }

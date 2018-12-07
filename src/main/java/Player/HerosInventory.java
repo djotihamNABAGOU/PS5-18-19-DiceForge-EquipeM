@@ -1,5 +1,6 @@
 package Player;
-import Faces.SimpleFace;
+import Faces.Sanctuary.SimpleFace;
+import java.util.Random;
 
 
 public class HerosInventory {
@@ -35,7 +36,7 @@ public class HerosInventory {
     
     
 
-    public HerosInventory() {
+     HerosInventory() {
         this.gloryPoints = 0;
         this.sunPoints = 0;
         this.moonPoints = 0;
@@ -75,40 +76,40 @@ public class HerosInventory {
             this.goldPoints=goldPointsLimit;
         }
     }
-    
+
     public void DecreaseGoldPoints(int points){
-       if(this.goldPoints<=points){
-           this.goldPoints = 0;
-       }else {
-           this.goldPoints -=points;
-       }       
+        if(this.goldPoints<=points){
+            this.goldPoints = 0;
+        }else {
+            this.goldPoints -=points;
+        }
     }
-    
+
     public void DecreaseGloryPoints(int points){
-       if(this.gloryPoints<=points){
-           this.gloryPoints = 0;
-       }else {
-           this.gloryPoints -=points;
-       }       
+        if(this.gloryPoints<=points){
+            this.gloryPoints = 0;
+        }else {
+            this.gloryPoints -=points;
+        }
     }
-    
+
     public void DecreaseSunPoints(int points){
-       if(this.sunPoints<=points){
-           this.sunPoints = 0;
-       }else {
-           this.sunPoints -=points;
-       }       
+        if(this.sunPoints<=points){
+            this.sunPoints = 0;
+        }else {
+            this.sunPoints -=points;
+        }
     }
-    
-    
-    public void DecreaseMoonPoints(int points){
-       if(this.moonPoints<=points){
-           this.moonPoints = 0;
-       }else {
-           this.moonPoints -=points;
-       }       
+
+
+     void DecreaseMoonPoints(int points){
+        if(this.moonPoints<=points){
+            this.moonPoints = 0;
+        }else {
+            this.moonPoints -=points;
+        }
     }
-    
+
     public void IncreaseSunPoints(int points){
         int maxToAdd = sunPointsLimit - this.sunPoints;
         if(maxToAdd>points){
@@ -141,8 +142,7 @@ public class HerosInventory {
         }
        
     }
-    
-    
+
     public void decreaseInventoryWithDiceFace(SimpleFace faceObtained,int multiplier){
         if(faceObtained.getType().equals("S")){
             this.DecreaseSunPoints(faceObtained.getValue()*multiplier);
@@ -156,7 +156,7 @@ public class HerosInventory {
         if(faceObtained.getType().equals("Gl")){
             this.DecreaseGloryPoints(faceObtained.getValue()*multiplier);
         }
-       
+
     }
     /*On doit avoir des fonctions decrease pour les achats/depenses des points*/  
 }

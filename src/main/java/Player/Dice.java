@@ -5,8 +5,8 @@
  */
 package Player;
 
-import Faces.GeneralFace;
-import Faces.SimpleFace;
+import Faces.Sanctuary.GeneralFace;
+import Faces.Sanctuary.SimpleFace;
 
 import java.util.Random;
 

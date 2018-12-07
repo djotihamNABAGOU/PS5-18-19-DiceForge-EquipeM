@@ -1,7 +1,7 @@
 package diceforge;
 
-import Faces.GeneralFace;
-import Faces.SanctuarysFaces;
+import Faces.Sanctuary.GeneralFace;
+import Faces.Sanctuary.SanctuarysFaces;
 import Player.Bot;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class Engine {
      * @param set    : nombre de manches
      * @param number : nombres de bots
      */
-    Engine(int round, int set, int number) {
+    public Engine(int round, int set, int number) {
         this.round = round;
         this.set = set;
         this.numberOfBot = number;
@@ -31,7 +31,7 @@ public class Engine {
      *
      * @param data tableau de bots, contient le nombre de bots pour la partie
      */
-    void InitializingBots(Bot... data) {  // prend en paramètres une liste de robots
+    public void InitializingBots(Bot... data) {  // prend en paramètres une liste de robots
         int a = 0;
         int goldpoints = 3; // points d'or : 3 pr le premier (-1 par la suite)
         for (Bot bot : data) {
@@ -112,7 +112,7 @@ public class Engine {
      * @param temple
      * @param data
      */
-    void makeSets(Temple temple, Bot... data) {
+    private void makeSets(Temple temple, Bot... data) {
         for (int a = 0; a < this.set; a++) {
             System.out.println("---------------SET " + (a + 1) + "---------------\n");
             RollOneTime(temple, a + 1, data);
@@ -127,7 +127,7 @@ public class Engine {
             //Changement du joueur actif
             boolean findActiveBot = false;
             for (int i=0;i<data.length;i++) {
-                if (findActiveBot == true){//le précédent était donc actif, il ne l'est plus
+                if (findActiveBot ){//le précédent était donc actif, il ne l'est plus
                     data[i].setActive(true);//il devient le nouveau joueur actif
                     break;
                 }
@@ -145,7 +145,7 @@ public class Engine {
      *
      * @param data
      */
-    void tellMeTheWinnerOfRound(Bot... data) {
+    private void tellMeTheWinnerOfRound(Bot... data) {
                 
         int winnerGloryPoints = 0;  
         for(int i=0;i<data.length;i++){
@@ -183,7 +183,7 @@ public class Engine {
     /**
      * Méthode permettant de déterminer le gagnant du jeu
      */
-    void tellMeTheWinnerOfTheGame(Bot... data) {
+    private void tellMeTheWinnerOfTheGame(Bot... data) {
       
         int winnerWonRounds = 0;
         System.out.println("**********Results*********");

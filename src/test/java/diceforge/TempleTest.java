@@ -1,7 +1,7 @@
 package diceforge;
 
-import Faces.SanctuarysFaces;
-import Faces.SimpleFace;
+import Faces.Sanctuary.SanctuarysFaces;
+import Faces.Sanctuary.SimpleFace;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

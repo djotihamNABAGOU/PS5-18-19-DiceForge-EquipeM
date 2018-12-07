@@ -1,7 +1,7 @@
 package Card.ImmediateEffectCard;
 
 import Card.Card;
-import Faces.GeneralFace;
+import Faces.Sanctuary.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
 
@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class ThePliers extends Card {
 
     public ThePliers() {
+        this.name = "ThePliers";
         this.gloryPoints = 8;
         this.type = "M";
         this.TypeCard = "I";   /* I pour désigner immédiat */

@@ -1,7 +1,8 @@
 package PlayerStrategy;
 
-import Faces.GeneralFace;
+import Faces.Sanctuary.GeneralFace;
 import Player.Bot;
+import diceforge.Island;
 import diceforge.Temple;
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ public class NothingStrategy extends Strategy {
     }
 
     @Override
-    public void apply(Temple temple, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces,Bot... data){
+    public void apply(Temple temple, Island island, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces, Bot... data){
         //System.out.println("ok ok");
     }
 }

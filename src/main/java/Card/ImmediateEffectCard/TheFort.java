@@ -1,7 +1,7 @@
 package Card.ImmediateEffectCard;
 
 import Card.Card;
-import Faces.GeneralFace;
+import Faces.Sanctuary.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
 
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class TheFort extends Card {
 
-    public TheFort(int amount) {
+    public TheFort() {
         this.name = "TheFort";
         this.gloryPoints = 0;
         this.type = "M";

@@ -1,7 +1,7 @@
 package Card.ImmediateEffectCard;
 
 import Card.Card;
-import Faces.GeneralFace;
+import Faces.Sanctuary.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
 
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class TheFerryMan extends Card {
 
-    public TheFerryMan(int amount) {
+    public TheFerryMan() {
         this.name = "TheFerryMan";
         this.gloryPoints = 12;
         this.type = "M";
