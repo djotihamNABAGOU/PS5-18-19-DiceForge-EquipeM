@@ -117,6 +117,16 @@ public class Island {
         }
         return false;
     }
+    
+    public void deleteCard(Card card){
+         for(int i=0; i<15; i++){
+            if(!this.cards[i].isEmpty()){
+                 if(this.cards[i].get(0).getName().equals(card.getName())){
+                     this.cards[i].remove(this.cards[i].get(0));
+                 }
+            }
+        }
+    }
 
 
     public boolean buyCard(Card card,int action,int favMin,Temple temple,int numBot,
@@ -131,6 +141,7 @@ public class Island {
             */
             /*Whatever this traitement is mooved to The Bot Strategy Class*/
              
+            this.deleteCard(card);
             return true;
         }
         return false; //Purchase failed
