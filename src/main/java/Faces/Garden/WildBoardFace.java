@@ -42,26 +42,28 @@ public class WildBoardFace extends GardenFace{
     }
     
     @Override
-    public void makeEffect(int action,int favMin,Temple temple,int numBot,
+    public int makeEffect(int action,int favMin,Temple temple,int numBot,
                                Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         
         if(this.faceSelected==null){
                 caseFace(action, bot);
         }
-        this.faceSelected.makeEffect(action,favMin,temple,1,bot,data,listBot);
+        return this.faceSelected.makeEffect(action,favMin,temple,1,bot,data,listBot);
     }
     
     
     @Override
-    public void makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
+    public int makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
                                       Bot bot,int a,ArrayList<GeneralFace>[] data,Bot... listBot){
+        
+        int val = 0;
         
         if(this.faceSelected==null){
                 caseFace(action, bot);
         }
         
         for(int b=0;b<a;b++){
-                  this.faceSelected.makeEffect(action,favMin,temple,1,bot,data,listBot);
+                 val = val + this.faceSelected.makeEffect(action,favMin,temple,1,bot,data,listBot);
         }
 
         
@@ -80,7 +82,7 @@ public class WildBoardFace extends GardenFace{
                 }
             }
         }
-            
+        return val;
     }
     
     @Override

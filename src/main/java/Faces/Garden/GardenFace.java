@@ -42,15 +42,17 @@ public class GardenFace extends GeneralFace{
     }
     
     @Override
-     public void makeEffect(int action,int favMin,Temple temple,int numBot,
+     public int makeEffect(int action,int favMin,Temple temple,int numBot,
                                Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         System.out.println("I am General face, please implement effect in subclasses");
+        return 0;
     }
     
     @Override
-    public void makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
+    public int makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
                                       Bot bot,int a,ArrayList<GeneralFace>[] data,Bot... listBot){
         System.out.println("I am Garden face, please implement effect in subclasses");   
+        return 0;
     }
     
     

@@ -24,7 +24,7 @@ public class MirrorFace extends GardenFace{
     
    
     @Override
-    public void makeEffect(int action,int favMin,Temple temple,int numBot,
+    public int makeEffect(int action,int favMin,Temple temple,int numBot,
                                Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         
             GeneralFace myNewFace = new GeneralFace();// face choisie
@@ -39,7 +39,7 @@ public class MirrorFace extends GardenFace{
             }else{
                 data[numBot].set(1,myNewFace); 
             }
-            myNewFace.makeEffect(action,favMin,temple, numBot, bot, data,listBot);
+            return myNewFace.makeEffect(action,favMin,temple, numBot, bot, data,listBot);
         
     }
     
@@ -66,7 +66,7 @@ public class MirrorFace extends GardenFace{
        ---> La deuxième face obtenue est une face mirroir
     */
     @Override
-    public void makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
+    public int makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
                                       Bot bot,int a,ArrayList<GeneralFace>[] data,Bot... listBot){
         
         GeneralFace myNewFace = new GeneralFace();// face choisie   
@@ -82,7 +82,7 @@ public class MirrorFace extends GardenFace{
             data[numBot].set(1,myNewFace); 
         }
           
-        myNewFace.makeEffectFaceMultiplier(action,favMin,temple, numBot, bot, 2,data,listBot);
+        return myNewFace.makeEffectFaceMultiplier(action,favMin,temple, numBot, bot, 2,data,listBot);
         
     }
     

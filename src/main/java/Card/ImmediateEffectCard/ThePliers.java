@@ -41,8 +41,16 @@ public class ThePliers extends Card {
             // Appliquer effets des faces
 
 
-            listFaces[numBot].get(0).makeEffect(0, 1, temple, numBot, bot, listFaces, tabBot);
-            listFaces[numBot].get(1).makeEffect(0, 1, temple, numBot, bot, listFaces, tabBot);
+            int val1 = listFaces[numBot].get(0).makeEffect(0, 1, temple, numBot, bot, listFaces, tabBot);
+            int val2 = listFaces[numBot].get(1).makeEffect(0, 1, temple, numBot, bot, listFaces, tabBot);
+            if(bot.getHerosInventory().tokenCerberus>0){
+                
+                int rep = bot.getStrategy().useTokenCerberus(val1,val2); 
+                if(rep==1){
+                    listFaces[numBot].get(0).makeEffect(0, 1, temple, numBot, bot, listFaces, tabBot);
+                    listFaces[numBot].get(1).makeEffect(0, 1, temple, numBot, bot, listFaces, tabBot);
+                }
+            }
         }
     }
 }

@@ -23,7 +23,7 @@ public class WroughtFace extends GardenFace{
     }
 
     @Override
-    public void makeEffect(int action,int favMin,Temple temple,int numBot,
+    public int makeEffect(int action,int favMin,Temple temple,int numBot,
                                       Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         
         if(action==0){
@@ -37,14 +37,15 @@ public class WroughtFace extends GardenFace{
                    }
             } 
         } 
+        return 8;
     }
     
     @Override
-    public void makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
+    public int makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
                                       Bot bot,int a,ArrayList<GeneralFace>[] data,Bot... listBot){
         
            bot.getHerosInventory().IncreaseGoldPoints(4);
-          
+           return 2;
     }
     
     

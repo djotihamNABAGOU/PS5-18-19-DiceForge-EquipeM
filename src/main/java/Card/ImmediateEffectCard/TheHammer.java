@@ -44,7 +44,7 @@ public class TheHammer extends Card {
             } else          /* 2eme utilisation */ {
                 inventory.IncreaseGloryPoints(15);
                 uses = 0;
-                inventory.tokenHammer = 0;     /* Remettre le jeton à 0 */
+                inventory.tokenHammer = inventory.tokenHammer-1;     /* Enlever un jeton */
             }
 
         }
