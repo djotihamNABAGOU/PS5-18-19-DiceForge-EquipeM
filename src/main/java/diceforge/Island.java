@@ -1,19 +1,19 @@
 package diceforge;
 
 import Card.Card;
-import Faces.Sanctuary.GeneralFace;
+import Card.ImmediateEffectCard.TheHammer;
+import Card.Reinforcement;
+import Faces.GeneralFace;
 import Player.Bot;
 
 import java.util.ArrayList;
 
 public class Island {
-    int[] portal ={1,2,3,4,5,6,7};
-    ArrayList<Card> cards = new ArrayList<>();
-    
+    ArrayList<Card>[] cards;
 
-    public Island(int portal, ArrayList<Card> cardes) {
-        for(int i=0; i<cardes.size(); i++){
-            this.cards.add(cardes.get(i));
+    public Island() {
+        for(int i=0; i<7; i++){
+            this.cards[i] = new ArrayList<>();
         }
     }
     
@@ -39,23 +39,42 @@ public class Island {
             }
         }
     }
+    /*This Method returns all the available cards, the bot has the choice if he want to do an achievement*/
     
-    public boolean isThisCardAvailable(Card card){
-        return this.cards.contains(card);
+    public ArrayList<Card> availableCards(Card card){
+        ArrayList<Card> result = new ArrayList<>();
+        for(int i=0; i<7; i++){
+            result.add(this.cards[i].get(0));
+        }
+        return result;
+    }
+    /*This Method tell us if a card*/
+    public boolean cardIsAivalable(Card card){
+        for(int i=0; i<7; i++){
+           return this.cards[i].get(0).equals(card);
+        }
+        return false;
     }
     public boolean buyCard(Card card,int action,int favMin,Temple temple,int numBot,
                                Bot botActive,ArrayList<GeneralFace>[] data,Bot... bots){
-        if(this.isThisCardAvailable(card)){
+        if(this.cardIsAivalable(card)){
             this.moveBotToPortal(card.getPortal(), action, favMin, temple, numBot, botActive, data, bots);
             /*According to the type of the Card we gonna add it in the list
-              enhancementCard  || hammerCard || automaticCard
-              it smelling INSTANCEOF nevertheless.....
+                enhancementCard  || hammerCard || automaticCard
+              It smelling INSTANCEOF nevertheless.....
+              It seems that we can use the type of the card to identify the which listOfCards of the 
+                Bot is concerned
             */
+                            /*if(card instanceof TheHammer){
+                                 botActive.getHammer().add( (TheHammer)card);
+                            }else{
+                                  // botActive.getEnhancement().add( (Reinforcement)card);
+                                  // botActive.getHammer().add( (TheHammer)card);
+                            }*/
+           
             return true;
         }
         return false; //Purchase failed
     }
     
-    
-
 }
