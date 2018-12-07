@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class TheFort extends Card {
 
-    public TheFort(int amount) {
+    public TheFort() {
         this.name = "TheFort";
         this.gloryPoints = 0;
         this.type = "M";

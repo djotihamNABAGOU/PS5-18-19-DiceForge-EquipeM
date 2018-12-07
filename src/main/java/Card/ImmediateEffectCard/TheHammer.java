@@ -21,7 +21,7 @@ public class TheHammer extends Card {
     int GoldPoints = 0;       /* represente les 15 emplacements d'or pour le parcours */
     int uses = 2;             /* Nombres d'utilisation restantes */
 
-    public TheHammer(int amount) {
+    public TheHammer() {
         this.name = "TheHammer";
         this.gloryPoints = 0;
         this.type = "M";

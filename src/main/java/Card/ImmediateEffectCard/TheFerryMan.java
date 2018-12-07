@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class TheFerryMan extends Card {
 
-    public TheFerryMan(int amount) {
+    public TheFerryMan() {
         this.name = "TheFerryMan";
         this.gloryPoints = 12;
         this.type = "M";

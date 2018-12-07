@@ -20,7 +20,7 @@ public class TheCrazyGrassesTest {
 
     @Test
     public void actionCard() {
-         TheCrazyGrasses theCrazyGrasses = new TheCrazyGrasses(4);
+         TheCrazyGrasses theCrazyGrasses = new TheCrazyGrasses();
         engine.InitializingBots(bot);
         theCrazyGrasses.actionCard(temple,bot, 1,listFaces,listBot);
 

@@ -1,6 +1,10 @@
 package diceforge;
 
+import Card.AutomaticEffectCard.TheWildBoar;
+import Card.AutomaticEffectCard.TheGreatBear;
 import Card.Card;
+import Card.ImmediateEffectCard.*;
+import Card.ReinforcementEffectCard.*;
 import Faces.Sanctuary.GeneralFace;
 
 import Player.Bot;
@@ -11,10 +15,60 @@ public class Island {
     ArrayList<Card>[] cards;
 
     public Island() {
-        for(int i=0; i<7; i++){
+        for(int i=0; i<15; i++){
             this.cards[i] = new ArrayList<>();
         }
     }
+    
+    public void  initializeIsland(int numberOfBot){
+            if(numberOfBot==2) numberOfBot=4;
+            
+            /*Here we have the first to seventh gate for the main card*/
+            for(int i=0; i< numberOfBot; i++){ 
+              this.cards[0].add(new TheHammer()); //1st gate 
+              this.cards[1].add(new TheFort());
+              
+              this.cards[2].add(new TheClogs()); //2nd gate
+              this.cards[3].add(new TheSatyrs());
+              
+              this.cards[4].add(new TheFerryMan());  //3rd gate
+              this.cards[5].add(new TheInvisibilityHelmet());
+              
+              this.cards[6].add(new ThePliers());  //4th gate
+              this.cards[7].add(new TheHydra());
+              this.cards[8].add(new TheRiddle());
+              
+              this.cards[9].add(new TheAbyssallMirror()); //5th gate
+              this.cards[10].add(new TheJellyFish());
+              
+              this.cards[11].add(new TheMinotaur()); //6th gate
+              this.cards[12].add(new TheWingsOfTheGuardians()); 
+              
+              this.cards[13].add(new TheCrazyGrasses()); //7th gate
+              this.cards[14].add(new TheFormer()); 
+              
+            }
+            /*Here we have the first to seventh gate for the remplacement card*/
+            for(int i=0; i< numberOfBot; i++){
+               this.cards[2].add(new TheGreatBear()); //2nd gate
+               this.cards[4].add(new TheCerberus());  //3rd gate
+               this.cards[6].add(new TheSentinel()); //4th gate
+               this.cards[7].add(new TheTyphoon());
+               this.cards[8].add(new TheCyclops());
+               this.cards[9].add(new TheNewt()); //5th gate
+               this.cards[11].add(new TheShieldOfTheGuardian()); //6th gate
+               this.cards[12].add(new TheCelestialSail()); 
+               
+               
+             
+            }
+            this.cards[3].add(new TheWildBoar("green")); //2nd gate
+            this.cards[3].add(new TheWildBoar("yellow"));
+            this.cards[3].add(new TheWildBoar("brown"));
+            if(numberOfBot==4) this.cards[3].add(new TheWildBoar("blue"));
+          
+}
+       
     
     int portalOfThisBot(Bot bot){
         return bot.getMyPortal();
@@ -30,6 +84,8 @@ public class Island {
                    if(!botHunted.isActive() && botHunted.getMyPortal()==gate){
                        botHunted.justHuntedBotAct(action,favMin,temple,numBot,
                                botActive,data, bots);
+                       bot.hunterBotAct(action,favMin,temple,numBot,
+                               botActive,data, bots);
                        break;
                    }
                }
@@ -42,15 +98,20 @@ public class Island {
     
     public ArrayList<Card> availableCards(Card card){
         ArrayList<Card> result = new ArrayList<>();
-        for(int i=0; i<7; i++){
-            result.add(this.cards[i].get(0));
+        for(int i=0; i<14; i++){
+            if(!this.cards[i].isEmpty()){
+               result.add(this.cards[i].get(0)); 
+            }
+            
         }
         return result;
     }
     /*This Method tell us if a card*/
     public boolean cardIsAivalable(Card card){
-        for(int i=0; i<7; i++){
-           return this.cards[i].get(0).equals(card);
+        for(int i=0; i<15; i++){
+            if(this.cards[i].get(0)!=null){
+                 return this.cards[i].get(0).equals(card);
+            }
         }
         return false;
     }
@@ -64,13 +125,8 @@ public class Island {
               It seems that we can use the type of the card to identify the which listOfCards of the 
                 Bot is concerned
             */
-                            /*if(card instanceof TheHammer){
-                                 botActive.getHammer().add( (TheHammer)card);
-                            }else{
-                                  // botActive.getEnhancement().add( (Reinforcement)card);
-                                  // botActive.getHammer().add( (TheHammer)card);
-                            }*/
-           
+            /*Whatever this traitement is mooved to The Bot Strategy Class*/
+             
             return true;
         }
         return false; //Purchase failed

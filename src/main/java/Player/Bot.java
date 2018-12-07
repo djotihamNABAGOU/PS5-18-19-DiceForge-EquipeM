@@ -1,5 +1,6 @@
 package Player;
 
+import Card.Card;
 import Card.Reinforcement;
 import Card.ImmediateEffectCard.TheHammer;
 import Faces.Sanctuary.GeneralFace;
@@ -192,6 +193,29 @@ public class Bot {
         this.getFirstDice().rollDice().makeEffect(action, favMin, temple, numBot, this, data, listBot);
         this.getSecondDice().rollDice().makeEffect(action, favMin, temple, numBot, this, data, listBot);
         this.updateMyPortal(0); //This Bot  must return to the orginal portal
+        
+        //Use of fonctional method
+        /*
+         this.automaticCard.stream().filter((card) -> (card.getName().equals("TheGreatBear"))).forEachOrdered((card) -> {
+            card.capacity(temple, this, numBot, data, listBot);
+        });
+        */
+        for(Reinforcement card : this.automaticCard){
+            if(card.getName().equals("TheGreatBear")){
+                card.capacity(temple, this, numBot, data, listBot);
+            }
+        }
+    }
+    
+    /*Hunter bot must do some action-> they are implements here*/
+    public void hunterBotAct(int action,int favMin,Temple temple,int numBot,
+                               Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
+        
+      for(Reinforcement card : this.automaticCard){
+            if(card.getName().equals("TheGreatBear")){
+                card.capacity(temple, this, numBot, data, listBot);
+            }
+        }
     }
 
 

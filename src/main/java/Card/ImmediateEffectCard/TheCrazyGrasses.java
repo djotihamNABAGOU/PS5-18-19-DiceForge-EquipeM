@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class TheCrazyGrasses extends Card {
 
-     TheCrazyGrasses(int amount)   /* prend en parametre le nombre de joueurs */ {
+     public TheCrazyGrasses()   /* prend en parametre le nombre de joueurs */ {
         this.name = "TheCrazyGrasses";
         this.gloryPoints = 2;
         this.type = "S";
