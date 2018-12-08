@@ -189,5 +189,32 @@ public class SimpleFace extends GeneralFace {
     @Override
     public void initialize() { }
     
-  
+    @Override
+    public ArrayList<String> getProperties() {
+         ArrayList<String> myList= new ArrayList<>();
+         int gold = 0;
+         int sun = 0;
+         int moon = 0;
+         int glory = 0;
+         String mode = "Add";  
+         
+         switch(type){
+             case "G" : gold = value; 
+                        break;
+             case "S" : sun = value; 
+                        break;
+             case "M" : moon = value; 
+                        break;
+             case "Gl" : glory = value; 
+                        break;
+         }
+                        
+        myList.add(Integer.toString(gold));
+        myList.add(Integer.toString(sun));
+        myList.add(Integer.toString(moon));
+        myList.add(Integer.toString(glory));
+        myList.add("Add");
+         
+        return myList;
+    }
 }

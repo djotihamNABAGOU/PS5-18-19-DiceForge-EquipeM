@@ -5,7 +5,7 @@ import Card.AutomaticEffectCard.TheGreatBear;
 import Card.Card;
 import Card.ImmediateEffectCard.*;
 import Card.ReinforcementEffectCard.*;
-import Card.WithoutEffectCard.TheFerryMan;
+import Card.WithoutEffectCard.ThePasser;
 import Card.WithoutEffectCard.TheHydra;
 import Card.WithoutEffectCard.TheJellyFish;
 import Faces.Sanctuary.GeneralFace;
@@ -34,7 +34,7 @@ public class Island {
             this.cards[2].add(new TheClogs()); //2nd gate
             this.cards[3].add(new TheSatyrs());
 
-            this.cards[4].add(new TheFerryMan());  //3rd gate
+            this.cards[4].add(new ThePasser());  //3rd gate
             this.cards[5].add(new TheInvisibilityHelmet());
 
             this.cards[6].add(new ThePliers());  //4th gate

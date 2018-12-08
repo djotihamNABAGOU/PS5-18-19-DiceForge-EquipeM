@@ -5,6 +5,7 @@
  */
 package Faces.Sanctuary;
 
+import Card.ImmediateEffectCard.TheHammer;
 import Faces.Garden.ShieldOfTheGuardianFace;
 import Player.Bot;
 import diceforge.Temple;
@@ -116,4 +117,18 @@ public class GeneralFace {
         
     }
     
+    /*
+       Retourne les propriétés de la face sous la forme d'une arraylist dans cet ordre :
+       indice 0  ---> valeur d'or de la face  (0 S"il elle n"en procure pas)
+       indice 1  ---> valeur de Sun    (0 S"il elle n"en procure pas)
+       indice 2  ---> valeur de Moon   (0 S"il elle n"en procure pas)
+       indice 3  ---> valeur de glory  (0 S"il elle n"en procure pas)
+       indice 4  ---> "choice" ou "add" selon la carte
+    
+       Les faces spéciales eux retourneront une arraylist de taille == 1 qui contiendra le nom de la face
+       pr reconnaitre une face S --> verifier donc si la taille == 1
+    */
+    public ArrayList<String> getProperties() {
+        return new ArrayList<String>();
+    }
 }

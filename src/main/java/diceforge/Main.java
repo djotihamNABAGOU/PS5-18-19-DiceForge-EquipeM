@@ -20,7 +20,7 @@ public class Main {
     private static final Bot botThreeNothing = new Bot("Nothing");
     private static final Bot botFourNothing = new Bot("Advanced");
     //Création du moteur de jeu, du temple et de l'île
-    private static final Engine engine = new Engine(100, 10, numberOfBots);
+    private static final Engine engine = new Engine(1, 10, numberOfBots);
     private static final Temple temple = new Temple();
     private static final Island island = new Island();
 

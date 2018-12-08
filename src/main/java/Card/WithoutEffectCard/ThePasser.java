@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * { Par défaut cette carte n'appartient à "aucun effet" et ne fait que remporter des GloryPoints }
  */
 
-public class TheFerryMan extends Card {
+public class ThePasser extends Card {
 
-    public TheFerryMan() {
+    public ThePasser() {
         this.name = "TheFerryMan";
         this.gloryPoints = 12;
         this.type = "M";

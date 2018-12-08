@@ -85,4 +85,11 @@ public class GardenFace extends GeneralFace{
  
     @Override
     public void initialize() {}
+    
+    @Override
+    public ArrayList<String> getProperties() {
+        ArrayList<String> myList = new ArrayList<>();
+        myList.add(name);
+        return myList;
+    }
 }
