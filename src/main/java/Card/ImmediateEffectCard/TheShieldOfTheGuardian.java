@@ -24,7 +24,7 @@ public class TheShieldOfTheGuardian extends Card {
     }
 
     @Override
-    public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
+    public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, Bot... tabBot) {
         bot.getHerosInventory().IncreaseGloryPoints(gloryPoints);
         GardenFace myface = temple.takeGardenFace(this); //Recuperer la face correspondante du temple
         GeneralFace face = myface;   // La mettre dans generalFace

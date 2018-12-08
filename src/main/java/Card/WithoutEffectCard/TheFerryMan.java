@@ -1,4 +1,4 @@
-package Card.ImmediateEffectCard;
+package Card.WithoutEffectCard;
 
 import Card.Card;
 import Faces.Sanctuary.GeneralFace;
@@ -25,7 +25,7 @@ public class TheFerryMan extends Card {
     }
 
     @Override
-    public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
+    public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, Bot... tabBot) {
         bot.getHerosInventory().IncreaseGloryPoints(12);
     }
 

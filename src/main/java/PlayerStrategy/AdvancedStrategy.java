@@ -1,6 +1,7 @@
 package PlayerStrategy;
 
 import Card.Card;
+import Card.Reinforcement;
 import Faces.Sanctuary.GeneralFace;
 import Faces.Sanctuary.SanctuarysFaces;
 import Faces.Sanctuary.SimpleFace;
@@ -31,7 +32,7 @@ public class AdvancedStrategy extends Strategy {
 
             //1->Le bot avancé appelle forcément ses renforts
             if (supActionDone == false) {//on ne doit pas appeler des renforts lors d'une action sup
-                if (bot.getEnhancementCard().size() != 0) {
+                if (bot.getReinforcementCard().size() != 0) {
                     System.out.println("\t->ENHANCEMENT<-");
                     //il les active dans l'ordre de son choix, et donc ici, il analyse le meilleur ordre
                     callTheReinforcements(temple, bot, numberOfTheBot, listFaces, data);
@@ -85,10 +86,10 @@ public class AdvancedStrategy extends Strategy {
                         System.out.println("*ACTION OF BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
                     else System.out.println("**SUP ACTION FOR BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
 
-                    Card card = new Card();
+                    Card card;
                     if (!(card = bestCardToBuy(potentialCardsToBuy)).getName().equals("")) {
-                        if (island.buyCard(card)) {
-                            feat(card);
+                        if (island.buyCard(card, temple, numberOfTheBot, listFaces, data)) {
+                            feat(card, temple, bot, numberOfTheBot, listFaces, data);
                             if (card.getType().equals("M")) bot.getHerosInventory().DecreaseMoonPoints(card.getPrice());
                             if (card.getType().equals("S")) bot.getHerosInventory().DecreaseSunPoints(card.getPrice());
                             if (card.getType().equals("M+S")) {
@@ -123,7 +124,7 @@ public class AdvancedStrategy extends Strategy {
 
     public void callTheReinforcements(Temple temple, Bot bot, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces, Bot... data) {
         //ici, il faut privilégier les points de gloire
-        int size = bot.getEnhancementCard().size();
+        int size = bot.getReinforcementCard().size();
         if (size == 3) {
             /*il possède alors les 3 cartes de renforcement, on appliquera en dernier <l'ancien> car
             permet de remporter 4 points de gloire, et pour maximiser les chances de l'avoir,
@@ -131,10 +132,10 @@ public class AdvancedStrategy extends Strategy {
              */
             int theFormerIndex = 0;
             for (int i = 0; i < size; i++) {
-                if (bot.getEnhancementCard().get(i).getName().equals("TheFormer")) theFormerIndex = i;
-                else bot.getEnhancementCard().get(i).capacity(temple, bot, numberOfTheBot, listFaces, data);
+                if (bot.getReinforcementCard().get(i).getName().equals("TheFormer")) theFormerIndex = i;
+                else bot.getReinforcementCard().get(i).capacity(temple, bot, numberOfTheBot, listFaces, data);
             }
-            bot.getEnhancementCard().get(theFormerIndex).capacity(temple, bot, numberOfTheBot, listFaces, data);
+            bot.getReinforcementCard().get(theFormerIndex).capacity(temple, bot, numberOfTheBot, listFaces, data);
         }
     }
 
@@ -228,7 +229,27 @@ public class AdvancedStrategy extends Strategy {
     /************************************************************************************************/
     /*********************       METHODES CONCERNANT L'EXPLOIT         ******************************/
     /***********************************************************************************************/
-    private void feat(Card card) {
+    private void feat(Card card, Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, Bot... tabBot) {
+
+        switch (card.getType()) {
+            case "R":
+                Reinforcement reinforcement = (Reinforcement) card;
+                bot.addReinforcementEffectCard(reinforcement);
+                break;
+            case "A":
+                Reinforcement automatic = (Reinforcement) card;
+                bot.addAutomaticEffectCard(automatic);
+                break;
+            case "I"://il applique son effet puis il la range dans sa pile de cartes à effet immédiats
+                card.actionCard(temple, bot, numBot, listFaces, tabBot);
+                bot.addImmediateEffectCard(card);
+                break;
+            case "NULL":
+                bot.addWithoutEffectCard(card);
+                break;
+            default:
+                System.out.println("Unknown type of card !!!");
+        }
     }
 
     private ArrayList<Card> potentialCardsToBuy(Bot bot, Island island) {
@@ -254,7 +275,7 @@ public class AdvancedStrategy extends Strategy {
                     }
                     break;
                 default:
-                    System.out.println("Unkown type of price's card");
+                    System.out.println("Unknown type of price's card");
             }
         }
         return potentialCardsToBuy;
@@ -293,8 +314,7 @@ public class AdvancedStrategy extends Strategy {
                             }
 
                         } else bestIndex = a;
-                    }
-                    if (potentialCardsToBuy.get(a).getTypeCard().equals("A")) {
+                    } else if (potentialCardsToBuy.get(a).getTypeCard().equals("A")) {
                         if (!potentialCardsToBuy.get(bestIndex).getTypeCard().equals("R")) {
                             if (potentialCardsToBuy.get(bestIndex).getTypeCard().equals("A")) {
                                 if (potentialCardsToBuy.get(bestIndex).getType().equals("S")) {
@@ -308,8 +328,8 @@ public class AdvancedStrategy extends Strategy {
 
                             } else bestIndex = a;
                         }
-                    }
-                    if (potentialCardsToBuy.get(a).getTypeCard().equals("I")) {
+                    } else if (potentialCardsToBuy.get(a).getTypeCard().equals("I")) {
+                        System.out.println(bestIndex);
                         if (!potentialCardsToBuy.get(bestIndex).getTypeCard().equals("R") && !potentialCardsToBuy.get(bestIndex).getTypeCard().equals("A")) {
                             if (potentialCardsToBuy.get(bestIndex).getTypeCard().equals("I")) {
                                 if (potentialCardsToBuy.get(bestIndex).getType().equals("S")) {
@@ -322,8 +342,7 @@ public class AdvancedStrategy extends Strategy {
                                 }
                             } else bestIndex = a;
                         }
-                    }
-                    if (potentialCardsToBuy.get(a).getTypeCard().equals("NULL")) {
+                    } else if (potentialCardsToBuy.get(a).getTypeCard().equals("NULL")) {
                         if (!potentialCardsToBuy.get(bestIndex).getTypeCard().equals("R") && !potentialCardsToBuy.get(bestIndex).getTypeCard().equals("A") && !potentialCardsToBuy.get(bestIndex).getTypeCard().equals("I")) {
                             if (potentialCardsToBuy.get(bestIndex).getTypeCard().equals("NULL")) {
                                 if (potentialCardsToBuy.get(bestIndex).getType().equals("S")) {

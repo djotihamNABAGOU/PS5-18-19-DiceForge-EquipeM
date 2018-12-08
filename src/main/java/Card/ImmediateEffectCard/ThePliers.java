@@ -23,13 +23,9 @@ public class ThePliers extends Card {
     }
 
     @Override
-    public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
+    public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, Bot... tabBot) {
         bot.getHerosInventory().IncreaseGloryPoints(gloryPoints);
         /* Pour chacun des 2 des du joueur, le lancent 2 fois et MAJ de l'inventaire */
-        Bot[] tabBot = new Bot[listBot.size()];
-        for (int b = 0; b < listBot.size(); b++) {
-            tabBot[b] = listBot.get(b);
-        }
 
         for (int a = 0; a < 2; a++) {
             GeneralFace one = bot.getFirstDice().rollDice();

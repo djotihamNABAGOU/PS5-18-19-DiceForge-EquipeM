@@ -22,27 +22,22 @@ public class TheMinotaur extends Card {
     }
 
     @Override
-    public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
+    public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, Bot... tabBot) {
         bot.getHerosInventory().IncreaseGloryPoints(6);
 
         //Lancer des dés par les autres joueurs et remplacements des faces dans la liste
-        for (int a = 0; a < listBot.size(); a++) {
+        for (int a = 0; a < tabBot.length; a++) {
             if (a != numBot) {  // le joueur lui ne relance plus
-                GeneralFace one = listBot.get(a).getFirstDice().rollDice();
-                GeneralFace two = listBot.get(a).getSecondDice().rollDice();
+                GeneralFace one = tabBot[a].getFirstDice().rollDice();
+                GeneralFace two = tabBot[a].getSecondDice().rollDice();
                 listFaces[a].set(0, one); // changement par la nouvelle face
                 listFaces[a].set(1, two); // changement par la nouvelle face
             }
         }
 
-        Bot[] tabBot = new Bot[listBot.size()];
-        for (int b = 0; b < listBot.size(); b++) {
-            tabBot[b] = listBot.get(b);
-        }
-
         //Appliquer enfin l'effet des faces pour les autres joeurs seulement
         // Seul cas oû on decremente ---> int action = 1
-        for (int a = 0; a < listBot.size(); a++) {
+        for (int a = 0; a < tabBot.length; a++) {
             if (a != numBot) {
                 listFaces[a].get(0).makeEffect(1, 1, temple, numBot, bot, listFaces, tabBot);
                 listFaces[a].get(1).makeEffect(1, 1, temple, numBot, bot, listFaces, tabBot);

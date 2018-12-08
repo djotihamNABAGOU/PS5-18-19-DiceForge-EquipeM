@@ -23,7 +23,7 @@ public class TheNewtTest {
     @Test
     public void actionCard() {
         engine.InitializingBots(bot);
-        theNewt.actionCard(temple,bot, 1,listFaces,listBot);
+        theNewt.actionCard(temple,bot, 1,listFaces,tabbot);
 
         assertEquals(8,bot.getHerosInventory().getGloryPoints());
         assertEquals(1,bot.getHerosInventory().tokenNewt);

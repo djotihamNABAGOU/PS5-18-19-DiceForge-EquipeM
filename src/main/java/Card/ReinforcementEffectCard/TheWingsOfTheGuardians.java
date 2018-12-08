@@ -29,7 +29,7 @@ public class TheWingsOfTheGuardians extends Reinforcement {
     }
 
     @Override
-    public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
+    public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, Bot... tabBot) {
         bot.getHerosInventory().IncreaseGloryPoints(4);
     }
 

@@ -15,8 +15,7 @@ public class TheFormerTest {
     private Engine engine = new Engine(0,0,1);
     private Bot bot = new Bot("");
     private ArrayList<GeneralFace>[] listFaces = new ArrayList[6];
-    private ArrayList<Bot> listBot = new ArrayList<>();
-    private Bot tabbot[] = new Bot[4];
+    private Bot tabBot[] = new Bot[4];
     private TheFormer theFormer = new TheFormer();
 
     @Test
@@ -27,7 +26,7 @@ public class TheFormerTest {
     @Test
     public void capacity() {
         engine.InitializingBots(bot);
-        theFormer.capacity(temple,bot,1,listFaces,tabbot);
+        theFormer.capacity(temple,bot,1,listFaces,tabBot);
         assertTrue(bot.getHerosInventory().getGloryPoints()==4);
         assertTrue(bot.getHerosInventory().getGoldPoints()==0);
 

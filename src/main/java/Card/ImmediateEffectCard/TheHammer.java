@@ -31,7 +31,7 @@ public class TheHammer extends Card {
     }
 
     @Override
-    public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
+    public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, Bot... tabBot) {
         bot.getHerosInventory().tokenHammer = bot.getHerosInventory().tokenHammer + 1;   /* procure un jeton marteau */
     }
 

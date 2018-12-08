@@ -31,7 +31,7 @@ public class RandomStrategy extends Strategy {
             int choice = random.nextInt(2); // 0 pour oui et 1 pour non
             if (supActionDone == false) {//on ne doit pas appeler des renforts lors d'une action sup
                 if (choice == 0) {
-                    if (bot.getEnhancementCard().size() != 0) {
+                    if (bot.getReinforcementCard().size() != 0) {
                         System.out.println("\t->ENHANCEMENT<-");
                         //il les active dans l'ordre de son choix, et donc ici, dans un ordre aléatoire
                         callTheReinforcements(temple, bot, numberOfTheBot, listFaces, data);
@@ -132,13 +132,13 @@ public class RandomStrategy extends Strategy {
     @Override
     public void callTheReinforcements(Temple temple, Bot bot, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces, Bot... data){
         Random random = new Random();
-        int size = bot.getEnhancementCard().size();
+        int size = bot.getReinforcementCard().size();
         int i = size;
         int last = 0, toGet = 0;
         while (i != 0) {
             toGet = random.nextInt(size);
             if (toGet != last) {
-                bot.getEnhancementCard().get(toGet).capacity(temple, bot, numberOfTheBot, listFaces, data);
+                bot.getReinforcementCard().get(toGet).capacity(temple, bot, numberOfTheBot, listFaces, data);
                 last = toGet;
                 i--;
             }

@@ -24,7 +24,7 @@ public class TheTyphoon extends Card {
     }
 
     @Override
-    public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
+    public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, Bot... tabBot) {
         int nb = bot.getRemovedFaces().size();
         bot.getHerosInventory().IncreaseGloryPoints(16 + (1 * nb));
     }

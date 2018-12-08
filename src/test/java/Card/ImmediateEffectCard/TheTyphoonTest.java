@@ -16,7 +16,7 @@ public class TheTyphoonTest {
     private Bot bot1 = new Bot("");
     private Bot bot2 = new Bot ("");
     private ArrayList<GeneralFace>[] listFaces = new ArrayList[6];
-    private ArrayList<Bot> listBot = new ArrayList<>();
+    private Bot tabBot[] = new Bot[2];
     private TheTyphoon theTyphoon = new TheTyphoon();
     private Bot tabbot[] = new Bot[4];
 
@@ -24,10 +24,10 @@ public class TheTyphoonTest {
     public void actionCard() {
         engine.InitializingBots(bot1,bot2);
         int nb1 = bot1.getRemovedFaces().size();
-        theTyphoon.actionCard(temple,bot1, 1,listFaces,listBot);
+        theTyphoon.actionCard(temple,bot1, 1,listFaces,tabBot);
         bot2.getRemovedFaces().add(new GeneralFace());
         int nb2 = bot2.getRemovedFaces().size();
-        theTyphoon.actionCard(temple,bot2,1,listFaces,listBot);
+        theTyphoon.actionCard(temple,bot2,1,listFaces,tabBot);
 
 
         //test1

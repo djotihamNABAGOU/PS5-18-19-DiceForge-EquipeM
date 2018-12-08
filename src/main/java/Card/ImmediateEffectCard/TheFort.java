@@ -24,7 +24,7 @@ public class TheFort extends Card {
     }
 
     @Override
-    public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
+    public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, Bot... tabBot) {
         bot.getHerosInventory().goldPointsLimit = bot.getHerosInventory().goldPointsLimit + 4;
         bot.getHerosInventory().moonPointsLimit = bot.getHerosInventory().moonPointsLimit + 4;
         bot.getHerosInventory().sunPointsLimit = bot.getHerosInventory().sunPointsLimit + 4;

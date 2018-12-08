@@ -73,7 +73,7 @@ public class WildBoardFace extends GardenFace{
             for(int z=0;z<listBot.length;z++){
                 // Parcours des cartes à effets automatiques des autres joueurs
                 if(z!=numBot){
-                    ArrayList<Reinforcement> automatic = listBot[z].getEnhancementCard();
+                    ArrayList<Reinforcement> automatic = listBot[z].getReinforcementCard();
                     for(int base = 0;base<automatic.size();base++){
                         if(automatic.get(base).equals(this.getCard())){ 
                             listBot[z].getAutomaticCard().get(base).capacity(temple, listBot[z], z, data, listBot);
@@ -125,7 +125,7 @@ public class WildBoardFace extends GardenFace{
             for(int z=0;z<listBot.length;z++){
                 // Parcours des cartes à effets automatiques des autres joueurs
                 if(z!=numBot){
-                    ArrayList<Reinforcement> automatic = listBot[z].getEnhancementCard();
+                    ArrayList<Reinforcement> automatic = listBot[z].getReinforcementCard();
                     for(int base = 0;base<automatic.size();base++){
                         if(automatic.get(base).equals(this.getCard())){ 
                             listBot[z].getAutomaticCard().get(base).capacity(temple, listBot[z], z, data, listBot);

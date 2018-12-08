@@ -63,30 +63,30 @@ public class Engine {
             a = a + 1;
         }  // Après la boucle, les faces obtenues sont stockÃ©es respectivement dans la liste
         a = 0;
-        
+
         // Utilisé pour répéter l"action des 2 faces , cas jeton cerbers
-        int rep = 0; 
+        int rep = 0;
 
         while (a < data.length) {
             System.out.println("-------->ROLL OF BOT " + (a + 1));
             if (data[a].isActive()) System.out.println("I'm active!");
-            int val1 =  listFaces[a].get(0).makeEffect(0, 1, temple, a, data[a], listFaces, data);
+            int val1 = listFaces[a].get(0).makeEffect(0, 1, temple, a, data[a], listFaces, data);
             int val2 = listFaces[a].get(1).makeEffect(0, 1, temple, a, data[a], listFaces, data);
-            
-            if(data[a].getHerosInventory().tokenCerberus>0){
-                
-                rep = data[a].getStrategy().useTokenCerberus(val1,val2); 
-                if(rep==1){
+
+            if (data[a].getHerosInventory().tokenCerberus > 0) {
+
+                rep = data[a].getStrategy().useTokenCerberus(val1, val2);
+                if (rep == 1) {
                     listFaces[a].get(0).makeEffect(0, 1, temple, a, data[a], listFaces, data);
                     listFaces[a].get(1).makeEffect(0, 1, temple, a, data[a], listFaces, data);
                 }
             }
-            
-            data[a].getStrategy().apply(temple, island,a+1, listFaces, data);
+
+            data[a].getStrategy().apply(temple, island, a + 1, listFaces, data);
             a = a + 1;
         }
-        
-        for(Bot bot : data){
+
+        for (Bot bot : data) {
             bot.getFirstDice().resetFace();
             bot.getSecondDice().resetFace();
         }
@@ -101,7 +101,7 @@ public class Engine {
     private void makeSets(Temple temple, Island island, Bot... data) {
         for (int a = 0; a < this.set; a++) {
             System.out.println("---------------SET " + (a + 1) + "---------------\n");
-            RollOneTime(temple, island,a + 1, data);
+            RollOneTime(temple, island, a + 1, data);
             System.out.println();
             System.out.println("---------------STATE AFTER " + (a + 1) + " SET---------------");
             for (int i = 0; i < data.length; i++) {
@@ -112,57 +112,90 @@ public class Engine {
             System.out.println("\n");
             //Changement du joueur actif
             boolean findActiveBot = false;
-            for (int i=0;i<data.length;i++) {
-                if (findActiveBot ){        //le précédent était donc actif, il ne l'est plus
+            for (int i = 0; i < data.length; i++) {
+                if (findActiveBot) {        //le précédent était donc actif, il ne l'est plus
                     data[i].setActive(true);//il devient le nouveau joueur actif
                     break;
                 }
-                if (data[i].isActive()){
+                if (data[i].isActive()) {
                     findActiveBot = true;//On a trouvé le joueur actif
-                    if (i == (data.length-1)) data[0].setActive(true);//si on est sur le dernier joueur, on active le 1er
+                    if (i == (data.length - 1))
+                        data[0].setActive(true);//si on est sur le dernier joueur, on active le 1er
                     data[i].setActive(false);//il redevient inactif, le bot suivant sera alors actif
                 }
             }
         }
     }
 
-        /**
+    /**
      * Méthode permettant de déterminer le gagnant d'une partie
      *
      * @param data
      */
     private void tellMeTheWinnerOfRound(Bot... data) {
-                
-        int winnerGloryPoints = 0;  
-        for(int i=0;i<data.length;i++){
-            if(data[i].getHerosInventory().getGloryPoints()>winnerGloryPoints){
-               winnerGloryPoints = data[i].getHerosInventory().getGloryPoints();
+
+        /**à la fin de d'une partie, on comptabilise les points de gloire obtenus en tenant compte de ceux octroyés
+         * par les cartes que possèdent le joueur
+         */
+        for (Bot bot : data) {
+            bot.finalGloryPoints = bot.getHerosInventory().getGloryPoints();
+            int size;
+            //Points de gloire des cartes de renforcement
+            if ((size = bot.getReinforcementCard().size()) != 0) {
+                for (int i = 0; i < size; i++) {
+                    bot.finalGloryPoints += bot.getReinforcementCard().get(i).getGloryPoints();
+                }
+            }
+            //Points de gloire des cartes automatiques
+            if ((size = bot.getAutomaticCard().size()) != 0) {
+                for (int i = 0; i < size; i++) {
+                    bot.finalGloryPoints += bot.getAutomaticCard().get(i).getGloryPoints();
+                }
+            }
+            //Points de gloire des cartes à effet immédiat
+            if ((size = bot.getImmediateCard().size()) != 0) {
+                for (int i = 0; i < size; i++) {
+                    bot.finalGloryPoints += bot.getImmediateCard().get(i).getGloryPoints();
+                }
+            }
+            //Points de gloire des cartes sans effet
+            if ((size = bot.getWithoutEffectCard().size()) != 0) {
+                for (int i = 0; i < size; i++) {
+                    bot.finalGloryPoints += bot.getWithoutEffectCard().get(i).getGloryPoints();
+                }
             }
         }
 
-        //Stocke la liste de tous les bots qui ont le nombre de points gagnants
-        ArrayList<Integer> listIndice = new ArrayList<>();  
-        for(int i=0;i<data.length;i++){
-            if(data[i].getHerosInventory().getGloryPoints()==winnerGloryPoints){
-               listIndice.add(i);
+        int winnerGloryPoints = 0;
+        for (int i = 0; i < data.length; i++) {
+            if (data[i].finalGloryPoints > winnerGloryPoints) {
+                winnerGloryPoints = data[i].finalGloryPoints;
             }
         }
 
-        if (listIndice.size() == 1){    
-           System.out.println("Winner for the round, Bot " + (listIndice.get(0)+1)); 
-           System.out.println("Congratulations Bot " + (listIndice.get(0)+1) + " !");
-           data[listIndice.get(0)].wonRounds++;     
-        }else if(listIndice.size()==2){     
-           System.out.println("We have 2 winners for the round, Bot " + (listIndice.get(0)+1) + " and Bot " + (listIndice.get(1)+1) + ".");
-           data[listIndice.get(0)].wonRounds++;
-           data[listIndice.get(1)].wonRounds++;   
-        }else if(listIndice.size() == 3){  
-           System.out.println("We have 3 winners for the round, Bot " + (listIndice.get(0)+1) + ", Bot " + (listIndice.get(1)+1) + " and Bot " + (listIndice.get(2)+1) + ".");
-           data[listIndice.get(0)].wonRounds++;
-           data[listIndice.get(1)].wonRounds++;
-           data[listIndice.get(2)].wonRounds++;  
-        }else {
-           System.out.println("It's a tie, No winner for the round!");
+        //Stocke la liste de tous les bots qui ont le même nombre de points gagnants
+        ArrayList<Integer> listIndice = new ArrayList<>();
+        for (int i = 0; i < data.length; i++) {
+            if (data[i].finalGloryPoints == winnerGloryPoints) {
+                listIndice.add(i);
+            }
+        }
+
+        if (listIndice.size() == 1) {
+            System.out.println("Winner for the round, Bot " + (listIndice.get(0) + 1));
+            System.out.println("Congratulations Bot " + (listIndice.get(0) + 1) + " !");
+            data[listIndice.get(0)].wonRounds++;
+        } else if (listIndice.size() == 2) {
+            System.out.println("We have 2 winners for the round, Bot " + (listIndice.get(0) + 1) + " and Bot " + (listIndice.get(1) + 1) + ".");
+            data[listIndice.get(0)].wonRounds++;
+            data[listIndice.get(1)].wonRounds++;
+        } else if (listIndice.size() == 3) {
+            System.out.println("We have 3 winners for the round, Bot " + (listIndice.get(0) + 1) + ", Bot " + (listIndice.get(1) + 1) + " and Bot " + (listIndice.get(2) + 1) + ".");
+            data[listIndice.get(0)].wonRounds++;
+            data[listIndice.get(1)].wonRounds++;
+            data[listIndice.get(2)].wonRounds++;
+        } else {
+            System.out.println("It's a tie, No winner for the round!");
         }
     }
 
@@ -170,7 +203,7 @@ public class Engine {
      * Méthode permettant de déterminer le gagnant du jeu
      */
     private void tellMeTheWinnerOfTheGame(Bot... data) {
-      
+
         int winnerWonRounds = 0;
         System.out.println("**********Results*********");
         for (int i = 0; i < data.length; i++) {
@@ -180,22 +213,22 @@ public class Engine {
             }
         }
         //Stocke la liste de tous les bots qui ont le même ratio gagnant
-        ArrayList<Integer> listIndice = new ArrayList<>();  
-        for(int i=0;i<data.length;i++){
-            if(data[i].wonRounds == winnerWonRounds){
-               listIndice.add(i);
+        ArrayList<Integer> listIndice = new ArrayList<>();
+        for (int i = 0; i < data.length; i++) {
+            if (data[i].wonRounds == winnerWonRounds) {
+                listIndice.add(i);
             }
-        }  
-        if (listIndice.size() == 1) {      
-           System.out.println("Congratulations Bot " + (listIndice.get(0)+1) + " !");
-        }else if(listIndice.size()==2){     
-           System.out.println("We have 2 winners.");
-           System.out.println("Equality between Bot " + (listIndice.get(0)+1) + " and Bot " + (listIndice.get(1)+1) + ". Congratulations!");
-        }else if(listIndice.size() == 3){       
-           System.out.println("We have 3 winners.");
-           System.out.println("Equality between Bot " + (listIndice.get(0)+1) + ", Bot " + (listIndice.get(1)+1) + " and Bot " + (listIndice.get(2)+1) + ". Congratulations!");
-        }else {
-           System.out.println("It's a tie, No winner !");
+        }
+        if (listIndice.size() == 1) {
+            System.out.println("Congratulations Bot " + (listIndice.get(0) + 1) + " !");
+        } else if (listIndice.size() == 2) {
+            System.out.println("We have 2 winners.");
+            System.out.println("Equality between Bot " + (listIndice.get(0) + 1) + " and Bot " + (listIndice.get(1) + 1) + ". Congratulations!");
+        } else if (listIndice.size() == 3) {
+            System.out.println("We have 3 winners.");
+            System.out.println("Equality between Bot " + (listIndice.get(0) + 1) + ", Bot " + (listIndice.get(1) + 1) + " and Bot " + (listIndice.get(2) + 1) + ". Congratulations!");
+        } else {
+            System.out.println("It's a tie, No winner !");
         }
     }
 

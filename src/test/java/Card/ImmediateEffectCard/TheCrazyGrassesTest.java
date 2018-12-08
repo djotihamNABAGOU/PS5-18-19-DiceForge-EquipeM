@@ -16,13 +16,13 @@ public class TheCrazyGrassesTest {
     private Engine engine = new Engine(0,0,1);
     private Bot bot = new Bot("");
     private ArrayList<GeneralFace>[] listFaces = new ArrayList[6];
-    private ArrayList<Bot> listBot = new ArrayList<>();
+    private Bot tabBot[] = new Bot[1];
 
     @Test
     public void actionCard() {
          TheCrazyGrasses theCrazyGrasses = new TheCrazyGrasses();
         engine.InitializingBots(bot);
-        theCrazyGrasses.actionCard(temple,bot, 1,listFaces,listBot);
+        theCrazyGrasses.actionCard(temple,bot, 1,listFaces,tabBot);
 
         int gloryinit =0 ;
         int suninit = 1;

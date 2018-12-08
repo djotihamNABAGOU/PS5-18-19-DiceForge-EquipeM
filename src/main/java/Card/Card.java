@@ -27,7 +27,7 @@ public class Card {
     }
 
     // voir commentaire sur les parametres dans la classe "GeneralFaces"
-    protected void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, ArrayList<Bot> listBot) {
+    public void actionCard(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, Bot... tabBot) {
     }
 
     public int getPortal(){

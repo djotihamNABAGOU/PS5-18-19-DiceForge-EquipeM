@@ -24,10 +24,13 @@ public class Bot {
     private final Strategy strategy;//stratégie du joueur durant tout le déroulement du jeu
     private String strategyName;
     private boolean active = false;
-    private final ArrayList<Reinforcement> enhancementCard = new ArrayList<>();   /* Liste des cartes de renfort en possession du joueur */
+    private ArrayList<Reinforcement> reinforcementCard = new ArrayList<>();   /* Liste des cartes de renfort en possession du joueur */
     private ArrayList<TheHammer> hammerCard = new ArrayList<>();   /* Liste des cartes marteaux en possession du joueur */
-    private ArrayList<Reinforcement> automaticCard = new ArrayList<>();   /* Liste des cartes Ã  effets automatiques en possession du joueur */
-    public int wonRounds;
+    private ArrayList<Reinforcement> automaticCard = new ArrayList<>();   /* Liste des cartes à  effet automatique en possession du joueur */
+    private ArrayList<Card> immediateCard = new ArrayList<>();   /* Liste des cartes à  effet immédiat en possession du joueur */
+    private ArrayList<Card> withoutEffectCard = new ArrayList<>();   /* Liste des cartes à  sans effet en possession du joueur */
+    public int wonRounds;//nombre de parties gagnées par le bot, public car c'est le moteur de jeu qui lui confère cela
+    public int finalGloryPoints;//nombre de points de gloire acquis en fin de partie
     private int portal;          /* 1,2,3,4,5,6,7  values of the gate in Island
                                    0 is the default value i.e. the bot is on orginal gate
                                     This value must be update when the bot move on a gate */
@@ -38,7 +41,7 @@ public class Bot {
         herosInventory = new HerosInventory();
         RemovedFaces = new ArrayList<>();
         this.strategyName = strategyName;
-        this.portal =0; /*Bot is on the default gate at the beginning*/
+        this.portal = 0; /*Bot is on the default gate at the beginning*/
         switch (strategyName) {
 
             case "Random":
@@ -59,19 +62,10 @@ public class Bot {
         }
         this.wonRounds = 0;
     }
-    
-    public ArrayList<TheHammer> getHammer(){
+
+    public ArrayList<TheHammer> getHammer() {
         return this.hammerCard;
     }
-    
-    public ArrayList<Reinforcement> getEnhancement(){
-        return this.enhancementCard;
-    }
-    
-    public ArrayList<Reinforcement> getAutomatics(){
-        return this.automaticCard;
-    }
-    
 
     public HerosInventory getHerosInventory() {
         return herosInventory;
@@ -93,6 +87,14 @@ public class Bot {
         return automaticCard;
     }
 
+    public ArrayList<Card> getImmediateCard() {
+        return immediateCard;
+    }
+
+    public ArrayList<Card> getWithoutEffectCard() {
+        return withoutEffectCard;
+    }
+
     public void printDiceState() {
         System.out.println("------First Dice-------");
         System.out.println(firstDice.toString());
@@ -110,7 +112,6 @@ public class Bot {
                 + "\n";
     }
 
-    
 
     /* permet au joueur d'utiliser un de ses jetons cerbères */
     /* Les paramètres seront les faces obtenues par le joueur après son lancer */
@@ -144,12 +145,12 @@ public class Bot {
         this.active = active;
     }
 
-    public ArrayList<Reinforcement> getEnhancementCard() {
-        return enhancementCard;
+    public ArrayList<Reinforcement> getReinforcementCard() {
+        return reinforcementCard;
     }
 
-    public void useNewtToken() {  
-        int number  = this.getStrategy().giveMeTokenResource();  // Ressource choisie par le joueur  
+    public void useNewtToken() {
+        int number = this.getStrategy().giveMeTokenResource();  // Ressource choisie par le joueur
         if (this.herosInventory.tokenNewt >= 1) {
             switch (number) {
                 case 0:
@@ -159,17 +160,18 @@ public class Bot {
                     this.herosInventory.IncreaseSunPoints(2);
                     break;
                 case 2: {
-                          int winnerGoldPoints = 6;
-                          if(this.hammerCard.size()>0){
-                              winnerGoldPoints = this.strategy.applyHammerStrategy(6);
-                          }
-                          this.herosInventory.IncreaseGoldPoints(winnerGoldPoints);
-                        }break;          
+                    int winnerGoldPoints = 6;
+                    if (this.hammerCard.size() > 0) {
+                        winnerGoldPoints = this.strategy.applyHammerStrategy(6);
+                    }
+                    this.herosInventory.IncreaseGoldPoints(winnerGoldPoints);
+                }
+                break;
             }
             this.herosInventory.tokenNewt = this.herosInventory.tokenNewt - 1;
         }
     }
-    
+
     //Lancer un dÃ© au choix prÃ©defini
     public Faces.Sanctuary.GeneralFace rollOneDice(int a) {
 
@@ -182,46 +184,63 @@ public class Bot {
                 return this.getFirstDice().rollDice();
         }
     }
-    
-    
-    public void updateMyPortal(int gate){
-        this.portal=gate;
+
+
+    public void updateMyPortal(int gate) {
+        this.portal = gate;
     }
-    public int getMyPortal(){
+
+    public int getMyPortal() {
         return this.portal;
     }
-    
+
     /*Hunted bot must do some action-> they are implements here*/
-    public void justHuntedBotAct(int action,int favMin,Temple temple,int numBot,
-                               Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
-         
-        this.getFirstDice().rollDice().makeEffect(action, favMin, temple, numBot, this, data, listBot);
-        this.getSecondDice().rollDice().makeEffect(action, favMin, temple, numBot, this, data, listBot);
+    public void justHuntedBotAct(Temple temple, int numBot, ArrayList<GeneralFace>[] data, Bot... listBot) {
+
+        this.getFirstDice().rollDice().makeEffect(0, 1, temple, numBot, this, data, listBot);
+        this.getSecondDice().rollDice().makeEffect(0, 1, temple, numBot, this, data, listBot);
         this.updateMyPortal(0); //This Bot  must return to the orginal portal
-        
+
         //Use of fonctional method
         /*
          this.automaticCard.stream().filter((card) -> (card.getName().equals("TheGreatBear"))).forEachOrdered((card) -> {
             card.capacity(temple, this, numBot, data, listBot);
         });
         */
-        for(Reinforcement card : this.automaticCard){
-            if(card.getName().equals("TheGreatBear")){
+        for (Reinforcement card : this.automaticCard) {
+            if (card.getName().equals("TheGreatBear")) {
+                card.capacity(temple, this, numBot, data, listBot);
+            }
+        }
+    }
+
+    /*Hunter bot must do some action-> they are implements here*/
+    public void hunterBotAct(Temple temple, int numBot, ArrayList<GeneralFace>[] data, Bot... listBot) {
+
+        for (Reinforcement card : this.automaticCard) {
+            if (card.getName().equals("TheGreatBear")) {
                 card.capacity(temple, this, numBot, data, listBot);
             }
         }
     }
     
-    /*Hunter bot must do some action-> they are implements here*/
-    public void hunterBotAct(int action,int favMin,Temple temple,int numBot,
-                               Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
-        
-      for(Reinforcement card : this.automaticCard){
-            if(card.getName().equals("TheGreatBear")){
-                card.capacity(temple, this, numBot, data, listBot);
-            }
-        }
+    public void addImmediateEffectCard(Card card){
+        if (card != null) immediateCard.add(card);
+        else System.out.println("Null Immediate Effect Card affected !");
     }
 
+    public void addAutomaticEffectCard(Reinforcement card){
+        if (card != null) automaticCard.add(card);
+        else System.out.println("Null Automatic Effect Card affected !");
+    }
 
+    public void addReinforcementEffectCard(Reinforcement card){
+        if (card != null) reinforcementCard.add(card);
+        else System.out.println("Null Immediate Effect Card affected !");
+    }
+
+    public void addWithoutEffectCard(Card card){
+        if (card != null) withoutEffectCard.add(card);
+        else System.out.println("Null Immediate Effect Card affected !");
+    }
 }
