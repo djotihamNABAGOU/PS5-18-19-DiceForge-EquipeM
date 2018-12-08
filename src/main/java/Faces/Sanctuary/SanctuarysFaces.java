@@ -165,4 +165,37 @@ public class SanctuarysFaces extends GeneralFace {
     @Override
     public void initialize() {}
     
+    
+    @Override
+    public ArrayList<String> getProperties() {
+         ArrayList<String> myList= new ArrayList<>();
+         int gold = 0;
+         int sun = 0;
+         int moon = 0;
+         int glory = 0;
+         String modal = this.mode;
+         
+         for(SimpleFace face : Offered){
+             ArrayList<String> simpleFaceList = face.getProperties();
+             switch(face.getType()){ 
+             case "G" : gold = Integer.valueOf(simpleFaceList.get(0)); 
+                        break;
+             case "S" : sun = Integer.valueOf(simpleFaceList.get(1)); 
+                        break;
+             case "M" : moon = Integer.valueOf(simpleFaceList.get(2)); 
+                        break;
+             case "Gl" : glory = Integer.valueOf(simpleFaceList.get(3)); 
+                        break;
+             }
+         }
+          
+        myList.add(Integer.toString(gold));
+        myList.add(Integer.toString(sun));
+        myList.add(Integer.toString(moon));
+        myList.add(Integer.toString(glory));
+        myList.add(modal);
+         
+        return myList;
+    }
+    
 }

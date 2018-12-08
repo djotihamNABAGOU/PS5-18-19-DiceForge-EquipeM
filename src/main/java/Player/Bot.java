@@ -5,10 +5,7 @@ import Card.Reinforcement;
 import Card.ImmediateEffectCard.TheHammer;
 import Faces.Sanctuary.GeneralFace;
 import Faces.Sanctuary.SimpleFace;
-import PlayerStrategy.AdvancedStrategy;
-import PlayerStrategy.RandomStrategy;
-import PlayerStrategy.Strategy;
-import PlayerStrategy.NothingStrategy;
+import PlayerStrategy.*;
 import diceforge.Temple;
 
 import java.util.ArrayList;
@@ -54,6 +51,10 @@ public class Bot {
 
             case "Advanced":
                 this.strategy = new AdvancedStrategy(this);
+                break;
+
+            case "Immediat":
+                this.strategy = new ImediaCardStrategy(this);
                 break;
 
             default:

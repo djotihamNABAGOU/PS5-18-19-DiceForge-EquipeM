@@ -234,4 +234,68 @@ public class SanctuarysFacesTest {
           assertTrue(repThree[3]==0);
     }
     
+    
+    @Test
+    public void getProperties(){
+                
+        
+        SanctuarysFaces One  = new SanctuarysFaces(4, "GoldenMoonFace",
+                        "Add",
+                        new SimpleFace(2, "G", "GoldenFace"),
+                        new SimpleFace(1, "M", "MoonFace")
+                );
+          
+          SanctuarysFaces two = new SanctuarysFaces(4, "MoonSunGoldenFace",
+                        "Choice",
+                        new SimpleFace(1, "M", "MoonFace"),
+                        new SimpleFace(1, "S", "SunFace"),
+                        new SimpleFace(1, "G", "GoldenFace")
+                );
+          
+          SanctuarysFaces three = new SanctuarysFaces(12, "MoonSunGoldenGloryFace",
+                        "Add",
+                        new SimpleFace(1, "M", "MoonFace"),
+                        new SimpleFace(1, "S", "SunFace"),
+                        new SimpleFace(1, "G", "GoldenFace"),
+                        new SimpleFace(1, "Gl", "GloryFace")
+                );
+          
+          ArrayList<String> oneFace = new ArrayList<>();
+          ArrayList<String> twoFace = new ArrayList<>();
+          ArrayList<String> threeFace = new ArrayList<>();
+          oneFace = One.getProperties();
+          twoFace = two.getProperties();
+          threeFace = three.getProperties();
+          
+          // Face One
+          
+          assertTrue(oneFace.get(0).equals("2"));
+          assertTrue(oneFace.get(1).equals("0"));
+          assertTrue(oneFace.get(2).equals("1"));
+          assertTrue(oneFace.get(3).equals("0"));
+          assertTrue(oneFace.get(4).equals("Add"));
+          
+          
+          // Face Two
+          
+          assertTrue(twoFace.get(0).equals("1"));
+          assertTrue(twoFace.get(1).equals("1"));
+          assertTrue(twoFace.get(2).equals("1"));
+          assertTrue(twoFace.get(3).equals("0"));
+          assertTrue(twoFace.get(4).equals("Choice"));
+          
+          
+          // Face Three
+          
+          assertTrue(threeFace.get(0).equals("1"));
+          assertTrue(threeFace.get(1).equals("1"));
+          assertTrue(threeFace.get(2).equals("1"));
+          assertTrue(threeFace.get(3).equals("1"));
+          assertTrue(threeFace.get(4).equals("Add"));
+          
+          
+          
+         
+    }
+    
 }

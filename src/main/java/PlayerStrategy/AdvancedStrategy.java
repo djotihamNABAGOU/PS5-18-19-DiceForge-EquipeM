@@ -385,6 +385,7 @@ public class AdvancedStrategy extends Strategy {
                     if (Offered.get(i).getName().equals("MoonFace")) moonIndex = i;
                 }
             }
+            
             int goldPoints = bot.getHerosInventory().getGoldPoints(),
                     sunPoints = bot.getHerosInventory().getSunPoints(),
                     moonPoints = bot.getHerosInventory().getMoonPoints();

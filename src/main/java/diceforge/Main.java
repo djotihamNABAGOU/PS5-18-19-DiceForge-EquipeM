@@ -15,12 +15,12 @@ public class Main {
     //nombre de joueurs
     private static final int numberOfBots = 4;
     //Création des Bots
-    private static final Bot botOneRandom = new Bot("Random");
-    private static final Bot botTwoRandom = new Bot("Random");
+    private static final Bot botOneRandom = new Bot("Nothing");
+    private static final Bot botTwoRandom = new Bot("Nothing");
     private static final Bot botThreeNothing = new Bot("Nothing");
-    private static final Bot botFourNothing = new Bot("Advanced");
+    private static final Bot botFourNothing = new Bot("Immediat");
     //Création du moteur de jeu, du temple et de l'île
-    private static final Engine engine = new Engine(100, 10, numberOfBots);
+    private static final Engine engine = new Engine(1, 10, numberOfBots);
     private static final Temple temple = new Temple();
     private static final Island island = new Island();
 
@@ -50,6 +50,7 @@ public class Main {
         System.out.println("-------------------------------------\n");
         //Lancement du jeu
         engine.makeRound(temple, island, botOneRandom, botTwoRandom, botThreeNothing, botFourNothing);
+
     }
 
 }
