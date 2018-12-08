@@ -98,6 +98,37 @@ public class RandomStrategy extends Strategy {
                             System.out.println("*ACTION OF BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
                         else System.out.println("**SUP ACTION FOR BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
 
+                        /**
+                         * s'il est ici, c'est qu'il a les ressources pour faire de l'exploit car l'exploit est privilégié
+                         * par rapport à la forge pour maximiser les gains
+                         */
+
+                        if (supActionDone == false)
+                            System.out.println("*ACTION OF BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
+                        else System.out.println("**SUP ACTION FOR BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
+
+                        /*Card card;
+                        if (!(card = bestCardToBuy(potentialCardsToBuy)).getName().equals("")) {
+                            if (island.buyCard(card, temple, numberOfTheBot, listFaces, data)) {
+                                feat(card, temple, bot, numberOfTheBot, listFaces, data);
+                                if (card.getType().equals("M")) bot.getHerosInventory().DecreaseMoonPoints(card.getPrice());
+                                if (card.getType().equals("S")) bot.getHerosInventory().DecreaseSunPoints(card.getPrice());
+                                if (card.getType().equals("M+S")) {
+                                    bot.getHerosInventory().DecreaseMoonPoints(5);
+                                    bot.getHerosInventory().DecreaseSunPoints(5);
+                                }
+                            } else {
+                                System.out.println("Purchase failed");
+                            }
+                        }
+
+                        //Fin exploit, Action supplémentaire si joueur actif
+                        if (bot.getHerosInventory().getSunPoints() >= 2 && supActionDone == false) {//il a les conditions requises pour effectuer une action supplémenatire
+                            //il l'effectue
+                            supActionDone = true;
+                            apply(temple, island, numberOfTheBot, listFaces, data);//On réappelle la fonction pour éviter de la duplication de code
+                            supActionDone = false;
+                        }*/
                         /*System.out.println("No implemantation for now");
 
                         Card card;

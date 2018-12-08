@@ -53,4 +53,20 @@ public class Card {
     public String getTypeCard() {
         return TypeCard;
     }
+
+    @Override
+    public String toString() {
+        return "Card : "
+                +getName()
+                +" ---> TypeCard : "
+                +getTypeCard()
+                +" / PriceType : "
+                +getType()
+                +" / Price : "
+                +getPrice()
+                +" / Portal : "
+                +getPortal()
+                +" / GloryPoints : "
+                +getGloryPoints();
+    }
 }

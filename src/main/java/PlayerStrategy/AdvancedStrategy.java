@@ -283,18 +283,23 @@ public class AdvancedStrategy extends Strategy {
 
     /**
      * 1-On privilégie en premier lieu le nombre de points de gloire rapportés par la carte
-     * 2-On privilégie ensuite les cartes à effet renfort car elles s'activent à chaque tour du joueur quand il est actif
-     * 3-On privilégie ensuite les cartes à effet automatiques qui ne s'exécutent que lorsque les conditions sont réunies
-     * 4-Ensuite les cartes à effet immédiat
-     * 5-puis viennent les cartes sans effet
-     * 6-En cas d'égalité entre deux meilleurs faces, le départage s'éffectue sur les ressources de Sun et de Moon disponibles
+     * En cas d'égalité de points de gloire:
+     * 1.1-On privilégie ensuite les cartes à effet renfort car elles s'activent à chaque tour du joueur quand il est actif
+     * 1.2-On privilégie ensuite les cartes à effet automatiques qui ne s'exécutent que lorsque les conditions sont réunies
+     * 1.3-Ensuite les cartes à effet immédiat
+     * 1.4-puis viennent les cartes sans effet
+     * 1.5-En cas d'égalité entre deux meilleurs faces, le départage s'éffectue sur les ressources de Sun et de Moon disponibles
      *
      * @param potentialCardsToBuy
      * @return
      */
     private Card bestCardToBuy(ArrayList<Card> potentialCardsToBuy) {
-        int maxGloryPoints = 0, bestIndex = -1;
+        int maxGloryPoints = potentialCardsToBuy.get(0).getGloryPoints(), bestIndex = 0;
+        //Affichage des cartes
         for (int a = 0; a < potentialCardsToBuy.size(); a++) {
+            System.out.println(potentialCardsToBuy.get(a).toString());
+        }
+        for (int a = 1; a < potentialCardsToBuy.size(); a++) {
             if (potentialCardsToBuy.get(a).getGloryPoints() > maxGloryPoints) {
                 maxGloryPoints = potentialCardsToBuy.get(a).getGloryPoints();
                 bestIndex = a;
@@ -363,7 +368,8 @@ public class AdvancedStrategy extends Strategy {
     }
 
     /**
-     * En lancé de dé, on privilégie la ressource la plus faible, en exploit, on choisit les points de gloire
+     * 1-En lancé de dé, on privilégie toujours les points de gloire, sinon la ressource la plus faible
+     * 2-en exploit, on choisit les points de gloire
      */
     @Override
     public int giveMeYourChoice(ArrayList<SimpleFace> Offered, int whichAction) {
