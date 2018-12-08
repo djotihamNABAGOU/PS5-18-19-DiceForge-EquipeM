@@ -18,7 +18,7 @@ public class TheJellyFish extends Card {
         this.name = "TheJellyFish";
         this.gloryPoints = 14;
         this.type = "S";
-        this.TypeCard = "I";   /* I pour désigner immédiat */
+        this.TypeCard = "NULL";   /* I pour désigner immédiat */
         this.price = 4;
         this.portal = 5;
     }

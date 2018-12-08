@@ -96,7 +96,7 @@ public class Island {
     }
     /*This Method returns all the available cards, the bot has the choice if he want to do an achievement*/
     
-    public ArrayList<Card> availableCards(Card card){
+    public ArrayList<Card> availableCards(){
         ArrayList<Card> result = new ArrayList<>();
         for(int i=0; i<15; i++){
             if(!this.cards[i].isEmpty()){

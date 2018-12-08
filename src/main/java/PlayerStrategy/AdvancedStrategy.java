@@ -41,7 +41,10 @@ public class AdvancedStrategy extends Strategy {
             //2->LE JOUEUR ACTIF PEUT EFFECTUE UNE ACTION
             //Choix de l'action à effectuer (forge ou exploit), il fait un exploit s'il a assez de ressources, sinon il forge
             int choice = -1;// 0 pour forge et 1 pour exploit
-            //?????????méthode de smith qui renvoie les cartes dispo puis analyse
+            ArrayList<Card> potentialCardsToBuy = new ArrayList<>();
+            potentialCardsToBuy = potentialCardsToBuy(bot, island);
+            if (potentialCardsToBuy.size() == 0) choice = 0;
+            else choice = 1;
 
             switch (choice) {
                 case 0://forge
@@ -82,13 +85,16 @@ public class AdvancedStrategy extends Strategy {
                         System.out.println("*ACTION OF BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
                     else System.out.println("**SUP ACTION FOR BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
 
-                    /*System.out.println("No implemantation for now");
-
-                    Card card;
-                    if (!(card = CardToBuy(bot, island)).getName().equals("")) {
+                    Card card = new Card();
+                    if (!(card = bestCardToBuy(potentialCardsToBuy)).getName().equals("")) {
                         if (island.buyCard(card)) {
                             feat(card);
-                            bot.getHerosInventory().DecreaseGoldPoints(face.getPrice());
+                            if (card.getType().equals("M")) bot.getHerosInventory().DecreaseMoonPoints(card.getPrice());
+                            if (card.getType().equals("S")) bot.getHerosInventory().DecreaseSunPoints(card.getPrice());
+                            if (card.getType().equals("M+S")) {
+                                bot.getHerosInventory().DecreaseMoonPoints(5);
+                                bot.getHerosInventory().DecreaseSunPoints(5);
+                            }
                         } else {
                             System.out.println("Purchase failed");
                         }
@@ -96,19 +102,20 @@ public class AdvancedStrategy extends Strategy {
 
                     //Fin exploit, Action supplémentaire si joueur actif
                     if (bot.getHerosInventory().getSunPoints() >= 2 && supActionDone == false) {//il a les conditions requises pour effectuer une action supplémenatire
-                        int choiceSupAction = random.nextInt(2); // 0 pour oui et 1 pour non
-                        if (choiceSupAction == 0) {//On choisit alors quelle action supplémentaire effectuer
-                            supActionDone = true;
-                            apply(temple, island, numberOfTheBot, listFaces, data);//On réappelle la fonction pour éviter de la duplication de code
-                            supActionDone = false;
-                        }
-                    }*/
+                        //il l'effectue
+                        supActionDone = true;
+                        apply(temple, island, numberOfTheBot, listFaces, data);//On réappelle la fonction pour éviter de la duplication de code
+                        supActionDone = false;
+                    }
                     break;
+                default:
+                    System.out.println("Problem with the potential cards to buy !!!");
             }
 
 
         }
     }
+
 
     /************************************************************************************************/
     /*********************       METHODES CONCERNANT L'APPEL DES RENFORTS       *********************/
@@ -221,32 +228,120 @@ public class AdvancedStrategy extends Strategy {
     /************************************************************************************************/
     /*********************       METHODES CONCERNANT L'EXPLOIT         ******************************/
     /***********************************************************************************************/
-    /*
-    private Card CardToBuy(Bot bot, Island island) {
-        int gold = bot.getHerosInventory().getGoldPoints();
+    private void feat(Card card) {
+    }
+
+    private ArrayList<Card> potentialCardsToBuy(Bot bot, Island island) {
         int sun = bot.getHerosInventory().getSunPoints();
         int moon = bot.getHerosInventory().getMoonPoints();
-        ArrayList<Card> CardAvailable = new ArrayList<>();
-        ArrayList<Card> sanctuary = island.getCards();
-        for (int a = 0; a < 10; a++) {
-            if (a != bassin) {//car il ne peut retirer de faces d'un même bassin consécutivement
-                for (int i = 0; i < sanctuary[a].size(); i++) {
-                    if (!sanctuary[a].get(i).isSelected() && !FacesAvailable.contains(sanctuary[a].get(i)) && v >= sanctuary[a].get(i).getPrice()) {
-                        FacesAvailable.add(sanctuary[a].get(i));
+        ArrayList<Card> potentialCardsToBuy = new ArrayList<>();
+        ArrayList<Card> availableCards = island.availableCards();
+        for (int a = 0; a < availableCards.size(); a++) {
+            switch (availableCards.get(a).getType()) {
+                case "S":
+                    if (!potentialCardsToBuy.contains(availableCards.get(a)) && sun >= availableCards.get(a).getPrice()) {
+                        potentialCardsToBuy.add(availableCards.get(a));
+                    }
+                    break;
+                case "M":
+                    if (!potentialCardsToBuy.contains(availableCards.get(a)) && moon >= availableCards.get(a).getPrice()) {
+                        potentialCardsToBuy.add(availableCards.get(a));
+                    }
+                    break;
+                case "M+S"://il n'ya qu'un seul type de carte dont le type du prix est à la fois M et S
+                    if (!potentialCardsToBuy.contains(availableCards.get(a)) && sun >= 5 && moon >= 5) {
+                        potentialCardsToBuy.add(availableCards.get(a));
+                    }
+                    break;
+                default:
+                    System.out.println("Unkown type of price's card");
+            }
+        }
+        return potentialCardsToBuy;
+    }
+
+    /**
+     * 1-On privilégie en premier lieu le nombre de points de gloire rapportés par la carte
+     * 2-On privilégie ensuite les cartes à effet renfort car elles s'activent à chaque tour du joueur quand il est actif
+     * 3-On privilégie ensuite les cartes à effet automatiques qui ne s'exécutent que lorsque les conditions sont réunies
+     * 4-Ensuite les cartes à effet immédiat
+     * 5-puis viennent les cartes sans effet
+     * 6-En cas d'égalité entre deux meilleurs faces, le départage s'éffectue sur les ressources de Sun et de Moon disponibles
+     *
+     * @param potentialCardsToBuy
+     * @return
+     */
+    private Card bestCardToBuy(ArrayList<Card> potentialCardsToBuy) {
+        int maxGloryPoints = 0, bestIndex = -1;
+        for (int a = 0; a < potentialCardsToBuy.size(); a++) {
+            if (potentialCardsToBuy.get(a).getGloryPoints() > maxGloryPoints) {
+                maxGloryPoints = potentialCardsToBuy.get(a).getGloryPoints();
+                bestIndex = a;
+            } else {
+                if (potentialCardsToBuy.get(a).getGloryPoints() == maxGloryPoints) {//il faut trouver la plus avantageuse
+                    if (potentialCardsToBuy.get(a).getTypeCard().equals("R")) {
+                        if (potentialCardsToBuy.get(bestIndex).getTypeCard().equals("R")) {
+                            /**dans cette situation, les cartes ont deja deux points en commun, le nombre de points de gloire
+                             * que la carte retourne et le type de d'effet de la carte, il est donc impossible qu'ils aient
+                             * le meme type ressource pour le paiement, on va donc baser le départage dessus!
+                             * de sorte à utiliser la ressource la plus disponible.
+                             */
+                            if (potentialCardsToBuy.get(bestIndex).getType().equals("S")) {
+                                //alors celle de la seconde carte est M
+                                if (bot.getHerosInventory().getMoonPoints() > bot.getHerosInventory().getSunPoints())
+                                    bestIndex = a;
+                            }
+
+                        } else bestIndex = a;
+                    }
+                    if (potentialCardsToBuy.get(a).getTypeCard().equals("A")) {
+                        if (!potentialCardsToBuy.get(bestIndex).getTypeCard().equals("R")) {
+                            if (potentialCardsToBuy.get(bestIndex).getTypeCard().equals("A")) {
+                                if (potentialCardsToBuy.get(bestIndex).getType().equals("S")) {
+                                    //alors celle de la seconde carte est M
+                                    if (bot.getHerosInventory().getMoonPoints() > bot.getHerosInventory().getSunPoints())
+                                        bestIndex = a;
+                                } else {//si c'est Moon
+                                    if (bot.getHerosInventory().getSunPoints() > bot.getHerosInventory().getMoonPoints())
+                                        bestIndex = a;
+                                }
+
+                            } else bestIndex = a;
+                        }
+                    }
+                    if (potentialCardsToBuy.get(a).getTypeCard().equals("I")) {
+                        if (!potentialCardsToBuy.get(bestIndex).getTypeCard().equals("R") && !potentialCardsToBuy.get(bestIndex).getTypeCard().equals("A")) {
+                            if (potentialCardsToBuy.get(bestIndex).getTypeCard().equals("I")) {
+                                if (potentialCardsToBuy.get(bestIndex).getType().equals("S")) {
+                                    //alors celle de la seconde carte est M
+                                    if (bot.getHerosInventory().getMoonPoints() > bot.getHerosInventory().getSunPoints())
+                                        bestIndex = a;
+                                } else {//si c'est Moon
+                                    if (bot.getHerosInventory().getSunPoints() > bot.getHerosInventory().getMoonPoints())
+                                        bestIndex = a;
+                                }
+                            } else bestIndex = a;
+                        }
+                    }
+                    if (potentialCardsToBuy.get(a).getTypeCard().equals("NULL")) {
+                        if (!potentialCardsToBuy.get(bestIndex).getTypeCard().equals("R") && !potentialCardsToBuy.get(bestIndex).getTypeCard().equals("A") && !potentialCardsToBuy.get(bestIndex).getTypeCard().equals("I")) {
+                            if (potentialCardsToBuy.get(bestIndex).getTypeCard().equals("NULL")) {
+                                if (potentialCardsToBuy.get(bestIndex).getType().equals("S")) {
+                                    //alors celle de la seconde carte est M
+                                    if (bot.getHerosInventory().getMoonPoints() > bot.getHerosInventory().getSunPoints())
+                                        bestIndex = a;
+                                } else {//si c'est Moon
+                                    if (bot.getHerosInventory().getSunPoints() > bot.getHerosInventory().getMoonPoints())
+                                        bestIndex = a;
+                                }
+                            } else bestIndex = a;
+                        }
                     }
                 }
             }
         }
-
-        Random randomFace = new Random();
-
-        if (FacesAvailable.size() == 0) return new SanctuarysFaces();
-        else {
-            int faceToReturn = randomFace.nextInt(FacesAvailable.size()); // initialisation
-            //System.out.println("La face payée est "+FacesAvailable.get(caseFace).toString());
-            return FacesAvailable.get(faceToReturn);
-        }
-    }*/
+        return potentialCardsToBuy.get(bestIndex);
+    }
 
     /**
      * En lancé de dé, on privilégie la ressource la plus faible, en exploit, on choisit les points de gloire
@@ -303,11 +398,12 @@ public class AdvancedStrategy extends Strategy {
      * 1-Il va falloir privilégier le dé avec le plus de points de gloire car c'est l'objectif final
      * 2-Il va falloir privilégier ensuite le dé avec le plus de points de gold afin de maximiser les chances
      * d'avoir des points de gloire
+     *
      * @return
      */
     @Override
     public int throwWhichDice() {
-        int gold1 = 0, gold2 = 0, glory1=0, glory2 = 0;
+        int gold1 = 0, gold2 = 0, glory1 = 0, glory2 = 0;
         for (int i = 0; i < 6; i++) {
             String faceName1 = bot.getFirstDice().getFaces()[i].getName();
             String faceName2 = bot.getSecondDice().getFaces()[i].getName();
@@ -319,7 +415,7 @@ public class AdvancedStrategy extends Strategy {
         if (glory1 == 0 || glory2 == 0) {
             if (gold1 > gold2) return 0;
             else return 1;
-        }else {
+        } else {
             if (glory1 > glory2) return 0;
             else return 1;
         }

@@ -19,7 +19,7 @@ public class TheHydra extends Card {
         this.name = "TheHydra";
         this.gloryPoints = 26;
         this.type = "M+S";
-        this.TypeCard = "I";   /* I pour désigner immédiat */
+        this.TypeCard = "NULL";   /* I pour désigner immédiat */
         this.price = 10;
         this.portal = 4;
     }

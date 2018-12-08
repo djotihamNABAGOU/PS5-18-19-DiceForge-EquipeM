@@ -19,7 +19,7 @@ public class TheFerryMan extends Card {
         this.name = "TheFerryMan";
         this.gloryPoints = 12;
         this.type = "M";
-        this.TypeCard = "I";   /* I pour désigner immédiat */
+        this.TypeCard = "NULL";   /* I pour désigner immédiat */
         this.price = 4;
         this.portal = 3;
     }

@@ -102,7 +102,7 @@ public class HerosInventory {
     }
 
 
-     void DecreaseMoonPoints(int points){
+    public void DecreaseMoonPoints(int points){
         if(this.moonPoints<=points){
             this.moonPoints = 0;
         }else {
