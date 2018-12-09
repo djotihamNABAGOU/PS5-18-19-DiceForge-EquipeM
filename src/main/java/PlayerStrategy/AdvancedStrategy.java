@@ -436,6 +436,7 @@ public class AdvancedStrategy extends Strategy {
                     offeredSimpleFaces.add((SanctuarysFaces) face);
                 }
 
+
                 //Premier dé du bot, recherche du nombre d'occurences d'une face que possède un dé
                 int goldOccur, sunOccur, moonOccur;
                 ArrayList<GeneralFace> diceFaces1 = new ArrayList<>();
@@ -451,14 +452,14 @@ public class AdvancedStrategy extends Strategy {
                 }
 
                 //On cherche le nombre d'occurences de chaque face sur le dé 1
-                goldOccur = searchFace(diceFaces1,offeredSimpleFaces.get(goldIndex).getOffered().get(0).getValue(),0,0).size();
-                sunOccur = searchFace(diceFaces1,0, offeredSimpleFaces.get(sunIndex).getOffered().get(0).getValue(),0).size();
-                moonOccur = searchFace(diceFaces1,0,0, offeredSimpleFaces.get(moonIndex).getOffered().get(0).getValue()).size();
+                goldOccur = searchFace(diceFaces1,1,2,3).size();
+                sunOccur = searchFace(diceFaces1,0, 2,3).size();
+                moonOccur = searchFace(diceFaces1,0,1,3).size();
 
                 //On cherche le nombre d'occurences de chaque face sur le dé 1
-                goldOccur2 = searchFace(diceFaces2,offeredSimpleFaces.get(goldIndex).getOffered().get(0).getValue(),0,0).size();
-                sunOccur2 = searchFace(diceFaces2,0, offeredSimpleFaces.get(sunIndex).getOffered().get(0).getValue(),0).size();
-                moonOccur2 = searchFace(diceFaces2,0,0, offeredSimpleFaces.get(moonIndex).getOffered().get(0).getValue()).size();
+                goldOccur2 = searchFace(diceFaces2,1,2,3).size();
+                sunOccur2 = searchFace(diceFaces2,0, 2,3).size();
+                moonOccur2 = searchFace(diceFaces2,0,1,3).size();
 
                 //On choisit le dé sur lequel forger
                 int dice1 = 0, dice2 =0;
