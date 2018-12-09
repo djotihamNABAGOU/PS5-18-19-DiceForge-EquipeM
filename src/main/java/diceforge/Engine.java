@@ -134,49 +134,17 @@ public class Engine {
      */
     private void tellMeTheWinnerOfRound(Bot... data) {
 
-        /**à la fin de d'une partie, on comptabilise les points de gloire obtenus en tenant compte de ceux octroyés
-         * par les cartes que possèdent le joueur
-         */
-        for (Bot bot : data) {
-            bot.finalGloryPoints = bot.getHerosInventory().getGloryPoints();
-            int size;
-            //Points de gloire des cartes de renforcement
-            if ((size = bot.getReinforcementCard().size()) != 0) {
-                for (int i = 0; i < size; i++) {
-                    bot.finalGloryPoints += bot.getReinforcementCard().get(i).getGloryPoints();
-                }
-            }
-            //Points de gloire des cartes automatiques
-            if ((size = bot.getAutomaticCard().size()) != 0) {
-                for (int i = 0; i < size; i++) {
-                    bot.finalGloryPoints += bot.getAutomaticCard().get(i).getGloryPoints();
-                }
-            }
-            //Points de gloire des cartes à effet immédiat
-            if ((size = bot.getImmediateCard().size()) != 0) {
-                for (int i = 0; i < size; i++) {
-                    bot.finalGloryPoints += bot.getImmediateCard().get(i).getGloryPoints();
-                }
-            }
-            //Points de gloire des cartes sans effet
-            if ((size = bot.getWithoutEffectCard().size()) != 0) {
-                for (int i = 0; i < size; i++) {
-                    bot.finalGloryPoints += bot.getWithoutEffectCard().get(i).getGloryPoints();
-                }
-            }
-        }
-
         int winnerGloryPoints = 0;
         for (int i = 0; i < data.length; i++) {
-            if (data[i].finalGloryPoints > winnerGloryPoints) {
-                winnerGloryPoints = data[i].finalGloryPoints;
+            if (data[i].getHerosInventory().getGloryPoints() > winnerGloryPoints) {
+                winnerGloryPoints = data[i].getHerosInventory().getGloryPoints();
             }
         }
 
-        //Stocke la liste de tous les bots qui ont le même nombre de points gagnants
+        //Stocke la liste de tous les bots qui ont le nombre de points gagnants
         ArrayList<Integer> listIndice = new ArrayList<>();
         for (int i = 0; i < data.length; i++) {
-            if (data[i].finalGloryPoints == winnerGloryPoints) {
+            if (data[i].getHerosInventory().getGloryPoints() == winnerGloryPoints) {
                 listIndice.add(i);
             }
         }

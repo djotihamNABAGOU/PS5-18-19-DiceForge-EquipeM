@@ -40,8 +40,10 @@ public class AdvancedStrategy extends Strategy {
             }
 
             //2->LE JOUEUR ACTIF PEUT EFFECTUE UNE ACTION
+
             //Choix de l'action à effectuer (forge ou exploit), il fait un exploit s'il a assez de ressources, sinon il forge
             int choice = -1;// 0 pour forge et 1 pour exploit
+
             ArrayList<Card> potentialCardsToBuy = new ArrayList<>();
             potentialCardsToBuy = potentialCardsToBuy(bot, island);
             if (potentialCardsToBuy.size() == 0) choice = 0;
@@ -56,17 +58,9 @@ public class AdvancedStrategy extends Strategy {
                     //Tant qu'il a les ressources, il forge plusieurs faces de sanctuaire
                     SanctuarysFaces face;
                     int nbPurchase = 1;//indice de forge
-                    while (!(face = FaceToBuy(bot, temple, bassin)).getName().equals("null")) {
-                        bassin = temple.giveMeTheBasin(face);//enregistrement du bassin de la nouvelle face
-                        if (temple.buyFace(face)) {
-                            System.out.println("PURCHASE " + nbPurchase);
-                            ForgeDice(face);
-                            bot.getHerosInventory().DecreaseGoldPoints(face.getPrice());
-                            nbPurchase++;
-                        } else {
-                            System.out.println("Purchase failed");
-                        }
-                    }
+
+                    forgeHowManyTimes(temple, 0);
+
                     //Fin forge, Action supplémentaire si joueur actif
                     if (bot.getHerosInventory().getSunPoints() >= 2 && supActionDone == false) {//il a les conditions requises pour effectuer une action supplémenatire
                         bot.getHerosInventory().IncreaseSunPoints(2);//Il paie
@@ -88,17 +82,7 @@ public class AdvancedStrategy extends Strategy {
 
                     Card card;
                     if (!(card = bestCardToBuy(potentialCardsToBuy)).getName().equals("")) {
-                        if (island.buyCard(card, temple, numberOfTheBot, listFaces, data)) {
-                            feat(card, temple, bot, numberOfTheBot, listFaces, data);
-                            if (card.getType().equals("M")) bot.getHerosInventory().DecreaseMoonPoints(card.getPrice());
-                            if (card.getType().equals("S")) bot.getHerosInventory().DecreaseSunPoints(card.getPrice());
-                            if (card.getType().equals("M+S")) {
-                                bot.getHerosInventory().DecreaseMoonPoints(5);
-                                bot.getHerosInventory().DecreaseSunPoints(5);
-                            }
-                        } else {
-                            System.out.println("Purchase failed");
-                        }
+                        feat(card, temple, island, bot, numberOfTheBot, listFaces, data);
                     }
 
                     //Fin exploit, Action supplémentaire si joueur actif
@@ -229,57 +213,6 @@ public class AdvancedStrategy extends Strategy {
     /************************************************************************************************/
     /*********************       METHODES CONCERNANT L'EXPLOIT         ******************************/
     /***********************************************************************************************/
-    private void feat(Card card, Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, Bot... tabBot) {
-
-        switch (card.getType()) {
-            case "R":
-                Reinforcement reinforcement = (Reinforcement) card;
-                bot.addReinforcementEffectCard(reinforcement);
-                break;
-            case "A":
-                Reinforcement automatic = (Reinforcement) card;
-                bot.addAutomaticEffectCard(automatic);
-                break;
-            case "I"://il applique son effet puis il la range dans sa pile de cartes à effet immédiats
-                card.actionCard(temple, bot, numBot, listFaces, tabBot);
-                bot.addImmediateEffectCard(card);
-                break;
-            case "NULL":
-                bot.addWithoutEffectCard(card);
-                break;
-            default:
-                System.out.println("Unknown type of card !!!");
-        }
-    }
-
-    private ArrayList<Card> potentialCardsToBuy(Bot bot, Island island) {
-        int sun = bot.getHerosInventory().getSunPoints();
-        int moon = bot.getHerosInventory().getMoonPoints();
-        ArrayList<Card> potentialCardsToBuy = new ArrayList<>();
-        ArrayList<Card> availableCards = island.availableCards();
-        for (int a = 0; a < availableCards.size(); a++) {
-            switch (availableCards.get(a).getType()) {
-                case "S":
-                    if (!potentialCardsToBuy.contains(availableCards.get(a)) && sun >= availableCards.get(a).getPrice()) {
-                        potentialCardsToBuy.add(availableCards.get(a));
-                    }
-                    break;
-                case "M":
-                    if (!potentialCardsToBuy.contains(availableCards.get(a)) && moon >= availableCards.get(a).getPrice()) {
-                        potentialCardsToBuy.add(availableCards.get(a));
-                    }
-                    break;
-                case "M+S"://il n'ya qu'un seul type de carte dont le type du prix est à la fois M et S
-                    if (!potentialCardsToBuy.contains(availableCards.get(a)) && sun >= 5 && moon >= 5) {
-                        potentialCardsToBuy.add(availableCards.get(a));
-                    }
-                    break;
-                default:
-                    System.out.println("Unknown type of price's card");
-            }
-        }
-        return potentialCardsToBuy;
-    }
 
     /**
      * 1-On privilégie en premier lieu le nombre de points de gloire rapportés par la carte

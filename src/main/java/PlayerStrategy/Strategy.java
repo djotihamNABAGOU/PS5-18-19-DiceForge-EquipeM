@@ -1,5 +1,7 @@
 package PlayerStrategy;
 
+import Card.Card;
+import Card.Reinforcement;
 import Faces.Sanctuary.GeneralFace;
 import Faces.Sanctuary.SanctuarysFaces;
 import Faces.Sanctuary.SimpleFace;
@@ -48,6 +50,122 @@ public class Strategy {
      * @param face
      */
     public void ForgeDice(GeneralFace face) {
+    }
+
+    /**
+     * l'exploit consitera à appliquer en premier lieu l'action de la carte, celle-ci consiste tout simplement à augmenter
+     * les points de gloire du joueur conformément aux points de gloire qu'offrent la carte
+     * @param card
+     * @param temple
+     * @param bot
+     * @param numBot
+     * @param listFaces
+     * @param tabBot
+     */
+    public void feat(Card card, Temple temple, Island island, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, Bot... tabBot) {
+
+        if (island.buyCard(card, temple, numBot, listFaces, tabBot)) {
+            //on effectue alors l'exploit
+            switch (card.getType()) {
+                case "R":
+                    Reinforcement reinforcement = (Reinforcement) card;
+                    reinforcement.actionCard(temple, bot, numBot, listFaces, tabBot);
+                    bot.addReinforcementEffectCard(reinforcement);
+                    break;
+                case "A":
+                    Reinforcement automatic = (Reinforcement) card;
+                    automatic.actionCard(temple, bot, numBot, listFaces, tabBot);
+                    bot.addAutomaticEffectCard(automatic);
+                    break;
+                case "I":
+                    card.actionCard(temple, bot, numBot, listFaces, tabBot);
+                    bot.addImmediateEffectCard(card);
+                    break;
+                case "NULL":
+                    card.actionCard(temple, bot, numBot, listFaces, tabBot);
+                    bot.addWithoutEffectCard(card);
+                    break;
+                default:
+                    System.out.println("Unknown type of card !!!");
+            }
+            //on procède au paiement
+            if (card.getType().equals("M")) bot.getHerosInventory().DecreaseMoonPoints(card.getPrice());
+            if (card.getType().equals("S")) bot.getHerosInventory().DecreaseSunPoints(card.getPrice());
+            if (card.getType().equals("M+S")) {
+                bot.getHerosInventory().DecreaseMoonPoints(5);
+                bot.getHerosInventory().DecreaseSunPoints(5);
+            }
+        } else {
+            System.out.println("Purchase failed");
+        }
+    }
+
+    /**
+     * Méthode qui détermine les cartes accessibles au bot en fontion de ses ressources
+     * @param bot
+     * @param island
+     * @return
+     */
+    public ArrayList<Card> potentialCardsToBuy(Bot bot, Island island) {
+        int sun = bot.getHerosInventory().getSunPoints();
+        int moon = bot.getHerosInventory().getMoonPoints();
+        ArrayList<Card> potentialCardsToBuy = new ArrayList<>();
+        ArrayList<Card> availableCards = island.availableCards();
+        for (int a = 0; a < availableCards.size(); a++) {
+            switch (availableCards.get(a).getType()) {
+                case "S":
+                    if (sun >= availableCards.get(a).getPrice()) {
+                        potentialCardsToBuy.add(availableCards.get(a));
+                    }
+                    break;
+                case "M":
+                    if (moon >= availableCards.get(a).getPrice()) {
+                        potentialCardsToBuy.add(availableCards.get(a));
+                    }
+                    break;
+                case "M+S"://il n'ya qu'un seul type de carte dont le type du prix est à la fois M et S
+                    if (sun >= 5 && moon >= 5) {
+                        potentialCardsToBuy.add(availableCards.get(a));
+                    }
+                    break;
+                default:
+                    System.out.println("Unknown type of price's card");
+            }
+        }
+        return potentialCardsToBuy;
+    }
+
+    /**
+     * Méthode permettant de faire une ou plusieurs forges selon les ressources du joueur
+     * @param temple
+     * @param choice 0 pour plusieurs forges, 1 pour une seule forge
+     */
+    public void forgeHowManyTimes(Temple temple, int choice) {
+        if (choice == 0) {//forge de plusieurs faces
+            SanctuarysFaces face;
+            int nbPurchase = 1;//indice de forge
+            while (!(face = FaceToBuy(bot, temple, bassin)).getName().equals("null")) {
+                bassin = temple.giveMeTheBasin(face);//enregistrement du bassin de la nouvelle face
+                if (temple.buyFace(face)) {
+                    System.out.println("PURCHASE " + nbPurchase);
+                    ForgeDice(face);
+                    bot.getHerosInventory().DecreaseGoldPoints(face.getPrice());
+                    nbPurchase++;
+                } else {
+                    System.out.println("Purchase failed");
+                }
+            }
+        } else {//forge d'une seule face
+            SanctuarysFaces face;
+            if (!(face = FaceToBuy(bot, temple, bassin)).getName().equals("null")) {
+                if (temple.buyFace(face)) {
+                    ForgeDice(face);
+                    bot.getHerosInventory().DecreaseGoldPoints(face.getPrice());
+                } else {
+                    System.out.println("Purchase failed");
+                }
+            }
+        }
     }
 
     /**

@@ -27,7 +27,6 @@ public class Bot {
     private ArrayList<Card> immediateCard = new ArrayList<>();   /* Liste des cartes à  effet immédiat en possession du joueur */
     private ArrayList<Card> withoutEffectCard = new ArrayList<>();   /* Liste des cartes à  sans effet en possession du joueur */
     public int wonRounds;//nombre de parties gagnées par le bot, public car c'est le moteur de jeu qui lui confère cela
-    public int finalGloryPoints;//nombre de points de gloire acquis en fin de partie
     private int portal;          /* 1,2,3,4,5,6,7  values of the gate in Island
                                    0 is the default value i.e. the bot is on orginal gate
                                     This value must be update when the bot move on a gate */
