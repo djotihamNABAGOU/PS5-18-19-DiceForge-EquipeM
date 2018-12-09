@@ -5,7 +5,6 @@
  */
 package Faces;
 
-import Card.ImmediateEffectCard.TheHammer;
 import Faces.Garden.ShieldOfTheGuardianFace;
 import Player.Bot;
 import diceforge.Temple;

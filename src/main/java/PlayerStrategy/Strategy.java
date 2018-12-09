@@ -147,23 +147,23 @@ public class Strategy {
             SanctuarysFaces face;
             int nbPurchase = 1;//indice de forge
             while (!(face = FaceToBuy(potentialFaces)).getName().equals("null")) {
-                bassin.add(temple.giveMeTheBasin(face));//enregistrement du bassin de la nouvelle face
                 if (temple.buyFace(face)) {
                     System.out.println("PURCHASE " + nbPurchase);
                     ForgeDice(face);
                     bot.getHerosInventory().DecreaseGoldPoints(face.getPrice());
                     nbPurchase++;
+                    bassin.add(temple.giveMeTheBasin(face));//enregistrement du bassin de la nouvelle face
                 } else {
                     System.out.println("Purchase failed");
                 }
             }
         } else {//forge d'une seule face
             SanctuarysFaces face;
-
             if (!(face = FaceToBuy(potentialFaces)).getName().equals("null")) {
                 if (temple.buyFace(face)) {
                     ForgeDice(face);
                     bot.getHerosInventory().DecreaseGoldPoints(face.getPrice());
+                    bassin.add(temple.giveMeTheBasin(face));//enregistrement du bassin de la nouvelle face
                 } else {
                     System.out.println("Purchase failed");
                 }
@@ -196,7 +196,6 @@ public class Strategy {
                         
                         if(ok!=false)
                             FacesAvailable.add(sanctuary[a].get(i));
-                        FacesAvailable.add(sanctuary[a].get(i));
                     }
                 }
             
