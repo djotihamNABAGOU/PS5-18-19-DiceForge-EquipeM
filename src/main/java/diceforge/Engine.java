@@ -226,6 +226,9 @@ public class Engine {
 
             if (i > 0) {
                 this.InitializingBots(data);
+                
+                temple = new Temple();
+                island = new Island();
                 temple.initializingTemple(data.length);
                 island.initializeIsland(data.length);
             }

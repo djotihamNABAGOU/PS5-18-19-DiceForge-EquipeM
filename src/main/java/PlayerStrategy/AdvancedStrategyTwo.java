@@ -394,8 +394,13 @@ public class AdvancedStrategyTwo extends Strategy {
         Card card = new Card();
         if(numIslandStrategy==0){
             System.out.println("Je me prépare à acheter une carte");
-            int index = firstStrategy.whichCard(potentialCardsToBuy);
+            firstStrategy.nbCard = bot.getImmediateCard().size() + 
+                                   bot.getReinforcementCard().size() +
+                                   bot.getWithoutEffectCard().size();
+            int index = firstStrategy.whichCard(potentialCardsToBuy,bot);
             System.out.println("Index de la carte : "+index);
+            if(index==-1)
+                index = 0;
             card = potentialCardsToBuy.get(index);
             System.out.println("Carte : "+card.getName());
         }

@@ -111,6 +111,8 @@ public class Strategy {
     public ArrayList<Card> potentialCardsToBuy(Bot bot, Island island) {
         int sun = bot.getHerosInventory().getSunPoints();
         int moon = bot.getHerosInventory().getMoonPoints();
+        System.out.println("J'ai "+sun+" Sun");
+        System.out.println("J'ai "+moon+" Moon");
         ArrayList<Card> potentialCardsToBuy = new ArrayList<>();
         ArrayList<Card> availableCards = island.availableCards();
         for (int a = 0; a < availableCards.size(); a++) {
@@ -134,6 +136,17 @@ public class Strategy {
                     System.out.println("Unknown type of price's card");
             }
         }
+        
+        System.out.println("\n\n Liste des cartes qu'il peut acheter ");
+        
+        for(Card card : potentialCardsToBuy){
+            System.out.println("Carte : "+card.getName());
+        }
+        
+        
+        
+        System.out.println("\n\n ***** FIN ");
+                
         return potentialCardsToBuy;
     }
 
