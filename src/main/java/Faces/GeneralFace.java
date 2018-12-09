@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Faces.Sanctuary;
+package Faces;
 
-import Card.ImmediateEffectCard.TheHammer;
 import Faces.Garden.ShieldOfTheGuardianFace;
 import Player.Bot;
 import diceforge.Temple;

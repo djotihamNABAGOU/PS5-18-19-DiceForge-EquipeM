@@ -1,8 +1,6 @@
 package PlayerStrategy;
-
 import Card.Card;
-import Card.Reinforcement;
-import Faces.Sanctuary.GeneralFace;
+import Faces.GeneralFace;
 import Faces.Sanctuary.SanctuarysFaces;
 import Faces.Sanctuary.SimpleFace;
 import Player.Bot;

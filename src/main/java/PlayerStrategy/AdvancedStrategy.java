@@ -2,7 +2,7 @@ package PlayerStrategy;
 
 import Card.Card;
 import Card.Reinforcement;
-import Faces.Sanctuary.GeneralFace;
+import Faces.GeneralFace;
 import Faces.Sanctuary.SanctuarysFaces;
 import Faces.Sanctuary.SimpleFace;
 import Player.Bot;
@@ -186,6 +186,10 @@ public class AdvancedStrategy extends Strategy {
      */
     @Override
     public SanctuarysFaces FaceToBuy(ArrayList<SanctuarysFaces> facesAvailable) {
+        System.out.println("coucou while");
+        for (int a = 0; a < facesAvailable.size(); a++) {
+            System.out.println("je peux payer "+facesAvailable.get(a).toString());
+        }
         int price = 0;
         //Recherche du meilleur prix
         for (int a = 0; a < facesAvailable.size(); a++) {
@@ -217,7 +221,7 @@ public class AdvancedStrategy extends Strategy {
             }
             index = giveMeYourChoice(bestGeneralFaces,2);
 
-            System.out.println("La face payée est " + bestFaces.get(index).toString());
+            System.out.println("La face à payer est " + bestFaces.get(index).toString());
             return bestFaces.get(index);
         }
 

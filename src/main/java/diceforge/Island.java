@@ -8,7 +8,7 @@ import Card.ReinforcementEffectCard.*;
 import Card.WithoutEffectCard.ThePasser;
 import Card.WithoutEffectCard.TheHydra;
 import Card.WithoutEffectCard.TheJellyFish;
-import Faces.Sanctuary.GeneralFace;
+import Faces.GeneralFace;
 
 import Player.Bot;
 

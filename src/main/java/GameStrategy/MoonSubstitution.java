@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author The Beginners
+ * @author KOFFI Merveille
  */
 public class MoonSubstitution {
     
@@ -29,7 +29,7 @@ public class MoonSubstitution {
     }
     
     
-    public SanctuarysFaces choiceGoldFace(ArrayList<SanctuarysFaces> list){
+    public SanctuarysFaces choiceMoonFace(ArrayList<SanctuarysFaces> list){
         rep = rep + 1;
         boolean moonFaceOneAvailable = false;
         boolean moonFaceTwoAvailable = false;
@@ -75,5 +75,10 @@ public class MoonSubstitution {
         }
         return indice;
     }
+    
+    public int getRep() {
+        return rep;
+    }
+
     
 }

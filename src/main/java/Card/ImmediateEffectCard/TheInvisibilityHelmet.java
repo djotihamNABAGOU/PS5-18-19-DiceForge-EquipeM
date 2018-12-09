@@ -2,7 +2,7 @@ package Card.ImmediateEffectCard;
 
 import Card.Card;
 import Faces.Garden.GardenFace;
-import Faces.Sanctuary.GeneralFace;
+import Faces.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
 

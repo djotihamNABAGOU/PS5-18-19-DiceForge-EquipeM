@@ -1,7 +1,7 @@
 package Card.WithoutEffectCard;
 
 import Card.Card;
-import Faces.Sanctuary.GeneralFace;
+import Faces.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
 
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class ThePasser extends Card {
 
     public ThePasser() {
-        this.name = "TheFerryMan";
+        this.name = "ThePasser";
         this.gloryPoints = 12;
         this.type = "M";
         this.TypeCard = "NULL";   /* I pour désigner immédiat */

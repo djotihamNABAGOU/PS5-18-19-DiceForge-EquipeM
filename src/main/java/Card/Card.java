@@ -1,7 +1,7 @@
 package Card;
 
 import Card.ReinforcementEffectCard.TheClogs;
-import Faces.Sanctuary.GeneralFace;
+import Faces.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
 

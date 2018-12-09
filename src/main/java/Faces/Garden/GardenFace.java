@@ -6,7 +6,7 @@
 package Faces.Garden;
 
 import Card.Card;
-import Faces.Sanctuary.GeneralFace;
+import Faces.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
 import java.util.ArrayList;

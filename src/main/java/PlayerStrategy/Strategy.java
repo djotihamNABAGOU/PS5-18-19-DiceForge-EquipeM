@@ -2,7 +2,7 @@ package PlayerStrategy;
 
 import Card.Card;
 import Card.Reinforcement;
-import Faces.Sanctuary.GeneralFace;
+import Faces.GeneralFace;
 import Faces.Sanctuary.SanctuarysFaces;
 import Faces.Sanctuary.SimpleFace;
 import Player.Bot;
@@ -21,7 +21,8 @@ public class Strategy {
      * s'il est joueur actif.
      * On initialise donc une variable bassin à -1 pour désigner un bassin inexistant
      */
-    protected int bassin = -1;
+    protected ArrayList<Integer> bassin;
+    
 
     /**
      * Constructeur de la classe Strategy
@@ -30,6 +31,7 @@ public class Strategy {
      */
     public Strategy(Bot bot) {
         this.bot = bot;
+        bassin = new ArrayList<>();
     }
 
     /**
@@ -141,27 +143,28 @@ public class Strategy {
      * @param choice 0 pour plusieurs forges, 1 pour une seule forge
      */
     public void forgeHowManyTimes(Temple temple, int choice) {
-        ArrayList<SanctuarysFaces> potentialFaces = potentialFacesToBuy(bot, temple, bassin);
+        //ArrayList<SanctuarysFaces> potentialFaces = potentialFacesToBuy(bot, temple);
         if (choice == 0) {//forge de plusieurs faces
             SanctuarysFaces face;
             int nbPurchase = 1;//indice de forge
-            while (!(face = FaceToBuy(potentialFaces)).getName().equals("null")) {
-                bassin = temple.giveMeTheBasin(face);//enregistrement du bassin de la nouvelle face
+            while (!(face = FaceToBuy(potentialFacesToBuy(bot, temple))).getName().equals("null")) {
                 if (temple.buyFace(face)) {
                     System.out.println("PURCHASE " + nbPurchase);
                     ForgeDice(face);
                     bot.getHerosInventory().DecreaseGoldPoints(face.getPrice());
                     nbPurchase++;
+                    bassin.add(temple.giveMeTheBasin(face));//enregistrement du bassin de la nouvelle face
                 } else {
                     System.out.println("Purchase failed");
                 }
             }
         } else {//forge d'une seule face
             SanctuarysFaces face;
-            if (!(face = FaceToBuy(potentialFaces)).getName().equals("null")) {
+            if (!(face = FaceToBuy(potentialFacesToBuy(bot, temple))).getName().equals("null")) {
                 if (temple.buyFace(face)) {
                     ForgeDice(face);
                     bot.getHerosInventory().DecreaseGoldPoints(face.getPrice());
+                    bassin.add(temple.giveMeTheBasin(face));//enregistrement du bassin de la nouvelle face
                 } else {
                     System.out.println("Purchase failed");
                 }
@@ -174,22 +177,32 @@ public class Strategy {
      * en gros, on stocke les faces du sanctuaire disponibles dans une liste FacesAvailable puis on choisit au hasard la face à retourner
      * @param bot
      * @param temple
-     * @param bassin
      * @return
      */
-    public ArrayList<SanctuarysFaces> potentialFacesToBuy(Bot bot, Temple temple, int bassin){
+    public ArrayList<SanctuarysFaces> potentialFacesToBuy(Bot bot, Temple temple){
+        System.out.println("je commence");
         int v = bot.getHerosInventory().getGoldPoints();
         ArrayList<SanctuarysFaces> FacesAvailable = new ArrayList<>();
         ArrayList<SanctuarysFaces>[] sanctuary = temple.getSanctuary();
         for (int a = 0; a < 10; a++) {
-            if (a != bassin) {//car il ne peut retirer de faces d'un même bassin consécutivement
+            System.out.println("je suis au "+ a);
                 for (int i = 0; i < sanctuary[a].size(); i++) {
+                    System.out.println("et ici au "+i+"avec comme taille "+sanctuary[a].size());
                     if (!sanctuary[a].get(i).isSelected() && !FacesAvailable.contains(sanctuary[a].get(i)) && v >= sanctuary[a].get(i).getPrice()) {
-                        FacesAvailable.add(sanctuary[a].get(i));
+                        int numbassin = temple.giveMeTheBasin(sanctuary[a].get(i));
+                        boolean ok = true;
+                        for(int b = 0;b<bassin.size();a++){
+                            if(numbassin == bassin.get(b))
+                                ok = false;
+                        }
+                        
+                        if(ok!=false)
+                            FacesAvailable.add(sanctuary[a].get(i));
                     }
                 }
-            }
+            
         }
+        System.out.println("je sors avec une taille de "+FacesAvailable.size());
         return FacesAvailable;
     }
 
@@ -212,6 +225,7 @@ public class Strategy {
      * @param facesAvailable
      * @return
      */
+
     public SanctuarysFaces FaceToBuy(ArrayList<SanctuarysFaces> facesAvailable) {
         SanctuarysFaces face = new SanctuarysFaces();
         return face;

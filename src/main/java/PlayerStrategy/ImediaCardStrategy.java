@@ -1,5 +1,6 @@
 package PlayerStrategy;
 
+import Faces.GeneralFace;
 import Card.WithoutEffectCard.ThePasser;
 import Card.WithoutEffectCard.TheHydra;
 import Card.WithoutEffectCard.TheJellyFish;
