@@ -130,4 +130,9 @@ public class GeneralFace {
     public ArrayList<String> getProperties() {
         return new ArrayList<String>();
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

@@ -53,8 +53,8 @@ public class AdvancedStrategy extends Strategy {
             switch (choice) {
                 case 0://forge
                     if (supActionDone == false)
-                        System.out.println("*ACTION OF BOT NUMBER " + numberOfTheBot + ": FORGE");
-                    else System.out.println("**SUP ACTION FOR BOT NUMBER " + numberOfTheBot + ": FORGE");
+                        System.out.println("*ACTION OF BOT NUMBER " + (numberOfTheBot+1) + ": FORGE");
+                    else System.out.println("**SUP ACTION FOR BOT NUMBER " + (numberOfTheBot+1) + ": FORGE");
 
                     //Tant qu'il a les ressources, il forge plusieurs faces de sanctuaire
                     SanctuarysFaces face;
@@ -78,8 +78,8 @@ public class AdvancedStrategy extends Strategy {
                      */
 
                     if (supActionDone == false)
-                        System.out.println("*ACTION OF BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
-                    else System.out.println("**SUP ACTION FOR BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
+                        System.out.println("*ACTION OF BOT NUMBER " + (numberOfTheBot+1) + ": FEAT(Exploit)");
+                    else System.out.println("**SUP ACTION FOR BOT NUMBER " + (numberOfTheBot+1) + ": FEAT(Exploit)");
 
                     Card card;
                     if (!(card = bestCardToBuy(potentialCardsToBuy)).getName().equals("")) {
@@ -209,12 +209,6 @@ public class AdvancedStrategy extends Strategy {
         if (bestFaces.size() == 0) return new SanctuarysFaces();
         else {
             int index = -1;
-            /*for (int a = 0; a < bestFaces.size(); a++) {
-                if (bestFaces.get(a).getPrice() > price) {
-                    index = a;
-                    price = facesAvailable.get(a).getPrice();
-                }
-            }*/
             ArrayList<GeneralFace> bestGeneralFaces = new ArrayList<>();
             for (SanctuarysFaces face: bestFaces) {
                 bestGeneralFaces.add(face);
@@ -240,7 +234,7 @@ public class AdvancedStrategy extends Strategy {
         ArrayList<GeneralFace> listFace = new ArrayList<>();
         for (GeneralFace face : list) {
             ArrayList<String> properties = face.getProperties();
-            if ((Integer.valueOf(properties.get(a)) == 0) && (Integer.valueOf(properties.get(b)) == 0)
+            if ((properties.size() != 1) && (Integer.valueOf(properties.get(a)) == 0) && (Integer.valueOf(properties.get(b)) == 0)
                     && (Integer.valueOf(properties.get(c)) == 0)) {
                 listFace.add(face);
             }
@@ -360,10 +354,10 @@ public class AdvancedStrategy extends Strategy {
 
     /**
      * 1-En lancé de dé, on privilégie toujours les points de gloire, sinon la ressource la plus faible
-     * <p>
+     *
      * 2-en exploit, on choisit de privilégier aussi les points de gloire. en cas d'égalité entre deux faces
      * on départage en privilégiant le gold pour l'achat des faces
-     * <p>
+     *
      * 3- en cas de forge, on privilégie aussi d'abord les faces contenant des points de gloire,
      * en cas d'égalité entre deux faces, on privilégie la face la moins présente sur le dé (cas typique des faces simples)
      *

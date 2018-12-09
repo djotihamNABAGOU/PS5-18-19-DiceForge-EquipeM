@@ -82,7 +82,7 @@ public class Engine {
                 }
             }
 
-            data[a].getStrategy().apply(temple, island, a + 1, listFaces, data);
+            data[a].getStrategy().apply(temple, island, a, listFaces, data);
             a = a + 1;
         }
 
@@ -232,9 +232,12 @@ public class Engine {
             System.out.println("#####\tGAME PART " + (i + 1) + "\t#####");
             makeSets(temple, island, data);
             System.out.println("\n");
+            for (int a = 0; a < data.length; a++) {
+                System.out.println("-->BOT " + (a + 1));
+                data[a].printDiceState();
+            }
             System.out.println("DETERMINATING THE WINNER");
             tellMeTheWinnerOfRound(data);
-
         }
         tellMeTheWinnerOfTheGame(data);
     }

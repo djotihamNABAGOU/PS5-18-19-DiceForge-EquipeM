@@ -15,7 +15,7 @@ public class Main {
     //nombre de joueurs
     private static final int numberOfBots = 4;
     //Création des Bots
-    private static final Bot botOneRandom = new Bot("Nothing");
+    private static final Bot botOneRandom = new Bot("Random");
     private static final Bot botTwoRandom = new Bot("Random");
     private static final Bot botThreeNothing = new Bot("Random");
     private static final Bot botFourNothing = new Bot("Advanced");

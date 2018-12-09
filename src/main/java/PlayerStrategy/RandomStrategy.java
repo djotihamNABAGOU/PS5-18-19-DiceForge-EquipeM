@@ -112,18 +112,23 @@ public class RandomStrategy extends Strategy {
     /***********************************************************************************************/
     @Override
     public void callTheReinforcements(Temple temple, Bot bot, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces, Bot... data) {
-//        Random random = new Random();
-//        int size = bot.getReinforcementCard().size();
-//        int i = size;
-//        int last = 0, toGet = 0;
-//        while (i != 0) {
-//            toGet = random.nextInt(size);
-//            if (toGet != last) {
-//                bot.getReinforcementCard().get(toGet).capacity(temple, bot, numberOfTheBot, listFaces, data);
-//                last = toGet;
-//                i--;
-//            }
-//        }
+        /*Affichage
+        for (int a = 0; a < listFaces.length; a++) {
+            System.out.println(listFaces[a].toString());
+        }*/
+        Random random = new Random();
+        int size = bot.getReinforcementCard().size();
+        int i = size;
+        ArrayList<Integer> last = new ArrayList<>();
+        int toGet = 0;
+        while (i != 0) {
+            toGet = random.nextInt(size);
+            if (!last.contains(toGet)) {
+                bot.getReinforcementCard().get(toGet).capacity(temple, bot, numberOfTheBot, listFaces, data);
+                last.add(toGet);
+                i--;
+            }
+        }
     }
 
     @Override

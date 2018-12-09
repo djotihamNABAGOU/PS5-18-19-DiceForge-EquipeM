@@ -92,4 +92,9 @@ public class GardenFace extends GeneralFace{
         myList.add(name);
         return myList;
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
