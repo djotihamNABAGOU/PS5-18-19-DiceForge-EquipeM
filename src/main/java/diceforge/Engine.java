@@ -187,6 +187,7 @@ public class Engine {
                 listIndice.add(i);
             }
         }
+        System.out.println("GloryWinPoints : "+ data[listIndice.get(0)].getHerosInventory().getGloryPoints());
         if (listIndice.size() == 1) {
             System.out.println("Congratulations Bot " + (listIndice.get(0) + 1) + " !");
         } else if (listIndice.size() == 2) {
@@ -208,11 +209,20 @@ public class Engine {
      */
     void makeRound(Temple temple, Island island, Bot... data) {
         for (int i = 0; i < this.round; i++) {
+            
+            if(i>0){
+                this.InitializingBots(data);
+                temple.initializingTemple(data.length);
+                island.initializeIsland(data.length);
+            }
             System.out.println("#####\tROUND " + (i + 1) + "\t#####");
             makeSets(temple, island, data);
             System.out.println("\n");
             System.out.println("DETERMINATING THE WINNER");
             tellMeTheWinnerOfRound(data);
+            //Renitialiser tt
+ 
+            
         }
         tellMeTheWinnerOfTheGame(data);
     }

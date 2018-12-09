@@ -148,6 +148,7 @@ public class Strategy {
             SanctuarysFaces face;
             int nbPurchase = 1;//indice de forge
             while (!(face = FaceToBuy(potentialFacesToBuy(bot, temple))).getName().equals("null")) {
+                System.out.println("nom de la face : "+face.getName());
                 if (temple.buyFace(face)) {
                     System.out.println("PURCHASE " + nbPurchase);
                     ForgeDice(face);
@@ -182,26 +183,39 @@ public class Strategy {
     public ArrayList<SanctuarysFaces> potentialFacesToBuy(Bot bot, Temple temple){
         System.out.println("je commence");
         int v = bot.getHerosInventory().getGoldPoints();
+        
         ArrayList<SanctuarysFaces> FacesAvailable = new ArrayList<>();
-        ArrayList<SanctuarysFaces>[] sanctuary = temple.getSanctuary();
-        for (int a = 0; a < 10; a++) {
-            System.out.println("je suis au "+ a);
-                for (int i = 0; i < sanctuary[a].size(); i++) {
-                    System.out.println("et ici au "+i+"avec comme taille "+sanctuary[a].size());
-                    if (!sanctuary[a].get(i).isSelected() && !FacesAvailable.contains(sanctuary[a].get(i)) && v >= sanctuary[a].get(i).getPrice()) {
-                        int numbassin = temple.giveMeTheBasin(sanctuary[a].get(i));
-                        boolean ok = true;
-                        for(int b = 0;b<bassin.size();a++){
-                            if(numbassin == bassin.get(b))
-                                ok = false;
-                        }
-                        
-                        if(ok!=false)
-                            FacesAvailable.add(sanctuary[a].get(i));
-                    }
-                }
-            
+        ArrayList<SanctuarysFaces> sanctuary = temple.getAvailableFace(bot);
+        
+        // Affiche Nom et prix de chaque face qu'il peut payer
+        for(SanctuarysFaces face : sanctuary){
+            System.out.println("Name = "+face.getName()+" Prix = "+face.getPrice());
         }
+        
+        // Parcours
+        System.out.println("taille = "+sanctuary.size());
+        
+        for(int a=0;a<sanctuary.size();a++){
+        
+            boolean ok = true;
+            int numbassin = temple.giveMeTheBasin(sanctuary.get(a));
+            for(int b = 0;b<bassin.size();b++){
+                if(numbassin == bassin.get(b))
+                                ok = false;
+            }
+                        
+            if(ok!=false)
+                FacesAvailable.add(sanctuary.get(a));
+        }
+        
+        
+        // Affiche Nom et prix de chaque face qu'il peut payer et pas dns le meme bassin
+        System.out.println("bassin");
+        for(SanctuarysFaces face : FacesAvailable){
+            System.out.println("Name = "+face.getName()+" Prix = "+face.getPrice());
+        }
+        
+ 
         System.out.println("je sors avec une taille de "+FacesAvailable.size());
         return FacesAvailable;
     }

@@ -13,6 +13,7 @@ import Faces.Garden.ShieldOfTheGuardianFace;
 import Faces.Sanctuary.SimpleFace;
 import Faces.Garden.WildBoardFace;
 import Faces.Garden.WroughtFace;
+import Player.Bot;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -165,6 +166,33 @@ public class Temple {
         }
     }
 
+    public ArrayList<SanctuarysFaces> getAvailableFace(Bot bot){
+        int price = bot.getHerosInventory().getGoldPoints();
+        ArrayList<SanctuarysFaces> list = new ArrayList<>();
+        
+        for (int a = 0; a < 10; a++) {
+            for (int i = 0; i < Sanctuary[a].size(); i++) {
+                
+                if (  (Sanctuary[a].get(i).getPrice() <= price) &&
+                      (!Sanctuary[a].get(i).isSelected())      
+                   ){
+                       boolean ok = true;
+                       for(int c = 0;c<list.size();c++){
+                           if( (list.get(c).getName().equals(Sanctuary[a].get(i).getName())) &&
+                                (list.get(c).getPrice() == Sanctuary[a].get(i).getPrice()) ){
+                               ok = false;
+                           }
+                       }
+                       if(ok==true)
+                           list.add(Sanctuary[a].get(i));
+                }
+            }
+        }
+        
+        return list;
+    }
+    
+    
     public ArrayList<SanctuarysFaces>[] getSanctuary() {
         return Sanctuary;
     }
@@ -215,6 +243,7 @@ public class Temple {
                 if (Sanctuary[a].get(i).getName().equals(face.getName())
                         && Sanctuary[a].get(i).getPrice() == face.getPrice()){
                      basin = a;
+                     return basin;
                 }
             }
         }
