@@ -1,6 +1,6 @@
 package Card.ReinforcementEffectCard;
 
-import Faces.Sanctuary.GeneralFace;
+import Faces.GeneralFace;
 import diceforge.Engine;
 import diceforge.Temple;
 import org.junit.Test;

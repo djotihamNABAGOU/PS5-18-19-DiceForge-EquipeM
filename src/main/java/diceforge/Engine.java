@@ -225,15 +225,38 @@ public class Engine {
         for (int i = 0; i < this.round; i++) {
 
             if (i > 0) {
-                this.InitializingBots(data);
+                //Affichage de l'état des bots
+                for(Bot bot : data){
+                    bot.initialize();
+                }
                 
+                this.InitializingBots(data);
                 temple = new Temple();
                 island = new Island();
                 temple.initializingTemple(data.length);
                 island.initializeIsland(data.length);
+                
+                System.out.println("\nSTATE BEFORE ROUND "+(round+1));
+                System.out.println("-->BOT ONE");
+                System.out.println(data[0].toString());
+                data[0].printDiceState();
+                System.out.println("-->BOT TWO");
+                System.out.println(data[1].toString());
+                data[1].printDiceState();
+                System.out.println("-->BOT THREE");
+                System.out.println(data[2].toString());
+                data[2].printDiceState();
+                System.out.println("-->BOT FOUR");
+                System.out.println(data[3].toString());
+                data[3].printDiceState();
+                System.out.println("-------------------------------------\n");
+       
             }
-            System.out.println("#####\tGAME PART " + (i + 1) + "\t#####");
+            
             makeSets(temple, island, data);
+            
+            System.out.println("#####\tGAME PART " + (i + 1) + "\t#####");
+            
             System.out.println("\n");
             for (int a = 0; a < data.length; a++) {
                 System.out.println("-->BOT " + (a + 1));

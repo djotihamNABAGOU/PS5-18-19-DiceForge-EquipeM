@@ -18,7 +18,7 @@ public class Bot {
     private Dice firstDice;
     private Dice secondDice;
     private ArrayList<GeneralFace> RemovedFaces;
-    private final Strategy strategy;//stratégie du joueur durant tout le déroulement du jeu
+    private Strategy strategy;//stratégie du joueur durant tout le déroulement du jeu
     private String strategyName;
     private boolean active = false;
     private ArrayList<Reinforcement> reinforcementCard = new ArrayList<>();   /* Liste des cartes de renfort en possession du joueur */
@@ -32,6 +32,7 @@ public class Bot {
                                     This value must be update when the bot move on a gate */
 
     public Bot(String strategyName) {
+        boolean active = false;
         firstDice = new Dice();
         secondDice = new Dice();
         herosInventory = new HerosInventory();
@@ -64,7 +65,45 @@ public class Bot {
                 this.strategy = new Strategy(this);
                 break;
         }
-        this.wonRounds = 0;
+    }
+    
+    public void initialize(){
+        firstDice = new Dice();
+        secondDice = new Dice();
+        herosInventory = new HerosInventory();
+        RemovedFaces = new ArrayList<>();
+        this.portal = 0; /*Bot is on the default gate at the beginning*/
+        reinforcementCard = new ArrayList<>(); 
+        automaticCard = new ArrayList<>(); 
+        immediateCard = new ArrayList<>(); 
+        hammerCard = new ArrayList<>(); 
+        switch (strategyName) {
+
+            case "Random":
+                this.strategy = new RandomStrategy(this);
+                break;
+
+            case "Nothing":
+                this.strategy = new NothingStrategy(this);
+                break;
+
+            case "Advanced":
+                this.strategy = new AdvancedStrategy(this);
+                break;
+
+            case "Immediat":
+                this.strategy = new ImediaCardStrategy(this);
+                break;
+                
+            case "AdvancedTwo" :
+                this.strategy = new AdvancedStrategyTwo(this);
+                break;
+                
+            default:
+                this.strategy = new Strategy(this);
+                break;
+        }
+        
     }
 
     public ArrayList<TheHammer> getHammer() {

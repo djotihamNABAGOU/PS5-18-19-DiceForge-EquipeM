@@ -41,7 +41,7 @@ public class Island {
             this.cards[7].add(new TheHydra());
             this.cards[8].add(new TheRiddle());
 
-            this.cards[9].add(new TheAbyssallMirror()); //5th gate
+            //this.cards[9].add(new TheAbyssallMirror()); //5th gate
             this.cards[10].add(new TheJellyFish());
 
             this.cards[11].add(new TheMinotaur()); //6th gate

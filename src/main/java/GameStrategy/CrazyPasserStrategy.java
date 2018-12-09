@@ -123,8 +123,8 @@ public class CrazyPasserStrategy {
            //applyNext = true;
         }
         
-        if(indice == -1)
-            live = -1;   // L'une des deux cartes a été épuisé
+       // if(indice == -1)
+         //   live = -1;   // L'une des deux cartes a été épuisé
         
         return indice;
     }

@@ -51,14 +51,9 @@ public class HerosInventory {
     }
     
     public void IncreaseGloryPoints(int points){
-        int maxToAdd = gloryPointsLimit - this.gloryPoints;
-        if(maxToAdd>points){
             this.gloryPoints+=points;
-        }else{
-            this.gloryPoints=points-maxToAdd;
-            //On doit lui donner un jeton de point de gloire 100
-        }
     }
+    
     public void IncreaseMoonPoints(int points){
         int maxToAdd = moonPointsLimit - this.moonPoints;
         if(maxToAdd>points){
