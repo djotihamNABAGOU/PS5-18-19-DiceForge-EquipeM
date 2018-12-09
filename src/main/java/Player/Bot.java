@@ -55,7 +55,11 @@ public class Bot {
             case "Immediat":
                 this.strategy = new ImediaCardStrategy(this);
                 break;
-
+                
+            case "AdvancedTwo" :
+                this.strategy = new ImediaCardStrategy(this);
+                break;
+                
             default:
                 this.strategy = new Strategy(this);
                 break;

@@ -100,29 +100,42 @@ public class Engine {
      */
     private void makeSets(Temple temple, Island island, Bot... data) {
         for (int a = 0; a < this.set; a++) {
-            System.out.println("---------------SET " + (a + 1) + "---------------\n");
-            RollOneTime(temple, island, a + 1, data);
-            System.out.println();
-            System.out.println("---------------STATE AFTER " + (a + 1) + " SET---------------");
-            for (int i = 0; i < data.length; i++) {
-                System.out.println("-->BOT " + (i + 1));
-                System.out.println(data[i].toString());
-                //data[i].printDiceState();
-            }
-            System.out.println("\n");
-            //Changement du joueur actif
-            boolean findActiveBot = false;
-            for (int i = 0; i < data.length; i++) {
-                if (findActiveBot) {        //le précédent était donc actif, il ne l'est plus
-                    data[i].setActive(true);//il devient le nouveau joueur actif
-                    break;
+            
+            System.out.println("Manche : "+a);
+            
+            for(int e = 0;e<this.numberOfBot;e++){
+                
+                for(int d = 0;d<data.length;d++){
+                    if(data[d].isActive()){
+                        System.out.println("Bot "+(d+1)+" is active");
+                    }
                 }
-                if (data[i].isActive()) {
-                    findActiveBot = true;//On a trouvé le joueur actif
-                    if (i == (data.length - 1))
-                        data[0].setActive(true);//si on est sur le dernier joueur, on active le 1er
-                    data[i].setActive(false);//il redevient inactif, le bot suivant sera alors actif
+
+                System.out.println("---------------SET " + (e + 1) + "---------------\n");
+                RollOneTime(temple, island, e + 1, data);
+                System.out.println();
+                System.out.println("---------------STATE AFTER " + (e + 1) + " SET---------------");
+                for (int i = 0; i < data.length; i++) {
+                    System.out.println("-->BOT " + (i + 1));
+                    System.out.println(data[i].toString());
+                    //data[i].printDiceState();
                 }
+                System.out.println("\n");
+                //Changement du joueur actif
+                boolean findActiveBot = false;
+                for (int i = 0; i < data.length; i++) {
+                    if (findActiveBot) {        //le précédent était donc actif, il ne l'est plus
+                        data[i].setActive(true);//il devient le nouveau joueur actif
+                        break;
+                    }
+                    if (data[i].isActive()) {
+                        findActiveBot = true;//On a trouvé le joueur actif
+                        if (i == (data.length - 1))
+                            data[0].setActive(true);//si on est sur le dernier joueur, on active le 1er
+                        data[i].setActive(false);//il redevient inactif, le bot suivant sera alors actif
+                    }
+                }
+                
             }
         }
     }
