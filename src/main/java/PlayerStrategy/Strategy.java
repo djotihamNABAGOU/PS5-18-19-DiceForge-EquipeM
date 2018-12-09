@@ -21,7 +21,8 @@ public class Strategy {
      * s'il est joueur actif.
      * On initialise donc une variable bassin à -1 pour désigner un bassin inexistant
      */
-    protected int bassin = -1;
+    protected ArrayList<Integer> bassin;
+    
 
     /**
      * Constructeur de la classe Strategy
@@ -144,8 +145,8 @@ public class Strategy {
         if (choice == 0) {//forge de plusieurs faces
             SanctuarysFaces face;
             int nbPurchase = 1;//indice de forge
-            while (!(face = FaceToBuy(bot, temple, bassin)).getName().equals("null")) {
-                bassin = temple.giveMeTheBasin(face);//enregistrement du bassin de la nouvelle face
+            while (!(face = FaceToBuy(bot, temple)).getName().equals("null")) {
+                bassin.add(temple.giveMeTheBasin(face));//enregistrement du bassin de la nouvelle face
                 if (temple.buyFace(face)) {
                     System.out.println("PURCHASE " + nbPurchase);
                     ForgeDice(face);
@@ -157,7 +158,7 @@ public class Strategy {
             }
         } else {//forge d'une seule face
             SanctuarysFaces face;
-            if (!(face = FaceToBuy(bot, temple, bassin)).getName().equals("null")) {
+            if (!(face = FaceToBuy(bot, temple)).getName().equals("null")) {
                 if (temple.buyFace(face)) {
                     ForgeDice(face);
                     bot.getHerosInventory().DecreaseGoldPoints(face.getPrice());
@@ -189,7 +190,7 @@ public class Strategy {
      * @param bassin
      * @return
      */
-    public SanctuarysFaces FaceToBuy(Bot bot, Temple temple, int bassin) {
+    public SanctuarysFaces FaceToBuy(Bot bot, Temple temple) {
         SanctuarysFaces face = new SanctuarysFaces();
         return face;
     }

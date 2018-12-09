@@ -17,22 +17,19 @@ import java.util.ArrayList;
  */
 public class SunSubstitution {
     
-    
-public class GoldenSubstitution{
-    
     private int val ; // Valeur de la face suivante à payer
     private int rep;  // Nombre de fois que la stratégie est appelée
     private final int dice ;  
  
     
-    public GoldenSubstitution(){
+    public SunSubstitution(){
          val = 1;  // Valeur de la 1ere face de SUn à payer
          rep = 0;
          dice = 2; // C"est sur le second dé qu"on mettra les fces de dé
     }
     
     
-    public SanctuarysFaces choiceGoldFace(ArrayList<SanctuarysFaces> list){
+    public SanctuarysFaces choiceSunFace(ArrayList<SanctuarysFaces> list){
         rep = rep + 1;
         boolean sunFaceOneAvailable = false;
         boolean sunFaceTwoAvailable = false;
@@ -79,6 +76,10 @@ public class GoldenSubstitution{
         return indice;
     }
     
-}
+    
+    public int getRep() {
+        return rep;
+    }
+
 
 }

@@ -22,7 +22,8 @@ public class GoldenSubstitution{
     private final int dice ;  
  
     
-    public GoldenSubstitution(){
+    
+    public GoldenSubstitution(){ 
          val = 3;  // Valeur de la 1ere face d"or à payer
          rep = 0;
          dice = 1; // C"est sur le premier dé qu"on mettra les fces de dé
@@ -121,5 +122,11 @@ public class GoldenSubstitution{
         }
         return indice;
     }
+
+    public int getRep() {
+        return rep;
+    }
+
+
     
 }

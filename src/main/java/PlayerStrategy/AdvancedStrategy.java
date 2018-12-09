@@ -185,18 +185,26 @@ public class AdvancedStrategy extends Strategy {
      * en gros, on stocke les faces du sanctuaire disponibles dans une liste FacesAvailable puis on choisit au hasard la face à retourner
      */
     @Override
-    public SanctuarysFaces FaceToBuy(Bot bot, Temple temple, int bassin) {
+    public SanctuarysFaces FaceToBuy(Bot bot, Temple temple) {
         int v = bot.getHerosInventory().getGoldPoints();
         ArrayList<SanctuarysFaces> FacesAvailable = new ArrayList<>();
         ArrayList<SanctuarysFaces>[] sanctuary = temple.getSanctuary();
         for (int a = 0; a < 10; a++) {
-            if (a != bassin) {//car il ne peut retirer de faces d'un même bassin consécutivement
+           
                 for (int i = 0; i < sanctuary[a].size(); i++) {
                     if (!sanctuary[a].get(i).isSelected() && !FacesAvailable.contains(sanctuary[a].get(i)) && v >= sanctuary[a].get(i).getPrice()) {
-                        FacesAvailable.add(sanctuary[a].get(i));
+                        int numbassin = temple.giveMeTheBasin(sanctuary[a].get(i));
+                        boolean ok = true;
+                        for(int b = 0;b<bassin.size();a++){
+                            if(numbassin == bassin.get(b))
+                                ok = false;
+                        }
+                        
+                        if(ok!=false)
+                            FacesAvailable.add(sanctuary[a].get(i));
                     }
                 }
-            }
+            
         }
 
         Random randomFace = new Random();
