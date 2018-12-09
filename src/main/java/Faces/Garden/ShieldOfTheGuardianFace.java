@@ -5,7 +5,7 @@
 package Faces.Garden;
 
 import Card.Card;
-import Faces.Sanctuary.GeneralFace;
+import Faces.GeneralFace;
 import Faces.Sanctuary.SimpleFace;
 import Player.Bot;
 import diceforge.Temple;

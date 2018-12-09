@@ -1,4 +1,5 @@
 package Faces.Sanctuary;
+import Faces.GeneralFace;
 import Faces.Garden.ShieldOfTheGuardianFace;
 import Player.Bot;
 import diceforge.Temple;

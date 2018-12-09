@@ -3,7 +3,7 @@ package Player;
 import Card.Card;
 import Card.Reinforcement;
 import Card.ImmediateEffectCard.TheHammer;
-import Faces.Sanctuary.GeneralFace;
+import Faces.GeneralFace;
 import Faces.Sanctuary.SimpleFace;
 import PlayerStrategy.*;
 import diceforge.Temple;
@@ -173,7 +173,7 @@ public class Bot {
     }
 
     //Lancer un dÃ© au choix prÃ©defini
-    public Faces.Sanctuary.GeneralFace rollOneDice(int a) {
+    public Faces.GeneralFace rollOneDice(int a) {
 
         switch (a) {
             case 0:

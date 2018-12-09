@@ -2,7 +2,7 @@ package PlayerStrategy;
 
 
 import Card.Card;
-import Faces.Sanctuary.GeneralFace;
+import Faces.GeneralFace;
 import Faces.Sanctuary.SanctuarysFaces;
 import GameStrategy.CrazyPasserStrategy;
 import GameStrategy.GoldenSubstitution;
@@ -82,34 +82,13 @@ public class AdvancedStrategyTwo extends Strategy {
      * retourne le nom de la face à payer choisie 
      * retourne NULL si le bot ne désire plus acheter une face 👍
      *
-     * @param bot    utilisé pour avoir accès à l'inventaire du bot
-     * @param temple ustilisé pour rechercher les faces disponibles
+     * @param FacesAvailable
      * @return la face à payer choisie au hasard
-     * en gros, on stocke les faces du sanctuaire disponibles dans une liste FacesAvailable puis on choisit au hasard la face à retourner
+     *
      */
     @Override
-    public SanctuarysFaces FaceToBuy(Bot bot, Temple temple) {
-        int v = bot.getHerosInventory().getGoldPoints();
-        ArrayList<SanctuarysFaces> FacesAvailable = new ArrayList<>();
-        ArrayList<SanctuarysFaces>[] sanctuary = temple.getSanctuary();
-        for (int a = 0; a < 10; a++) {
-           
-                for (int i = 0; i < sanctuary[a].size(); i++) {
-                    if (!sanctuary[a].get(i).isSelected() && !FacesAvailable.contains(sanctuary[a].get(i)) && v >= sanctuary[a].get(i).getPrice()) {
-                        
-                        int numbassin = temple.giveMeTheBasin(sanctuary[a].get(i));
-                        boolean ok = true;
-                        for(int b = 0;b<bassin.size();a++){
-                            if(numbassin == bassin.get(b))
-                                ok = false;
-                        }
-                        
-                        if(ok!=false)
-                            FacesAvailable.add(sanctuary[a].get(i));
-                    }
-                }
-            
-        }
+    public SanctuarysFaces FaceToBuy(ArrayList<SanctuarysFaces> FacesAvailable) {
+
         
         
                       // -- -Traitement minicieux des faces à disposition- -- // 
@@ -155,12 +134,7 @@ public class AdvancedStrategyTwo extends Strategy {
         if(compteur==9){
             // Arrivé ici , 
             
-            SanctuarysFaces one = new SanctuarysFaces();
-            GeneralFace two = (GeneralFace) one;
-            
-            
-            GeneralFace three = new GeneralFace();
-            SanctuarysFaces four = (SanctuarysFaces) three;
+         
                     
         }
         
@@ -171,7 +145,7 @@ public class AdvancedStrategyTwo extends Strategy {
         
         int choice = 0; // forge par défaut : 1 pour ILE
         ArrayList<Card> potentialCardsToBuy =  potentialCardsToBuy(bot, island);
-        SanctuarysFaces faceToBuy = FaceToBuy(bot, temple);
+   
         
         if(!potentialCardsToBuy.isEmpty()){
             

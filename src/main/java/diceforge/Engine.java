@@ -1,6 +1,6 @@
 package diceforge;
 
-import Faces.Sanctuary.GeneralFace;
+import Faces.GeneralFace;
 import Faces.Sanctuary.SanctuarysFaces;
 import Player.Bot;
 
