@@ -10,6 +10,7 @@ import diceforge.Island;
 import diceforge.Temple;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -192,23 +193,31 @@ public class AdvancedStrategy extends Strategy {
                 price = facesAvailable.get(a).getPrice();
             }
         }
+        //Recherche de toutes les occurences de meilleur prix
         ArrayList<SanctuarysFaces> bestFaces = new ArrayList<>();
         for (int a = 0; a < facesAvailable.size(); a++) {
             if (facesAvailable.get(a).getPrice() == price) {
                 bestFaces.add(facesAvailable.get(a));
             }
         }
+        /*Recherche de la meilleure face en présence de deux faces d'un même prix mais de bassins différents.
+        cas typique des faces simples*/
         if (bestFaces.size() == 0) return new SanctuarysFaces();
         else {
             int index = -1;
-            for (int a = 0; a < bestFaces.size(); a++) {
-                if (bestFaces.get(a).getPrice()>price) {
+            /*for (int a = 0; a < bestFaces.size(); a++) {
+                if (bestFaces.get(a).getPrice() > price) {
                     index = a;
                     price = facesAvailable.get(a).getPrice();
                 }
+            }*/
+            ArrayList<GeneralFace> bestGeneralFaces = new ArrayList<>();
+            for (SanctuarysFaces face: bestFaces) {
+                bestGeneralFaces.add(face);
             }
+            index = giveMeYourChoice(bestGeneralFaces,2);
 
-            System.out.println("La face payée est "+bestFaces.get(index).toString());
+            System.out.println("La face payée est " + bestFaces.get(index).toString());
             return bestFaces.get(index);
         }
 
@@ -223,9 +232,9 @@ public class AdvancedStrategy extends Strategy {
      * @param c
      * @return
      */
-    private ArrayList<SanctuarysFaces> searchFace(ArrayList<SanctuarysFaces> list, int a, int b, int c) {
-        ArrayList<SanctuarysFaces> listFace = new ArrayList<>();
-        for (SanctuarysFaces face : list) {
+    private ArrayList<GeneralFace> searchFace(ArrayList<GeneralFace> list, int a, int b, int c) {
+        ArrayList<GeneralFace> listFace = new ArrayList<>();
+        for (GeneralFace face : list) {
             ArrayList<String> properties = face.getProperties();
             if ((Integer.valueOf(properties.get(a)) == 0) && (Integer.valueOf(properties.get(b)) == 0)
                     && (Integer.valueOf(properties.get(c)) == 0)) {
@@ -347,53 +356,153 @@ public class AdvancedStrategy extends Strategy {
 
     /**
      * 1-En lancé de dé, on privilégie toujours les points de gloire, sinon la ressource la plus faible
-     * 2-en exploit, on choisit les points de gloire
+     * <p>
+     * 2-en exploit, on choisit de privilégier aussi les points de gloire. en cas d'égalité entre deux faces
+     * on départage en privilégiant le gold pour l'achat des faces
+     * <p>
+     * 3- en cas de forge, on privilégie aussi d'abord les faces contenant des points de gloire,
+     * en cas d'égalité entre deux faces, on privilégie la face la moins présente sur le dé (cas typique des faces simples)
+     *
+     * @param Offered     liste de faces
+     * @param whichAction 0 pour le lancé de dés, 1 pour exploit, 2 pour forge
      */
     @Override
-    public int giveMeYourChoice(ArrayList<SimpleFace> Offered, int whichAction) {
+    public int giveMeYourChoice(ArrayList<GeneralFace> Offered, int whichAction) {
         int size = Offered.size(), choice = -1;
         int goldIndex = 0, sunIndex = 0, moonIndex = 0;
-        if (whichAction == 0) {
-            for (int i = 0; i < size; i++) {
-                if (Offered.get(i).getName().equals("GloryFace")) {
-                    return i;
-                } else {
-                    if (Offered.get(i).getName().equals("GoldenFace")) goldIndex = i;
-                    if (Offered.get(i).getName().equals("SunFace")) sunIndex = i;
-                    if (Offered.get(i).getName().equals("MoonFace")) moonIndex = i;
-                }
-            }
 
-            int goldPoints = bot.getHerosInventory().getGoldPoints(),
-                    sunPoints = bot.getHerosInventory().getSunPoints(),
-                    moonPoints = bot.getHerosInventory().getMoonPoints();
-            if (goldPoints < sunPoints) {
-                if (goldPoints < moonPoints) choice = goldIndex;
-                else {
-                    if (goldPoints == moonPoints) choice = goldIndex;//pour privilégier l'achat des faces
-                    else choice = moonIndex;
-                }
-            } else {
-                if (goldPoints == sunPoints) {
-                    if (goldPoints < moonPoints) choice = goldIndex;//pour privilégier l'achat des faces
-                    else choice = moonIndex;
-                } else {
-                    if (sunPoints < moonPoints) choice = sunIndex;
-                    else {
-                        if (sunPoints == moonPoints) {
-                            Random random = new Random();
-                            int number = random.nextInt(2);//0 pour sun et 1 pour moon
-                            if (number == 0) choice = sunIndex;
-                            else choice = moonIndex;
-                        } else choice = moonIndex;
+        switch (whichAction) {
+            case 0:
+                for (int i = 0; i < size; i++) {
+                    if (Offered.get(i).getName().equals("GloryFace")) {
+                        return i;
+                    } else {
+                        if (Offered.get(i).getName().equals("GoldenFace")) goldIndex = i;
+                        if (Offered.get(i).getName().equals("SunFace")) sunIndex = i;
+                        if (Offered.get(i).getName().equals("MoonFace")) moonIndex = i;
                     }
                 }
-            }
-        } else {
-            for (int i = 0; i < size; i++) {
-                if (Offered.get(i).getName().equals("GloryFace")) choice = i;
-            }
+
+                int goldPoints = bot.getHerosInventory().getGoldPoints(),
+                        sunPoints = bot.getHerosInventory().getSunPoints(),
+                        moonPoints = bot.getHerosInventory().getMoonPoints();
+
+                if (goldPoints < sunPoints) {
+                    if (goldPoints < moonPoints) choice = goldIndex;
+                    else {
+                        if (goldPoints == moonPoints) choice = goldIndex;//pour privilégier l'achat des faces
+                        else choice = moonIndex;
+                    }
+                } else {
+                    if (goldPoints == sunPoints) {
+                        if (goldPoints < moonPoints) choice = goldIndex;//pour privilégier l'achat des faces
+                        else choice = moonIndex;
+                    } else {
+                        if (sunPoints < moonPoints) choice = sunIndex;
+                        else {
+                            if (sunPoints == moonPoints) {
+                                Random random = new Random();
+                                int number = random.nextInt(2);//0 pour sun et 1 pour moon
+                                if (number == 0) choice = sunIndex;
+                                else choice = moonIndex;
+                            } else choice = moonIndex;
+                        }
+                    }
+                }
+                break;
+            case 1:
+                for (int i = 0; i < size; i++) {
+                    if (Offered.get(i).getName().equals("GloryFace")) choice = i;
+                }
+                break;
+            case 2:
+                for (int i = 0; i < size; i++) {
+                    if (Offered.get(i).getName().equals("GloryFace")) {
+                        return i;
+                    } else {
+                        if (Offered.get(i).getName().equals("GoldenFace")) goldIndex = i;
+                        if (Offered.get(i).getName().equals("SunFace")) sunIndex = i;
+                        if (Offered.get(i).getName().equals("MoonFace")) moonIndex = i;
+                    }
+                }
+
+                //Ici on est sûr à 100% que ce sont des faces simples de sanctuaire, on peut donc caster
+                ArrayList<SanctuarysFaces> offeredSimpleFaces = new ArrayList<>();
+                for (GeneralFace face: Offered) {
+                    offeredSimpleFaces.add((SanctuarysFaces) face);
+                }
+
+                //Premier dé du bot, recherche du nombre d'occurences d'une face que possède un dé
+                int goldOccur, sunOccur, moonOccur;
+                ArrayList<GeneralFace> diceFaces1 = new ArrayList<>();
+                for (GeneralFace face: bot.getFirstDice().getFaces()) {
+                    diceFaces1.add(face);
+                }
+
+                //Deuxième dé du bot, recherche du nombre d'occurences d'une face que possède un dé
+                int goldOccur2, sunOccur2, moonOccur2;
+                ArrayList<GeneralFace> diceFaces2 = new ArrayList<>();
+                for (GeneralFace face: bot.getSecondDice().getFaces()) {
+                    diceFaces2.add(face);
+                }
+
+                //On cherche le nombre d'occurences de chaque face sur le dé 1
+                goldOccur = searchFace(diceFaces1,offeredSimpleFaces.get(goldIndex).getOffered().get(0).getValue(),0,0).size();
+                sunOccur = searchFace(diceFaces1,0, offeredSimpleFaces.get(sunIndex).getOffered().get(0).getValue(),0).size();
+                moonOccur = searchFace(diceFaces1,0,0, offeredSimpleFaces.get(moonIndex).getOffered().get(0).getValue()).size();
+
+                //On cherche le nombre d'occurences de chaque face sur le dé 1
+                goldOccur2 = searchFace(diceFaces2,offeredSimpleFaces.get(goldIndex).getOffered().get(0).getValue(),0,0).size();
+                sunOccur2 = searchFace(diceFaces2,0, offeredSimpleFaces.get(sunIndex).getOffered().get(0).getValue(),0).size();
+                moonOccur2 = searchFace(diceFaces2,0,0, offeredSimpleFaces.get(moonIndex).getOffered().get(0).getValue()).size();
+
+                //On choisit le dé sur lequel forger
+                int dice1 = 0, dice2 =0;
+                if (goldOccur < goldOccur2) dice1++;
+                else dice2++;
+                if (sunOccur < sunOccur2) dice1++;
+                else dice2++;
+                if (moonOccur < moonOccur2) dice1++;
+                else dice2++;
+                int finalGoldOccur, finalSunOccur, finalMoonOccur;
+                if (dice1 < dice2) {
+                    finalGoldOccur = goldOccur;
+                    finalSunOccur = sunOccur;
+                    finalMoonOccur = moonOccur;
+                }else {
+                    finalGoldOccur = goldOccur2;
+                    finalSunOccur = sunOccur2;
+                    finalMoonOccur = moonOccur2;
+                }
+
+                //On choisit ensuite quelle face forger
+                if (finalGoldOccur < finalSunOccur) {
+                    if (finalGoldOccur < finalMoonOccur) choice = goldIndex;
+                    else {
+                        if (finalGoldOccur == finalMoonOccur) choice = goldIndex;//pour privilégier l'achat des faces
+                        else choice = moonIndex;
+                    }
+                } else {
+                    if (finalGoldOccur == finalSunOccur) {
+                        if (finalGoldOccur < finalMoonOccur) choice = goldIndex;//pour privilégier l'achat des faces
+                        else choice = moonIndex;
+                    } else {
+                        if (finalSunOccur < finalMoonOccur) choice = sunIndex;
+                        else {
+                            if (finalSunOccur == finalMoonOccur) {
+                                Random random = new Random();
+                                int number = random.nextInt(2);//0 pour sun et 1 pour moon
+                                if (number == 0) choice = sunIndex;
+                                else choice = moonIndex;
+                            } else choice = moonIndex;
+                        }
+                    }
+                }
+                break;
+            default:
+                System.out.println("Unknown the situation !!!");
         }
+
         return choice;
     }
 

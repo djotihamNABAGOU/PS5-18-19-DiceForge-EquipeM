@@ -39,7 +39,7 @@ public class TheWildBoar extends Reinforcement {
 
     @Override
     public void capacity(Temple temple, Bot bot, int numBot, ArrayList<GeneralFace>[] listFaces, Bot... tabBot) {
-        ArrayList<SimpleFace> Offered = new ArrayList<>();
+        ArrayList<GeneralFace> Offered = new ArrayList<>();
         Offered.add(new SimpleFace(1, "S", "SunFace"));
         Offered.add(new SimpleFace(1, "M", "MoonFace"));
         Offered.add(new SimpleFace(3, "Gl", "GloryFace"));

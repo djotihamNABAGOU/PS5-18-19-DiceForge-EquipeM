@@ -216,7 +216,7 @@ public class RandomStrategy extends Strategy {
     }
 
     @Override
-    public int giveMeYourChoice(ArrayList<SimpleFace> Offered, int whichAction) {
+    public int giveMeYourChoice(ArrayList<GeneralFace> Offered, int whichAction) {
         Random random = new Random();
         int choice = -1;
         choice = random.nextInt(Offered.size());

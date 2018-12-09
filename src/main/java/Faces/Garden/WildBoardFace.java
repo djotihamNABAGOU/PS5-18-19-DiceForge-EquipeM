@@ -33,7 +33,11 @@ public class WildBoardFace extends GardenFace{
             Offered.add(new SimpleFace(1, "M", "MoonFace"));
             int choice = -1;
             if(action==0){
-                choice = bot.getStrategy().giveMeYourChoice(Offered,0);
+                ArrayList<GeneralFace> offeredGeneralFaces = new ArrayList<>();
+                for (SimpleFace face: Offered) {
+                    offeredGeneralFaces.add(face);
+                }
+                choice = bot.getStrategy().giveMeYourChoice(offeredGeneralFaces,0);
             }else{
                 choice = bot.getStrategy().giveMeYourChoicedecrease(Offered);
             }
@@ -106,7 +110,7 @@ public class WildBoardFace extends GardenFace{
     @Override
     public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,
                                           int a,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
-        ArrayList<SimpleFace> Offered = new ArrayList<>();
+        ArrayList<GeneralFace> Offered = new ArrayList<>();
         Offered.add(new SimpleFace(1, "S", "SunFace"));
         Offered.add(new SimpleFace(1, "M", "MoonFace"));
         int choice = bot.getStrategy().giveMeYourChoice(Offered,0);

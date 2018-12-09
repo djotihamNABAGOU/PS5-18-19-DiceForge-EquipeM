@@ -226,7 +226,7 @@ public class Strategy {
      * @param whichAction pour savoir si c'est un lancé de dé (0) ou un exploit (1)
      * @return
      */
-    public int giveMeYourChoice(ArrayList<SimpleFace> Offered, int whichAction) {
+    public int giveMeYourChoice(ArrayList<GeneralFace> Offered, int whichAction) {
         return 0;
     }
 
