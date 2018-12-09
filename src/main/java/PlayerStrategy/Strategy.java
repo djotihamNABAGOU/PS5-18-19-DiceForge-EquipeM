@@ -141,10 +141,11 @@ public class Strategy {
      * @param choice 0 pour plusieurs forges, 1 pour une seule forge
      */
     public void forgeHowManyTimes(Temple temple, int choice) {
+        ArrayList<SanctuarysFaces> potentialFaces = potentialFacesToBuy(bot, temple, bassin);
         if (choice == 0) {//forge de plusieurs faces
             SanctuarysFaces face;
             int nbPurchase = 1;//indice de forge
-            while (!(face = FaceToBuy(bot, temple, bassin)).getName().equals("null")) {
+            while (!(face = FaceToBuy(potentialFaces)).getName().equals("null")) {
                 bassin = temple.giveMeTheBasin(face);//enregistrement du bassin de la nouvelle face
                 if (temple.buyFace(face)) {
                     System.out.println("PURCHASE " + nbPurchase);
@@ -157,7 +158,7 @@ public class Strategy {
             }
         } else {//forge d'une seule face
             SanctuarysFaces face;
-            if (!(face = FaceToBuy(bot, temple, bassin)).getName().equals("null")) {
+            if (!(face = FaceToBuy(potentialFaces)).getName().equals("null")) {
                 if (temple.buyFace(face)) {
                     ForgeDice(face);
                     bot.getHerosInventory().DecreaseGoldPoints(face.getPrice());
@@ -166,6 +167,30 @@ public class Strategy {
                 }
             }
         }
+    }
+
+    /**
+     * Méthode permettant de retourner au bot les faces qu'ils peuvent payer
+     * en gros, on stocke les faces du sanctuaire disponibles dans une liste FacesAvailable puis on choisit au hasard la face à retourner
+     * @param bot
+     * @param temple
+     * @param bassin
+     * @return
+     */
+    public ArrayList<SanctuarysFaces> potentialFacesToBuy(Bot bot, Temple temple, int bassin){
+        int v = bot.getHerosInventory().getGoldPoints();
+        ArrayList<SanctuarysFaces> FacesAvailable = new ArrayList<>();
+        ArrayList<SanctuarysFaces>[] sanctuary = temple.getSanctuary();
+        for (int a = 0; a < 10; a++) {
+            if (a != bassin) {//car il ne peut retirer de faces d'un même bassin consécutivement
+                for (int i = 0; i < sanctuary[a].size(); i++) {
+                    if (!sanctuary[a].get(i).isSelected() && !FacesAvailable.contains(sanctuary[a].get(i)) && v >= sanctuary[a].get(i).getPrice()) {
+                        FacesAvailable.add(sanctuary[a].get(i));
+                    }
+                }
+            }
+        }
+        return FacesAvailable;
     }
 
     /**
@@ -184,12 +209,10 @@ public class Strategy {
     /**
      * Méthode permettant au bot de choisir une face à forger en fonction de ses ressources
      *
-     * @param bot
-     * @param temple
-     * @param bassin
+     * @param facesAvailable
      * @return
      */
-    public SanctuarysFaces FaceToBuy(Bot bot, Temple temple, int bassin) {
+    public SanctuarysFaces FaceToBuy(ArrayList<SanctuarysFaces> facesAvailable) {
         SanctuarysFaces face = new SanctuarysFaces();
         return face;
     }

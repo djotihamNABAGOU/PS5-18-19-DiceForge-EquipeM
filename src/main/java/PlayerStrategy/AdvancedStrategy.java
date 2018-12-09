@@ -150,6 +150,7 @@ public class AdvancedStrategy extends Strategy {
 
     /**
      * Permet au bot de remplacer une face de son dé avec une nouvelle face venant du sanctuaire
+     * Mais il faudra qu'il enlève les faces les moins avantageuses
      *
      * @param face de remplacement
      */
@@ -177,37 +178,81 @@ public class AdvancedStrategy extends Strategy {
     }
 
     /**
-     * retourne le nom de la face à payer choisie au hasard selon les ressources disponibles pour payer la face
+     * retourne le nom de la face à payer choisie après analyse de la meilleure option selon les ressources disponibles pour payer la face
      *
-     * @param bot    utilisé pour avoir accès à l'inventaire du bot
-     * @param temple ustilisé pour rechercher les faces disponibles
-     * @return la face à payer choisie au hasard
-     * en gros, on stocke les faces du sanctuaire disponibles dans une liste FacesAvailable puis on choisit au hasard la face à retourner
+     * @param facesAvailable
+     * @return la face à payer
      */
     @Override
-    public SanctuarysFaces FaceToBuy(Bot bot, Temple temple, int bassin) {
-        int v = bot.getHerosInventory().getGoldPoints();
-        ArrayList<SanctuarysFaces> FacesAvailable = new ArrayList<>();
-        ArrayList<SanctuarysFaces>[] sanctuary = temple.getSanctuary();
-        for (int a = 0; a < 10; a++) {
-            if (a != bassin) {//car il ne peut retirer de faces d'un même bassin consécutivement
-                for (int i = 0; i < sanctuary[a].size(); i++) {
-                    if (!sanctuary[a].get(i).isSelected() && !FacesAvailable.contains(sanctuary[a].get(i)) && v >= sanctuary[a].get(i).getPrice()) {
-                        FacesAvailable.add(sanctuary[a].get(i));
-                    }
-                }
+    public SanctuarysFaces FaceToBuy(ArrayList<SanctuarysFaces> facesAvailable) {
+        int price = 0;
+        //Recherche du meilleur prix
+        for (int a = 0; a < facesAvailable.size(); a++) {
+            if (facesAvailable.get(a).getPrice() > price) {
+                price = facesAvailable.get(a).getPrice();
             }
         }
-
-        Random randomFace = new Random();
-
-        if (FacesAvailable.size() == 0) return new SanctuarysFaces();
+        ArrayList<SanctuarysFaces> bestFaces = new ArrayList<>();
+        for (int a = 0; a < facesAvailable.size(); a++) {
+            if (facesAvailable.get(a).getPrice() == price) {
+                bestFaces.add(facesAvailable.get(a));
+            }
+        }
+        if (bestFaces.size() == 0) return new SanctuarysFaces();
         else {
-            int faceToReturn = randomFace.nextInt(FacesAvailable.size()); // initialisation
-            //System.out.println("La face payée est "+FacesAvailable.get(caseFace).toString());
-            return FacesAvailable.get(faceToReturn);
+            int index = -1;
+            for (int a = 0; a < bestFaces.size(); a++) {
+                if (bestFaces.get(a).getPrice()>price) {
+                    index = a;
+                    price = facesAvailable.get(a).getPrice();
+                }
+            }
+
+            System.out.println("La face payée est "+bestFaces.get(index).toString());
+            return bestFaces.get(index);
         }
 
+    }
+
+    /**
+     * Cherche les faces qui procurent seulement un seul type de ressource bien déterminé
+     *
+     * @param list
+     * @param a
+     * @param b
+     * @param c
+     * @return
+     */
+    private ArrayList<SanctuarysFaces> searchFace(ArrayList<SanctuarysFaces> list, int a, int b, int c) {
+        ArrayList<SanctuarysFaces> listFace = new ArrayList<>();
+        for (SanctuarysFaces face : list) {
+            ArrayList<String> properties = face.getProperties();
+            if ((Integer.valueOf(properties.get(a)) == 0) && (Integer.valueOf(properties.get(b)) == 0)
+                    && (Integer.valueOf(properties.get(c)) == 0)) {
+                listFace.add(face);
+            }
+        }
+        return listFace;
+    }
+
+    // Cherche les faces qui offrent soit un choix seulement / soit plusieurs ressources
+    private ArrayList<SanctuarysFaces> searchAddOrChoiceFace(ArrayList<SanctuarysFaces> list, String mode) {
+        ArrayList<SanctuarysFaces> listFace = new ArrayList<>();
+        for (SanctuarysFaces face : list) {
+            ArrayList<String> properties = face.getProperties();
+            if (properties.get(4).equals(mode)) {
+                //pour éviter d"avoir les faces qui procurent un seul gain seulemnt pr mode Add
+                int compteur = 0;
+                for (int a = 0; a < 3; a++) {
+                    if (Integer.valueOf(properties.get(a)) != 0) {
+                        compteur = compteur + 1;
+                    }
+                }
+                if (compteur >= 2)   // procure au moins 2 ressources
+                    listFace.add(face);
+            }
+        }
+        return listFace;
     }
 
     /************************************************************************************************/
@@ -318,7 +363,7 @@ public class AdvancedStrategy extends Strategy {
                     if (Offered.get(i).getName().equals("MoonFace")) moonIndex = i;
                 }
             }
-            
+
             int goldPoints = bot.getHerosInventory().getGoldPoints(),
                     sunPoints = bot.getHerosInventory().getSunPoints(),
                     moonPoints = bot.getHerosInventory().getMoonPoints();

@@ -58,25 +58,12 @@ public class AdvancedStrategyTwo extends Strategy {
      * retourne le nom de la face à payer choisie 
      * retourne NULL si le bot ne désire plus acheter une face 👍
      *
-     * @param bot    utilisé pour avoir accès à l'inventaire du bot
-     * @param temple ustilisé pour rechercher les faces disponibles
+     * @param FacesAvailable
      * @return la face à payer choisie au hasard
-     * en gros, on stocke les faces du sanctuaire disponibles dans une liste FacesAvailable puis on choisit au hasard la face à retourner
+     *
      */
     @Override
-    public SanctuarysFaces FaceToBuy(Bot bot, Temple temple, int bassin) {
-        int v = bot.getHerosInventory().getGoldPoints();
-        ArrayList<SanctuarysFaces> FacesAvailable = new ArrayList<>();
-        ArrayList<SanctuarysFaces>[] sanctuary = temple.getSanctuary();
-        for (int a = 0; a < 10; a++) {
-            if (a != bassin) {//car il ne peut retirer de faces d'un même bassin consécutivement
-                for (int i = 0; i < sanctuary[a].size(); i++) {
-                    if (!sanctuary[a].get(i).isSelected() && !FacesAvailable.contains(sanctuary[a].get(i)) && v >= sanctuary[a].get(i).getPrice()) {
-                        FacesAvailable.add(sanctuary[a].get(i));
-                    }
-                }
-            }
-        }
+    public SanctuarysFaces FaceToBuy(ArrayList<SanctuarysFaces> FacesAvailable) {
         
         
                       // -- -Traitement minicieux des faces à disposition- -- // 

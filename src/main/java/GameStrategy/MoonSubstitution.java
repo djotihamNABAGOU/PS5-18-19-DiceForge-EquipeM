@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author KOFFI Merveille
+ * @author The Beginners
  */
 public class MoonSubstitution {
     
