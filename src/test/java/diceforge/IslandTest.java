@@ -9,7 +9,7 @@ import Card.AutomaticEffectCard.TheGreatBear;
 import Card.AutomaticEffectCard.TheWildBoar;
 import Card.Card;
 import Card.ReinforcementEffectCard.TheClogs;
-import Faces.Sanctuary.GeneralFace;
+import Faces.GeneralFace;
 import Player.Bot;
 
 import java.util.ArrayList;

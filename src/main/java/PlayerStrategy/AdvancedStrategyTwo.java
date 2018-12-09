@@ -151,18 +151,21 @@ public class AdvancedStrategyTwo extends Strategy {
         int choice = 0; // forge par défaut : 1 pour ILE
         ArrayList<Card> potentialCardsToBuy =  potentialCardsToBuy(bot, island);
    
-        
+        System.out.println("Direction Forge");
         if(!potentialCardsToBuy.isEmpty()){
             
             // Application de la première stratégie si elle est tjr possible
+            System.out.println("Je verifie s'il y'a des cartes possibles");
             if(firstStrategy.getLive()!=-1){
                 boolean rep = firstStrategy.isApply();
                 if(rep==true){
+                    System.out.println("Je vais à l'ile");
                     numIslandStrategy = 0;
                     choice = 1; // direction ILE
                 }else{
                     rep = firstStrategy.checkAvailableAction(potentialCardsToBuy, bot);
                     if(rep == true){
+                    System.out.println("Je vais à l'ile");
                         numIslandStrategy = 0;
                         choice = 1;  // direction ILE
                     }
@@ -216,6 +219,8 @@ public class AdvancedStrategyTwo extends Strategy {
     public void apply(Temple temple, Island island, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces, Bot... data) {
         //Seul le joueur actif peut appliquer une stratégie après le lancé des dés
         if (bot.isActive()) {
+            
+            System.out.println("Bot 4 Actif");
 
             //1->Le bot avancé appelle forcément ses renforts
             if (supActionDone == false){ //on ne doit pas appeler des renforts lors d'une action sup
@@ -230,7 +235,7 @@ public class AdvancedStrategyTwo extends Strategy {
 
             //Choix de l'action à effectuer (forge ou exploit), il fait un exploit s'il a assez de ressources, sinon il forge
             int choice = actionOrForge(temple, island);// 0 pour forge et 1 pour exploit
-
+            System.out.println("Mon choix est : "+choice);
 
             switch (choice) {
                 case 0://forge
@@ -388,8 +393,11 @@ public class AdvancedStrategyTwo extends Strategy {
         
         Card card = new Card();
         if(numIslandStrategy==0){
+            System.out.println("Je me prépare à acheter une carte");
             int index = firstStrategy.whichCard(potentialCardsToBuy);
+            System.out.println("Index de la carte : "+index);
             card = potentialCardsToBuy.get(index);
+            System.out.println("Carte : "+card.getName());
         }
         return card;
     }

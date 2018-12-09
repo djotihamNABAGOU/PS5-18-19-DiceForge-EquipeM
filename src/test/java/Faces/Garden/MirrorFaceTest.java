@@ -9,7 +9,7 @@ import Card.ImmediateEffectCard.TheAbyssallMirror;
 import Card.ImmediateEffectCard.TheInvisibilityHelmet;
 import Faces.Garden.MultiplierFace;
 import Faces.Garden.ShieldOfTheGuardianFace;
-import Faces.Sanctuary.GeneralFace;
+import Faces.GeneralFace;
 import Faces.Sanctuary.SanctuarysFaces;
 import Faces.Sanctuary.SimpleFace;
 import Player.Bot;

@@ -46,14 +46,20 @@ public class CrazyPasserStrategy {
                  applyNext = true;
              }
          }
+         
+         if((bot.getHerosInventory().getSunPoints()>=1) && applyNext!=true){
+                 apply = true;
+         }
          return apply;
     }
     
     // Recherche une carte précisement parmi celles 
     private int searchCard(ArrayList<Card> list,String name){
         for(int a=0;a<list.size();a++){
-            if(list.get(a).getName().equals(name))
-                return a;
+            System.out.println("Nom de la carte "+list.get(a).getName());
+            if(list.get(a).getName().equals(name)){
+                 return a;
+            }          
         }
         return -1;
     }
@@ -77,6 +83,7 @@ public class CrazyPasserStrategy {
         
         if(indice == -1)
             live = -1;   // L'une des deux cartes a été épuisé
+        
         return indice;
     }
         

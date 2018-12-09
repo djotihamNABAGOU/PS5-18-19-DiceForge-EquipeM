@@ -17,8 +17,8 @@ public class Main {
     //Création des Bots
     private static final Bot botOneRandom = new Bot("Nothing");
     private static final Bot botTwoRandom = new Bot("Random");
-    private static final Bot botThreeNothing = new Bot("Advanced");
-    private static final Bot botFourNothing = new Bot("AdvancedTwo");
+    private static final Bot botThreeNothing = new Bot("Random");
+    private static final Bot botFourNothing = new Bot("Advanced");
     //Création du moteur de jeu, du temple et de l'île
     private static final Engine engine = new Engine(1000, 10, numberOfBots);
     private static final Temple temple = new Temple();

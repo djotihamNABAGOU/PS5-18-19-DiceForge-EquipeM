@@ -161,7 +161,8 @@ public class Engine {
                 listIndice.add(i);
             }
         }
-
+        
+        System.out.println("GloryWinPoints : " + data[listIndice.get(0)].getHerosInventory().getGloryPoints());
         if (listIndice.size() == 1) {
             System.out.println("Winner for the set, Bot " + (listIndice.get(0) + 1));
             System.out.println("Congratulations Bot " + (listIndice.get(0) + 1) + " !");
@@ -200,7 +201,7 @@ public class Engine {
                 listIndice.add(i);
             }
         }
-        System.out.println("GloryWinPoints : " + data[listIndice.get(0)].getHerosInventory().getGloryPoints());
+        
         if (listIndice.size() == 1) {
             System.out.println("Congratulations Bot " + (listIndice.get(0) + 1) + " !");
         } else if (listIndice.size() == 2) {

@@ -51,6 +51,11 @@ public class TheSatyrs extends Card {
         list.remove(one); // Supprimer la face choisie de la liste avt le second choix
         GeneralFace two = list.get(bot.getStrategy().giveMeYourGChoice(list));  // 2em choix
 
+        System.out.println("Face one "+one.toString());
+        System.out.println("Face two "+one.toString());
+        
+        System.out.println("NumBot "+numBot);
+        System.out.println("Taille = "+listFaces.length);
         //Ranger les nouvelles faces du joueur
         listFaces[numBot].set(0, one); // changement par la nouvelle face
         listFaces[numBot].set(1, two); // changement par la nouvelle face

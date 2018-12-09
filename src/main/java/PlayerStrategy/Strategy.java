@@ -68,7 +68,7 @@ public class Strategy {
 
         if (island.buyCard(card, temple, numBot, listFaces, tabBot)) {
             //on effectue alors l'exploit
-            switch (card.getType()) {
+            switch (card.getTypeCard()) {
                 case "R":
                     Reinforcement reinforcement = (Reinforcement) card;
                     reinforcement.actionCard(temple, bot, numBot, listFaces, tabBot);

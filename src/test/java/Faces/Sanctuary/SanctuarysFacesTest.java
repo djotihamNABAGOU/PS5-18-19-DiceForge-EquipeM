@@ -8,6 +8,7 @@ package Faces.Sanctuary;
 import Card.ImmediateEffectCard.TheInvisibilityHelmet;
 import Faces.Garden.MultiplierFace;
 import Faces.Garden.ShieldOfTheGuardianFace;
+import Faces.GeneralFace;
 import Player.Bot;
 import diceforge.Temple;
 import java.util.ArrayList;
