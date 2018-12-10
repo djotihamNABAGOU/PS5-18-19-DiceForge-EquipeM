@@ -64,7 +64,7 @@ public class AdvancedStrategy extends Strategy {
 
                     //Fin forge, Action supplémentaire si joueur actif
                     if (bot.getHerosInventory().getSunPoints() >= 2 && supActionDone == false) {//il a les conditions requises pour effectuer une action supplémenatire
-                        bot.getHerosInventory().IncreaseSunPoints(2);//Il paie
+                        bot.getHerosInventory().DecreaseSunPoints(2);//Il paie
                         supActionDone = true;
                         apply(temple, island, numberOfTheBot, listFaces, data);//On réappelle la fonction pour éviter de la duplication de code
                         supActionDone = false;
@@ -89,6 +89,7 @@ public class AdvancedStrategy extends Strategy {
                     //Fin exploit, Action supplémentaire si joueur actif
                     if (bot.getHerosInventory().getSunPoints() >= 2 && supActionDone == false) {//il a les conditions requises pour effectuer une action supplémenatire
                         //il l'effectue
+                        bot.getHerosInventory().DecreaseSunPoints(2);//Mais d'abord, Il paie comme dab
                         supActionDone = true;
                         apply(temple, island, numberOfTheBot, listFaces, data);//On réappelle la fonction pour éviter de la duplication de code
                         supActionDone = false;
@@ -110,7 +111,7 @@ public class AdvancedStrategy extends Strategy {
     public void callTheReinforcements(Temple temple, Bot bot, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces, Bot... data) {
         //ici, il faut privilégier les points de gloire
         int size = bot.getReinforcementCard().size();
-        if (size == 3) {
+        //if (size == 3) {
             /*il possède alors les 3 cartes de renforcement, on appliquera en dernier <l'ancien> car
             permet de remporter 4 points de gloire, et pour maximiser les chances de l'avoir,
             on appliquera les effets des 2 premières cartes afin de posséder un nombre de points de gold suffisant.
@@ -121,7 +122,7 @@ public class AdvancedStrategy extends Strategy {
                 else bot.getReinforcementCard().get(i).capacity(temple, bot, numberOfTheBot, listFaces, data);
             }
             bot.getReinforcementCard().get(theFormerIndex).capacity(temple, bot, numberOfTheBot, listFaces, data);
-        }
+        //}
     }
 
     /**
