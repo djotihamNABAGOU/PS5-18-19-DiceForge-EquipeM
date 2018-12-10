@@ -1,11 +1,9 @@
 package diceforge;
 
 import Faces.GeneralFace;
-import Faces.Sanctuary.SanctuarysFaces;
 import Player.Bot;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 
 public class Engine {
@@ -159,8 +157,11 @@ public class Engine {
         for (int i = 0; i < data.length; i++) {
             if (data[i].getHerosInventory().getGloryPoints() == winnerGloryPoints) {
                 listIndice.add(i);
+                data[i].addGloryWinnerPoints(winnerGloryPoints);
             }
         }
+        
+        
         
         System.out.println("GloryWinPoints : " + data[listIndice.get(0)].getHerosInventory().getGloryPoints());
         if (listIndice.size() == 1) {
@@ -194,6 +195,8 @@ public class Engine {
                 winnerWonRounds = data[i].wonRounds;
             }
         }
+        
+        int moy = 0;
         //Stocke la liste de tous les bots qui ont le même ratio gagnant
         ArrayList<Integer> listIndice = new ArrayList<>();
         for (int i = 0; i < data.length; i++) {
@@ -201,9 +204,12 @@ public class Engine {
                 listIndice.add(i);
             }
         }
+            
+        
         
         if (listIndice.size() == 1) {
             System.out.println("Congratulations Bot " + (listIndice.get(0) + 1) + " !");
+            System.out.println("Average Glory Points "+data[listIndice.get(0)].giveMeYourAverageGloryPoints());
         } else if (listIndice.size() == 2) {
             System.out.println("We have 2 winners.");
             System.out.println("Equality between Bot " + (listIndice.get(0) + 1) + " and Bot " + (listIndice.get(1) + 1) + ". Congratulations!");

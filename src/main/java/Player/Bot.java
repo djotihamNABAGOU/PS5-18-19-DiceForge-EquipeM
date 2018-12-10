@@ -30,6 +30,7 @@ public class Bot {
     private int portal;          /* 1,2,3,4,5,6,7  values of the gate in Island
                                    0 is the default value i.e. the bot is on orginal gate
                                     This value must be update when the bot move on a gate */
+    private ArrayList<Integer> moy = new ArrayList<>();
 
     public Bot(String strategyName) {
         boolean active = false;
@@ -65,6 +66,19 @@ public class Bot {
                 this.strategy = new Strategy(this);
                 break;
         }
+    }
+    
+    public void addGloryWinnerPoints(int a){
+       moy.add(a);    
+    }
+    
+    public float giveMeYourAverageGloryPoints(){
+         int a = moy.size();
+         int sum = 0;
+         for(int b=0;b<moy.size();b++){
+             sum = sum + moy.get(b);
+         }
+         return (sum/a);
     }
     
     public void initialize(){
