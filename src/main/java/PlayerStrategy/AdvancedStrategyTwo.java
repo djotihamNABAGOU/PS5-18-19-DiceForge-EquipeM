@@ -4,7 +4,7 @@ package PlayerStrategy;
 import Card.Card;
 import Faces.GeneralFace;
 import Faces.Sanctuary.SanctuarysFaces;
-import GameStrategy.CrazyPasserStrategy;
+import GameStrategy.FourCardComboStrategy;
 import GameStrategy.GoldenSubstitution;
 import GameStrategy.MoonSubstitution;
 import GameStrategy.SunSubstitution;
@@ -22,7 +22,7 @@ public class AdvancedStrategyTwo extends Strategy {
     private int numSanctuaryStrategy; // numero de la stratégy FORGE à appliquer
     
     // STrategy pr le payement des cartes
-    private CrazyPasserStrategy firstStrategy;   // 1ERE Strategie de jeu
+    private FourCardComboStrategy firstStrategy;   // 1ERE Strategie de jeu
     
     // Strategy de base pour la forge des dés
     private GoldenSubstitution goldenSubstitution;
@@ -36,7 +36,7 @@ public class AdvancedStrategyTwo extends Strategy {
         goldenSubstitution = new GoldenSubstitution();
         moonSubstitution = new MoonSubstitution();
         sunSubstitution = new SunSubstitution();
-        firstStrategy = new CrazyPasserStrategy();
+        firstStrategy = new FourCardComboStrategy();
         numIslandStrategy = 0;
         numSanctuaryStrategy = 0;
         compteur = 0;

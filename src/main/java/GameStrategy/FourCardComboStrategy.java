@@ -1,8 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+      Cette stratégie est basé uniquement sur un combo de 4 Cartes, que sont : 
+      - Les herbes folles
+      - Le passeur
+      - La méduse
+      - L'ancien
+
+*/
+
+
 package GameStrategy;
 
 import Card.Card;
@@ -13,7 +18,7 @@ import java.util.ArrayList;
  *
  * @author KOFFI Merveille
  */
-public class CrazyPasserStrategy {
+public class FourCardComboStrategy {
     
     private ArrayList<String> cardName = new ArrayList<>(); //Contient la liste des cartes primordiales 
                                         //que le joueur doit acquérir
@@ -26,7 +31,7 @@ public class CrazyPasserStrategy {
     boolean applyFormer;  // indique si le joueur possède déja une carte L'ancien
     boolean applyFormerTwo;  // indique si le joueur a déja payer la 2ème carte Ancien
     
-    public CrazyPasserStrategy(){
+    public FourCardComboStrategy(){
         cardName.add("TheCrazyGrasses");  
         cardName.add("ThePasser");
         cardName.add("TheJellyFish");   
