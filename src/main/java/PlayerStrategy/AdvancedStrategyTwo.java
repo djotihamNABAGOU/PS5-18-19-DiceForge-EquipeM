@@ -29,6 +29,7 @@ public class AdvancedStrategyTwo extends Strategy {
     private MoonSubstitution moonSubstitution;
     private SunSubstitution sunSubstitution;
     
+    // Nombres de forges déja éffectuées
          
     public AdvancedStrategyTwo(Bot bot) {
         super(bot);
@@ -159,6 +160,7 @@ public class AdvancedStrategyTwo extends Strategy {
             if(firstStrategy.getLive()!=-1){
                 boolean rep = firstStrategy.isApply();
                 if(rep==true){
+                    rep = firstStrategy.checkAvailableAction(potentialCardsToBuy, bot);
                     System.out.println("Je vais à l'ile");
                     numIslandStrategy = 0;
                     choice = 1; // direction ILE
@@ -281,13 +283,7 @@ public class AdvancedStrategyTwo extends Strategy {
                         feat(card, temple, island, bot, numberOfTheBot, listFaces, data);
                     }
 
-                    //Fin exploit, Action supplémentaire si joueur actif
-                    /*if (bot.getHerosInventory().getSunPoints() >= 2 && supActionDone == false) {//il a les conditions requises pour effectuer une action supplémenatire
-                        //il l'effectue
-                        supActionDone = true;
-                        apply(temple, island, numberOfTheBot, listFaces, data);//On réappelle la fonction pour éviter de la duplication de code
-                        supActionDone = false;
-                    }*/
+                    
                 }
                 break;
                 default:
@@ -322,18 +318,10 @@ public class AdvancedStrategyTwo extends Strategy {
     public void callTheReinforcements(Temple temple, Bot bot, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces, Bot... data) {
         //ici, il faut privilégier les points de gloire
         int size = bot.getReinforcementCard().size();
-        if (size == 3) {
-            /*il possède alors les 3 cartes de renforcement, on appliquera en dernier <l'ancien> car
-            permet de remporter 4 points de gloire, et pour maximiser les chances de l'avoir,
-            on appliquera les effets des 2 premières cartes afin de posséder un nombre de points de gold suffisant.
-             */
-            int theFormerIndex = 0;
+
             for (int i = 0; i < size; i++) {
-                if (bot.getReinforcementCard().get(i).getName().equals("TheFormer")) theFormerIndex = i;
-                else bot.getReinforcementCard().get(i).capacity(temple, bot, numberOfTheBot, listFaces, data);
+                bot.getReinforcementCard().get(i).capacity(temple, bot, numberOfTheBot, listFaces, data);
             }
-            bot.getReinforcementCard().get(theFormerIndex).capacity(temple, bot, numberOfTheBot, listFaces, data);
-        }
     }
     
     

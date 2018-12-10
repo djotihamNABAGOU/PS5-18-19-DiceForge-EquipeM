@@ -23,7 +23,8 @@ public class CrazyPasserStrategy {
     boolean applyNext; // Si la strategy doit être appliquée au prochain tour
     int live;  // indique si la stratégie peut être continué à être utilisé
     boolean applyJelly;  // au cas ou le joueur a la possibilité de payer une Carte Méduse
-    boolean applyFormer;  // indique si le joueur possède déja une carte 
+    boolean applyFormer;  // indique si le joueur possède déja une carte L'ancien
+    boolean applyFormerTwo;  // indique si le joueur a déja payer la 2ème carte Ancien
     
     public CrazyPasserStrategy(){
         cardName.add("TheCrazyGrasses");  
@@ -34,12 +35,25 @@ public class CrazyPasserStrategy {
         applyNext = false;
         applyJelly = false;
         applyFormer = false;
+        applyFormerTwo = false;
         nbCard = 0;
         live = 0;
     }
     
     
     public boolean checkAvailableAction(ArrayList<Card> list,Bot bot){
+         
+         int Occ = 0;
+         for(Card card : list){
+            for(int a = 0;a<cardName.size();a++){
+                if(card.getName().equals(cardName.get(a))){
+                    Occ = Occ +1;
+                }
+            }    
+         }
+         
+         if(Occ==0)
+             return false;
          
          if((bot.getHerosInventory().getMoonPoints()>=1) && (bot.getHerosInventory().getMoonPoints()<4)){
                   apply = false;
@@ -70,7 +84,7 @@ public class CrazyPasserStrategy {
          return apply;
     }
     
-    // Recherche une carte précisement parmi celles 
+    // Recherche une carte précisement parmi celles à disposition
     private int searchCard(ArrayList<Card> list,String name){
         for(int a=0;a<list.size();a++){
             System.out.println("Nom de la carte "+list.get(a).getName());
