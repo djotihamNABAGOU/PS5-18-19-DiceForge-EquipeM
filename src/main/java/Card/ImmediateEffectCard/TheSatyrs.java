@@ -3,6 +3,7 @@ package Card.ImmediateEffectCard;
 import Card.Card;
 import Faces.GeneralFace;
 import Player.Bot;
+import diceforge.GlobalConstants;
 import diceforge.Temple;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  * Elle procure 6 points de gloire à la fin de la partie
  * Type Immediat ----> Methode "ActionCard" appelé à l'achat puis Suppression de la Carte
  */
-public class TheSatyrs extends Card {
+public class TheSatyrs extends Card implements GlobalConstants {
 
     public TheSatyrs() {
         this.name = "TheSatyrs";
@@ -51,11 +52,11 @@ public class TheSatyrs extends Card {
         list.remove(one); // Supprimer la face choisie de la liste avt le second choix
         GeneralFace two = list.get(bot.getStrategy().giveMeYourGChoice(list));  // 2em choix
 
-        System.out.println("Face one "+one.toString());
-        System.out.println("Face two "+one.toString());
+        Print.PrintMessage("Face one "+one.toString());
+        Print.PrintMessage("Face two "+one.toString());
         
-        System.out.println("NumBot "+numBot);
-        System.out.println("Taille = "+listFaces.length);
+        Print.PrintMessage("NumBot "+numBot);
+        Print.PrintMessage("Taille = "+listFaces.length);
         //Ranger les nouvelles faces du joueur
         listFaces[numBot].set(0, one); // changement par la nouvelle face
         listFaces[numBot].set(1, two); // changement par la nouvelle face

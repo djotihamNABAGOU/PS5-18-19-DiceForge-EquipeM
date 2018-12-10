@@ -105,7 +105,7 @@ public class ImediaCardStrategy extends Strategy {
         if (FacesAvailable.size() == 0) return new SanctuarysFaces();
         else {
             int faceToReturn = randomFace.nextInt(FacesAvailable.size()); // initialisation
-            //System.out.println("La face payée est "+FacesAvailable.get(caseFace).toString());
+            //Print.PrintMessage("La face payée est "+FacesAvailable.get(caseFace).toString());
             return FacesAvailable.get(faceToReturn);
         }
 

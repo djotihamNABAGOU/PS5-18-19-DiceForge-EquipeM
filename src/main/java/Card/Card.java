@@ -22,7 +22,7 @@ public class Card {
 
     
     public boolean equals(Card other) {
-        //System.out.println("ok");
+        //Print.PrintMessage("ok");
         return name.equals(other.name);
     }
 

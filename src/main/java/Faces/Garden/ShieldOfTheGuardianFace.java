@@ -8,12 +8,13 @@ import Card.Card;
 import Faces.GeneralFace;
 import Faces.Sanctuary.SimpleFace;
 import Player.Bot;
+import diceforge.GlobalConstants;
 import diceforge.Temple;
 import java.util.ArrayList;
 
 
 
-public class ShieldOfTheGuardianFace extends GardenFace{
+public class ShieldOfTheGuardianFace extends GardenFace implements GlobalConstants{
     
     SimpleFace Type1 = new SimpleFace(5, "Gl", "GloryFace");    // Gain A
     SimpleFace Type2;    // Gain B
@@ -58,7 +59,7 @@ public class ShieldOfTheGuardianFace extends GardenFace{
                                       Bot bot,int a,ArrayList<GeneralFace>[] data,Bot... listBot){
         
         int val = 0;
-        System.out.println("Face obtained  -> " + Type2.toString());
+        Print.PrintMessage("Face obtained  -> " + Type2.toString());
         val = Type2.makeEffectFaceMultiplier(action,favMin,temple,numBot,bot,2,data,listBot);   
        // Donne 3* le gain B en présence de la face "*3" 
         return val;
@@ -108,7 +109,7 @@ public class ShieldOfTheGuardianFace extends GardenFace{
     public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,
                                           int a,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         
-        System.out.println("Face obtained  -> " + Type2.toString());
+        Print.PrintMessage("Face obtained  -> " + Type2.toString());
         Type2.makeEffectFaceMultiplierCardSentinelEffect(temple,numBot,2,bot,data,listBot);   // GAIN B    
        // Donne 3* le gain B en présence de la face "*3" 
     }

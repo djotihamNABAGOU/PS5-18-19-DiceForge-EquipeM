@@ -6,6 +6,7 @@ import Card.ImmediateEffectCard.TheHammer;
 import Faces.GeneralFace;
 import Faces.Sanctuary.SimpleFace;
 import PlayerStrategy.*;
+import diceforge.GlobalConstants;
 import diceforge.Temple;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 /**
  * @author The Beginners
  */
-public class Bot {
+public class Bot implements GlobalConstants{
     private HerosInventory herosInventory;
     private Dice firstDice;
     private Dice secondDice;
@@ -153,10 +154,10 @@ public class Bot {
     }
 
     public void printDiceState() {
-        System.out.println("------First Dice-------");
-        System.out.println(firstDice.toString());
-        System.out.println("------Second Dice-------");
-        System.out.println(secondDice.toString());
+        Print.PrintMessage("------First Dice-------");
+        Print.PrintMessage(firstDice.toString());
+        Print.PrintMessage("------Second Dice-------");
+        Print.PrintMessage(secondDice.toString());
     }
 
 
@@ -283,21 +284,21 @@ public class Bot {
     
     public void addImmediateEffectCard(Card card){
         if (card != null) immediateCard.add(card);
-        else System.out.println("Null Immediate Effect Card affected !");
+        else Print.PrintMessage("Null Immediate Effect Card affected !");
     }
 
     public void addAutomaticEffectCard(Reinforcement card){
         if (card != null) automaticCard.add(card);
-        else System.out.println("Null Automatic Effect Card affected !");
+        else Print.PrintMessage("Null Automatic Effect Card affected !");
     }
 
     public void addReinforcementEffectCard(Reinforcement card){
         if (card != null) reinforcementCard.add(card);
-        else System.out.println("Null Immediate Effect Card affected !");
+        else Print.PrintMessage("Null Immediate Effect Card affected !");
     }
 
     public void addWithoutEffectCard(Card card){
         if (card != null) withoutEffectCard.add(card);
-        else System.out.println("Null Immediate Effect Card affected !");
+        else Print.PrintMessage("Null Immediate Effect Card affected !");
     }
 }

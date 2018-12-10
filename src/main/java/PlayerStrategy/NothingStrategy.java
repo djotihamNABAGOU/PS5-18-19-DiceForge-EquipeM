@@ -17,6 +17,6 @@ public class NothingStrategy extends Strategy {
 
     @Override
     public void apply(Temple temple, Island island, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces, Bot... data){
-        //System.out.println("ok ok");
+        //Print.PrintMessage("ok ok");
     }
 }

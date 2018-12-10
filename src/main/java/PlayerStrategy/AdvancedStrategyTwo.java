@@ -9,13 +9,14 @@ import GameStrategy.GoldenSubstitution;
 import GameStrategy.MoonSubstitution;
 import GameStrategy.SunSubstitution;
 import Player.Bot;
+import diceforge.GlobalConstants;
 import diceforge.Island;
 import diceforge.Temple;
 import java.util.ArrayList;
 
 
 
-public class AdvancedStrategyTwo extends Strategy {  
+public class AdvancedStrategyTwo extends Strategy implements GlobalConstants{  
 
     int compteur;
     private int numIslandStrategy;   // numero de la stratégy ILE à appliquer
@@ -152,22 +153,22 @@ public class AdvancedStrategyTwo extends Strategy {
         int choice = 0; // forge par défaut : 1 pour ILE
         ArrayList<Card> potentialCardsToBuy =  potentialCardsToBuy(bot, island);
    
-        System.out.println("Direction Forge");
+        Print.PrintMessage("Direction Forge");
         if(!potentialCardsToBuy.isEmpty()){
             
             // Application de la première stratégie si elle est tjr possible
-            System.out.println("Je verifie s'il y'a des cartes possibles");
+            Print.PrintMessage("Je verifie s'il y'a des cartes possibles");
             if(firstStrategy.getLive()!=-1){
                 boolean rep = firstStrategy.isApply();
                 if(rep==true){
                     rep = firstStrategy.checkAvailableAction(potentialCardsToBuy, bot);
-                    System.out.println("Je vais à l'ile");
+                    Print.PrintMessage("Je vais à l'ile");
                     numIslandStrategy = 0;
                     choice = 1; // direction ILE
                 }else{
                     rep = firstStrategy.checkAvailableAction(potentialCardsToBuy, bot);
                     if(rep == true){
-                    System.out.println("Je vais à l'ile");
+                    Print.PrintMessage("Je vais à l'ile");
                         numIslandStrategy = 0;
                         choice = 1;  // direction ILE
                     }
@@ -222,12 +223,12 @@ public class AdvancedStrategyTwo extends Strategy {
         //Seul le joueur actif peut appliquer une stratégie après le lancé des dés
         if (bot.isActive()) {
             
-            System.out.println("Bot 4 Actif");
+            Print.PrintMessage("Bot 4 Actif");
 
             //1->Le bot avancé appelle forcément ses renforts
             if (supActionDone == false){ //on ne doit pas appeler des renforts lors d'une action sup
                 if (bot.getReinforcementCard().size() != 0) {
-                    System.out.println("\t->ENHANCEMENT<-");
+                    Print.PrintMessage("\t->ENHANCEMENT<-");
                     //il les active dans l'ordre de son choix, et donc ici, il analyse le meilleur ordre
                     callTheReinforcements(temple, bot, numberOfTheBot, listFaces, data);
                 }
@@ -237,15 +238,15 @@ public class AdvancedStrategyTwo extends Strategy {
 
             //Choix de l'action à effectuer (forge ou exploit), il fait un exploit s'il a assez de ressources, sinon il forge
             int choice = actionOrForge(temple, island);// 0 pour forge et 1 pour exploit
-            System.out.println("Mon choix est : "+choice);
+            Print.PrintMessage("Mon choix est : "+choice);
 
             switch (choice) {
                 case 0://forge
                 {
                     if (supActionDone == false) {
-                        System.out.println("*ACTION OF BOT NUMBER " + numberOfTheBot + ": FORGE");
+                        Print.PrintMessage("*ACTION OF BOT NUMBER " + numberOfTheBot + ": FORGE");
                     } else {
-                        System.out.println("**SUP ACTION FOR BOT NUMBER " + numberOfTheBot + ": FORGE");
+                        Print.PrintMessage("**SUP ACTION FOR BOT NUMBER " + numberOfTheBot + ": FORGE");
                     }
 
                     //Tant qu'il a les ressources, il forge plusieurs faces de sanctuaire s"il le veut
@@ -272,9 +273,9 @@ public class AdvancedStrategyTwo extends Strategy {
                      */
 
                     if (supActionDone == false) {
-                        System.out.println("*ACTION OF BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
+                        Print.PrintMessage("*ACTION OF BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
                     } else {
-                        System.out.println("**SUP ACTION FOR BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
+                        Print.PrintMessage("**SUP ACTION FOR BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
                     }
 
                     Card card;
@@ -287,7 +288,7 @@ public class AdvancedStrategyTwo extends Strategy {
                 }
                 break;
                 default:
-                    System.out.println("Problem with the potential cards to buy !!!");
+                    Print.PrintMessage("Problem with the potential cards to buy !!!");
             }
 
 
@@ -357,15 +358,15 @@ public class AdvancedStrategyTwo extends Strategy {
         // Fin 
         
         if (numberOfDice == 1) { //Premier dé
-            System.out.println("\tFORGE ON FIRST DICE");
-            System.out.println("\tFACE OUT: " + bot.getFirstDice().getFaces()[numberOfFace].toString());
-            System.out.println("\tFACE IN: " + face.toString());
+            Print.PrintMessage("\tFORGE ON FIRST DICE");
+            Print.PrintMessage("\tFACE OUT: " + bot.getFirstDice().getFaces()[numberOfFace].toString());
+            Print.PrintMessage("\tFACE IN: " + face.toString());
             bot.getRemovedFaces().add(bot.getFirstDice().getFaces()[numberOfFace]); //Ajout dans la liste des faces enlevées
             bot.getFirstDice().setFaces(face, numberOfFace);
         } else { // Second dé
-            System.out.println("\tFORGE ON SECOND DICE");
-            System.out.println("\tFACE OUT: " + bot.getSecondDice().getFaces()[numberOfFace].toString());
-            System.out.println("\tFACE IN: " + face.toString());
+            Print.PrintMessage("\tFORGE ON SECOND DICE");
+            Print.PrintMessage("\tFACE OUT: " + bot.getSecondDice().getFaces()[numberOfFace].toString());
+            Print.PrintMessage("\tFACE IN: " + face.toString());
             bot.getRemovedFaces().add(bot.getSecondDice().getFaces()[numberOfFace]);
             bot.getSecondDice().setFaces(face, numberOfFace);
         }
@@ -381,16 +382,16 @@ public class AdvancedStrategyTwo extends Strategy {
         
         Card card = new Card();
         if(numIslandStrategy==0){
-            System.out.println("Je me prépare à acheter une carte");
+            Print.PrintMessage("Je me prépare à acheter une carte");
             firstStrategy.nbCard = bot.getImmediateCard().size() + 
                                    bot.getReinforcementCard().size() +
                                    bot.getWithoutEffectCard().size();
             int index = firstStrategy.whichCard(potentialCardsToBuy,bot);
-            System.out.println("Index de la carte : "+index);
+            Print.PrintMessage("Index de la carte : "+index);
             if(index==-1)
                 index = 0;
             card = potentialCardsToBuy.get(index);
-            System.out.println("Carte : "+card.getName());
+            Print.PrintMessage("Carte : "+card.getName());
         }
         return card;
     }

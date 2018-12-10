@@ -8,13 +8,14 @@ package Faces.Sanctuary;
 import Faces.GeneralFace;
 import Faces.Garden.ShieldOfTheGuardianFace;
 import Player.Bot;
+import diceforge.GlobalConstants;
 import diceforge.Temple;
 import java.util.ArrayList;
 
 /**
  * @author The Beginners
  */
-public class SimpleFace extends GeneralFace {
+public class SimpleFace extends GeneralFace implements GlobalConstants{
     private int value;
     private String type; /*Sun S, Moon M, Gold G, Glory Gl*/
 
@@ -77,7 +78,7 @@ public class SimpleFace extends GeneralFace {
            
         // fin
         
-        System.out.println("Face obtained  -> " + toString());
+        Print.PrintMessage("Face obtained  -> " + toString());
         if(action==0){
             
             if(this.type.equals("G")){  // pour une face simple d'or
@@ -103,7 +104,7 @@ public class SimpleFace extends GeneralFace {
     public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,
                                                                                         Bot... listBot){
         
-        System.out.println("Face obtained  -> " + toString());
+        Print.PrintMessage("Face obtained  -> " + toString());
         if(this.type.equals("G")){ // Si la face procure de l'or
             int val = this.value;  // Recuperer la valeur
             for(int a=0;a<val;a++){ 
@@ -141,7 +142,7 @@ public class SimpleFace extends GeneralFace {
     public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,
                                           int d,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
         for(int b=0;b<d;b++){
-            System.out.println("Face obtained  -> " + toString());
+            Print.PrintMessage("Face obtained  -> " + toString());
             if(this.type.equals("S")){ // Si la face est de type Sun 
                 int val = this.value;  // Recuperer la valeur
                 for(int a=0;a<val;a++){ 

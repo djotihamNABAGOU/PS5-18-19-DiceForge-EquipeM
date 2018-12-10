@@ -4,13 +4,14 @@ import Faces.GeneralFace;
 import Faces.Sanctuary.SanctuarysFaces;
 import Faces.Sanctuary.SimpleFace;
 import Player.Bot;
+import diceforge.GlobalConstants;
 import diceforge.Island;
 import diceforge.Temple;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class RandomStrategy extends Strategy {
+public class RandomStrategy extends Strategy implements GlobalConstants {
 
     public RandomStrategy(Bot bot) {
         super(bot);
@@ -29,7 +30,7 @@ public class RandomStrategy extends Strategy {
             if (supActionDone == false) {//on ne doit pas appeler des renforts lors d'une action sup
                 if (choice == 0) {
                     if (bot.getReinforcementCard().size() != 0) {
-                        System.out.println("\t->ENHANCEMENT<-");
+                        Print.PrintMessage("\t->ENHANCEMENT<-");
                         //il les active dans l'ordre de son choix, et donc ici, dans un ordre aléatoire
                         callTheReinforcements(temple, bot, numberOfTheBot, listFaces, data);
                     }
@@ -54,8 +55,8 @@ public class RandomStrategy extends Strategy {
                 switch (choice) {
                     case 0://forge
                         if (supActionDone == false)
-                            System.out.println("*ACTION OF BOT NUMBER " + numberOfTheBot + ": FORGE");
-                        else System.out.println("**SUP ACTION FOR BOT NUMBER " + numberOfTheBot + ": FORGE");
+                            Print.PrintMessage("*ACTION OF BOT NUMBER " + numberOfTheBot + ": FORGE");
+                        else Print.PrintMessage("**SUP ACTION FOR BOT NUMBER " + numberOfTheBot + ": FORGE");
 
                         //Tant qu'il a les ressources, il peut forger plusieurs faces de sanctuaire
                         //Choix de forger plusieurs faces
@@ -83,8 +84,8 @@ public class RandomStrategy extends Strategy {
                          */
 
                         if (supActionDone == false)
-                            System.out.println("*ACTION OF BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
-                        else System.out.println("**SUP ACTION FOR BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
+                            Print.PrintMessage("*ACTION OF BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
+                        else Print.PrintMessage("**SUP ACTION FOR BOT NUMBER " + numberOfTheBot + ": FEAT(Exploit)");
 
                         Card card;
                         if (!(card = cardToBuy(potentialCardsToBuy)).getName().equals("")) {
@@ -114,7 +115,7 @@ public class RandomStrategy extends Strategy {
     public void callTheReinforcements(Temple temple, Bot bot, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces, Bot... data) {
         /*Affichage
         for (int a = 0; a < listFaces.length; a++) {
-            System.out.println(listFaces[a].toString());
+            Print.PrintMessage(listFaces[a].toString());
         }*/
         Random random = new Random();
         int size = bot.getReinforcementCard().size();
@@ -145,7 +146,7 @@ public class RandomStrategy extends Strategy {
         if (bot.getHerosInventory().getGloryPoints() >= 3) {
             Random random = new Random();
             choice = random.nextInt(2); // 0 pour oui, 1 pour non
-        } else System.out.println("Not enough gold to apply TheFormer effect card");
+        } else Print.PrintMessage("Not enough gold to apply TheFormer effect card");
         return choice;
     }
 
@@ -167,15 +168,15 @@ public class RandomStrategy extends Strategy {
         int numberOfDice = randomDice.nextInt(2) + 1; //Random pour prendre le dé sur lequel il faut forger
 
         if (numberOfDice == 1) { //Premier dé
-            System.out.println("\tFORGE ON FIRST DICE");
-            System.out.println("\tFACE OUT: " + bot.getFirstDice().getFaces()[numberOfFace].toString());
-            System.out.println("\tFACE IN: " + face.toString());
+            Print.PrintMessage("\tFORGE ON FIRST DICE");
+            Print.PrintMessage("\tFACE OUT: " + bot.getFirstDice().getFaces()[numberOfFace].toString());
+            Print.PrintMessage("\tFACE IN: " + face.toString());
             bot.getRemovedFaces().add(bot.getFirstDice().getFaces()[numberOfFace]); //Ajout dans la liste des faces enlevées
             bot.getFirstDice().setFaces(face, numberOfFace);
         } else { // Second dé
-            System.out.println("\tFORGE ON SECOND DICE");
-            System.out.println("\tFACE OUT: " + bot.getSecondDice().getFaces()[numberOfFace].toString());
-            System.out.println("\tFACE IN: " + face.toString());
+            Print.PrintMessage("\tFORGE ON SECOND DICE");
+            Print.PrintMessage("\tFACE OUT: " + bot.getSecondDice().getFaces()[numberOfFace].toString());
+            Print.PrintMessage("\tFACE IN: " + face.toString());
             bot.getRemovedFaces().add(bot.getSecondDice().getFaces()[numberOfFace]);
             bot.getSecondDice().setFaces(face, numberOfFace);
         }
@@ -195,7 +196,7 @@ public class RandomStrategy extends Strategy {
         if (FacesAvailable.size() == 0) return new SanctuarysFaces();
         else {
             int faceToReturn = randomFace.nextInt(FacesAvailable.size()); // initialisation
-            //System.out.println("La face payée est "+FacesAvailable.get(caseFace).toString());
+            //Print.PrintMessage("La face payée est "+FacesAvailable.get(caseFace).toString());
             return FacesAvailable.get(faceToReturn);
         }
 

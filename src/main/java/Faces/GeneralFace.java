@@ -7,6 +7,7 @@ package Faces;
 
 import Faces.Garden.ShieldOfTheGuardianFace;
 import Player.Bot;
+import diceforge.GlobalConstants;
 import diceforge.Temple;
 import java.util.ArrayList;
 
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  *
  * @author The Beginners
  */
-public class GeneralFace {
+public class GeneralFace implements GlobalConstants {
     
     protected String name;
 
@@ -73,14 +74,14 @@ public class GeneralFace {
     
     public int makeEffect(int action,int favMin,Temple temple,int numBot,
                                Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
-        System.out.println("I am General face, please implement effect in subclasses");
+        Print.PrintMessage("I am General face, please implement effect in subclasses");
         return 0;
     }
     
     //Methode qui est déclenchée si on obtient  une face Multiplier dans son lancer
     public int makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
                                       Bot bot,int a,ArrayList<GeneralFace>[] data,Bot... listBot){
-        System.out.println("I am General face, please implement effect in subclasses");
+        Print.PrintMessage("I am General face, please implement effect in subclasses");
         return 0;
     }
     
@@ -88,20 +89,20 @@ public class GeneralFace {
     //Methode appelée par l'utilisation d'une carte Cyclope
     public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,
                                                                                         Bot... listBot){
-        System.out.println("I am General face, please implement effect in subclasses");
+        Print.PrintMessage("I am General face, please implement effect in subclasses");
     }
     
   
     //Methode appelée par l'utilisation d'une carte Sentinel
     public void makeCardSentinelEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,
                                                 Bot... listBot){
-        System.out.println("I am General face, please implement effect in subclasses");
+        Print.PrintMessage("I am General face, please implement effect in subclasses");
     }
     
     //Methode appelée par l'utilisation d'une carte Sentinel
     public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,
                                           int a,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
-        System.out.println("I am General face, please implement effect in subclasses");
+        Print.PrintMessage("I am General face, please implement effect in subclasses");
     }
        
     //Donner le type de ressource que procure la face en présence de la face "AILE DE LA GARDIENNE

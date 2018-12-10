@@ -6,6 +6,7 @@ import Faces.GeneralFace;
 import Faces.Sanctuary.SanctuarysFaces;
 import Faces.Sanctuary.SimpleFace;
 import Player.Bot;
+import diceforge.GlobalConstants;
 import diceforge.Island;
 import diceforge.Temple;
 
@@ -17,7 +18,7 @@ import java.util.Random;
  * 1-On décide de privilégier les points de gloire par rapport aux autres types de points pour cette stratégie
  * 2-On décide également de privilégier l'exploit à la forge pour maximiser les gains
  */
-public class AdvancedStrategy extends Strategy {
+public class AdvancedStrategy extends Strategy implements GlobalConstants {
 
     public AdvancedStrategy(Bot bot) {
         super(bot);
@@ -34,7 +35,7 @@ public class AdvancedStrategy extends Strategy {
             //1->Le bot avancé appelle forcément ses renforts
             if (supActionDone == false) {//on ne doit pas appeler des renforts lors d'une action sup
                 if (bot.getReinforcementCard().size() != 0) {
-                    System.out.println("\t->ENHANCEMENT<-");
+                    Print.PrintMessage("\t->ENHANCEMENT<-");
                     //il les active dans l'ordre de son choix, et donc ici, il analyse le meilleur ordre
                     callTheReinforcements(temple, bot, numberOfTheBot, listFaces, data);
                 }
@@ -53,8 +54,8 @@ public class AdvancedStrategy extends Strategy {
             switch (choice) {
                 case 0://forge
                     if (supActionDone == false)
-                        System.out.println("*ACTION OF BOT NUMBER " + (numberOfTheBot+1) + ": FORGE");
-                    else System.out.println("**SUP ACTION FOR BOT NUMBER " + (numberOfTheBot+1) + ": FORGE");
+                        Print.PrintMessage("*ACTION OF BOT NUMBER " + (numberOfTheBot+1) + ": FORGE");
+                    else Print.PrintMessage("**SUP ACTION FOR BOT NUMBER " + (numberOfTheBot+1) + ": FORGE");
 
                     //Tant qu'il a les ressources, il forge plusieurs faces de sanctuaire
                     SanctuarysFaces face;
@@ -78,8 +79,8 @@ public class AdvancedStrategy extends Strategy {
                      */
 
                     if (supActionDone == false)
-                        System.out.println("*ACTION OF BOT NUMBER " + (numberOfTheBot+1) + ": FEAT(Exploit)");
-                    else System.out.println("**SUP ACTION FOR BOT NUMBER " + (numberOfTheBot+1) + ": FEAT(Exploit)");
+                        Print.PrintMessage("*ACTION OF BOT NUMBER " + (numberOfTheBot+1) + ": FEAT(Exploit)");
+                    else Print.PrintMessage("**SUP ACTION FOR BOT NUMBER " + (numberOfTheBot+1) + ": FEAT(Exploit)");
 
                     Card card;
                     if (!(card = bestCardToBuy(potentialCardsToBuy)).getName().equals("")) {
@@ -96,7 +97,7 @@ public class AdvancedStrategy extends Strategy {
                     }
                     break;
                 default:
-                    System.out.println("Problem with the potential cards to buy !!!");
+                    Print.PrintMessage("Problem with the potential cards to buy !!!");
             }
 
 
@@ -140,7 +141,7 @@ public class AdvancedStrategy extends Strategy {
         if (bot.getHerosInventory().getGloryPoints() >= 3) {
             return 0;
         } else {
-            System.out.println("Not enough gold to apply TheFormer effect card");
+            Print.PrintMessage("Not enough gold to apply TheFormer effect card");
             return 1;
         }
     }
@@ -165,15 +166,15 @@ public class AdvancedStrategy extends Strategy {
         int numberOfDice = randomDice.nextInt(2) + 1; //Random pour prendre le dé sur lequel il faut forger
 
         if (numberOfDice == 1) { //Premier dé
-            System.out.println("\tFORGE ON FIRST DICE");
-            System.out.println("\tFACE OUT: " + bot.getFirstDice().getFaces()[numberOfFace].toString());
-            System.out.println("\tFACE IN: " + face.toString());
+            Print.PrintMessage("\tFORGE ON FIRST DICE");
+            Print.PrintMessage("\tFACE OUT: " + bot.getFirstDice().getFaces()[numberOfFace].toString());
+            Print.PrintMessage("\tFACE IN: " + face.toString());
             bot.getRemovedFaces().add(bot.getFirstDice().getFaces()[numberOfFace]); //Ajout dans la liste des faces enlevées
             bot.getFirstDice().setFaces(face, numberOfFace);
         } else { // Second dé
-            System.out.println("\tFORGE ON SECOND DICE");
-            System.out.println("\tFACE OUT: " + bot.getSecondDice().getFaces()[numberOfFace].toString());
-            System.out.println("\tFACE IN: " + face.toString());
+            Print.PrintMessage("\tFORGE ON SECOND DICE");
+            Print.PrintMessage("\tFACE OUT: " + bot.getSecondDice().getFaces()[numberOfFace].toString());
+            Print.PrintMessage("\tFACE IN: " + face.toString());
             bot.getRemovedFaces().add(bot.getSecondDice().getFaces()[numberOfFace]);
             bot.getSecondDice().setFaces(face, numberOfFace);
         }
@@ -187,9 +188,9 @@ public class AdvancedStrategy extends Strategy {
      */
     @Override
     public SanctuarysFaces FaceToBuy(ArrayList<SanctuarysFaces> facesAvailable) {
-        System.out.println("coucou while");
+        Print.PrintMessage("coucou while");
         for (int a = 0; a < facesAvailable.size(); a++) {
-            System.out.println("je peux payer "+facesAvailable.get(a).toString());
+            Print.PrintMessage("je peux payer "+facesAvailable.get(a).toString());
         }
         int price = 0;
         //Recherche du meilleur prix
@@ -216,7 +217,7 @@ public class AdvancedStrategy extends Strategy {
             }
             index = giveMeYourChoice(bestGeneralFaces,2);
 
-            System.out.println("La face à payer est " + bestFaces.get(index).toString());
+            Print.PrintMessage("La face à payer est " + bestFaces.get(index).toString());
             return bestFaces.get(index);
         }
 
@@ -283,7 +284,7 @@ public class AdvancedStrategy extends Strategy {
         int maxGloryPoints = potentialCardsToBuy.get(0).getGloryPoints(), bestIndex = 0;
         //Affichage des cartes
         for (int a = 0; a < potentialCardsToBuy.size(); a++) {
-            System.out.println(potentialCardsToBuy.get(a).toString());
+            Print.PrintMessage(potentialCardsToBuy.get(a).toString());
         }
         for (int a = 1; a < potentialCardsToBuy.size(); a++) {
             if (potentialCardsToBuy.get(a).getGloryPoints() > maxGloryPoints) {
@@ -320,7 +321,7 @@ public class AdvancedStrategy extends Strategy {
                             } else bestIndex = a;
                         }
                     } else if (potentialCardsToBuy.get(a).getTypeCard().equals("I")) {
-                        System.out.println(bestIndex);
+                        Print.PrintMessage(bestIndex);
                         if (!potentialCardsToBuy.get(bestIndex).getTypeCard().equals("R") && !potentialCardsToBuy.get(bestIndex).getTypeCard().equals("A")) {
                             if (potentialCardsToBuy.get(bestIndex).getTypeCard().equals("I")) {
                                 if (potentialCardsToBuy.get(bestIndex).getType().equals("S")) {
@@ -500,7 +501,7 @@ public class AdvancedStrategy extends Strategy {
                 }
                 break;
             default:
-                System.out.println("Unknown the situation !!!");
+                Print.PrintMessage("Unknown the situation !!!");
         }
 
         return choice;

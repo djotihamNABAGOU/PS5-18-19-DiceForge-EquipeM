@@ -12,13 +12,14 @@ package GameStrategy;
 
 import Card.Card;
 import Player.Bot;
+import diceforge.GlobalConstants;
 import java.util.ArrayList;
 
 /**
  *
  * @author KOFFI Merveille
  */
-public class FourCardComboStrategy {
+public class FourCardComboStrategy implements GlobalConstants {
     
     private ArrayList<String> cardName = new ArrayList<>(); //Contient la liste des cartes primordiales 
                                         //que le joueur doit acquérir
@@ -30,17 +31,20 @@ public class FourCardComboStrategy {
     boolean applyJelly;  // au cas ou le joueur a la possibilité de payer une Carte Méduse
     boolean applyFormer;  // indique si le joueur possède déja une carte L'ancien
     boolean applyFormerTwo;  // indique si le joueur a déja payer la 2ème carte Ancien
+    boolean applyHydra;     // indique qu'il faut payer une hydre
     
     public FourCardComboStrategy(){
         cardName.add("TheCrazyGrasses");  
         cardName.add("ThePasser");
         cardName.add("TheJellyFish");   
         cardName.add("TheFormer");
+        cardName.add("TheHydra");
         apply = false;
         applyNext = false;
         applyJelly = false;
         applyFormer = false;
         applyFormerTwo = false;
+        applyHydra = false;
         nbCard = 0;
         live = 0;
     }
@@ -62,14 +66,14 @@ public class FourCardComboStrategy {
          
          if((bot.getHerosInventory().getMoonPoints()>=1) && (bot.getHerosInventory().getMoonPoints()<4)){
                   apply = false;
-                  System.out.println("J'ai entre 1 et 3 MOON ");
+                  Print.PrintMessage("J'ai entre 1 et 3 MOON ");
          }else{
              if(bot.getHerosInventory().getMoonPoints()==0){ 
-                 System.out.println("J'ai 0 MOON ");
+                 Print.PrintMessage("J'ai 0 MOON ");
                  apply = false;   
              }
              if(bot.getHerosInventory().getMoonPoints()>=4){
-                 System.out.println("J'ai plus de 4 MOON ");
+                 Print.PrintMessage("J'ai plus de 4 MOON ");
                  apply = true;   
                  applyNext = true;
              }
@@ -77,13 +81,19 @@ public class FourCardComboStrategy {
          
          if((bot.getHerosInventory().getSunPoints()>=1) && applyNext!=true){
                  apply = true;
-                 System.out.println("J'ai au moins 1 SUN ");
+                 Print.PrintMessage("J'ai au moins 1 SUN ");
          }
          
          if((bot.getHerosInventory().getSunPoints()>=4)){
                  apply = true;
                  applyJelly = true;
-                 System.out.println("J'ai au moins 4 SUN ");
+                 Print.PrintMessage("J'ai au moins 4 SUN ");
+         }
+         
+         if((bot.getHerosInventory().getSunPoints()>=5) && (bot.getHerosInventory().getMoonPoints()>=5)){
+                 apply = true;
+                 applyHydra = true;
+                 Print.PrintMessage("Je peux payer une hydra ");   
          }
          
          return apply;
@@ -92,7 +102,7 @@ public class FourCardComboStrategy {
     // Recherche une carte précisement parmi celles à disposition
     private int searchCard(ArrayList<Card> list,String name){
         for(int a=0;a<list.size();a++){
-            System.out.println("Nom de la carte "+list.get(a).getName());
+            Print.PrintMessage("Nom de la carte "+list.get(a).getName());
             if(list.get(a).getName().equals(name)){
                  return a;
             }          
@@ -105,9 +115,11 @@ public class FourCardComboStrategy {
         
         int indice = 0;
         
+        
+        
         if((nbCard>=2) && (bot.getHerosInventory().getSunPoints()>=1)){
             if(applyFormer==false){
-                System.out.println("Je dois payer l'ancien");
+                Print.PrintMessage("Je dois payer l'ancien");
                 indice = searchCard(list,cardName.get(3));
                 applyFormer = true;
                 if(indice!=-1)
@@ -116,15 +128,25 @@ public class FourCardComboStrategy {
         }
         
         if(applyJelly==true){
-           System.out.println("Je dois payer une Méduse");
+           Print.PrintMessage("Je dois payer une Méduse");
            indice = searchCard(list,cardName.get(2));
+           if(indice!=-1){              
+            apply = false ;
+            applyJelly = false;
+            return indice;
+           }
+        }
+        
+        if(applyHydra==true){
+           Print.PrintMessage("Je dois payer une Hydre");
+           indice = searchCard(list,cardName.get(4));
            apply = false ;
-           applyJelly = false;
+           applyHydra = false;
            return indice;
         }
         
         if(applyNext==true){
-           System.out.println("Je dois payer un passeur");
+           Print.PrintMessage("Je dois payer un passeur");
            indice = searchCard(list,cardName.get(1));
            apply = false ;
            applyNext = false ;
@@ -134,7 +156,7 @@ public class FourCardComboStrategy {
         }
         
         if(applyNext==false){
-           System.out.println("Je dois payer les herbes");
+           Print.PrintMessage("Je dois payer les herbes");
            indice = searchCard(list,cardName.get(0));
            apply = false ;
            if(indice==-1)

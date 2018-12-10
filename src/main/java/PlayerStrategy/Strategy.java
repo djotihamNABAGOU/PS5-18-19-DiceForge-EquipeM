@@ -6,12 +6,13 @@ import Faces.GeneralFace;
 import Faces.Sanctuary.SanctuarysFaces;
 import Faces.Sanctuary.SimpleFace;
 import Player.Bot;
+import diceforge.GlobalConstants;
 import diceforge.Island;
 import diceforge.Temple;
 
 import java.util.ArrayList;
 
-public class Strategy {
+public class Strategy implements GlobalConstants {
     protected final Bot bot;//Bot auquel s'applique la stratégie
     protected boolean supActionDone = false;
     /**
@@ -43,7 +44,7 @@ public class Strategy {
      * @param data
      */
     public void apply(Temple temple, Island island, int numberOfTheBot, ArrayList<GeneralFace>[] listFaces, Bot... data) {
-        System.out.println("I am General Strategy, please implement effect in subclasses");
+        Print.PrintMessage("I am General Strategy, please implement effect in subclasses");
     }
 
     /**
@@ -88,7 +89,7 @@ public class Strategy {
                     bot.addWithoutEffectCard(card);
                     break;
                 default:
-                    System.out.println("Unknown type of card !!!");
+                    Print.PrintMessage("Unknown type of card !!!");
             }
             //on procède au paiement
             if (card.getType().equals("M")) bot.getHerosInventory().DecreaseMoonPoints(card.getPrice());
@@ -98,7 +99,7 @@ public class Strategy {
                 bot.getHerosInventory().DecreaseSunPoints(5);
             }
         } else {
-            System.out.println("Purchase failed");
+            Print.PrintMessage("Purchase failed");
         }
     }
 
@@ -111,8 +112,8 @@ public class Strategy {
     public ArrayList<Card> potentialCardsToBuy(Bot bot, Island island) {
         int sun = bot.getHerosInventory().getSunPoints();
         int moon = bot.getHerosInventory().getMoonPoints();
-        System.out.println("J'ai "+sun+" Sun");
-        System.out.println("J'ai "+moon+" Moon");
+        Print.PrintMessage("J'ai "+sun+" Sun");
+        Print.PrintMessage("J'ai "+moon+" Moon");
         ArrayList<Card> potentialCardsToBuy = new ArrayList<>();
         ArrayList<Card> availableCards = island.availableCards();
         for (int a = 0; a < availableCards.size(); a++) {
@@ -133,19 +134,19 @@ public class Strategy {
                     }
                     break;
                 default:
-                    System.out.println("Unknown type of price's card");
+                    Print.PrintMessage("Unknown type of price's card");
             }
         }
         
-        System.out.println("\n\n Liste des cartes qu'il peut acheter ");
+        Print.PrintMessage("\n\n Liste des cartes qu'il peut acheter ");
         
         for(Card card : potentialCardsToBuy){
-            System.out.println("Carte : "+card.getName());
+            Print.PrintMessage("Carte : "+card.getName());
         }
         
         
         
-        System.out.println("\n\n ***** FIN ");
+        Print.PrintMessage("\n\n ***** FIN ");
                 
         return potentialCardsToBuy;
     }
@@ -161,15 +162,15 @@ public class Strategy {
             SanctuarysFaces face;
             int nbPurchase = 1;//indice de forge
             while (!(face = FaceToBuy(potentialFacesToBuy(bot, temple))).getName().equals("null")) {
-                System.out.println("nom de la face : "+face.getName());
+                Print.PrintMessage("nom de la face : "+face.getName());
                 if (temple.buyFace(face)) {
-                    System.out.println("PURCHASE " + nbPurchase);
+                    Print.PrintMessage("PURCHASE " + nbPurchase);
                     ForgeDice(face);
                     bot.getHerosInventory().DecreaseGoldPoints(face.getPrice());
                     nbPurchase++;
                     bassin.add(temple.giveMeTheBasin(face));//enregistrement du bassin de la nouvelle face
                 } else {
-                    System.out.println("Purchase failed");
+                    Print.PrintMessage("Purchase failed");
                 }
             }
         } else {//forge d'une seule face
@@ -180,7 +181,7 @@ public class Strategy {
                     bot.getHerosInventory().DecreaseGoldPoints(face.getPrice());
                     bassin.add(temple.giveMeTheBasin(face));//enregistrement du bassin de la nouvelle face
                 } else {
-                    System.out.println("Purchase failed");
+                    Print.PrintMessage("Purchase failed");
                 }
             }
         }
@@ -194,7 +195,7 @@ public class Strategy {
      * @return
      */
     public ArrayList<SanctuarysFaces> potentialFacesToBuy(Bot bot, Temple temple){
-        System.out.println("je commence");
+        Print.PrintMessage("je commence");
         int v = bot.getHerosInventory().getGoldPoints();
         
         ArrayList<SanctuarysFaces> FacesAvailable = new ArrayList<>();
@@ -202,11 +203,11 @@ public class Strategy {
         
         // Affiche Nom et prix de chaque face qu'il peut payer
         for(SanctuarysFaces face : sanctuary){
-            System.out.println("Name = "+face.getName()+" Prix = "+face.getPrice());
+            Print.PrintMessage("Name = "+face.getName()+" Prix = "+face.getPrice());
         }
         
         // Parcours
-        System.out.println("taille = "+sanctuary.size());
+        Print.PrintMessage("taille = "+sanctuary.size());
         
         for(int a=0;a<sanctuary.size();a++){
         
@@ -223,13 +224,13 @@ public class Strategy {
         
         
         // Affiche Nom et prix de chaque face qu'il peut payer et pas dns le meme bassin
-        System.out.println("bassin");
+        Print.PrintMessage("bassin");
         for(SanctuarysFaces face : FacesAvailable){
-            System.out.println("Name = "+face.getName()+" Prix = "+face.getPrice());
+            Print.PrintMessage("Name = "+face.getName()+" Prix = "+face.getPrice());
         }
         
  
-        System.out.println("je sors avec une taille de "+FacesAvailable.size());
+        Print.PrintMessage("je sors avec une taille de "+FacesAvailable.size());
         return FacesAvailable;
     }
 

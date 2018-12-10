@@ -8,10 +8,11 @@ import Card.Card;
 import Faces.GeneralFace;
 import Faces.Sanctuary.SanctuarysFaces;
 import Player.Bot;
+import diceforge.GlobalConstants;
 import diceforge.Temple;
 import java.util.ArrayList;
 
-public class WroughtFace extends GardenFace{
+public class WroughtFace extends GardenFace implements GlobalConstants{
     
     public WroughtFace(String name,Card card) {
         super(name,card);
@@ -33,7 +34,7 @@ public class WroughtFace extends GardenFace{
                            bot.getStrategy().ForgeDice(myFace);
                            bot.getHerosInventory().DecreaseGoldPoints(myFace.getPrice()-2);
                     }else {
-                           System.out.println("Purchase failed");
+                           Print.PrintMessage("Purchase failed");
                    }
             } 
         } 

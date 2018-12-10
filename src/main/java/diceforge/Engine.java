@@ -6,7 +6,7 @@ import Player.Bot;
 import java.util.ArrayList;
 
 
-public class Engine {
+public class Engine implements GlobalConstants {
     private final int round;//nombres de tours ou de parties
     private final int set; //Number of handle in the game
     private final int numberOfBot; //Number of Bot playing
@@ -66,8 +66,8 @@ public class Engine {
         int rep = 0;
 
         while (a < data.length) {
-            System.out.println("-------->ROLL OF BOT " + (a + 1));
-            if (data[a].isActive()) System.out.println("I'm active!");
+            Print.PrintMessage("-------->ROLL OF BOT " + (a + 1));
+            if (data[a].isActive()) Print.PrintMessage("I'm active!");
             int val1 = listFaces[a].get(0).makeEffect(0, 1, temple, a, data[a], listFaces, data);
             int val2 = listFaces[a].get(1).makeEffect(0, 1, temple, a, data[a], listFaces, data);
 
@@ -99,26 +99,27 @@ public class Engine {
     private void makeSets(Temple temple, Island island, Bot... data) {
         for (int a = 0; a < this.set; a++) {
 
-            System.out.println("*************** SET : " + (a + 1)+" ***************");
+            Print.PrintMessage("*************** SET : " + (a + 1)+" ***************");
 
             for (int e = 0; e < this.numberOfBot; e++) {
 
                 for (int d = 0; d < data.length; d++) {
                     if (data[d].isActive()) {
-                        System.out.println("Bot " + (d + 1) + " is active");
+                        Print.PrintMessage("Bot " + (d + 1) + " is active");
                     }
                 }
+                
 
-                System.out.println("---------------ROUND " + (e + 1) + "---------------\n");
+                Print.PrintMessage("---------------ROUND " + (e + 1) + "---------------\n");
                 RollOneTime(temple, island, e + 1, data);
-                System.out.println();
-                System.out.println("---------------STATE AFTER " + (e + 1) + " ROUND---------------");
+                Print.PrintMessage();
+                Print.PrintMessage("---------------STATE AFTER " + (e + 1) + " ROUND---------------");
                 for (int i = 0; i < data.length; i++) {
-                    System.out.println("-->BOT " + (i + 1));
-                    System.out.println(data[i].toString());
+                    Print.PrintMessage("-->BOT " + (i + 1));
+                    Print.PrintMessage(data[i].toString());
                     //data[i].printDiceState();
                 }
-                System.out.println("\n");
+                Print.PrintMessage("\n");
                 //Changement du joueur actif
                 boolean findActiveBot = false;
                 for (int i = 0; i < data.length; i++) {
@@ -163,22 +164,22 @@ public class Engine {
         
         
         
-        System.out.println("GloryWinPoints : " + data[listIndice.get(0)].getHerosInventory().getGloryPoints());
+        Print.PrintMessage("GloryWinPoints : " + data[listIndice.get(0)].getHerosInventory().getGloryPoints());
         if (listIndice.size() == 1) {
-            System.out.println("Winner for the set, Bot " + (listIndice.get(0) + 1));
-            System.out.println("Congratulations Bot " + (listIndice.get(0) + 1) + " !");
+            Print.PrintMessage("Winner for the set, Bot " + (listIndice.get(0) + 1));
+            Print.PrintMessage("Congratulations Bot " + (listIndice.get(0) + 1) + " !");
             data[listIndice.get(0)].wonRounds++;
         } else if (listIndice.size() == 2) {
-            System.out.println("We have 2 winners for the set, Bot " + (listIndice.get(0) + 1) + " and Bot " + (listIndice.get(1) + 1) + ".");
+            Print.PrintMessage("We have 2 winners for the set, Bot " + (listIndice.get(0) + 1) + " and Bot " + (listIndice.get(1) + 1) + ".");
             data[listIndice.get(0)].wonRounds++;
             data[listIndice.get(1)].wonRounds++;
         } else if (listIndice.size() == 3) {
-            System.out.println("We have 3 winners for the set, Bot " + (listIndice.get(0) + 1) + ", Bot " + (listIndice.get(1) + 1) + " and Bot " + (listIndice.get(2) + 1) + ".");
+            Print.PrintMessage("We have 3 winners for the set, Bot " + (listIndice.get(0) + 1) + ", Bot " + (listIndice.get(1) + 1) + " and Bot " + (listIndice.get(2) + 1) + ".");
             data[listIndice.get(0)].wonRounds++;
             data[listIndice.get(1)].wonRounds++;
             data[listIndice.get(2)].wonRounds++;
         } else {
-            System.out.println("It's a tie, No winner for the set!");
+            Print.PrintMessage("It's a tie, No winner for the set!");
         }
     }
 
@@ -241,34 +242,27 @@ public class Engine {
                 island = new Island();
                 temple.initializingTemple(data.length);
                 island.initializeIsland(data.length);
+                Print.PrintMessage("\nSTATE BEFORE ROUND "+(round+1));
+                for(Bot bot : data){
                 
-                System.out.println("\nSTATE BEFORE ROUND "+(round+1));
-                System.out.println("-->BOT ONE");
-                System.out.println(data[0].toString());
-                data[0].printDiceState();
-                System.out.println("-->BOT TWO");
-                System.out.println(data[1].toString());
-                data[1].printDiceState();
-                System.out.println("-->BOT THREE");
-                System.out.println(data[2].toString());
-                data[2].printDiceState();
-                System.out.println("-->BOT FOUR");
-                System.out.println(data[3].toString());
-                data[3].printDiceState();
-                System.out.println("-------------------------------------\n");
-       
+                Print.PrintMessage("-->BOT ONE");
+                Print.PrintMessage(bot.toString());
+                bot.printDiceState();
+     
+                Print.PrintMessage("-------------------------------------\n");
+                }
             }
             
             makeSets(temple, island, data);
             
-            System.out.println("#####\tGAME PART " + (i + 1) + "\t#####");
+            Print.PrintMessage("#####\tGAME PART " + (i + 1) + "\t#####");
             
-            System.out.println("\n");
+            Print.PrintMessage("\n");
             for (int a = 0; a < data.length; a++) {
-                System.out.println("-->BOT " + (a + 1));
+                Print.PrintMessage("-->BOT " + (a + 1));
                 data[a].printDiceState();
             }
-            System.out.println("DETERMINATING THE WINNER");
+            Print.PrintMessage("DETERMINATING THE WINNER");
             tellMeTheWinnerOfRound(data);
         }
         tellMeTheWinnerOfTheGame(data);

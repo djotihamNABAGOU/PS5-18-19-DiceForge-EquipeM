@@ -18,7 +18,7 @@ import Player.Bot;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Temple {
+public class Temple implements GlobalConstants {
 
     //le sanctuaire est un tableau de 10 bassins représentés par des arraylists
     private ArrayList<SanctuarysFaces>[] Sanctuary = new ArrayList[10];

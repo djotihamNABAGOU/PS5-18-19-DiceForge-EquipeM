@@ -8,10 +8,11 @@ package Faces.Garden;
 import Card.Card;
 import Faces.GeneralFace;
 import Player.Bot;
+import diceforge.GlobalConstants;
 import diceforge.Temple;
 import java.util.ArrayList;
 
-public class GardenFace extends GeneralFace{
+public class GardenFace extends GeneralFace implements GlobalConstants{
     
     private Card card;  // Carte qui permet d'avoir la face
     private boolean selected;
@@ -44,14 +45,14 @@ public class GardenFace extends GeneralFace{
     @Override
      public int makeEffect(int action,int favMin,Temple temple,int numBot,
                                Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
-        System.out.println("I am General face, please implement effect in subclasses");
+        Print.PrintMessage("I am General face, please implement effect in subclasses");
         return 0;
     }
     
     @Override
     public int makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
                                       Bot bot,int a,ArrayList<GeneralFace>[] data,Bot... listBot){
-        System.out.println("I am Garden face, please implement effect in subclasses");   
+        Print.PrintMessage("I am Garden face, please implement effect in subclasses");   
         return 0;
     }
     
@@ -61,7 +62,7 @@ public class GardenFace extends GeneralFace{
     
     @Override
     public void makeCardCyclopEffect(Temple temple,int numBot,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
-        System.out.println("I am General face, please implement effect in subclasses");
+        Print.PrintMessage("I am General face, please implement effect in subclasses");
     }
     
     
@@ -74,7 +75,7 @@ public class GardenFace extends GeneralFace{
     
     @Override
     public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,int a,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
-        System.out.println("I am General face, please implement effect in subclasses");
+        Print.PrintMessage("I am General face, please implement effect in subclasses");
     }
     
     

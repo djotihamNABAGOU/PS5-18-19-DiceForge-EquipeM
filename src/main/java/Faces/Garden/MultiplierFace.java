@@ -7,10 +7,11 @@ package Faces.Garden;
 import Card.Card;
 import Faces.GeneralFace;
 import Player.Bot;
+import diceforge.GlobalConstants;
 import diceforge.Temple;
 import java.util.ArrayList;
 
-public class MultiplierFace extends GardenFace{
+public class MultiplierFace extends GardenFace implements GlobalConstants{
     
 
     public MultiplierFace(String name,Card card) {
@@ -44,7 +45,7 @@ public class MultiplierFace extends GardenFace{
     @Override
     public int makeEffectFaceMultiplier(int action,int favMin,Temple temple,int numBot,
                                       Bot bot,int a,ArrayList<GeneralFace>[] data,Bot... listBot){
-        System.out.println("I do not provide anything");   
+        Print.PrintMessage("I do not provide anything");   
         return 0;
     }
       
@@ -74,7 +75,7 @@ public class MultiplierFace extends GardenFace{
     
     @Override
     public void makeEffectFaceMultiplierCardSentinelEffect(Temple temple,int numBot,int a,Bot bot,ArrayList<GeneralFace>[] data,Bot... listBot){
-        System.out.println("I do not provide anything"); 
+        Print.PrintMessage("I do not provide anything"); 
     }
     
     @Override
