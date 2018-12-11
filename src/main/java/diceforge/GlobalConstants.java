@@ -7,7 +7,7 @@ package diceforge;
 
 /**
  *
- * @author KOFFI Merveille
+ * @author The Beginners
  */
 public interface GlobalConstants {
     
